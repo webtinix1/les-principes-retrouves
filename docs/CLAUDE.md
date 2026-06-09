@@ -48,13 +48,16 @@ GARD_SAISINE/
     ├── concepts.html             # Concepts Stabilisés
     ├── formation.html
     ├── extraits.html             # Extraits (Freemium)
+    ├── blog.html                 # Blog : liste des articles + filtres
+    ├── article.html              # Gabarit d'article (rendu via ?slug=)
     ├── contact.html
     ├── assets/
     │   ├── css/
     │   │   └── style.css         # CSS global unique (variables :root)
     │   ├── js/
     │   │   ├── partials.js       # Templates header + footer (injectés sans fetch)
-    │   │   └── main.js           # Injection partials, nav mobile, validation form
+    │   │   ├── articles.js       # Données du blog (ARTICLES) — sans fetch
+    │   │   └── main.js           # Partials, nav, form, carrousel, blog, article
     │   ├── img/                  # Images optimisées (WebP) + logo SVG
     │   └── pdf/                  # Working Paper, guides (placeholders en v1)
     ├── data/                     # Données de contenu en JSON (concepts, modules…)

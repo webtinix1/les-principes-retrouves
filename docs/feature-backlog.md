@@ -23,6 +23,8 @@
 - [ ] **Concepts Stabilisés** — grille de 9 cartes.
 - [ ] **Formation** — 3 modules + CTA « Demander un devis institutionnel ».
 - [ ] **Extraits (Freemium)** — section accès gratuit (3 PDF) + chapitres verrouillés (🔒) + encadré CTA. **Visuel uniquement** : le gating réel (capture email, envoi du lead magnet) est en v2.
+- [ ] **Blog + articles** — liste (`blog.html`) avec filtres par catégorie + gabarit de lecture (`article.html?slug=`), alimentés par `ARTICLES` (4 articles rédigés). Système statique data-driven ; en v2 → billets gérés au back-office PrestaShop.
+- [ ] **Accueil** — carrousel d'ouverture (3 slides) + sections : pyramide, 4 entrées, aperçu des tomes, dernières publications, teaser formation, citation.
 - [ ] **Contact** — formulaire complet (validation côté client) + placeholder captcha.
 
 ### Données de contenu

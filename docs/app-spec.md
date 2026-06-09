@@ -41,9 +41,14 @@ L'œuvre théorique de l'auteur a besoin d'un **point d'ancrage public, crédibl
 | 6 | Concepts Stabilisés | `concepts.html` | Grille de 9 cartes (définition + formulation canonique + liens croisés) |
 | 7 | Formation | `formation.html` | Présentation des 3 modules + CTA « Demander un devis institutionnel » |
 | 8 | Extraits (Freemium) | `extraits.html` | Accès gratuit (3 PDF) + chapitres verrouillés (🔒) + CTA accès complet |
-| 9 | Contact | `contact.html` | Formulaire (nom, email, objet, message) + captcha |
+| 9 | Blog | `blog.html` | Liste des publications (Working Papers, tribunes, notes) + filtres par catégorie |
+| 10 | Contact | `contact.html` | Formulaire (nom, email, objet, message) + captcha |
 
-Header (9 liens) et footer **identiques** sur toutes les pages. Pages légales (`mentions-legales.html`, `confidentialite.html`) en placeholders.
+Page additionnelle : **`article.html`** — gabarit de lecture d'un billet, rendu dynamiquement via `?slug=` depuis les données `ARTICLES` (non listée au header).
+
+L'**accueil** débute par un **carrousel** (3 slides) et se déroule en plusieurs sections : Architecture du Réel (pyramide), les 4 entrées, aperçu des deux tomes, dernières publications du blog, teaser formation, citation.
+
+Header (10 liens) et footer **identiques** sur toutes les pages. Pages légales (`mentions-legales.html`, `confidentialite.html`) en placeholders.
 
 ## 6. Parcours utilisateur clés
 

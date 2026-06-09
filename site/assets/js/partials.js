@@ -33,6 +33,7 @@ const NAV_PAGES = [
   { page_id: "concepts",      label: "Concepts",      href: "concepts.html" },
   { page_id: "formation",     label: "Formation",     href: "formation.html" },
   { page_id: "extraits",      label: "Extraits",      href: "extraits.html" },
+  { page_id: "blog",          label: "Blog",          href: "blog.html" },
   { page_id: "contact",       label: "Contact",       href: "contact.html" }
 ];
 
@@ -61,6 +62,7 @@ function renderFooter() {
     <div class="site-footer__grid">
       <p class="site-footer__copy">© 2026 Gaudéric MAMBOU — Recherche indépendante.<br>Brazzaville, République du Congo.</p>
       <ul class="site-footer__links">
+        <li><a href="blog.html">Blog</a></li>
         <li><a href="mentions-legales.html">Mentions légales</a></li>
         <li><a href="confidentialite.html">Politique de confidentialité</a></li>
         <li><a href="contact.html">Contact</a></li>

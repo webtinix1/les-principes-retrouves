@@ -128,6 +128,24 @@ Page : `laboratoire.html`.
 
 ---
 
+## 5bis. Articles du blog — `assets/js/articles.js` (`ARTICLES`)
+
+Pages : `blog.html` (liste + filtres) et `article.html?slug=…` (lecture).
+Stockés en module JS (et non JSON) pour rester compatibles `file://` (pas de `fetch`). En v2 PrestaShop : billets gérés au back-office.
+
+| Champ | Type | Description |
+|---|---|---|
+| `slug` | texte (kebab-case) | Identifiant d'URL, ex. `fiction-de-cloture-angle-mort` |
+| `title` | texte | Titre de l'article |
+| `category` | enum | `Working Paper` \| `Tribune` \| `Note doctrinale` |
+| `published_at` | date (ISO `YYYY-MM-DD`) | Date de publication |
+| `reading_minutes` | entier | Temps de lecture estimé |
+| `excerpt` | texte | Résumé (carte de liste) |
+| `lede` | texte | Chapeau de l'article |
+| `body` | HTML (chaîne) | Corps rédigé (h2, p, blockquote, ul) — contenu de confiance |
+
+> Le `slug` est en **kebab-case** (convention d'URL), exception documentée à la règle `snake_case` qui s'applique aux autres données.
+
 ## 6. Navigation — `data/nav_pages.json`
 
 | Champ | Type | Description |
@@ -150,7 +168,10 @@ Le `label` ci-dessous est le **libellé court** affiché dans le header (pour te
 | `concepts` | Concepts | Concepts stabilisés | `concepts.html` |
 | `formation` | Formation | Formation | `formation.html` |
 | `extraits` | Extraits | Extraits (freemium) | `extraits.html` |
+| `blog` | Blog | Blog | `blog.html` |
 | `contact` | Contact | Contact | `contact.html` |
+
+> `article.html` (page de lecture d'un billet) n'est pas dans le header : on y accède depuis le blog via `?slug=`. Sur cette page, `data-page="blog"` garde l'onglet « Blog » actif.
 
 ---
 

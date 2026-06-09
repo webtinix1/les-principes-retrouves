@@ -18,23 +18,50 @@
   <header id="site-header" class="site-header"></header>
 
   <main>
-    <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <div class="container">
-        <img class="hero__mark" src="assets/img/logo-maat.svg" alt="Plume de Maât, emblème des Principes Retrouvés">
-        <h1>Les Principes Retrouvés</h1>
-        <p class="hero__sous-titre">Une théorie universelle de l'intelligibilité</p>
-
-        <blockquote>« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »</blockquote>
-
-        <p class="hero__formule">Ce site archive une œuvre indépendante consacrée à la réactivation et à la réorganisation des principes fondamentaux de la connaissance. La compréhension des phénomènes repose sur des principes universels d'intelligibilité, formalisés dès Kemet. Objectif : restaurer cette architecture rationnelle et en montrer la portée contemporaine.</p>
-
-        <div class="btn-group">
-          <a class="btn btn--or" href="ouvrage.html">Explorer le Tome I</a>
-          <a class="btn btn--ligne" href="ouvrage.html">Découvrir le Tome II</a>
-          <a class="btn btn--ligne" href="laboratoire.html">Télécharger le Working Paper N°1</a>
+    <!-- ===================== CARROUSEL (Hero) ===================== -->
+    <section class="carousel" aria-roledescription="carrousel" aria-label="Présentation des Principes Retrouvés">
+      <div class="carousel__viewport">
+        <!-- Slide 1 : l'axiome -->
+        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="1 sur 3">
+          <div class="container">
+            <img class="carousel__mark" src="assets/img/logo-maat.svg" alt="Plume de Maât, emblème des Principes Retrouvés">
+            <h1>Les Principes Retrouvés</h1>
+            <p class="carousel__sous-titre">Une théorie universelle de l'intelligibilité</p>
+            <blockquote>« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »</blockquote>
+            <div class="btn-group">
+              <a class="btn btn--or" href="ouvrage.html">Explorer l'Ouvrage</a>
+              <a class="btn btn--ligne" href="manifeste.html">Lire le Manifeste</a>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 : le laboratoire juridique -->
+        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="2 sur 3">
+          <div class="container">
+            <p class="eyebrow">Le laboratoire juridique</p>
+            <h2>La proactivité judiciaire encadrée</h2>
+            <p class="carousel__texte">Une fonction juridictionnelle de correction active, formalisée avec rigueur : le devoir d'intervenir d'office lorsque l'effectivité de la Constitution est menacée.</p>
+            <blockquote>« L'universel n'a pas de centre. Il se démontre. »</blockquote>
+            <div class="btn-group">
+              <a class="btn btn--or" href="ouvrage.html">Découvrir le Tome II</a>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 : les outils -->
+        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="3 sur 3">
+          <div class="container">
+            <p class="eyebrow">Le laboratoire doctrinal</p>
+            <h2>Des outils pour la pratique</h2>
+            <p class="carousel__texte">Working Papers, guides techniques d'invocation et notes de recherche : des instruments intellectuels mis à disposition des magistrats, avocats et chercheurs.</p>
+            <div class="btn-group">
+              <a class="btn btn--or" href="laboratoire.html">Accéder aux ressources</a>
+              <a class="btn btn--ligne" href="blog.html">Lire le blog</a>
+            </div>
+          </div>
         </div>
       </div>
+      <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Diapositive précédente">‹</button>
+      <button class="carousel__btn carousel__btn--next" type="button" aria-label="Diapositive suivante">›</button>
+      <div class="carousel__dots" aria-label="Sélection des diapositives"></div>
     </section>
 
     <!-- ===================== ARCHITECTURE DU RÉEL (Pyramide de Σ) ===================== -->
@@ -142,6 +169,60 @@
       </div>
     </section>
 
+    <!-- ===================== LES DEUX TOMES ===================== -->
+    <section class="section section--gris">
+      <div class="container">
+        <div class="section__intro">
+          <p class="eyebrow">L'ouvrage</p>
+          <h2>Deux tomes, une même architecture</h2>
+        </div>
+        <div class="grid grid--2">
+          <article class="card">
+            <p class="card__num">Tome I — Pyramide de Σ</p>
+            <h3>L'Unité structurelle du réel</h3>
+            <p>Axiomatique et formulation mathématique du système. Une métaphysique logico-mathématique fondée sur l'équation <span class="formule">Σ = M(F(V(Σ)))</span>.</p>
+            <p><a href="ouvrage.html">Voir le Tome I →</a></p>
+          </article>
+          <article class="card">
+            <p class="card__num">Tome II — Plume de Maât</p>
+            <h3>La Saisine d'office et l'action positive du juge</h3>
+            <p>Application de la matrice Σ au droit constitutionnel : déconstruction du syllogisme dégradé et théorie du juge proactif encadré.</p>
+            <p><a href="ouvrage.html">Voir le Tome II →</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== DERNIERS ARTICLES ===================== -->
+    <section class="section">
+      <div class="container">
+        <div class="section__intro">
+          <p class="eyebrow">Le blog</p>
+          <h2>Dernières publications</h2>
+          <p>Working Papers, tribunes et notes doctrinales — l'avancée de la recherche en accès libre.</p>
+        </div>
+        <div id="derniers_articles" class="grid grid--3"></div>
+        <p class="text-center" style="margin-top:var(--esp-4);"><a class="btn btn--ligne" href="blog.html">Voir toutes les publications</a></p>
+      </div>
+    </section>
+
+    <!-- ===================== FORMATION (teaser) ===================== -->
+    <section class="section section--gris">
+      <div class="container">
+        <div class="section__intro">
+          <p class="eyebrow">Formation</p>
+          <h2>Programmes professionnels</h2>
+          <p>Trois modules pour les magistrats, avocats et hauts responsables juridictionnels — des fondamentaux conceptuels au leadership constitutionnel.</p>
+        </div>
+        <div class="grid grid--3">
+          <article class="card"><p class="card__num">Niveau 1</p><h3>Fondamentaux conceptuels</h3><p>La Maât comme principe d'intelligibilité juridique.</p></article>
+          <article class="card"><p class="card__num">Niveau 2</p><h3>Techniques juridictionnelles</h3><p>Saisine d'office, autosaisine et injonctions structurelles.</p></article>
+          <article class="card"><p class="card__num">Niveau 3</p><h3>Leadership constitutionnel</h3><p>Sur invitation : gestion des carences législatives structurelles.</p></article>
+        </div>
+        <p class="text-center" style="margin-top:var(--esp-4);"><a class="btn btn--or" href="formation.html">Découvrir les formations</a></p>
+      </div>
+    </section>
+
     <!-- ===================== CITATION ===================== -->
     <section class="section section--bleu">
       <div class="container">
@@ -154,6 +235,7 @@
   <footer id="site-footer" class="site-footer"></footer>
 
   <script src="assets/js/partials.js"></script>
+  <script src="assets/js/articles.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>
