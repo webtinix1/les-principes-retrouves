@@ -137,17 +137,20 @@ Page : `laboratoire.html`.
 | `href` | texte | Fichier cible, ex. `index.html` |
 | `nav_order` | entier | Ordre dans le menu |
 
-### Pages officielles (ordre du header)
-| `page_id` | `label` | `href` |
-|---|---|---|
-| `accueil` | Accueil | `index.html` |
-| `manifeste` | Manifeste | `manifeste.html` |
-| `epistemologie` | Note Épistémologique | `epistemologie.html` |
-| `ouvrage` | L'Ouvrage | `ouvrage.html` |
-| `laboratoire` | Laboratoire Doctrinal | `laboratoire.html` |
-| `concepts` | Concepts Stabilisés | `concepts.html` |
-| `formation` | Formation | `formation.html` |
-| `contact` | Contact | `contact.html` |
+### Pages officielles (9 pages — ordre du header)
+Le `label` ci-dessous est le **libellé court** affiché dans le header (pour tenir sur une ligne) ; le titre complet figure dans le `<h1>` de chaque page.
+
+| `page_id` | `label` (header) | titre complet | `href` |
+|---|---|---|---|
+| `accueil` | Accueil | Les Principes Retrouvés | `index.html` |
+| `manifeste` | Manifeste | Manifeste épistémologique | `manifeste.html` |
+| `epistemologie` | Épistémologie | Note épistémologique | `epistemologie.html` |
+| `ouvrage` | L'Ouvrage | L'Ouvrage | `ouvrage.html` |
+| `laboratoire` | Laboratoire | Laboratoire doctrinal | `laboratoire.html` |
+| `concepts` | Concepts | Concepts stabilisés | `concepts.html` |
+| `formation` | Formation | Formation | `formation.html` |
+| `extraits` | Extraits | Extraits (freemium) | `extraits.html` |
+| `contact` | Contact | Contact | `contact.html` |
 
 ---
 

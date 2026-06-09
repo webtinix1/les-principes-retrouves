@@ -32,6 +32,7 @@ const NAV_PAGES = [
   { page_id: "laboratoire",   label: "Laboratoire",   href: "laboratoire.html" },
   { page_id: "concepts",      label: "Concepts",      href: "concepts.html" },
   { page_id: "formation",     label: "Formation",     href: "formation.html" },
+  { page_id: "extraits",      label: "Extraits",      href: "extraits.html" },
   { page_id: "contact",       label: "Contact",       href: "contact.html" }
 ];
 

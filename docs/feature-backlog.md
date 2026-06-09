@@ -22,6 +22,7 @@
 - [ ] **Laboratoire Doctrinal** — liste de ressources avec boutons de téléchargement (PDF en placeholder).
 - [ ] **Concepts Stabilisés** — grille de 9 cartes.
 - [ ] **Formation** — 3 modules + CTA « Demander un devis institutionnel ».
+- [ ] **Extraits (Freemium)** — section accès gratuit (3 PDF) + chapitres verrouillés (🔒) + encadré CTA. **Visuel uniquement** : le gating réel (capture email, envoi du lead magnet) est en v2.
 - [ ] **Contact** — formulaire complet (validation côté client) + placeholder captcha.
 
 ### Données de contenu

@@ -29,6 +29,7 @@ Site web académique officiel **« Les Principes Retrouvés »** de Gaudéric MA
 2. **Toute la nomenclature de données est en `snake_case`** (clés JSON, attributs `data-*`, noms de fichiers de données, champs de formulaire).
 3. **Avant toute décision visuelle (couleur, police, espacement, logo, animation) : consulter `brand-brief.md`.** Ne jamais inventer une couleur hors palette.
 4. **Ton éditorial = clinique, objectif, impersonnel, souverain.** Jamais de marketing agressif, de triomphalisme, de « nous sommes ravis », d'emojis dans le contenu publié, ni de justification biographique. Le site est une architecture intellectuelle, pas une vitrine personnelle. Référence : revues Cairn / HAL / droit comparé.
+   - **Règle lexicale (DMU)** : dans les textes théoriques, **bannir le mot « l'auteur »**. Utiliser « la présente recherche », « ce travail », « le chercheur indépendant ». (La mention de copyright « © Gaudéric MAMBOU » dans le footer reste autorisée : c'est une attribution légale, pas un texte théorique.)
 5. **Mobile-first.** 60 % du trafic attendu vient du mobile (Afrique). Concevoir et tester d'abord en petit écran.
 6. **Sobriété et espace blanc.** Le blanc cassé (`--blanc-casse`) et la rigueur typographique sont prioritaires. En cas de doute, retirer plutôt qu'ajouter.
 7. **Ne pas ajouter de fonctionnalité hors périmètre v1** (paiement en ligne, comptes utilisateurs, espace membre) sans validation explicite. Voir `feature-backlog.md`.
@@ -46,6 +47,7 @@ GARD_SAISINE/
     ├── laboratoire.html          # Laboratoire Doctrinal
     ├── concepts.html             # Concepts Stabilisés
     ├── formation.html
+    ├── extraits.html             # Extraits (Freemium)
     ├── contact.html
     ├── assets/
     │   ├── css/

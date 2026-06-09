@@ -29,20 +29,21 @@ L'œuvre théorique de l'auteur a besoin d'un **point d'ancrage public, crédibl
 - **Développement : non commencé.** On part de zéro.
 - **Livrable immédiat = MAQUETTE (v1)** pour validation par le client (l'auteur) avant déploiement.
 
-## 5. Les 8 pages (périmètre fonctionnel v1)
+## 5. Les 9 pages (périmètre fonctionnel v1)
 
 | # | Page | Fichier | Rôle |
 |---|---|---|---|
-| 1 | Accueil | `index.html` | Hero (logo, titre, accroche matricielle, formule d'ouverture), CTA vers les Tomes et le Working Paper |
-| 2 | Manifeste | `manifeste.html` | Exposé doctrinal structuré (principes fondamentaux, processus ternaire, critique de l'inversion méthodologique, Maât) |
-| 3 | Note Épistémologique | `epistemologie.html` | Fondations scientifiques + tableau des découvertes par reconnaissance structurelle (exemples réservés au site) |
-| 4 | L'Ouvrage | `ouvrage.html` | Présentation des Tomes I & II (deux cartes), quatrièmes de couverture validées |
-| 5 | Laboratoire Doctrinal | `laboratoire.html` | Ressources PDF téléchargeables (Working Paper, guide, note) |
+| 1 | Accueil | `index.html` | Hero (logo, titre, accroche, formule), **Pyramide de Σ interactive (animation Méthode M)**, CTA vers les Tomes et le Working Paper |
+| 2 | Manifeste | `manifeste.html` | Exposé doctrinal en 6 sections + citation canonique de la Maât |
+| 3 | Note Épistémologique | `epistemologie.html` | 6 sections : fondements rationnels, 2 principes suprêmes, processus ternaire, tableau des découvertes, critique de l'inversion, décolonisation méthodologique |
+| 4 | L'Ouvrage | `ouvrage.html` | Tomes I & II (cartes) + table des matières définitive (accordéon) + état de la doctrine |
+| 5 | Laboratoire Doctrinal | `laboratoire.html` | 4 ressources PDF (Working Paper, guide, note, fiche technique/lead magnet) |
 | 6 | Concepts Stabilisés | `concepts.html` | Grille de 9 cartes (définition + formulation canonique + liens croisés) |
 | 7 | Formation | `formation.html` | Présentation des 3 modules + CTA « Demander un devis institutionnel » |
-| 8 | Contact | `contact.html` | Formulaire (nom, email, objet, message) + captcha |
+| 8 | Extraits (Freemium) | `extraits.html` | Accès gratuit (3 PDF) + chapitres verrouillés (🔒) + CTA accès complet |
+| 9 | Contact | `contact.html` | Formulaire (nom, email, objet, message) + captcha |
 
-Header (8 liens) et footer **identiques** sur toutes les pages.
+Header (9 liens) et footer **identiques** sur toutes les pages. Pages légales (`mentions-legales.html`, `confidentialite.html`) en placeholders.
 
 ## 6. Parcours utilisateur clés
 

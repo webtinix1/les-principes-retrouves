@@ -26,6 +26,7 @@
   --largeur-texte:   72ch;
   --rayon:           4px;
   --transition:      0.4s ease;
+  --ombre-douce:     0 10px 30px rgba(26, 37, 47, 0.08);
 
   /* Espacements */
   --esp-1: 0.5rem;
@@ -397,7 +398,7 @@ p { margin: 0 0 var(--esp-2); }
 }
 
 /* --- 14. Responsive ---------------------------------------------------- */
-@media (max-width: 1024px) {
+@media (max-width: 1080px) {
   .nav-toggle { display: block; }
   .site-nav {
     position: absolute;
@@ -422,3 +423,103 @@ p { margin: 0 0 var(--esp-2); }
   .site-logo__text { font-size: 0.92rem; }
   .site-header__inner { gap: var(--esp-2); min-height: 64px; }
 }
+
+/* --- 15. Pyramide de Σ (accueil / note épistémologique) --------------- */
+.architecture-section { text-align: center; }
+
+.pyramide-container {
+  max-width: 650px;
+  margin: var(--esp-4) auto;
+  padding: var(--esp-3);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--ombre-douce);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+.pyramide-sigma { width: 100%; height: auto; display: block; }
+
+/* Animation de la Méthode M au survol du graphique */
+.pyramide-sigma .methode-m-path {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  transition: stroke-width 0.4s ease, filter 0.4s ease;
+}
+.pyramide-sigma .methode-m-text {
+  transition: transform 0.4s ease, filter 0.4s ease;
+  transform-origin: center;
+}
+.pyramide-container:hover .methode-m-path,
+.pyramide-container:focus-within .methode-m-path {
+  stroke-dashoffset: 0;
+  stroke-width: 6;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+  transition: stroke-dashoffset 2.5s ease-in-out, stroke-width 0.4s ease, filter 0.4s ease;
+}
+.pyramide-container:hover .methode-m-text,
+.pyramide-container:focus-within .methode-m-text {
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+  transform: scale(1.1);
+}
+
+/* Formule matricielle mise en exergue */
+.formule-matricielle {
+  margin-top: var(--esp-3);
+  padding: var(--esp-3);
+  background: var(--bleu-fonce);
+  color: var(--blanc-casse);
+  border-radius: 8px;
+  display: inline-block;
+}
+.formule-matricielle p { margin-bottom: 0.5rem; font-size: 0.9rem; opacity: 0.8; }
+.formule-matricielle .formule {
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  color: var(--or-maat);
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pyramide-sigma .methode-m-path { stroke-dashoffset: 0; }
+  .pyramide-container:hover .methode-m-path { transition: none; }
+}
+
+/* --- 16. Accordéon (table des matières) ------------------------------- */
+.accordeon { border: 1px solid var(--gris-bordure); border-radius: var(--rayon); background: #fff; }
+.accordeon details { border-bottom: 1px solid var(--gris-bordure); }
+.accordeon details:last-child { border-bottom: none; }
+.accordeon summary {
+  cursor: pointer;
+  padding: var(--esp-2) var(--esp-3);
+  font-family: var(--font-titre);
+  font-weight: 700;
+  color: var(--bleu-fonce);
+  list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: var(--esp-2);
+}
+.accordeon summary::-webkit-details-marker { display: none; }
+.accordeon summary::after { content: "+"; color: var(--or-maat); font-family: var(--font-formule); font-size: 1.3rem; }
+.accordeon details[open] summary::after { content: "−"; }
+.accordeon summary:hover { color: var(--or-maat); }
+.accordeon__corps { padding: 0 var(--esp-3) var(--esp-3); }
+.accordeon__corps ul { margin: 0; padding-left: 1.2rem; }
+.accordeon__corps li { margin-bottom: 0.3rem; }
+
+/* --- 17. Freemium (page Extraits) ------------------------------------- */
+.ressource-libre {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--esp-2);
+  padding: var(--esp-2) var(--esp-3);
+  background: #fff; border: 1px solid var(--gris-bordure); border-radius: var(--rayon);
+  margin-bottom: var(--esp-2);
+}
+.ressource-verrouillee {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: var(--esp-2) var(--esp-3);
+  background: var(--gris-clair); border: 1px solid var(--gris-bordure); border-radius: var(--rayon);
+  color: #6b7280; margin-bottom: 0.5rem;
+}
+.ressource-verrouillee::before { content: "🔒"; }
+.encadre--cta {
+  background: var(--bleu-academique); color: #eaeefb; border-left-color: var(--or-maat);
+  text-align: center; margin-top: var(--esp-4);
+}
+.encadre--cta h3 { color: #fff; }
