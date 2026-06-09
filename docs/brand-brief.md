@@ -87,8 +87,9 @@ Chargement via **Google Fonts** (voir `integrations.md`).
 ## 7. Iconographie & images
 
 - Logo et pictogrammes : **SVG**.
-- Photos / illustrations éventuelles : **WebP**, sobres, jamais de banque d'images « corporate ».
+- Photos / illustrations éventuelles : **WebP** (en prod), sobres, jamais de banque d'images « corporate ».
 - Préférer le signe typographique (Σ, π₁, π₂) et la géométrie (pyramide, triangle) à l'illustration figurative.
+- **Images du carrousel** : photos libres de droits (Lorem Picsum / Unsplash), traitées en **niveaux de gris sous un voile bleu** (`linear-gradient` bleu nuit → bleu académique à ~0.82 d'opacité) pour garantir cohérence + contraste du texte. Stockées en local dans `assets/img/carousel/`. **À convertir en WebP pour la production** (actuellement JPEG pour la maquette).
 
 ---
 

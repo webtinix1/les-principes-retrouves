@@ -708,10 +708,20 @@ p { margin: 0 0 var(--esp-2); }
   min-height: clamp(480px, 70vh, 640px);
   padding: var(--esp-6) var(--esp-5);
   box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-/* Avant init : ne montrer que la 1re slide (évite tout débordement si JS lent) */
-.hero-swiper:not(.swiper-initialized) .swiper-slide:not(:first-child) { display: none; }
-
+/* Fonds photographiques (N&B) sous un voile bleu — lisibilité du texte garantie */
+.hero-swiper .slide--1 {
+  background-image: linear-gradient(rgba(26,37,47,0.84), rgba(30,58,138,0.80)), url("../img/carousel/slide-1.jpg");
+}
+.hero-swiper .slide--2 {
+  background-image: linear-gradient(rgba(26,37,47,0.84), rgba(30,58,138,0.80)), url("../img/carousel/slide-2.jpg");
+}
+.hero-swiper .slide--3 {
+  background-image: linear-gradient(rgba(26,37,47,0.86), rgba(30,58,138,0.82)), url("../img/carousel/slide-3.jpg");
+}
 .hero-swiper .swiper-button-prev,
 .hero-swiper .swiper-button-next {
   width: 44px; height: 44px; border-radius: 50%;
