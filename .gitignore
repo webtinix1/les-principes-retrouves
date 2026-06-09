@@ -1,0 +1,14 @@
+# Secrets / environnement
+.env
+
+# QA (Playwright + node_modules)
+.qa/
+
+# Documents sources lourds à la racine (références client : PDF + PNG)
+# Anchrés à la racine pour ne pas exclure les assets de site/
+/*.pdf
+/*.png
+
+# Système
+.DS_Store
+Thumbs.db

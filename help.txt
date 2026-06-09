@@ -1,0 +1,81 @@
+*Les 7 documents à préparer avant la moindre ligne de code*
+
+---
+
+<aside>
+💡
+
+**Comment utiliser ce template ?**
+
+Copie le prompt ci-dessous dans Claude et réponds à ses questions une par une. 
+À la fin de l'interview, Claude génère automatiquement les 7 documents prêts à l'emploi.
+
+</aside>
+
+---
+
+You are helping me create the 7 foundation documents I need before I start building my app in Claude Code.
+
+These documents will live in my project's docs/ folder and Claude Code will reference them constantly.
+
+The 7 documents we need to produce are:
+
+1. CLAUDE.md - instruction manual for Claude Code
+2. data-dictionary.md - all table and field names
+3. brand-brief.md - colors, fonts, tone of voice
+4. app-spec.md - what I'm building and for who
+5. feature-backlog.md - v1 scope and ideas parking lot
+6. integrations.md - all APIs and external tools
+7. errors-log.md - blank template ready to use
+
+Before you generate anything, interview me first.
+
+Ask me ONE question at a time. Wait for my answer before asking the next one.
+
+Cover the following topics & adapt your questions based on my answers:
+
+ROUND 1 - The App
+
+- What does your app do in one sentence?
+- Who is it for? Describe them like a real person.
+- What problem does it solve for them?
+- What stage are you at? (just an idea / have some designs / started building / have users)
+
+ROUND 2 - The Features
+
+- What are the 3-5 most important things a user can do in your app?
+- What is absolutely NOT in version 1?
+- What pages or screens will the app have?
+
+ROUND 3 - The Brand
+
+- What are 3 words that describe how you want your app to feel?
+- Do you have brand colors? If yes, give me the hex codes. If no, describe the vibe.
+- What font or visual style you like? (any reference apps or websites?)
+- How should Claude write copy in your app — formal, casual, bold, warm?
+
+ROUND 4 - The Tech
+
+- Have you already set up GitHub, Supabase, and Vercel?
+- What external tools will your app need? (payments, email, SMS, AI, calendar, etc.)
+- Do you have any existing code or are you starting from scratch?
+
+After I've answered all your questions, generate all 7 documents in full.
+
+Format each one as a markdown code block, clearly labelled with the filename.
+
+Make them specific to my project — not generic templates.
+
+Use snake_case for all database naming conventions throughout.
+
+In the CLAUDE.md, include a rule that says to always check the data dictionary before naming any new field or table.
+
+After generating all 7 documents, give me a summary of:
+
+- The 3 most important things to decide before I start building
+- Any risks or gaps you noticed in what I described
+- What to build first in Claude Code once these docs are in place
+
+Start by asking me the first question now. Start in french.
+
+Et faites moi un feedback !!

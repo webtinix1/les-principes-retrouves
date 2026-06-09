@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Les Principes Retrouvés</title>
+  <meta name="description" content="Prendre contact : formation, édition, collaboration. Formulaire académique.">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-maat.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="contact">
+  <header id="site-header" class="site-header"></header>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Échanger</p>
+        <h1>Contact</h1>
+        <p>Pour toute demande relative à la formation, à l'édition ou à une collaboration académique.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="form_success" class="form__success">Merci, votre message a bien été pris en compte. <em>(Maquette — aucun envoi réel n'est effectué en v1.)</em></div>
+
+        <form id="contact_form" class="form" novalidate>
+          <div class="form__row">
+            <label for="full_name">Nom complet</label>
+            <input type="text" id="full_name" name="full_name" autocomplete="name">
+            <span class="form__erreur">Merci d'indiquer votre nom.</span>
+          </div>
+
+          <div class="form__row">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email">
+            <span class="form__erreur">Merci d'indiquer une adresse e-mail valide.</span>
+          </div>
+
+          <div class="form__row">
+            <label for="subject">Objet</label>
+            <select id="subject" name="subject">
+              <option value="">— Sélectionner —</option>
+              <option value="formation">Formation</option>
+              <option value="edition">Édition</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="autre">Autre</option>
+            </select>
+            <span class="form__erreur">Merci de sélectionner un objet.</span>
+          </div>
+
+          <div class="form__row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message"></textarea>
+            <span class="form__erreur">Merci de saisir un message.</span>
+          </div>
+
+          <div class="form__row">
+            <div class="form__captcha">[ Emplacement captcha anti-spam — Cloudflare Turnstile à brancher en v2 (cf. integrations.md) ]</div>
+          </div>
+
+          <div class="form__row">
+            <label style="font-weight:400;display:flex;gap:.6rem;align-items:flex-start;">
+              <input type="checkbox" id="consent_rgpd" name="consent_rgpd" style="width:auto;margin-top:.35rem;">
+              <span>J'accepte que mes données soient utilisées pour traiter ma demande (RGPD).</span>
+            </label>
+            <span class="form__erreur">Le consentement est requis.</span>
+          </div>
+
+          <button type="submit" class="btn btn--or">Envoyer le message</button>
+          <p class="form__note">Aucun numéro de téléphone n'est affiché : merci de passer par ce formulaire.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer id="site-footer" class="site-footer"></footer>
+  <script src="assets/js/partials.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

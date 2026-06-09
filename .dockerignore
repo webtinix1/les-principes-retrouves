@@ -1,0 +1,11 @@
+# Hors contexte de build (seul site/ + nginx/ sont nécessaires)
+.qa/
+docs/
+.git/
+.env
+*.pdf
+*.png
+*.txt
+!site/robots.txt
+README.md
+DEPLOYMENT.md
