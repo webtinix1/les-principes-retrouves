@@ -12,64 +12,74 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;600&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="assets/vendor/swiper-bundle.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-page="accueil">
   <header id="site-header" class="site-header"></header>
 
   <main>
-    <!-- ===================== CARROUSEL (Hero) ===================== -->
-    <section class="carousel" aria-roledescription="carrousel" aria-label="Présentation des Principes Retrouvés">
-      <div class="carousel__viewport">
-        <!-- Slide 1 : l'axiome -->
-        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="1 sur 3">
-          <div class="container">
-            <img class="carousel__mark" src="assets/img/logo-maat.svg" alt="Plume de Maât, emblème des Principes Retrouvés">
-            <h1>Les Principes Retrouvés</h1>
-            <p class="carousel__sous-titre">Une théorie universelle de l'intelligibilité</p>
-            <blockquote>« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »</blockquote>
-            <div class="btn-group">
-              <a class="btn btn--or" href="ouvrage.html">Explorer l'Ouvrage</a>
-              <a class="btn btn--ligne" href="manifeste.html">Lire le Manifeste</a>
+    <!-- ===================== CARROUSEL (Hero, Swiper) ===================== -->
+    <section class="hero-swiper" aria-label="Présentation des Principes Retrouvés">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 : l'axiome -->
+          <div class="swiper-slide">
+            <div class="container">
+              <img class="carousel__mark" src="assets/img/logo-maat.svg" alt="Plume de Maât, emblème des Principes Retrouvés">
+              <h1>Les Principes Retrouvés</h1>
+              <p class="carousel__sous-titre">Une théorie universelle de l'intelligibilité</p>
+              <blockquote>« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »</blockquote>
+              <div class="btn-group">
+                <a class="btn btn--or" href="ouvrage.html">Explorer l'Ouvrage</a>
+                <a class="btn btn--ligne" href="manifeste.html">Lire le Manifeste</a>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 : le laboratoire juridique -->
+          <div class="swiper-slide">
+            <div class="container">
+              <p class="eyebrow">Le laboratoire juridique</p>
+              <h2>La proactivité judiciaire encadrée</h2>
+              <p class="carousel__texte">Une fonction juridictionnelle de correction active, formalisée avec rigueur : le devoir d'intervenir d'office lorsque l'effectivité de la Constitution est menacée.</p>
+              <blockquote>« L'universel n'a pas de centre. Il se démontre. »</blockquote>
+              <div class="btn-group">
+                <a class="btn btn--or" href="ouvrage.html">Découvrir le Tome II</a>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 : les outils -->
+          <div class="swiper-slide">
+            <div class="container">
+              <p class="eyebrow">Le laboratoire doctrinal</p>
+              <h2>Des outils pour la pratique</h2>
+              <p class="carousel__texte">Working Papers, guides techniques d'invocation et notes de recherche : des instruments intellectuels mis à disposition des magistrats, avocats et chercheurs.</p>
+              <div class="btn-group">
+                <a class="btn btn--or" href="laboratoire.html">Accéder aux ressources</a>
+                <a class="btn btn--ligne" href="blog.html">Lire le blog</a>
+              </div>
             </div>
           </div>
         </div>
-        <!-- Slide 2 : le laboratoire juridique -->
-        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="2 sur 3">
-          <div class="container">
-            <p class="eyebrow">Le laboratoire juridique</p>
-            <h2>La proactivité judiciaire encadrée</h2>
-            <p class="carousel__texte">Une fonction juridictionnelle de correction active, formalisée avec rigueur : le devoir d'intervenir d'office lorsque l'effectivité de la Constitution est menacée.</p>
-            <blockquote>« L'universel n'a pas de centre. Il se démontre. »</blockquote>
-            <div class="btn-group">
-              <a class="btn btn--or" href="ouvrage.html">Découvrir le Tome II</a>
-            </div>
-          </div>
-        </div>
-        <!-- Slide 3 : les outils -->
-        <div class="carousel__slide" role="group" aria-roledescription="diapositive" aria-label="3 sur 3">
-          <div class="container">
-            <p class="eyebrow">Le laboratoire doctrinal</p>
-            <h2>Des outils pour la pratique</h2>
-            <p class="carousel__texte">Working Papers, guides techniques d'invocation et notes de recherche : des instruments intellectuels mis à disposition des magistrats, avocats et chercheurs.</p>
-            <div class="btn-group">
-              <a class="btn btn--or" href="laboratoire.html">Accéder aux ressources</a>
-              <a class="btn btn--ligne" href="blog.html">Lire le blog</a>
-            </div>
-          </div>
-        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-      <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Diapositive précédente">‹</button>
-      <button class="carousel__btn carousel__btn--next" type="button" aria-label="Diapositive suivante">›</button>
-      <div class="carousel__dots" aria-label="Sélection des diapositives"></div>
     </section>
 
     <!-- ===================== ARCHITECTURE DU RÉEL (Pyramide de Σ) ===================== -->
     <section class="section section--gris architecture-section">
       <div class="container">
-        <p class="eyebrow">Le manifeste épistémologique</p>
-        <h2>L'Architecture du Réel</h2>
-        <p class="prose" style="margin:0 auto var(--esp-3);">Toute réalité repose sur une Unité Structurelle Absolue (<strong>Σ</strong>). Cette unité ne s'invente pas : elle se redécouvre. Le savoir contemporain s'est fragmenté en traversant le Voile (<strong>V</strong>) et le Filtrage (<strong>F</strong>). La Méthode (<strong>M</strong>) est la procédure rigoureuse de remontée du fragment vers la complétude.</p>
+       <div class="split split--texte-droite">
+        <div>
+          <p class="eyebrow">Le manifeste épistémologique</p>
+          <h2>L'Architecture du Réel</h2>
+          <p>Toute réalité repose sur une Unité Structurelle Absolue (<strong>Σ</strong>). Cette unité ne s'invente pas : elle se redécouvre. Le savoir contemporain s'est fragmenté en traversant le Voile (<strong>V</strong>) et le Filtrage (<strong>F</strong>). La Méthode (<strong>M</strong>) est la procédure rigoureuse de remontée du fragment vers la complétude.</p>
+          <div class="formule-matricielle">
+            <p>Équation universelle du système :</p>
+            <span class="formule">Σ = M(F(V(Σ)))</span>
+          </div>
+        </div>
 
         <div class="pyramide-container" tabindex="0" aria-label="Schéma de la Pyramide de Σ : descente par le Voile et le Filtrage, remontée par la Méthode M">
           <svg class="pyramide-sigma" viewBox="0 0 800 650" xmlns="http://www.w3.org/2000/svg" role="img">
@@ -125,11 +135,7 @@
             <text class="methode-m-text" x="70" y="365" font-family="'Lora', serif" font-size="13" fill="#D4AF37" text-anchor="middle" font-style="italic">Méthode</text>
           </svg>
         </div>
-
-        <div class="formule-matricielle">
-          <p>Équation universelle du système :</p>
-          <span class="formule">Σ = M(F(V(Σ)))</span>
-        </div>
+       </div>
       </div>
     </section>
 
@@ -234,6 +240,7 @@
 
   <footer id="site-footer" class="site-footer"></footer>
 
+  <script src="assets/vendor/swiper-bundle.min.js"></script>
   <script src="assets/js/partials.js"></script>
   <script src="assets/js/articles.js"></script>
   <script src="assets/js/main.js"></script>

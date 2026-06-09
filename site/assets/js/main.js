@@ -10,11 +10,12 @@
     injecterPartials();
     activerNavMobile();
     activerFormulaireContact();
-    initCarrousels();
+    initSwiper();
     initBlogListe();
     initArticle();
     initDerniersArticles();
     majAnnee();
+    initAOS();
   });
 
   /* 1. Injection header + footer ---------------------------------------- */
@@ -68,60 +69,50 @@
     });
   }
 
-  /* 4. Carrousel -------------------------------------------------------- */
-  function initCarrousels() {
+  /* 4. Carrousel (Swiper) ----------------------------------------------- */
+  function initSwiper() {
+    var el = document.querySelector(".hero-swiper .swiper");
+    if (!el || typeof Swiper === "undefined") return;
     var reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    document.querySelectorAll(".carousel").forEach(function (carousel) {
-      var viewport = carousel.querySelector(".carousel__viewport");
-      var slides = Array.prototype.slice.call(carousel.querySelectorAll(".carousel__slide"));
-      if (slides.length === 0) return;
-      var index = 0, timer = null;
-
-      // Points de navigation
-      var dots = carousel.querySelector(".carousel__dots");
-      slides.forEach(function (_, i) {
-        var b = document.createElement("button");
-        b.className = "carousel__dot" + (i === 0 ? " is-active" : "");
-        b.type = "button";
-        b.setAttribute("aria-label", "Aller à la diapositive " + (i + 1));
-        b.addEventListener("click", function () { aller(i); relancer(); });
-        if (dots) dots.appendChild(b);
-      });
-      var puces = dots ? Array.prototype.slice.call(dots.children) : [];
-
-      function ajusterHauteur() {
-        if (viewport) viewport.style.height = slides[index].offsetHeight + "px";
-      }
-      function aller(i) {
-        slides[index].classList.remove("is-active");
-        if (puces[index]) puces[index].classList.remove("is-active");
-        index = (i + slides.length) % slides.length;
-        slides[index].classList.add("is-active");
-        if (puces[index]) puces[index].classList.add("is-active");
-        ajusterHauteur();
-      }
-      function suivant() { aller(index + 1); }
-      function precedent() { aller(index - 1); }
-      function relancer() {
-        if (reduit || slides.length < 2) return;
-        clearInterval(timer);
-        timer = setInterval(suivant, 6500);
-      }
-
-      var bn = carousel.querySelector(".carousel__btn--next");
-      var bp = carousel.querySelector(".carousel__btn--prev");
-      if (bn) bn.addEventListener("click", function () { suivant(); relancer(); });
-      if (bp) bp.addEventListener("click", function () { precedent(); relancer(); });
-
-      carousel.addEventListener("mouseenter", function () { clearInterval(timer); });
-      carousel.addEventListener("mouseleave", relancer);
-
-      slides[0].classList.add("is-active");
-      ajusterHauteur();
-      window.addEventListener("resize", ajusterHauteur);
-      window.addEventListener("load", ajusterHauteur);
-      relancer();
+    /* global Swiper */
+    new Swiper(el, {
+      loop: true,
+      speed: 700,
+      autoplay: reduit ? false : { delay: 6500, disableOnInteraction: false, pauseOnMouseEnter: true },
+      pagination: { el: ".hero-swiper .swiper-pagination", clickable: true },
+      navigation: { nextEl: ".hero-swiper .swiper-button-next", prevEl: ".hero-swiper .swiper-button-prev" },
+      keyboard: { enabled: true },
+      a11y: { enabled: true }
     });
+  }
+
+  /* 4bis. Animations au défilement (AOS, chargé à la demande) ----------- */
+  function initAOS() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = "assets/vendor/aos.css";
+    document.head.appendChild(css);
+
+    var s = document.createElement("script");
+    s.src = "assets/vendor/aos.js";
+    s.onload = function () {
+      if (!window.AOS) return;
+      // On n'ajoute data-aos QUE si AOS est bien présent (sinon contenu masqué)
+      var sel = ".card, .article-card, .section__intro, .pyramide-container, .formule-matricielle, .encadre, .accordeon, .table-wrap";
+      document.querySelectorAll(sel).forEach(function (el) {
+        if (!el.hasAttribute("data-aos")) el.setAttribute("data-aos", "fade-up");
+      });
+      // Léger décalage en cascade dans les grilles
+      document.querySelectorAll(".grid").forEach(function (g) {
+        Array.prototype.slice.call(g.children).forEach(function (c, i) {
+          if (c.hasAttribute("data-aos")) c.setAttribute("data-aos-delay", String(Math.min(i * 80, 320)));
+        });
+      });
+      /* global AOS */
+      AOS.init({ duration: 600, once: true, offset: 60, easing: "ease-out-cubic" });
+    };
+    document.head.appendChild(s);
   }
 
   /* 5. Utilitaires articles -------------------------------------------- */
