@@ -140,3 +140,42 @@
     @apply font-sans;
   }
 }
+
+/* ==========================================================================
+   Animations de marque — reprises du DOCUMENT DE SYNTHÈSE FINAL.
+   Respecte prefers-reduced-motion (accessibilité).
+   ========================================================================== */
+
+/* Pulsation du sommet Σ (« respiration » de l'Unité) */
+@keyframes pulse-sigma {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.02); }
+}
+
+/* Double flèche verticale : flux continu (descendant / ascendant) */
+@keyframes flow-down { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -24; } }
+@keyframes flow-up   { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 24; } }
+
+/* Apparition progressive des sections */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pyramid-sigma        { animation: pulse-sigma 4s ease-in-out infinite; transform-origin: center; }
+.flow-ontologique     { animation: flow-down 3s linear infinite; }
+.flow-epistemologique { animation: flow-up 3s linear infinite; }
+
+.anim-fade-in-up { animation: fade-in-up 1s ease-out both; }
+
+/* Logo Plume de Maât — déploiement léger au survol (Méthode M) */
+.site-logo__mark { transition: transform 0.4s ease; }
+.site-logo:hover .site-logo__mark { transform: scale(1.05) rotate(-1deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pyramid-sigma,
+  .flow-ontologique,
+  .flow-epistemologique,
+  .anim-fade-in-up,
+  .site-logo__mark { animation: none; transition: none; }
+}

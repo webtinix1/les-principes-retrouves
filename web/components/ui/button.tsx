@@ -18,10 +18,17 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        // Variantes de marque (DOCUMENT DE SYNTHÈSE FINAL) --------------------
+        // CTA Or Maât : fond transparent, bordure 2px Or, hover fond Or + texte Bleu.
+        or: "border-2 border-or bg-transparent font-ui font-semibold text-or hover:-translate-y-0.5 hover:bg-or hover:text-bleu-academique hover:shadow-[0_4px_12px_rgba(212,175,55,0.3)]",
+        // CTA « ligne » : discret, pour fonds sombres.
+        ligne:
+          "border border-blanc-casse/40 bg-transparent font-ui text-blanc-casse hover:border-or hover:text-or",
       },
       size: {
         default:
           "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
+        cta: "h-auto rounded-md px-6 py-3 text-base",
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",

@@ -74,13 +74,13 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] Dockerfile (sortie `standalone`) + `docker-compose.web.yml` (Traefik) + `.env.example` + `.dockerignore`.
 - [x] **Build vérifié** (`yarn build` ✓, home prérendue statique) + rendu runtime confirmé (palette, polices, `lang=fr`).
 
-## Lot 1 — Design system & composants
-- [ ] Header / footer (Server Components, rendus au build → SEO, fin du `innerHTML` runtime).
-- [ ] Boutons CTA (variantes Or/ligne + hover du document), cartes, encadrés (bordure gauche Or), grilles.
-- [ ] **Pyramide de Σ** : composant à partir du SVG + `@keyframes` fournis (pulsation 4 s, double flèche,
-      tooltips au survol, respect des 3 breakpoints).
-- [ ] 3 breakpoints (desktop >1024 / tablette 768-1024 / mobile <768), test mobile-first.
-- [ ] Passe a11y (contraste Or/Bleu Nuit, focus, clavier) + audit web-design-guidelines.
+## Lot 1 — Design system & composants  ✅ **TERMINÉ (2026-07-08)**
+- [x] Header (Server) + footer (Server) + nav responsive (client : `usePathname` actif + menu mobile). Fin du `innerHTML` runtime.
+- [x] Boutons CTA (variantes `or`/`ligne` + taille `cta`, hover du document), primitives `Carte` + `Encadré` (bordure Or).
+- [x] **Pyramide de Σ** : composant SVG animé (pulsation 4 s, double respiration, tooltips accessibles survol + focus clavier).
+- [x] Responsive mobile-first (nav lg:, hero fluide) + `prefers-reduced-motion` respecté.
+- [x] a11y : focus visibles (outline Or), `aria-current`, `aria-live` sur la légende pyramide, contrastes Or/Bleu Nuit.
+- [x] **Le Seuil (Fronton)** réel + 9 pages-stubs (+ 2 légales) → nav fonctionnelle, zéro 404. Déployé et vérifié en prod.
 
 ## Lot 2 — Contenu statique (10 pages)  ← **jalon de validation client**
 - [ ] Modéliser le contenu en `content/*.(json|mdx)` (concepts, autorités, modules, ressources) en `snake_case`.
