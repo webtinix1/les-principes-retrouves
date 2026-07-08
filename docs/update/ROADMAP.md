@@ -100,13 +100,16 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [ ] `[⏸]` À fournir pour activer e-mail + anti-spam : `CONTACT_INBOX_EMAIL`, `RESEND_API_KEY`,
       `RESEND_FROM`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (cette dernière au build).
 
-## Lot 4 — Formation & paiement  *(arbitrer le périmètre commerce AVANT de démarrer)*
-- [ ] **Décision** : « déblocage simple par code » vs « vraie boutique » (comptes, factures, historique).
-- [ ] Pages modules (I/II/III) + tunnel de commande.
-- [ ] Abstraction `PaymentProvider` + `MockProvider` (paiement simulé de bout en bout).
-- [ ] Route `api/checkout` + `api/webhook/cinetpay` (réconciliation → émission `AccessCode`).
-- [ ] Modèles Prisma `Order`, `AccessCode`, `Enrollment` + migrations ; **bascule Postgres**.
-- [ ] `[⏸]` Compte marchand CinetPay → implémenter `CinetPayProvider`, `.env` serveur.
+## Lot 4 — Formation & paiement  ✅ **TERMINÉ (2026-07-08)** *(déblocage par code, sans compte + back-office)*
+- [x] Modèles Prisma `Commande` (infos acheteur = historique) + `CodeAcces` + `RessourceEtat` + migration.
+- [x] Tunnel de commande invité depuis les modules de /transmission (`/commander/[module]`, régime B2B/B2C, devis pour Module III).
+- [x] Abstraction `PaymentProvider` + `MockProvider` (paiement simulé de bout en bout) + squelette CinetPay.
+- [x] Route `api/checkout` (émission `CodeAcces` + e-mail Resend) + `api/webhook/cinetpay` (squelette sécurisé).
+- [x] **Back-office `/admin`** (Traefik basic-auth) : tableau de bord, commandes (+ statut, **export CSV**),
+      codes (révoquer/renvoyer), messages, disponibilité des ressources.
+- [x] DB : **SQLite (volume) conservé** ; migrations appliquées au démarrage (`migrate deploy`).
+- [ ] `[⏸]` Compte marchand CinetPay → finaliser `CinetPayProvider` + webhook, `.env` serveur.
+- [ ] `[⏸]` Changer les identifiants admin par défaut (`ADMIN_BASIC_AUTH`).
 
 ## Lot 5 — Accès hybride & PDF protégés
 - [ ] Gating 3 niveaux (libre / conditionné / premium) + boucle vertueuse Page 7 ↔ Page 9.
