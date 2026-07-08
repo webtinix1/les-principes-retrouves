@@ -92,11 +92,13 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 
 > Reste hors périmètre J1 (→ Lot 6) : contenu réel des pages `mentions-legales` et `confidentialite` (stubs).
 
-## Lot 3 — Formulaire de contact & captcha
-- [ ] Route `api/contact` (envoi mail via service transactionnel) + validation serveur.
-- [ ] Captcha **Cloudflare Turnstile** (discret, RGPD-friendly).
-- [ ] Modèle `ContactMessage` (optionnel) + première migration Prisma.
-- [ ] `[⏸]` Boîte mail de réception à fournir.
+## Lot 3 — Formulaire de contact & captcha  ✅ **TERMINÉ (2026-07-08)**
+- [x] Route `api/contact` : validation serveur (zod) + persistance + e-mail Resend (best-effort, gracieux).
+- [x] Captcha **Cloudflare Turnstile** (vérification serveur si clé configurée ; sinon mode dégradé).
+- [x] Modèle `ContactMessage` + migration `init_contact` (Prisma 7, driver adapter libSQL).
+- [x] Persistance prod : volume `app-data` + base migrée bakée (seed.db) + entrypoint ; testée à travers un redémarrage.
+- [ ] `[⏸]` À fournir pour activer e-mail + anti-spam : `CONTACT_INBOX_EMAIL`, `RESEND_API_KEY`,
+      `RESEND_FROM`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (cette dernière au build).
 
 ## Lot 4 — Formation & paiement  *(arbitrer le périmètre commerce AVANT de démarrer)*
 - [ ] **Décision** : « déblocage simple par code » vs « vraie boutique » (comptes, factures, historique).
