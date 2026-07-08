@@ -12,3 +12,5 @@
 # Système
 .DS_Store
 Thumbs.db
+
+docs/update/*.pdf

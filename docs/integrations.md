@@ -1,5 +1,14 @@
 # integrations.md — APIs, services & outils externes
 
+> **⚠️ MISE À JOUR 2026-07-08 — Réorientation V2 (Next.js).**
+> Le projet migre vers **Next.js** (`web/`) ; **le plan « thème PrestaShop » est abandonné**.
+> Conséquences sur ce fichier : les **§4 (PrestaShop)** et **§5 (Paiements via modules PrestaShop)**
+> sont caducs. Les paiements (**CinetPay**) sont désormais intégrés **en propre** via des *route
+> handlers* Next.js (abstraction `PaymentProvider` + `MockProvider` en attendant le compte
+> marchand). Base de données : **Prisma + SQLite (dev) → PostgreSQL (prod)**. Référence :
+> `docs/update/CADRAGE-V2.md` (§4bis, §4ter) et `docs/update/ROADMAP.md`.
+> Les besoins **Google Fonts** évoluent aussi : polices désormais **auto-hébergées via `next/font`**.
+
 > État au démarrage : **aucune infrastructure n'est créée** (ni GitHub, ni hébergeur, ni domaine). Ce fichier liste ce qui sera nécessaire, par phase. Aucune clé / secret ne doit être commitée dans le dépôt — utiliser des variables d'environnement et un `.env` ignoré par git (pertinent en v2).
 
 ---

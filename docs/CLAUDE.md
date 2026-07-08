@@ -10,18 +10,28 @@ Site web académique officiel **« Les Principes Retrouvés »** de Gaudéric MA
 
 ## 2. Statut actuel
 
-- **Version 1 = MAQUETTE** destinée à être **validée par le client** (Gaudéric MAMBOU) avant tout déploiement.
-- Objectif de la v1 : démontrer le rendu visuel, la structure et le ton. Pas de fonctionnalités back-end actives.
-- On part **de zéro** (aucune infra créée : ni GitHub, ni hébergement, ni domaine).
-- **Cible v2 (après validation) : conversion en THÈME PRESTASHOP.** La maquette est un prototype HTML/CSS/JS statique, mais doit être **construite pour être portable vers PrestaShop** (templates Smarty + partials, modules de paiement Stripe / CinetPay branchés plus tard). Voir `feature-backlog.md` et `integrations.md`.
-- Tout le code de la maquette vit dans le dossier **`site/`** (les docs restent à la racine, dans `docs/`).
+- **V1 = MAQUETTE statique** (dans `site/`) — conservée comme **référence** jusqu'au jalon J1.
+- **V2 = MIGRATION VERS NEXT.JS EN COURS** (dans `web/`), sur la base du
+  `docs/update/DOCUMENT DE SYNTHÈSE FINAL.pdf`. Le document transforme la vitrine en **portail
+  applicatif** (10 pages, ~26 150 mots, accès hybride 3 niveaux, paiement CinetPay, PDF protégés).
+- **⚠️ Le plan « thème PrestaShop » est ABANDONNÉ** au profit de Next.js. Voir le cadrage et la
+  roadmap : `docs/update/CADRAGE-V2.md` et `docs/update/ROADMAP.md`.
+- Décision validée client le 2026-07-08. Périmètre commerce (déblocage par code vs vraie
+  boutique) tranché avant le Lot 4.
 
-## 3. Stack technique (décision arrêtée)
+## 3. Stack technique (décision V2 — 2026-07-08)
 
-- **HTML5 / CSS3 / JavaScript vanilla statique.** Pas de framework (pas de React/Next.js/Vue), pas d'étape de build, pas de gestionnaire de paquets requis.
-- Le site doit pouvoir s'ouvrir en double-cliquant sur `index.html` et être déployé sur n'importe quel hébergement statique (Vercel, Netlify, GitHub Pages, OVH…).
-- Polices via **Google Fonts** (CDN) : Playfair Display, Lora, Inter, Fira Code.
-- Pas de dépendance lourde. Si une micro-librairie est indispensable (ex. captcha), elle est chargée par CDN et documentée dans `integrations.md`.
+- **Next.js (App Router) + TypeScript + Tailwind v4 + shadcn/ui** (projet dans `web/`).
+- **Gestionnaire de paquets : yarn.**
+- **Polices auto-hébergées via `next/font`** (Playfair Display, Lora, Fira Code, Inter) — zéro
+  requête CDN (perf + RGPD).
+- **Base de données : Prisma + SQLite en dev → PostgreSQL en prod** (conteneur Docker).
+- **Déploiement : Docker (sortie `standalone`) derrière Traefik** — `web/Dockerfile` +
+  `docker-compose.web.yml`, piloté par `.env` (mêmes conventions que le site statique).
+- Pages de contenu **prérendues (SSG/ISR)** pour le SEO ; couche applicative (auth, paiement,
+  téléchargements protégés, formulaire) via **route handlers** `app/api/`.
+- **Ancienne stack (archivée)** : la maquette `site/` reste en HTML/CSS/JS vanilla statique
+  (nginx) jusqu'au basculement.
 
 ## 4. Règles d'or (NON négociables)
 

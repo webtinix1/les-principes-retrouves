@@ -1,5 +1,13 @@
 # feature-backlog.md — Périmètre v1 & parking à idées
 
+> **⚠️ MISE À JOUR 2026-07-08 — Réorientation V2.**
+> Le `DOCUMENT DE SYNTHÈSE FINAL` a fait évoluer le projet vers un **portail Next.js**
+> (dans `web/`). **Le plan « thème PrestaShop » ci-dessous est abandonné.** Le périmètre et
+> le lotissement de référence sont désormais dans **`docs/update/CADRAGE-V2.md`** et
+> **`docs/update/ROADMAP.md`**. Le contenu ci-dessous reste utile pour l'historique et le
+> détail des pages/fonctionnalités, mais la section « conversion PrestaShop » et le socle
+> technique v1 sont caducs.
+
 ---
 
 ## A. Périmètre VERSION 1 (la maquette à valider par le client)
