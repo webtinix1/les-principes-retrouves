@@ -111,11 +111,11 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [ ] `[⏸]` Compte marchand CinetPay → finaliser `CinetPayProvider` + webhook, `.env` serveur.
 - [ ] `[⏸]` Changer les identifiants admin par défaut (`ADMIN_BASIC_AUTH`).
 
-## Lot 5 — Accès hybride & PDF protégés
-- [ ] Gating 3 niveaux (libre / conditionné / premium) + boucle vertueuse Page 7 ↔ Page 9.
-- [ ] Route `api/download/[ressource]` : vérification serveur du code d'accès avant envoi du PDF.
-- [ ] Écrans de saisie/validation de code, gestion expiration.
-- [ ] `[⏸]` Déposer les vrais PDF + passer `is_available:true`.
+## Lot 5 — Accès hybride & PDF protégés  ✅ **TERMINÉ (2026-07-08)**
+- [x] Gating par niveau (libre = résumés affichés ; conditionné = intégral par code ; hiérarchie module_i<ii<iii).
+- [x] Route `api/download/[ressource]` : vérif serveur (dispo back-office → code valide → niveau) avant envoi du PDF (dossier `protected/`, hors `public/`).
+- [x] Saisie/validation de code (`api/acces` + cookie httpOnly), gestion révocation/expiration ; PDF placeholder de marque.
+- [ ] `[⏸]` Déposer les vrais PDF dans `protected/<ressource_id>.pdf` + activer la dispo dans le back-office (`/admin/ressources`).
 
 ## Lot 6 — Conformité & mise en ligne
 - [ ] Mentions légales, **CGV / contrats de formation** (OHADA + international), RGPD, politique cookies.
