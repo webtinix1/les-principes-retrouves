@@ -166,7 +166,7 @@
 .flow-ontologique     { animation: flow-down 3s linear infinite; }
 .flow-epistemologique { animation: flow-up 3s linear infinite; }
 
-.anim-fade-in-up { animation: fade-in-up 1s ease-out both; }
+.anim-fade-in-up { animation: fade-in-up 0.6s ease-out both; }
 
 /* Logo Plume de Maât — déploiement léger au survol (Méthode M) */
 .site-logo__mark { transition: transform 0.4s ease; }

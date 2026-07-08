@@ -18,37 +18,51 @@ export default function LeSeuil() {
     <section className="relative overflow-hidden bg-bleu-nuit-profond px-6 py-20 text-blanc-casse sm:py-28">
       <JsonLd data={organizationJsonLd()} />
 
-      {/* Filigrane du Fronton (logo, ~5% d'opacité) */}
+      {/* Filigrane du Fronton — SVG inline (vectoriel, sans requête réseau) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo/plume-ailes-transparent.png"
-          alt=""
+        <svg
+          viewBox="0 0 200 140"
           className="w-[min(140%,1100px)] max-w-none opacity-[0.05]"
-        />
+          fill="none"
+        >
+          <g stroke="#D4AF37" strokeWidth="4.5" strokeLinecap="round">
+            <path d="M92 56 C 66 44, 42 46, 18 54" />
+            <path d="M92 64 C 64 56, 40 60, 14 72" />
+            <path d="M92 72 C 66 68, 44 76, 22 90" />
+            <path d="M92 80 C 70 80, 52 88, 34 102" />
+            <path d="M108 56 C 134 44, 158 46, 182 54" />
+            <path d="M108 64 C 136 56, 160 60, 186 72" />
+            <path d="M108 72 C 134 68, 156 76, 178 90" />
+            <path d="M108 80 C 130 80, 148 88, 166 102" />
+          </g>
+          <path
+            d="M100 14 C 110 44, 110 100, 100 130 C 90 100, 90 44, 100 14 Z"
+            fill="#D4AF37"
+          />
+        </svg>
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
         {/* Dédicace */}
-        <p className="anim-fade-in-up font-heading text-lg font-medium uppercase tracking-[0.12em] text-or [animation-delay:0.2s]">
+        <p className="font-heading text-lg font-medium uppercase tracking-[0.12em] text-or">
           À l&apos;Esprit Humain Souverain, à la Conscience Retrouvée de Kemet, à
           l&apos;Effectivité sans Faille de l&apos;Ordre Juste.
         </p>
 
         {/* Pyramide de Σ */}
-        <PyramideSigma className="anim-fade-in-up mt-12 [animation-delay:0.6s]" />
+        <PyramideSigma className="anim-fade-in-up mt-12 [animation-delay:0.1s]" />
 
         {/* Équations */}
-        <div className="anim-fade-in-up mt-10 space-y-2 font-mono text-lg text-or [animation-delay:1s]">
+        <div className="anim-fade-in-up mt-10 space-y-2 font-mono text-lg text-or [animation-delay:0.25s]">
           <p>Σ = M(F(V(Σ)))</p>
           <p>Maât = M(F(V(Maât)))</p>
         </div>
 
         {/* Citation centrale */}
-        <blockquote className="anim-fade-in-up mt-10 max-w-2xl font-heading text-xl italic text-blanc-casse [animation-delay:1.4s] sm:text-2xl">
+        <blockquote className="anim-fade-in-up mt-10 max-w-2xl font-heading text-xl italic text-blanc-casse [animation-delay:0.4s] sm:text-2xl">
           « Ce qui structure le Réel ne peut disparaître : l&apos;Univers ne
           s&apos;anéantit pas, il s&apos;occulte. »
         </blockquote>
@@ -63,7 +77,7 @@ export default function LeSeuil() {
         </p>
 
         {/* Encadré Axiome */}
-        <Encadre className="anim-fade-in-up mt-12 text-left [animation-delay:1.8s]">
+        <Encadre className="anim-fade-in-up mt-12 text-left [animation-delay:0.55s]">
           <h2 className="font-heading text-lg font-semibold text-or">
             Axiome Absolu de Non-Perte
           </h2>
@@ -76,7 +90,7 @@ export default function LeSeuil() {
         </Encadre>
 
         {/* Formule de clôture */}
-        <p className="anim-fade-in-up mt-12 font-heading text-lg italic text-or [animation-delay:2.2s]">
+        <p className="anim-fade-in-up mt-12 font-heading text-lg italic text-or [animation-delay:0.7s]">
           « Ce travail ne demande pas à être accepté sur autorité. Il demande à
           être éprouvé. »
         </p>

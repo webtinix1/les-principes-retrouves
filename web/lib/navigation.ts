@@ -25,5 +25,6 @@ export const NAV_PAGES: NavPage[] = [
 export const FOOTER_LINKS: NavPage[] = [
   { page_id: "mentions_legales", label: "Mentions légales", href: "/mentions-legales" },
   { page_id: "confidentialite", label: "Politique de confidentialité", href: "/confidentialite" },
+  { page_id: "cgv", label: "Conditions de vente", href: "/cgv" },
   { page_id: "transmission", label: "Contact", href: "/transmission#contact" },
 ];
