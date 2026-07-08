@@ -1,0 +1,19 @@
+// Schéma Prisma — Portail de l'École de Brazzaville
+// Doc : https://pris.ly/d/prisma-schema
+//
+// DEV  : SQLite (provider "sqlite", DATABASE_URL="file:./dev.db").
+// PROD : PostgreSQL (conteneur Docker, cf. CADRAGE-V2.md §4ter).
+//        → passer provider = "postgresql" + DATABASE_URL postgres://…
+//
+// Aucun modèle métier pour l'instant (Lot 0). Les modèles Order / AccessCode /
+// Enrollment / ContactMessage arrivent aux Lots 3-5 (champs en snake_case).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+// NB (Prisma 7) : l'URL de connexion vit dans prisma.config.ts, plus ici.
+datasource db {
+  provider = "sqlite"
+}
