@@ -82,13 +82,15 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] a11y : focus visibles (outline Or), `aria-current`, `aria-live` sur la légende pyramide, contrastes Or/Bleu Nuit.
 - [x] **Le Seuil (Fronton)** réel + 9 pages-stubs (+ 2 légales) → nav fonctionnelle, zéro 404. Déployé et vérifié en prod.
 
-## Lot 2 — Contenu statique (10 pages)  ← **jalon de validation client**
-- [ ] Modéliser le contenu en `content/*.(json|mdx)` (concepts, autorités, modules, ressources) en `snake_case`.
-- [ ] Intégrer les ~26 150 mots dans les 10 pages (SSG), ordre cognitif imposé.
-- [ ] Composants réutilisables : `CarteConcept` (×20), `CarteAutorite` (×12), `CarteModule`, `CarteWorkingPaper`.
-- [ ] SEO par page : `<title>`, meta description, Open Graph, données structurées, `sitemap.xml`, `robots.txt`.
-- [ ] `<!-- PLACEHOLDER -->` propres là où le contenu réel manque.
-- [ ] **Recette + validation client** (site public complet, navigable, rapide).
+## Lot 2 — Contenu statique (10 pages)  ✅ **TERMINÉ (2026-07-08)** ← **jalon J1**
+- [x] Contenu modélisé en `content/*.ts` (concepts, institution, autorités, modules, working-papers) en `snake_case`.
+- [x] Les 10 pages intégrées (SSG), ordre cognitif imposé, ton clinique (« l'auteur » banni des textes théoriques).
+- [x] Composants réutilisables : `CarteConcept`, `Carte`/`Encadré`, `Section`/`Container`/`Prose`/`TitreSection`.
+- [x] SEO par page : `title`/`description` + Open Graph (`pageMetadata`), JSON-LD organisation, `sitemap.xml`, `robots.txt`.
+- [x] Placeholders propres : téléchargements/gating (Laboratoire) et inscription/paiement (Transmission) → Lot 4-5.
+- [ ] **Recette + validation client** (à faire — le site public complet est en ligne).
+
+> Reste hors périmètre J1 (→ Lot 6) : contenu réel des pages `mentions-legales` et `confidentialite` (stubs).
 
 ## Lot 3 — Formulaire de contact & captcha
 - [ ] Route `api/contact` (envoi mail via service transactionnel) + validation serveur.
