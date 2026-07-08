@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MODULES } from "@/content/modules";
 import { Section, Container, Prose, TitreSection } from "@/components/section";
 import { Carte, Encadre } from "@/components/primitives";
+import { ContactForm } from "@/components/contact-form";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -395,6 +396,20 @@ export default function TransmissionPage() {
                 </span>
               </li>
             </ul>
+          </div>
+
+          {/* Formulaire de contact */}
+          <div className="mt-12 max-w-2xl">
+            <h3 className="font-heading text-xl font-semibold text-bleu-nuit-profond">
+              Adresser une demande
+            </h3>
+            <p className="mt-2 font-sans text-sm text-bleu-nuit-profond/70">
+              Toute correspondance scientifique, institutionnelle ou relative aux
+              modules peut être adressée au Secrétariat International.
+            </p>
+            <div className="mt-6">
+              <ContactForm />
+            </div>
           </div>
         </Container>
       </Section>

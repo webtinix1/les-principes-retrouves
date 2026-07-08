@@ -17,3 +17,18 @@ generator client {
 datasource db {
   provider = "sqlite"
 }
+
+/// Message reçu via le formulaire de contact (Secrétariat International).
+/// Champs en snake_case (règle d'or CLAUDE.md).
+model ContactMessage {
+  id            String   @id @default(cuid())
+  created_at    DateTime @default(now())
+  nom           String
+  email         String
+  organisation  String?
+  sujet         String
+  message       String
+  consent_rgpd  Boolean  @default(false)
+  statut        String   @default("nouveau") // nouveau | traite | archive
+  source        String   @default("site")
+}
