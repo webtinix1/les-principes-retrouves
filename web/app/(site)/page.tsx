@@ -3,17 +3,20 @@ import { PyramideSigma } from "@/components/pyramide-sigma";
 import { Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { pageMetadata, JsonLd, organizationJsonLd } from "@/lib/seo";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Le Seuil — Inauguration d'une Autre Ère de la Connaissance",
   description:
     "Le Fronton de la Science Métamoderne. Σ = M(F(V(Σ))) : le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode.",
-};
+  path: "/",
+});
 
 /** PAGE 1 — LE SEUIL (Fronton de la Science Métamoderne). */
 export default function LeSeuil() {
   return (
     <section className="bg-bleu-nuit-profond px-6 py-20 text-blanc-casse sm:py-28">
+      <JsonLd data={organizationJsonLd()} />
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         {/* Dédicace */}
         <p className="anim-fade-in-up font-heading text-lg font-medium uppercase tracking-[0.12em] text-or [animation-delay:0.2s]">
