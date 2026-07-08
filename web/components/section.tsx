@@ -57,7 +57,9 @@ export function Prose({
   return (
     <div
       className={cn(
-        "mx-auto max-w-[68ch] font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold",
+        // Colonne de lecture alignée à gauche, avec le même retrait que le texte
+        // des titres (filet Or), pour un alignement vertical cohérent.
+        "max-w-[72ch] pl-4 font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold",
         className,
       )}
       {...props}

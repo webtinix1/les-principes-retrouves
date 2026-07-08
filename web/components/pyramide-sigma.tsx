@@ -76,12 +76,12 @@ export function PyramideSigma({ className }: { className?: string }) {
         {/* Double flèche verticale — descendante (ontologique) et ascendante (épistémologique) */}
         <line
           x1="200" y1="60" x2="200" y2="440"
-          stroke="#D4AF37" strokeWidth="2" strokeDasharray="8,4" opacity="0.6"
+          stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="8,4" opacity="0.35"
           className="flow-ontologique"
         />
         <line
           x1="200" y1="440" x2="200" y2="60"
-          stroke="#D4AF37" strokeWidth="2" strokeDasharray="8,4" opacity="0.9"
+          stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="8,4" opacity="0.45"
           className="flow-epistemologique"
         />
         <polygon points="200,60 195,70 205,70" fill="#D4AF37" opacity="0.9" />
@@ -134,9 +134,9 @@ export function PyramideSigma({ className }: { className?: string }) {
           <text x="200" y="380" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="10">Fragmentation phénoménale</text>
         </g>
 
-        {/* Légendes des flèches */}
-        <text x="220" y="150" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.8">↓ Ontologique</text>
-        <text x="220" y="420" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.8">↑ Épistémologique</text>
+        {/* Sens de la double respiration : discrètes, aux extrémités de l'axe */}
+        <text x="200" y="30" textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.7">↑ épistémologique</text>
+        <text x="200" y="470" textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.7">↓ ontologique</text>
       </svg>
 
       {/* Légende accessible : définition du niveau survolé / focalisé */}
