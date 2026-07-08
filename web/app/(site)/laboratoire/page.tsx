@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Lock } from "lucide-react";
 
 import {
@@ -10,9 +11,25 @@ import {
 } from "@/content/working-papers";
 import { Section, Container, Prose, TitreSection } from "@/components/section";
 import { Carte, Encadre } from "@/components/primitives";
+import { AccesForm } from "@/components/acces-form";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
+import { prisma } from "@/lib/prisma";
+import {
+  ACCESS_COOKIE,
+  RESSOURCE_NIVEAU,
+  niveauDebloque,
+  validerCode,
+} from "@/lib/access";
+
+export const dynamic = "force-dynamic";
+
+const NIVEAU_LABEL: Record<string, string> = {
+  module_i: "Module I",
+  module_ii: "Module II",
+  module_iii: "Module III",
+};
 
 export const metadata = pageMetadata({
   title: "Laboratoire Doctrinal",
@@ -21,10 +38,21 @@ export const metadata = pageMetadata({
   path: "/laboratoire",
 });
 
-/* PLACEHOLDER: téléchargements réels + gating au Lot 4-5 */
+/* Gating par code d'accès actif (Lot 5). PLACEHOLDER: déposer les vrais PDF
+   dans protected/<ressource_id>.pdf et activer la dispo dans le back-office. */
 
 /** Carte d'une ressource (Working Paper ou pièce opératoire). */
-function CarteRessource({ ressource }: { ressource: Ressource }) {
+function CarteRessource({
+  ressource,
+  unlocked,
+  available,
+}: {
+  ressource: Ressource;
+  unlocked: boolean;
+  available: boolean;
+}) {
+  const niveauRequis = RESSOURCE_NIVEAU[ressource.id];
+  const niveauLabel = NIVEAU_LABEL[niveauRequis] ?? "un module";
   return (
     <Carte className="flex flex-col">
       <p className="font-mono text-sm text-or">{ressource.reference}</p>
@@ -77,40 +105,62 @@ function CarteRessource({ ressource }: { ressource: Ressource }) {
         </div>
       )}
 
-      {/* Deux actions : résumé en accès libre + intégral verrouillé (placeholder visuel). */}
-      <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row sm:items-center">
-        <a
-          href="#"
-          aria-disabled="true"
-          className={cn(
-            buttonVariants({ variant: "or", size: "cta" }),
-            "pointer-events-none w-full opacity-70 sm:w-auto",
-          )}
-        >
-          Lire le résumé exécutif (accès libre)
-        </a>
-        <span
-          aria-disabled="true"
-          className={cn(
-            buttonVariants({ variant: "ligne", size: "cta" }),
-            "pointer-events-none w-full cursor-not-allowed text-bleu-nuit-profond/50 sm:w-auto",
-          )}
-          title="Accès réservé aux participants des modules"
-        >
-          <Lock aria-hidden="true" className="mr-2" />
-          Télécharger le document intégral (accès conditionné)
-        </span>
+      {/* Le résumé exécutif ci-dessus est en accès libre. Téléchargement de l'intégral : conditionné. */}
+      <div className="mt-auto pt-6">
+        {available && unlocked ? (
+          <a
+            href={`/api/download/${ressource.id}`}
+            className={cn(buttonVariants({ variant: "or", size: "cta" }), "w-full sm:w-auto")}
+          >
+            Télécharger le document intégral (PDF)
+          </a>
+        ) : !available ? (
+          <span
+            aria-disabled="true"
+            className={cn(
+              buttonVariants({ variant: "ligne", size: "cta" }),
+              "pointer-events-none w-full text-bleu-nuit-profond/50 sm:w-auto",
+            )}
+          >
+            Document intégral — bientôt disponible
+          </span>
+        ) : (
+          <span
+            aria-disabled="true"
+            className={cn(
+              buttonVariants({ variant: "ligne", size: "cta" }),
+              "pointer-events-none w-full text-bleu-nuit-profond/50 sm:w-auto",
+            )}
+            title={`Accès réservé (${niveauLabel})`}
+          >
+            <Lock aria-hidden="true" className="mr-2" />
+            Réservé aux participants — {niveauLabel}
+          </span>
+        )}
       </div>
-      <p className="mt-2 flex items-center gap-1.5 font-ui text-xs text-bleu-nuit-profond/60">
-        <Lock aria-hidden="true" className="size-3.5" />
-        Accès réservé aux participants des modules
-      </p>
+      {available && !unlocked && (
+        <p className="mt-2 font-ui text-xs text-bleu-nuit-profond/60">
+          Saisissez votre code d&apos;accès (section « Politique d&apos;accès ») pour débloquer.
+        </p>
+      )}
     </Carte>
   );
 }
 
 /** PAGE 7 — LABORATOIRE DOCTRINAL (Version finale avec politique d'accès hybride). */
-export default function LaboratoirePage() {
+export default async function LaboratoirePage() {
+  // État d'accès de la session (code d'accès + disponibilité des ressources).
+  const code = (await cookies()).get(ACCESS_COOKIE)?.value;
+  const res = code ? await validerCode(code) : null;
+  const niveauActif = res && res.valid ? res.niveau : null;
+
+  const etats = await prisma.ressourceEtat.findMany();
+  const dispoMap = new Map(etats.map((e) => [e.ressource_id, e.is_available]));
+  const etatRessource = (id: string) => ({
+    available: dispoMap.get(id) ?? false,
+    unlocked: niveauActif ? niveauDebloque(niveauActif, id) : false,
+  });
+
   return (
     <>
       {/* Hero */}
@@ -187,6 +237,20 @@ export default function LaboratoirePage() {
             L'arsenal se déploie en cinq ressources souveraines, articulées selon
             une progression logique.
           </p>
+
+          {/* Saisie du code d'accès (débloque les téléchargements conditionnés) */}
+          <div className="mt-8 border-l-4 border-or bg-bleu-nuit p-6 text-blanc-casse">
+            <h3 className="font-heading text-lg font-semibold text-or">
+              Accès conditionné — votre code
+            </h3>
+            <p className="mt-2 font-sans text-sm text-blanc-casse/80">
+              Les participants aux modules de formation reçoivent un code d'accès
+              qui débloque les documents intégraux. Saisissez-le ci-dessous.
+            </p>
+            <div className="mt-4">
+              <AccesForm niveauActif={niveauActif} />
+            </div>
+          </div>
         </Container>
       </Section>
 
@@ -196,7 +260,7 @@ export default function LaboratoirePage() {
           <TitreSection>Les trois Working Papers fondateurs</TitreSection>
           <div className="mt-8 grid gap-8">
             {WORKING_PAPERS.map((ressource) => (
-              <CarteRessource key={ressource.id} ressource={ressource} />
+              <CarteRessource key={ressource.id} ressource={ressource} {...etatRessource(ressource.id)} />
             ))}
           </div>
         </Container>
@@ -208,7 +272,7 @@ export default function LaboratoirePage() {
           <TitreSection>Les deux pièces opératoires</TitreSection>
           <div className="mt-8 grid gap-8">
             {PIECES_OPERATOIRES.map((ressource) => (
-              <CarteRessource key={ressource.id} ressource={ressource} />
+              <CarteRessource key={ressource.id} ressource={ressource} {...etatRessource(ressource.id)} />
             ))}
           </div>
         </Container>
