@@ -8,14 +8,14 @@ import { SiteNav } from "@/components/site-nav";
  */
 export function SiteHeader() {
   return (
-    <header className="relative z-50 bg-bleu-nuit text-blanc-casse">
+    <header className="relative z-50 border-b border-or/15 bg-gradient-to-r from-bleu-nuit-profond via-bleu-nuit to-bleu-academique text-blanc-casse">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <Link
           href="/"
           aria-label="Les Principes Retrouvés — accueil"
           className="site-logo flex shrink-0 items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-or"
         >
-          <LogoMaat className="h-9 w-auto" />
+          <LogoMaat className="h-10 w-auto" />
           <span className="flex flex-col leading-tight">
             <span className="font-heading text-base font-semibold text-blanc">
               Les Principes Retrouvés
