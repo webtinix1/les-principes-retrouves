@@ -117,12 +117,15 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] Saisie/validation de code (`api/acces` + cookie httpOnly), gestion révocation/expiration ; PDF placeholder de marque.
 - [ ] `[⏸]` Déposer les vrais PDF dans `protected/<ressource_id>.pdf` + activer la dispo dans le back-office (`/admin/ressources`).
 
-## Lot 6 — Conformité & mise en ligne
-- [ ] Mentions légales, **CGV / contrats de formation** (OHADA + international), RGPD, politique cookies.
-- [ ] `[⏸]` Domaine `lesprincipesretrouves.cg` + DNS + HTTPS/HSTS (Traefik / Let's Encrypt).
-- [ ] Sécurité : aucun secret en dépôt, `.env` serveur, vérifs côté serveur systématiques.
-- [ ] Recette finale mobile/tablette/desktop + audit Lighthouse (objectifs ci-dessus).
-- [ ] (Optionnel) Analytics RGPD (Plausible/Matomo), préparation i18n FR/EN.
+## Lot 6 — Conformité & mise en ligne  🔶 **EN GRANDE PARTIE FAIT (2026-07-08)**
+- [x] Pages **Mentions légales**, **Politique de confidentialité (RGPD)**, **CGV** (trames structurées) + lien footer.
+      `[⏸]` à faire valider par un juriste et compléter (`[…]` : forme juridique, hébergeur, durées, rétractation).
+- [x] Sécurité : aucun secret en dépôt (scan OK), `.env` serveur, vérifs côté serveur systématiques, hash admin retiré de `.env.example`.
+- [x] **Audit Lighthouse mobile** : SEO/Accessibilité/Best-practices ~**100** ; perf accueil 72→**83**, concepts **91**, laboratoire **86** ; CLS 0.
+      Reste optimisable : LCP de l'accueil (police Playfair sous 4G simulée).
+- [ ] `[⏸]` Domaine `lesprincipesretrouves.cg` + DNS (tâche client ; actuellement sur le sous-domaine webtinix.com, HTTPS/HSTS OK).
+- [ ] `[⏸]` Vulnérabilités de l'image de base `node:22-alpine` (2 high) à traiter (bump image / patch).
+- [ ] (Optionnel, différé) Analytics RGPD (Plausible/Matomo), préparation i18n FR/EN.
 
 ---
 
