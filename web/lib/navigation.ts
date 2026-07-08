@@ -11,11 +11,11 @@ export type NavPage = {
 
 export const NAV_PAGES: NavPage[] = [
   { page_id: "seuil", label: "Accueil", href: "/" },
-  { page_id: "institution", label: "L'Institution", href: "/institution" },
+  { page_id: "institution", label: "Institution", href: "/institution" },
   { page_id: "constitution", label: "Constitution", href: "/constitution" },
   { page_id: "manifeste", label: "Manifeste", href: "/manifeste" },
   { page_id: "note_epistemologique", label: "Note Épistémo", href: "/note-epistemologique" },
-  { page_id: "ouvrage", label: "L'Ouvrage", href: "/ouvrage" },
+  { page_id: "ouvrage", label: "Ouvrage", href: "/ouvrage" },
   { page_id: "laboratoire", label: "Laboratoire", href: "/laboratoire" },
   { page_id: "concepts", label: "Concepts", href: "/concepts" },
   { page_id: "transmission", label: "Transmission", href: "/transmission" },

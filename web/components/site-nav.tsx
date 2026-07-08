@@ -20,7 +20,7 @@ export function SiteNav() {
     <>
       <button
         type="button"
-        className="ml-auto p-2 text-blanc-casse lg:hidden"
+        className="ml-auto p-2 text-blanc-casse xl:hidden"
         aria-expanded={open}
         aria-controls="site-nav"
         aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -33,13 +33,13 @@ export function SiteNav() {
         id="site-nav"
         aria-label="Navigation principale"
         className={cn(
-          "font-ui text-sm",
-          // Mobile : panneau déroulant ; desktop : barre horizontale
-          "absolute inset-x-0 top-full border-t border-or/20 bg-bleu-nuit lg:static lg:border-0 lg:bg-transparent",
-          open ? "block" : "hidden lg:block",
+          "font-ui text-sm xl:text-[0.8rem]",
+          // Mobile/tablette : panneau déroulant ; desktop (≥1280px) : barre horizontale
+          "absolute inset-x-0 top-full z-50 border-t border-or/20 bg-bleu-nuit shadow-lg shadow-black/30 xl:static xl:z-auto xl:border-0 xl:bg-transparent xl:shadow-none",
+          open ? "block" : "hidden xl:block",
         )}
       >
-        <ul className="flex flex-col gap-1 p-4 lg:flex-row lg:flex-wrap lg:items-center lg:justify-end lg:gap-x-5 lg:gap-y-1 lg:p-0">
+        <ul className="flex flex-col gap-1 p-4 xl:flex-row xl:flex-nowrap xl:items-center xl:justify-end xl:gap-x-4 xl:whitespace-nowrap xl:p-0">
           {NAV_PAGES.map((p) => {
             const active = isActive(pathname, p.href);
             return (

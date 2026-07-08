@@ -8,7 +8,7 @@ import { SiteNav } from "@/components/site-nav";
  */
 export function SiteHeader() {
   return (
-    <header className="relative bg-bleu-nuit text-blanc-casse">
+    <header className="relative z-50 bg-bleu-nuit text-blanc-casse">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <Link
           href="/"
