@@ -32,3 +32,44 @@ model ContactMessage {
   statut        String   @default("nouveau") // nouveau | traite | archive
   source        String   @default("site")
 }
+
+/// Commande d'un module de formation (achat invité, sans compte).
+/// Conserve les infos acheteur = historique (Lot 4).
+model Commande {
+  id                 String     @id @default(cuid())
+  created_at         DateTime   @default(now())
+  module_id          String
+  module_titre       String
+  tarif_type         String // b2b | b2c | devis
+  montant            String // libellé affiché ("800 €")
+  devise             String     @default("EUR")
+  buyer_nom          String
+  buyer_email        String
+  buyer_organisation String?
+  payment_provider   String     @default("mock")
+  payment_ref        String?
+  statut             String     @default("en_attente") // en_attente | paye | echoue | rembourse | devis_demande
+  code_acces         CodeAcces?
+}
+
+/// Code d'accès émis après paiement, débloquant les téléchargements (Lot 5).
+model CodeAcces {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  created_at  DateTime  @default(now())
+  niveau      String // module_i | module_ii | module_iii
+  email       String
+  commande_id String    @unique
+  commande    Commande  @relation(fields: [commande_id], references: [id], onDelete: Cascade)
+  expires_at  DateTime?
+  revoked     Boolean   @default(false)
+  used_at     DateTime?
+}
+
+/// Disponibilité d'une ressource téléchargeable (Working Paper, guide…),
+/// pilotée depuis le back-office. Consommée par le gating du Lot 5.
+model RessourceEtat {
+  ressource_id String   @id
+  is_available Boolean  @default(false)
+  updated_at   DateTime @updatedAt
+}

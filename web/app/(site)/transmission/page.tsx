@@ -273,21 +273,17 @@ export default function TransmissionPage() {
                   )}
                 </div>
 
-                {/* CTA d'inscription — placeholder inactif (paiement au Lot 4) */}
-                <div className="mt-6 flex flex-col gap-2">
-                  <span
-                    aria-disabled="true"
-                    role="button"
+                {/* CTA d'inscription → tunnel de commande */}
+                <div className="mt-6">
+                  <Link
+                    href={`/commander/${module.id}`}
                     className={cn(
                       buttonVariants({ variant: "or", size: "cta" }),
-                      "pointer-events-none w-full cursor-not-allowed opacity-60",
+                      "w-full",
                     )}
                   >
                     {module.cta_label}
-                  </span>
-                  <p className="font-sans text-xs italic text-bleu-nuit-profond/60">
-                    Inscription en ligne bientôt disponible.
-                  </p>
+                  </Link>
                 </div>
               </Carte>
             ))}
