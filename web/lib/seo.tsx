@@ -12,6 +12,7 @@ export function pageMetadata({
   path: string;
 }): Metadata {
   const url = new URL(path, siteConfig.url).toString();
+  const ogImage = "/opengraph-image.png";
   return {
     title,
     description,
@@ -23,6 +24,13 @@ export function pageMetadata({
       siteName: siteConfig.name,
       locale: siteConfig.locale,
       type: "website",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      images: [ogImage],
     },
   };
 }

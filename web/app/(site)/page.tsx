@@ -15,9 +15,23 @@ export const metadata = pageMetadata({
 /** PAGE 1 — LE SEUIL (Fronton de la Science Métamoderne). */
 export default function LeSeuil() {
   return (
-    <section className="bg-bleu-nuit-profond px-6 py-20 text-blanc-casse sm:py-28">
+    <section className="relative overflow-hidden bg-bleu-nuit-profond px-6 py-20 text-blanc-casse sm:py-28">
       <JsonLd data={organizationJsonLd()} />
-      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+
+      {/* Filigrane du Fronton (logo, ~5% d'opacité) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo/plume-ailes-transparent.png"
+          alt=""
+          className="w-[min(140%,1100px)] max-w-none opacity-[0.05]"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
         {/* Dédicace */}
         <p className="anim-fade-in-up font-heading text-lg font-medium uppercase tracking-[0.12em] text-or [animation-delay:0.2s]">
           À l&apos;Esprit Humain Souverain, à la Conscience Retrouvée de Kemet, à

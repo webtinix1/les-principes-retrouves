@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Lora, Fira_Code, Inter } from "next/font/google";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 // Titres, dédicace — Playfair Display
@@ -37,6 +38,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default:
       "Les Principes Retrouvés | École de Brazzaville | Science Métamoderne",
@@ -44,6 +46,9 @@ export const metadata: Metadata = {
   },
   description:
     "Portail de l'École de Brazzaville — Science Métamoderne : théorie générale de l'intelligibilité, épistémologie et droit constitutionnel.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
