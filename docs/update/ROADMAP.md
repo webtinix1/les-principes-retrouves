@@ -124,7 +124,8 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] **Audit Lighthouse mobile** : SEO/Accessibilité/Best-practices ~**100** ; perf accueil 72→**83**, concepts **91**, laboratoire **86** ; CLS 0.
       Reste optimisable : LCP de l'accueil (police Playfair sous 4G simulée).
 - [ ] `[⏸]` Domaine `lesprincipesretrouves.cg` + DNS (tâche client ; actuellement sur le sous-domaine webtinix.com, HTTPS/HSTS OK).
-- [ ] `[⏸]` Vulnérabilités de l'image de base `node:22-alpine` (2 high) à traiter (bump image / patch).
+- [x] Durcissement image : `apk upgrade` (patch CVE OS), retrait Playwright/ESLint de l'image, compose `no-new-privileges` + `cap_drop: ALL`.
+- [x] **QA parcours d'achat** validée de bout en bout (Playwright UI, prod) : commande → code → back-office → déblocage → téléchargement PDF.
 - [ ] (Optionnel, différé) Analytics RGPD (Plausible/Matomo), préparation i18n FR/EN.
 
 ---
