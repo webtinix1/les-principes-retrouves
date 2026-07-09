@@ -18,31 +18,23 @@ export default function LeSeuil() {
     <section className="relative overflow-hidden bg-bleu-nuit-profond px-6 py-20 text-blanc-casse sm:py-28">
       <JsonLd data={organizationJsonLd()} />
 
-      {/* Filigrane du Fronton — SVG inline (vectoriel, sans requête réseau) */}
+      {/* Filigrane du Fronton — logo (webp léger, priorité basse pour ne pas
+          concurrencer le texte lors du LCP) */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
       >
-        <svg
-          viewBox="0 0 200 140"
-          className="w-[min(140%,1100px)] max-w-none opacity-[0.05]"
-          fill="none"
-        >
-          <g stroke="#D4AF37" strokeWidth="4.5" strokeLinecap="round">
-            <path d="M92 56 C 66 44, 42 46, 18 54" />
-            <path d="M92 64 C 64 56, 40 60, 14 72" />
-            <path d="M92 72 C 66 68, 44 76, 22 90" />
-            <path d="M92 80 C 70 80, 52 88, 34 102" />
-            <path d="M108 56 C 134 44, 158 46, 182 54" />
-            <path d="M108 64 C 136 56, 160 60, 186 72" />
-            <path d="M108 72 C 134 68, 156 76, 178 90" />
-            <path d="M108 80 C 130 80, 148 88, 166 102" />
-          </g>
-          <path
-            d="M100 14 C 110 44, 110 100, 100 130 C 90 100, 90 44, 100 14 Z"
-            fill="#D4AF37"
-          />
-        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo/filigrane.webp"
+          alt=""
+          width={480}
+          height={231}
+          loading="eager"
+          fetchPriority="low"
+          decoding="async"
+          className="w-[min(130%,1000px)] max-w-none opacity-[0.1]"
+        />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">

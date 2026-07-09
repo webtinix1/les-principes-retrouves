@@ -11,6 +11,11 @@ services:
       dockerfile: Dockerfile
     image: ${COMPOSE_PROJECT_NAME:-principes-retrouves}-web
     restart: unless-stopped
+    # Durcissement : pas d'escalade de privilèges, aucune capability Linux
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     environment:
       TZ: ${TZ:-Africa/Brazzaville}
       NODE_ENV: production

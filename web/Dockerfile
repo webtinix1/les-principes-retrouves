@@ -23,7 +23,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-RUN addgroup --system --gid 1001 nodejs \
+# Durcissement : patch des paquets système (CVE OS) + utilisateur non-root
+RUN apk --no-cache upgrade \
+  && addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
 
 # Artefacts standalone (server.js + statiques)
@@ -35,6 +37,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # au démarrage, avec son moteur de schéma musl et le chargeur de prisma.config.ts)
 # et pour le driver SQLite libSQL. Superset des deps tracées par le standalone.
 COPY --from=builder /app/node_modules ./node_modules
+# Retire les outils de développement inutiles au runtime (surface & poids)
+RUN rm -rf node_modules/@playwright node_modules/playwright node_modules/playwright-core \
+  node_modules/eslint node_modules/eslint-config-next node_modules/@typescript-eslint 2>/dev/null || true
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=nextjs:nodejs /app/prisma.config.ts ./prisma.config.ts
 
