@@ -108,7 +108,10 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] **Back-office `/admin`** (Traefik basic-auth) : tableau de bord, commandes (+ statut, **export CSV**),
       codes (révoquer/renvoyer), messages, disponibilité des ressources.
 - [x] DB : **SQLite (volume) conservé** ; migrations appliquées au démarrage (`migrate deploy`).
-- [ ] `[⏸]` Compte marchand CinetPay → finaliser `CinetPayProvider` + webhook, `.env` serveur.
+- [x] **Paiement Chariow intégré** (API-driven, prêt à brancher) : `ChariowProvider` + `api/webhook/chariow`
+      (re-vérif `GET /v1/sales/{id}`), champ téléphone, `CHARIOW_*`. Cadrage : `docs/update/CADRAGE-CHARIOW.md`.
+- [ ] `[⏸]` **Activer Chariow** : compte + clé `sk_live`, créer les produits (dashboard) → `CHARIOW_PRODUCT_MAP`,
+      `PAYMENT_PROVIDER=chariow` ; confirmer XAF/Congo + mécanisme de signature webhook. (CinetPay abandonné, gardé en repli.)
 - [ ] `[⏸]` Changer les identifiants admin par défaut (`ADMIN_BASIC_AUTH`).
 
 ## Lot 5 — Accès hybride & PDF protégés  ✅ **TERMINÉ (2026-07-08)**
