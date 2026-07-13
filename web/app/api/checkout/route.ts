@@ -14,10 +14,18 @@ const schema = z.object({
   buyer_nom: z.string().trim().min(2).max(120),
   buyer_email: z.email().max(200),
   buyer_organisation: z.string().trim().max(160).optional().or(z.literal("")),
+  buyer_telephone: z.string().trim().max(30).optional().or(z.literal("")),
+  buyer_pays: z.string().trim().max(3).optional().or(z.literal("")),
   consent_rgpd: z.literal(true, {
     error: "Le consentement au traitement des données est requis.",
   }),
 });
+
+/** Sépare un nom complet en prénom / nom (Chariow exige les deux). */
+function splitNom(nom: string): { first: string; last: string } {
+  const parts = nom.trim().split(/\s+/);
+  return { first: parts[0], last: parts.slice(1).join(" ") || parts[0] };
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -52,6 +60,8 @@ export async function POST(request: Request) {
         buyer_nom: data.buyer_nom,
         buyer_email: data.buyer_email,
         buyer_organisation: data.buyer_organisation || null,
+        buyer_telephone: data.buyer_telephone || null,
+        buyer_pays: data.buyer_pays || null,
         payment_provider: "—",
         statut: "devis_demande",
       },
@@ -78,19 +88,29 @@ export async function POST(request: Request) {
       buyer_nom: data.buyer_nom,
       buyer_email: data.buyer_email,
       buyer_organisation: data.buyer_organisation || null,
+      buyer_telephone: data.buyer_telephone || null,
+      buyer_pays: data.buyer_pays || null,
       payment_provider: provider.id,
       statut: "en_attente",
     },
   });
 
+  const { first, last } = splitNom(data.buyer_nom);
+
   try {
     const result = await provider.createCheckout({
       commande_id: commande.id,
+      module_id: module.id,
+      tarif_type: data.tarif_type,
       montant,
       devise: commande.devise,
       module_titre: commande.module_titre,
       buyer_nom: commande.buyer_nom,
+      buyer_first_name: first,
+      buyer_last_name: last,
       buyer_email: commande.buyer_email,
+      buyer_telephone: data.buyer_telephone || undefined,
+      buyer_pays: data.buyer_pays || undefined,
     });
 
     if (result.kind === "paid") {

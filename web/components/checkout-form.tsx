@@ -32,6 +32,8 @@ export function CheckoutForm(props: Props) {
       buyer_nom: String(fd.get("buyer_nom") ?? ""),
       buyer_email: String(fd.get("buyer_email") ?? ""),
       buyer_organisation: String(fd.get("buyer_organisation") ?? ""),
+      buyer_telephone: String(fd.get("buyer_telephone") ?? ""),
+      buyer_pays: String(fd.get("buyer_pays") ?? "CG"),
       consent_rgpd: fd.get("consent_rgpd") === "on",
     };
     try {
@@ -91,6 +93,36 @@ export function CheckoutForm(props: Props) {
         <label htmlFor="buyer_organisation" className={label}>Organisation</label>
         <input id="buyer_organisation" name="buyer_organisation" maxLength={160} className={champ} autoComplete="organization" />
       </div>
+
+      {props.purchasable && (
+        <div className="grid gap-5 sm:grid-cols-[1fr_7rem]">
+          <div>
+            <label htmlFor="buyer_telephone" className={label}>Téléphone *</label>
+            <input
+              id="buyer_telephone"
+              name="buyer_telephone"
+              type="tel"
+              required
+              maxLength={30}
+              placeholder="Ex. 06 000 00 00"
+              className={champ}
+              autoComplete="tel"
+            />
+          </div>
+          <div>
+            <label htmlFor="buyer_pays" className={label}>Pays</label>
+            <select id="buyer_pays" name="buyer_pays" defaultValue="CG" className={champ}>
+              <option value="CG">Congo (CG)</option>
+              <option value="CD">RD Congo (CD)</option>
+              <option value="CM">Cameroun (CM)</option>
+              <option value="CI">Côte d&apos;Ivoire (CI)</option>
+              <option value="SN">Sénégal (SN)</option>
+              <option value="BJ">Bénin (BJ)</option>
+              <option value="FR">France (FR)</option>
+            </select>
+          </div>
+        </div>
+      )}
 
       <label className="flex items-start gap-3 font-sans text-sm text-bleu-nuit-profond/80">
         <input type="checkbox" name="consent_rgpd" required className="mt-1 size-4 accent-[var(--color-or)]" />

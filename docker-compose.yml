@@ -22,6 +22,10 @@ services:
       DATABASE_URL: ${DATABASE_URL:-file:/app/data/prod.db}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-mock}
+      # Paiement Chariow (vides tant que non configuré)
+      CHARIOW_API_KEY: ${CHARIOW_API_KEY:-}
+      CHARIOW_WEBHOOK_SECRET: ${CHARIOW_WEBHOOK_SECRET:-}
+      CHARIOW_PRODUCT_MAP: ${CHARIOW_PRODUCT_MAP:-}
       # Formulaire de contact (Lot 3) — vides = mode dégradé (persistance seule)
       TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
       CONTACT_INBOX_EMAIL: ${CONTACT_INBOX_EMAIL:-}

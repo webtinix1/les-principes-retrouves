@@ -46,6 +46,8 @@ model Commande {
   buyer_nom          String
   buyer_email        String
   buyer_organisation String?
+  buyer_telephone    String?
+  buyer_pays         String? // code pays ISO (ex. CG)
   payment_provider   String     @default("mock")
   payment_ref        String?
   statut             String     @default("en_attente") // en_attente | paye | echoue | rembourse | devis_demande
