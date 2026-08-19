@@ -21,24 +21,38 @@ SERVEUR_PID=$!
 trap 'kill -TERM "$SERVEUR_PID" 2>/dev/null' TERM INT
 
 # Les pages sont prérendues au build, sans base : on réapplique les textes du
-# back-office (volume) dès que le serveur répond.
-(
-  i=0
-  while [ "$i" -lt 60 ]; do
-    if wget -q -O /dev/null "http://127.0.0.1:${PORT:-3000}/" 2>/dev/null; then
-      if wget -q -O /dev/null --method=POST --body-data='' \
-        --header="Authorization: Bearer ${CONTENU_REVALIDATE_TOKEN}" \
-        "http://127.0.0.1:${PORT:-3000}/api/contenu/revalider" 2>/dev/null; then
-        echo "[entrypoint] Contenu éditable revalidé."
-      else
-        echo "[entrypoint] AVERTISSEMENT : revalidation du contenu échouée." >&2
-      fi
-      exit 0
-    fi
-    i=$((i + 1))
-    sleep 1
-  done
-  echo "[entrypoint] AVERTISSEMENT : serveur injoignable, contenu non revalidé." >&2
-) &
+# back-office (volume) dès que le serveur répond. On passe par node plutôt que
+# wget : busybox ne gère pas les mêmes options que GNU wget selon les versions.
+node -e '
+const base = `http://127.0.0.1:${process.env.PORT || 3000}`;
+const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+
+(async () => {
+  for (let i = 0; i < 60; i++) {
+    try {
+      const pret = await fetch(`${base}/`);
+      if (!pret.ok) throw new Error(String(pret.status));
+    } catch {
+      await pause(1000);
+      continue;
+    }
+    const reponse = await fetch(`${base}/api/contenu/revalider`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${process.env.CONTENU_REVALIDATE_TOKEN}` },
+    });
+    if (reponse.ok) {
+      console.log("[entrypoint] Contenu éditable revalidé.");
+    } else {
+      console.error(
+        `[entrypoint] AVERTISSEMENT : revalidation refusée (${reponse.status}).`,
+      );
+    }
+    return;
+  }
+  console.error(
+    "[entrypoint] AVERTISSEMENT : serveur injoignable, contenu non revalidé.",
+  );
+})();
+' &
 
 wait "$SERVEUR_PID"
