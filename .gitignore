@@ -14,3 +14,6 @@
 Thumbs.db
 
 docs/update/*.pdf
+
+# Sauvegardes locales de la base (hors dépôt)
+/backups/
