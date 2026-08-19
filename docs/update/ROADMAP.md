@@ -131,6 +131,36 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 - [x] **QA parcours d'achat** validée de bout en bout (Playwright UI, prod) : commande → code → back-office → déblocage → téléchargement PDF.
 - [ ] (Optionnel, différé) Analytics RGPD (Plausible/Matomo), préparation i18n FR/EN.
 
+## Lot 7 — Contenu éditable depuis le back-office  ✅ **TERMINÉ (2026-08-19)**
+
+> Demande client : pouvoir corriger les textes du site sans passer par un développeur.
+
+- [x] **Architecture « le code reste le défaut »** : les pages enveloppent leur JSX existant
+      (`<BlocProse cle="…">…</BlocProse>`). Sans surcharge en base, le texte d'origine est rendu
+      tel quel — aucune copie à maintenir, aucune régression possible.
+      *Vérifié : le HTML rendu des 9 pages est identique à la production, hors attributs `data-bloc`.*
+- [x] Modèles `ContenuBloc` (surcharges) + `ContenuBlocVersion` (historique, sans relation pour
+      survivre à un retour au texte d'origine) + migration `contenu_editable`.
+- [x] **`/admin/contenu`** : 130 blocs sur 9 pages, éditeur riche (Tiptap) borné aux balises
+      autorisées, retour au texte d'origine, historique restaurable (20 versions).
+- [x] Assainissement **serveur** systématique (liste blanche calibrée sur la typographie réelle
+      des pages) ; les blocs « texte court » sont réduits au texte brut.
+- [x] Contenus structurés à clés dérivées : 20 concepts (définition + portée), Working Papers
+      (titre + résumé), fiche des modules (public cible, durée, prérequis).
+- [x] **Les pages restent statiques** (perf Lighthouse préservée). Le build Docker n'ayant pas de
+      base, l'entrypoint revalide les pages au démarrage avec un jeton tiré au hasard dans le
+      conteneur — sans quoi les textes du client disparaîtraient à chaque redéploiement.
+      Filet de sécurité ISR (1 h) en complément.
+- [x] Recette Playwright (`web/tests/contenu-editable.spec.ts`) : modifier → publier → vérifier
+      sur le site → restaurer ; et neutralisation du HTML saisi dans un bloc « texte court ».
+- [ ] `[⏸]` **Tarifs des modules non éditables** — volontaire : ils alimentent aussi
+      `/commander/[module]` et l'enregistrement `Commande`. À ouvrir en recâblant le tunnel de
+      commande sur la même source, au moment de la bascule € → FCFA (Chariow).
+- [ ] `[⏸]` Restent en code : titres H1/H2 des pages (liés aux métadonnées SEO), pages légales,
+      autorités de convergence, niveaux de l'architecture institutionnelle.
+
+---
+
 ---
 
 ## Jalons
