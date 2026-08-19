@@ -9,7 +9,7 @@ export const metadata = pageMetadata({
   title: "Le Seuil — Inauguration d'une Autre Ère de la Connaissance",
   description:
     "Le Fronton de la Science Métamoderne. Σ = M(F(V(Σ))) : le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode.",
-  path: "/",
+  path: "/accueil",
 });
 
 /** PAGE 1 — LE SEUIL (Fronton de la Science Métamoderne). */

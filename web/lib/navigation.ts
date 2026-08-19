@@ -10,7 +10,7 @@ export type NavPage = {
 };
 
 export const NAV_PAGES: NavPage[] = [
-  { page_id: "seuil", label: "Accueil", href: "/" },
+  { page_id: "seuil", label: "Accueil", href: "/accueil" },
   { page_id: "institution", label: "Institution", href: "/institution" },
   { page_id: "constitution", label: "Constitution", href: "/constitution" },
   { page_id: "manifeste", label: "Manifeste", href: "/manifeste" },

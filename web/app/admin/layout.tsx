@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </Link>
             ))}
           </nav>
-          <Link href="/" className="ml-auto font-ui text-xs text-blanc-casse/60 hover:text-or">
+          <Link href="/accueil" className="ml-auto font-ui text-xs text-blanc-casse/60 hover:text-or">
             ↗ Voir le site
           </Link>
         </div>

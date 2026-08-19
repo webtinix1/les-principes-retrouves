@@ -17,3 +17,6 @@ docs/update/*.pdf
 
 # Sauvegardes locales de la base (hors dépôt)
 /backups/
+
+# Maquettes source lourdes (référence client, hors dépôt)
+/updating/
