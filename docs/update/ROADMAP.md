@@ -161,6 +161,33 @@ Deux éléments ne sont **pas encore disponibles** ; on construit toute la plomb
 
 ---
 
+## Lot 8 — Fronton d'entrée & durcissement (audit)  ✅ **TERMINÉ (2026-08-19)**
+
+**Fronton.** La maquette `updating/principe.html` devient la page-porte du site (`/`) ;
+l'accueil « Le Seuil » passe sous `/accueil`.
+- [x] Groupe de routes `(fronton)` sans en-tête/pied de page du site ; CSS livré sur cette
+      seule route (zéro fuite de style, vérifié). Polices Cormorant/EB Garamond auto-hébergées
+      (next/font) — Google Fonts est interdit par la CSP.
+- [x] 3 images base64 (~850 Ko) extraites en fichiers `/public/fronton` (markup 876 Ko → ~5 Ko).
+- [x] Menu (CSS pur) + « Franchir le seuil » câblés vers les vraies pages ; liens home
+      (header, nav, back-office) repointés vers `/accueil` ; sitemap couvre `/` et `/accueil`.
+- [x] Rendu vérifié desktop + mobile, sans erreur CSP.
+- [ ] `[⏸]` **Libellés du menu du fronton** à confirmer avec le client (correspondances
+      L'Organon→/ouvrage, La Pyramide→/concepts, etc. — choix par défaut).
+
+**Durcissement (audit global).**
+- [x] **En-têtes de sécurité** : CSP, X-Frame-Options DENY, X-Content-Type-Options,
+      Referrer-Policy, Permissions-Policy ; `x-powered-by` retiré. (Seul HSTS existait.)
+- [x] **Sauvegarde quotidienne** de la base SQLite (`scripts/backup-db.sh` + cron 03h17,
+      snapshot cohérent VACUUM INTO, rétention 14 j). Restauration vérifiée.
+- [x] Vérifié SANS faille : les Server Actions ne sont pas invocables hors `/admin`
+      (Next 16 les lie à leurs routes ; Traefik renvoie 401 sur `/admin`).
+- [ ] `[⏸]` **Changer `ADMIN_BASIC_AUTH`** (toujours le défaut) — commande fournie au client.
+- [ ] `[⏸]` Activer Turnstile + limitation de débit sur `/api/contact` et `/api/acces`.
+- [ ] Perf accueil 79 (LCP police Playfair) ; SEO/a11y/best-practices 100.
+
+---
+
 ---
 
 ## Jalons
