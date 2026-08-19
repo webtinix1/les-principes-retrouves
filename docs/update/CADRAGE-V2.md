@@ -14,9 +14,13 @@
 - **Stack V2 : Next.js (App Router).** Retenu pour couvrir perf + SEO + shadcn dans un seul
   codebase et absorber la couche applicative (auth, paiement, PDF protégés). **Abandon du plan
   PrestaShop** — `CLAUDE.md §3` et `integrations.md §4-5` seront mis à jour en conséquence.
-- **Périmètre transactionnel : à définir plus tard.** On démarre par le **site public complet**
-  (Lots 1-2) ; l'arbitrage « déblocage simple par code » vs « vraie boutique » est tranché
-  **avant le Lot 4** (formation & paiement). L'architecture reste conçue pour absorber les deux.
+- **Périmètre transactionnel : ARBITRÉ (2026-07-08).** Modèle **« déblocage par code, sans compte »** :
+  - **Pas de comptes clients** (amélioration possible plus tard). Paiement invité → code d'accès.
+  - **Conservation des infos acheteur** dans une table `Commande` = historique (base d'un futur compte).
+  - **Back-office nécessaire** (`/admin`), périmètre **transactionnel** : commandes, codes d'accès,
+    messages de contact, disponibilité des PDF, export CSV. Modules/tarifs restent gérés **dans le code**.
+  - **Auth admin : Traefik basic-auth** (protection au niveau infra, zéro code d'auth, un seul admin).
+  - **Base de données : SQLite (volume persistant) conservé** pour l'instant ; Postgres si besoin ultérieur.
 - **PDF intégraux & compte marchand CinetPay : fournis plus tard.** On construit toute la
   plomberie autour de **placeholders** (voir §4bis) pour ne rien bloquer et brancher le réel en une étape.
 - **Base de données : Prisma + PostgreSQL** (conteneur Docker, cohérent avec l'infra Traefik) ;
