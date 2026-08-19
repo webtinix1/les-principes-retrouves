@@ -75,3 +75,25 @@ model RessourceEtat {
   is_available Boolean  @default(false)
   updated_at   DateTime @updatedAt
 }
+
+/// Surcharge éditoriale d'un bloc de contenu, pilotée depuis le back-office.
+/// Le CODE reste la source par défaut (registre `content/blocs/`) : une ligne
+/// ici signifie « ce bloc a été réécrit depuis /admin/contenu ». Supprimer la
+/// ligne = revenir au texte d'origine. Valeur = fragment HTML assaini serveur.
+model ContenuBloc {
+  cle        String   @id
+  valeur     String
+  updated_at DateTime @updatedAt
+}
+
+/// Historique des versions d'un bloc (restauration depuis le back-office).
+/// Volontairement SANS relation vers ContenuBloc : l'historique doit survivre
+/// à un retour au texte d'origine (qui supprime la surcharge).
+model ContenuBlocVersion {
+  id         String   @id @default(cuid())
+  cle        String
+  valeur     String
+  created_at DateTime @default(now())
+
+  @@index([cle, created_at])
+}

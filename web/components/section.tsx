@@ -46,6 +46,14 @@ export function Container({
 }
 
 /**
+ * Colonne de lecture « revue » — extraite en constante pour que les blocs
+ * éditables (`components/bloc.tsx`) rendent exactement la même typographie.
+ * Alignée à gauche avec le même retrait que les titres (filet Or).
+ */
+export const PROSE_CLASS =
+  "max-w-[72ch] pl-4 font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold";
+
+/**
  * Prose — colonne de lecture « revue » : mesure limitée (~68 car.),
  * interlignage généreux, rythme vertical des paragraphes (corps Lora).
  */
@@ -55,15 +63,7 @@ export function Prose({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div
-      className={cn(
-        // Colonne de lecture alignée à gauche, avec le même retrait que le texte
-        // des titres (filet Or), pour un alignement vertical cohérent.
-        "max-w-[72ch] pl-4 font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold",
-        className,
-      )}
-      {...props}
-    >
+    <div className={cn(PROSE_CLASS, className)} {...props}>
       {children}
     </div>
   );

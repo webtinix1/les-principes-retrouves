@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse, BlocTexte } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,14 @@ export const metadata = pageMetadata({
     "L'Horizon de l'Effectivité Normative : diagnostic de la crise de l'intelligibilité et les sept articles du Manifeste.",
   path: "/manifeste",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** Les sept articles du Manifeste de Brazzaville. */
 const ARTICLES = [
@@ -75,13 +84,20 @@ export default function ManifestePage() {
           <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
             Le Manifeste de Brazzaville
           </h1>
-          <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
+          <BlocTexte
+            cle="manifeste.hero.sous_titre"
+            className="mt-4 font-sans text-lg italic text-blanc-casse/80"
+          >
             L'Horizon de l'Effectivité Normative
-          </p>
-          <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
+          </BlocTexte>
+          <BlocTexte
+            cle="manifeste.hero.exergue"
+            as="blockquote"
+            className="mt-6 font-heading text-lg italic text-blanc-casse"
+          >
             « Ce qui structure le Réel ne peut disparaître : l'Univers ne
             s'anéantit pas, il s'occulte. »
-          </blockquote>
+          </BlocTexte>
         </Container>
       </Section>
 
@@ -93,7 +109,7 @@ export default function ManifestePage() {
               Le diagnostic — une crise de l'intelligibilité contemporaine
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="manifeste.diagnostic.corps">
             <p>
               La science contemporaine traverse une anomalie structurelle
               majeure dont les symptômes, bien que visibles, demeurent
@@ -131,7 +147,7 @@ export default function ManifestePage() {
               supplémentaire aux théories existantes. Elle cherche à restituer
               les conditions de possibilité de toute production de connaissance.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -143,7 +159,7 @@ export default function ManifestePage() {
               L'illusion quantitative moderniste et le principe de technicité
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="manifeste.illusion_quantitative.corps">
             <p>
               Le tournant épistémologique initié par Francis Bacon, théorisé par
               Emmanuel Kant et radicalisé par la dialectique hégélienne, a opéré
@@ -202,7 +218,7 @@ export default function ManifestePage() {
               sciences, réduits à des vestiges folkloriques plutôt que reconnus
               comme la matrice originelle de la rationalité universelle.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -214,7 +230,7 @@ export default function ManifestePage() {
               Le piège post-moderne — du scepticisme au nihilisme du réel
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="manifeste.piege_postmoderne.corps">
             <p>
               Face aux rigidités du positivisme dogmatique, la critique
               post-moderne a légitimement dénoncé l'arbitraire des prénotions et
@@ -239,7 +255,7 @@ export default function ManifestePage() {
               Elle ne rejette ni la rigueur de l'analyse moderne, ni la vigilance
               critique post-moderne ; elle les réorganise.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -251,7 +267,7 @@ export default function ManifestePage() {
               La Matrice de la Maât — opérateur suprême de non-contradiction
             </TitreSection>
           </header>
-          <Prose className="text-blanc-casse [&_strong]:text-or">
+          <BlocProse cle="manifeste.matrice_maat.intro" className="text-blanc-casse [&_strong]:text-or">
             <p>
               La Science Métamoderne réhabilite la matrice de la Maât — non comme
               un folklore mémoriel, mais comme le modèle cybernétique d'harmonie
@@ -260,7 +276,7 @@ export default function ManifestePage() {
               l'exigence de non-contradiction structurelle suprême, définie par
               trois propriétés cumulatives :
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mx-auto mt-8 grid max-w-[68ch] gap-6">
             <Encadre>
               <p className="font-heading text-xl font-semibold text-or">
@@ -292,7 +308,7 @@ export default function ManifestePage() {
               </p>
             </Encadre>
           </div>
-          <Prose className="mt-8 text-blanc-casse">
+          <BlocProse cle="manifeste.matrice_maat.conclusion" className="mt-8 text-blanc-casse">
             <p>
               La Maât transpose, dans le champ normatif du droit, de la justice
               et de l'équité procédurale, les principes universels de
@@ -309,7 +325,7 @@ export default function ManifestePage() {
               de non-contradiction qui s'oppose à l'entropie et restaure
               l'équilibre du système.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -321,7 +337,7 @@ export default function ManifestePage() {
               La décolonisation méthodologique de l'universel
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="manifeste.decolonisation.corps">
             <p>
               Adosser cette exigence d'harmonie systémique et d'effectivité
               absolue au modèle universel de la Maât, c'est situer l'École de
@@ -362,7 +378,7 @@ export default function ManifestePage() {
               ni des circuits de légitimation formels : l'universel se démontre par
               la puissance explicative de sa méthode.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -371,11 +387,14 @@ export default function ManifestePage() {
         <Container>
           <header className="mb-8">
             <TitreSection>Les sept articles du Manifeste</TitreSection>
-            <p className="mt-4 max-w-[68ch] pl-4 font-sans text-base leading-relaxed text-bleu-nuit-profond/80">
+            <BlocTexte
+              cle="manifeste.articles.chapeau"
+              className="mt-4 max-w-[68ch] pl-4 font-sans text-base leading-relaxed text-bleu-nuit-profond/80"
+            >
               Le Manifeste de Brazzaville ne se contente pas de diagnostiquer la
               crise. Il formule les sept principes qui gouvernent la remontée
               reconstructive vers l'Intelligibilité.
-            </p>
+            </BlocTexte>
           </header>
           <div className="grid gap-6 lg:grid-cols-2">
             {ARTICLES.map((article) => (
@@ -399,7 +418,7 @@ export default function ManifestePage() {
           <header className="mb-8">
             <TitreSection>Le pacte éthique avec le lecteur</TitreSection>
           </header>
-          <Prose className="text-center text-blanc-casse">
+          <BlocProse cle="manifeste.pacte.corps" className="text-center text-blanc-casse">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n'invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -414,13 +433,16 @@ export default function ManifestePage() {
               méthode et sous les mêmes exigences, une série de démonstrations
               nouvelles dans les différents champs de la connaissance.
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mx-auto mt-8 max-w-[68ch]">
             <Encadre className="text-center">
-              <p className="font-heading text-lg italic text-blanc-casse">
+              <BlocTexte
+                cle="manifeste.pacte.exergue"
+                className="font-heading text-lg italic text-blanc-casse"
+              >
                 Ce travail ne demande pas à être accepté sur autorité. Il demande
                 à être éprouvé.
-              </p>
+              </BlocTexte>
             </Encadre>
           </div>
         </Container>
@@ -432,10 +454,13 @@ export default function ManifestePage() {
           <p className="font-heading text-xl italic text-blanc-casse">
             L'appel à l'épreuve.
           </p>
-          <p className="mt-4 font-sans text-base leading-relaxed text-blanc-casse/80">
+          <BlocTexte
+            cle="manifeste.appel.corps"
+            className="mt-4 font-sans text-base leading-relaxed text-blanc-casse/80"
+          >
             La formalisation de ces invariants et leur soumission à l'examen
             critique se poursuivent dans la Note Épistémologique.
-          </p>
+          </BlocTexte>
           <Link
             href="/note-epistemologique"
             className={cn(buttonVariants({ variant: "or", size: "cta" }), "mt-8")}
