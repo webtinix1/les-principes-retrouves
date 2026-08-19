@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,14 @@ export const metadata = pageMetadata({
     "L'École de Brazzaville et le Programme de recherche de la Science Métamoderne : architecture à sept niveaux, souveraineté du démontré, privilège optique.",
   path: "/institution",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** PAGE 2 — L'INSTITUTION (L'École de Brazzaville). */
 export default function Institution() {
@@ -44,7 +53,7 @@ export default function Institution() {
       <Section tone="clair">
         <Container>
           <TitreSection>L'objet unique — l'Intelligibilité</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="institution.objet.corps" className="mt-8">
             <p>
               L'École de Brazzaville a pour objet unique et souverain{" "}
               <strong>l'Intelligibilité elle-même</strong>.
@@ -80,7 +89,7 @@ export default function Institution() {
               activement de ses anomalies vers les principes qui les rendent
               possibles.
             </p>
-          </Prose>
+          </BlocProse>
 
           <div className="mx-auto mt-8 max-w-[68ch]">
             <p className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
@@ -93,7 +102,7 @@ export default function Institution() {
             </blockquote>
           </div>
 
-          <Prose className="mt-8">
+          <BlocProse cle="institution.objet.distinction" className="mt-8">
             <p>
               Cette distinction opère par changement de niveau logique (au sens de
               la théorie des types de Bertrand Russell et de la systémique de
@@ -109,7 +118,7 @@ export default function Institution() {
                 modéliser la mécanique (niveau principiel).
               </li>
             </ul>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -117,7 +126,7 @@ export default function Institution() {
       <Section tone="gris">
         <Container>
           <TitreSection>L'architecture institutionnelle à sept niveaux</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="institution.architecture.corps" className="mt-8">
             <p>
               Conformément à la Constitution Scientifique de l'École de
               Brazzaville, le Programme de recherche s'organise selon une
@@ -125,7 +134,7 @@ export default function Institution() {
               fonction spécifique dans l'élaboration, la transmission et le
               développement de la connaissance :
             </p>
-          </Prose>
+          </BlocProse>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {NIVEAUX.map((niveau) => (
@@ -197,13 +206,13 @@ export default function Institution() {
       <Section tone="clair">
         <Container>
           <TitreSection>Le Principe de Souveraineté du Démontré</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="institution.souverainete.corps" className="mt-8">
             <p>
               Le Principe de Souveraineté du Démontré constitue le premier article
               de la Constitution Scientifique de l'École de Brazzaville. Il
               s'énonce ainsi :
             </p>
-          </Prose>
+          </BlocProse>
 
           <Encadre className="mx-auto mt-8 max-w-3xl">
             <h3 className="font-heading text-lg font-semibold uppercase tracking-wide text-or">
@@ -238,7 +247,7 @@ export default function Institution() {
             </div>
           </Encadre>
 
-          <Prose className="mt-8">
+          <BlocProse cle="institution.souverainete.portee" className="mt-8">
             <p>
               Ce principe est redoutable. Il protège définitivement l'École contre
               toute accusation de dogmatisme. Il interdit à tout censeur de
@@ -263,7 +272,7 @@ export default function Institution() {
               Une science durable doit posséder une théorie de la publication
               aussi rigoureuse que sa théorie de la découverte.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -271,7 +280,7 @@ export default function Institution() {
       <Section tone="gris">
         <Container>
           <TitreSection>Le Privilège Optique de Brazzaville</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="institution.privilege_optique.corps" className="mt-8">
             <p>
               Penser la refondation de l'intelligibilité depuis Brazzaville et
               l'Afrique subsaharienne ne constitue pas un repli identitaire, mais
@@ -293,7 +302,7 @@ export default function Institution() {
               endogènes au folklore pour restituer leur portée logico-mathématique
               originelle.
             </p>
-          </Prose>
+          </BlocProse>
 
           <div className="mx-auto mt-10 max-w-[68ch]">
             <h3 className="font-heading text-xl font-semibold">
@@ -357,13 +366,13 @@ export default function Institution() {
       <Section tone="clair">
         <Container>
           <TitreSection>La démarche épistémologique</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="institution.demarche.equation" className="mt-8">
             <p>La Science Métamoderne applique l'équation systémique :</p>
-          </Prose>
+          </BlocProse>
           <p className="mx-auto mt-4 max-w-[68ch] font-mono text-lg text-or">
             Σ = M(F(V(Σ)))
           </p>
-          <Prose className="mt-6">
+          <BlocProse cle="institution.demarche.transposition" className="mt-6">
             <p>
               Elle démontre comment le Substratum Commun (Σ), altéré par le Voile
               Ontologique (V) et le Filtrage institutionnel (F), peut être
@@ -375,11 +384,11 @@ export default function Institution() {
               et de l'équité procédurale, l'équation universelle se transpose sous
               sa forme anthropologique et cybernétique originelle :
             </p>
-          </Prose>
+          </BlocProse>
           <p className="mx-auto mt-4 max-w-[68ch] font-mono text-lg text-or">
             Maât = M(F(V(Maât)))
           </p>
-          <Prose className="mt-6">
+          <BlocProse cle="institution.demarche.analogie" className="mt-6">
             <p>
               Cette transposition n'est pas une analogie poétique. Elle est la
               démonstration que les principes qui gouvernent l'intelligibilité du
@@ -388,7 +397,7 @@ export default function Institution() {
               aux travaux de Jan Assmann et Théophile Obenga, est l'opérateur
               universel de non-contradiction structurelle.
             </p>
-          </Prose>
+          </BlocProse>
 
           <h3 className="mx-auto mt-10 max-w-[68ch] font-heading text-xl font-semibold">
             La démarche épistémologique obéit au Canon de la Découverte en sept
@@ -407,14 +416,14 @@ export default function Institution() {
             ))}
           </ol>
 
-          <Prose className="mt-8">
+          <BlocProse cle="institution.demarche.canon" className="mt-8">
             <p>
               Ce Canon ne décrit pas la science depuis l'extérieur ; il fournit au
               chercheur — quelle que soit sa discipline — un Organon de
               réintégration lui permettant de remonter activement de ses anomalies
               vers les principes qui les rendent possibles.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 

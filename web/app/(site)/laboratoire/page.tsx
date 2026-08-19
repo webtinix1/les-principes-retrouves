@@ -9,7 +9,8 @@ import {
   PROGRESSION,
   type Ressource,
 } from "@/content/working-papers";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse, BlocTexte } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { AccesForm } from "@/components/acces-form";
 import { buttonVariants } from "@/components/ui/button";
@@ -56,9 +57,13 @@ function CarteRessource({
   return (
     <Carte className="flex flex-col">
       <p className="font-mono text-sm text-or">{ressource.reference}</p>
-      <h3 className="mt-2 font-heading text-xl font-semibold text-bleu-academique">
+      <BlocTexte
+        as="h3"
+        cle={`ressources.${ressource.id}.titre`}
+        className="mt-2 font-heading text-xl font-semibold text-bleu-academique"
+      >
         {ressource.titre}
-      </h3>
+      </BlocTexte>
 
       <dl className="mt-4 space-y-1 font-ui text-sm text-bleu-nuit-profond/80">
         <div>
@@ -87,7 +92,13 @@ function CarteRessource({
         </p>
         <div className="mt-2 space-y-3 font-sans text-base leading-relaxed">
           {ressource.resume.map((paragraphe, i) => (
-            <p key={i}>{paragraphe}</p>
+            <BlocTexte
+              key={i}
+              as="p"
+              cle={`ressources.${ressource.id}.resume_${i + 1}`}
+            >
+              {paragraphe}
+            </BlocTexte>
           ))}
         </div>
       </div>
@@ -182,7 +193,7 @@ export default async function LaboratoirePage() {
       {/* Section 1 — Introduction au Laboratoire */}
       <Section tone="clair">
         <Container>
-          <Prose>
+          <BlocProse cle="laboratoire.introduction.corps">
             <p>
               Ce Laboratoire ne propose pas de simples commentaires académiques.
               Il met à disposition des praticiens mondiaux — juristes,
@@ -203,7 +214,7 @@ export default async function LaboratoirePage() {
               Aucune ne sollicite une adhésion préalable ; chacune demande à être
               éprouvée dans la rigueur de son application.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -211,7 +222,7 @@ export default async function LaboratoirePage() {
       <Section tone="gris">
         <Container>
           <TitreSection>Politique d'accès hybride</TitreSection>
-          <Prose className="mt-6 max-w-none">
+          <BlocProse cle="laboratoire.acces_hybride.corps" className="mt-6 max-w-none">
             <p>
               Conformément au{" "}
               <strong>Principe de Souveraineté du Démontré</strong> et à la
@@ -219,7 +230,7 @@ export default async function LaboratoirePage() {
               temps de la réception), l'accès à l'arsenal obéit à une logique de
               compartimentation sémantique à trois niveaux.
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {NIVEAUX_ACCES.map((niveau) => (
               <Carte key={niveau.numero} className="bg-blanc-casse">
@@ -284,7 +295,7 @@ export default async function LaboratoirePage() {
           <TitreSection className="text-blanc-casse">
             La progression logique de l'arsenal
           </TitreSection>
-          <Prose className="mt-6 max-w-none text-blanc-casse/90">
+          <BlocProse cle="laboratoire.progression.corps" className="mt-6 max-w-none text-blanc-casse/90">
             <p>
               L'arsenal se déploie selon une progression rigoureuse qui respecte
               l'architecture constitutive de la Science Métamoderne. Chaque pièce
@@ -294,7 +305,7 @@ export default async function LaboratoirePage() {
               outils opérationnels est subordonné à la maîtrise préalable des
               fondements épistémologiques.
             </p>
-          </Prose>
+          </BlocProse>
           <Encadre className="mt-8">
             <ol className="space-y-3 font-mono text-sm text-blanc-casse">
               {PROGRESSION.map((etape, i) => (

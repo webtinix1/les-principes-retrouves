@@ -61,7 +61,7 @@ export async function BlocProse({ cle, className, children }: BlocProseProps) {
 type BlocTexteProps = {
   cle: string;
   /** Balise de rendu — le bloc doit rester au même niveau sémantique que l'original. */
-  as?: "p" | "h1" | "h2" | "h3" | "span" | "blockquote";
+  as?: "p" | "h1" | "h2" | "h3" | "h4" | "span" | "blockquote" | "dd" | "li";
   className?: string;
   /** Texte par défaut (une seule ligne, sans mise en forme). */
   children: React.ReactNode;

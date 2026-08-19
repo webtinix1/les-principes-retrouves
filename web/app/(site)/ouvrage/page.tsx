@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { AUTORITES } from "@/content/autorites";
 import { Carte, Encadre } from "@/components/primitives";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,14 @@ export const metadata = pageMetadata({
     "Le Diptyque du Noyau Démontré : Tome I (l'Organon) et Tome II (le Laboratoire Juridique), textes liminaires et les douze autorités de convergence.",
   path: "/ouvrage",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** PAGE 6 — L'OUVRAGE (version actualisée) : Le Diptyque du Noyau Démontré. */
 export default function OuvragePage() {
@@ -40,7 +49,7 @@ export default function OuvragePage() {
       <Section tone="clair">
         <Container>
           <TitreSection>Introduction au diptyque</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="ouvrage.introduction.corps" className="mt-8">
             <p>
               <em>Les Principes Retrouvés</em> ne se présentent ni comme une
               doctrine achevée, ni comme un système clos, ni comme une
@@ -80,7 +89,7 @@ export default function OuvragePage() {
               démonstrations nouvelles dans les différents champs de la
               connaissance.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -247,12 +256,12 @@ export default function OuvragePage() {
       <Section tone="clair">
         <Container>
           <TitreSection>Les textes liminaires du diptyque</TitreSection>
-          <Prose className="mt-6">
+          <BlocProse cle="ouvrage.textes_liminaires.corps" className="mt-6">
             <p>
               Le diptyque est encadré par des textes liminaires qui en
               garantissent la réception et la cohérence :
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <Carte>
               <h3 className="font-heading text-xl font-semibold">
@@ -308,7 +317,7 @@ export default function OuvragePage() {
           <TitreSection>
             L'ancrage doctrinal — Les 12 Autorités de Convergence
           </TitreSection>
-          <Prose className="mt-6">
+          <BlocProse cle="ouvrage.autorites.corps" className="mt-6">
             <p>
               L'œuvre ne naît pas du vide. Elle dialogue avec les plus hautes
               autorités scientifiques et juridiques pour instituer un nouveau
@@ -318,7 +327,7 @@ export default function OuvragePage() {
               décolonisation épistémique et la réhabilitation des matrices
               endogènes.
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {AUTORITES.map((autorite) => (
               <Carte key={autorite.id}>
@@ -343,13 +352,13 @@ export default function OuvragePage() {
           <TitreSection>
             Le Programme de recherche — Noyau et Expansion
           </TitreSection>
-          <Prose className="mt-6 text-blanc-casse">
+          <BlocProse cle="ouvrage.programme.corps" className="mt-6 text-blanc-casse">
             <p>
               Conformément au Principe de Souveraineté du Démontré scellé dans la
               Constitution Scientifique de l'École, l'ouvrage distingue
               rigoureusement deux niveaux :
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <Encadre>
               <h3 className="font-heading text-xl font-semibold text-or">
@@ -402,7 +411,7 @@ export default function OuvragePage() {
               </ul>
             </Encadre>
           </div>
-          <Prose className="mt-8 text-blanc-casse">
+          <BlocProse cle="ouvrage.programme.axes" className="mt-8 text-blanc-casse">
             <p>
               Ces axes ne constituent pas des promesses dogmatiques. Ils
               définissent des terrains d'application où la Méthode M est appelée
@@ -410,7 +419,7 @@ export default function OuvragePage() {
               de démonstration, de critique et de vérification qui ont présidé à
               l'élaboration des présents travaux.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 

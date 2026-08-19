@@ -69,3 +69,35 @@ test("le back-office modifie un bloc, le publie, puis restaure l'original", asyn
   expect(apres).not.toContain(PHRASE);
   expect(apres).toBe(origine);
 });
+
+const CLE_SIMPLE = "concepts.maat.definition";
+
+test("un bloc de texte court est publié, et le HTML saisi est neutralisé", async ({
+  page,
+}) => {
+  await page.goto(`${BASE}/admin/contenu/${encodeURIComponent(CLE_SIMPLE)}`);
+  const retour = page.getByRole("button", { name: "Revenir au texte d'origine" });
+  if (await retour.isVisible()) await retour.click();
+
+  await page.goto(`${BASE}/admin/contenu/${encodeURIComponent(CLE_SIMPLE)}`);
+  const champ = page.locator("textarea[name=valeur]");
+  await expect(champ).toHaveValue(/Opérateur logique universel/);
+
+  // Une balise saisie dans un bloc « texte court » ne doit pas être interprétée.
+  await champ.fill("Définition de recette <strong>sans balise</strong>.");
+  await page.getByRole("button", { name: "Enregistrer et publier" }).click();
+  await expect(page.getByText("Modification enregistrée")).toBeVisible();
+
+  await page.goto(`${BASE}/concepts`);
+  const bloc = page.locator(`[data-bloc="${CLE_SIMPLE}"]`);
+  await expect(bloc).toHaveText("Définition de recette sans balise.");
+  await expect(bloc.locator("strong")).toHaveCount(0);
+
+  // Restauration de l'état d'origine.
+  await page.goto(`${BASE}/admin/contenu/${encodeURIComponent(CLE_SIMPLE)}`);
+  await page.getByRole("button", { name: "Revenir au texte d'origine" }).click();
+  await page.goto(`${BASE}/concepts`);
+  await expect(page.locator(`[data-bloc="${CLE_SIMPLE}"]`)).toContainText(
+    "Opérateur logique universel",
+  );
+});

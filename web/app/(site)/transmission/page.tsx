@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MODULES } from "@/content/modules";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse, BlocTexte } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { ContactForm } from "@/components/contact-form";
 import { buttonVariants } from "@/components/ui/button";
@@ -13,6 +14,14 @@ export const metadata = pageMetadata({
     "L'enseignement, l'arsenal opérationnel et le secrétariat international : trois modules de formation, la boucle vertueuse et les coordonnées de l'Institut.",
   path: "/transmission",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /**
  * PAGE 9 — TRANSMISSION & INSCRIPTIONS (Version finale).
@@ -49,7 +58,7 @@ export default function TransmissionPage() {
       <Section tone="clair">
         <Container>
           <TitreSection>L'argumentaire de la souveraineté</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="transmission.argumentaire.corps" className="mt-8">
             <p>
               La science contemporaine a progressivement abandonné le chercheur
               à son propre sort. Enfermé dans des disciplines cloisonnées, soumis
@@ -83,7 +92,7 @@ export default function TransmissionPage() {
               calculer la cohérence là où les doctrines officielles ne produisent
               que le silence.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -163,7 +172,7 @@ export default function TransmissionPage() {
       <Section tone="gris" id="inscription">
         <Container>
           <TitreSection>La grille des modules de formation</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="transmission.modules.corps" className="mt-8">
             <p>
               L'accès à la transmission de la Science Métamoderne obéit à une
               stricte compartimentation sémantique et financière, interdisant
@@ -171,7 +180,7 @@ export default function TransmissionPage() {
               l'universalité de la transmission tout en préservant l'autonomie
               institutionnelle de l'École.
             </p>
-          </Prose>
+          </BlocProse>
 
           {/* PLACEHOLDER: tunnel d'inscription + paiement CinetPay au Lot 4 */}
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -189,25 +198,37 @@ export default function TransmissionPage() {
                     <dt className="font-ui font-semibold text-bleu-nuit-profond">
                       Public cible
                     </dt>
-                    <dd className="mt-1 font-sans text-bleu-nuit-profond/80">
+                    <BlocTexte
+                      as="dd"
+                      cle={`modules.${module.id}.public_cible`}
+                      className="mt-1 font-sans text-bleu-nuit-profond/80"
+                    >
                       {module.public_cible}
-                    </dd>
+                    </BlocTexte>
                   </div>
                   <div>
                     <dt className="font-ui font-semibold text-bleu-nuit-profond">
                       Durée
                     </dt>
-                    <dd className="mt-1 font-sans text-bleu-nuit-profond/80">
+                    <BlocTexte
+                      as="dd"
+                      cle={`modules.${module.id}.duree`}
+                      className="mt-1 font-sans text-bleu-nuit-profond/80"
+                    >
                       {module.duree}
-                    </dd>
+                    </BlocTexte>
                   </div>
                   <div>
                     <dt className="font-ui font-semibold text-bleu-nuit-profond">
                       Prérequis
                     </dt>
-                    <dd className="mt-1 font-sans text-bleu-nuit-profond/80">
+                    <BlocTexte
+                      as="dd"
+                      cle={`modules.${module.id}.prerequis`}
+                      className="mt-1 font-sans text-bleu-nuit-profond/80"
+                    >
                       {module.prerequis}
-                    </dd>
+                    </BlocTexte>
                   </div>
                 </dl>
 
@@ -297,7 +318,7 @@ export default function TransmissionPage() {
           <TitreSection filet={false} className="text-blanc">
             Passerelle de paiement sécurisée et souveraine
           </TitreSection>
-          <Prose className="mt-6 text-blanc-casse">
+          <BlocProse cle="transmission.paiement.corps" className="mt-6 text-blanc-casse">
             <p>
               L'Institut de Brazzaville a intégré le protocole asynchrone de
               CinetPay pour garantir la fluidité, la traçabilité et la sécurité
@@ -305,7 +326,7 @@ export default function TransmissionPage() {
               souveraineté technique est la condition matérielle de notre
               indépendance épistémique.
             </p>
-          </Prose>
+          </BlocProse>
           <ul className="mx-auto mt-6 max-w-[68ch] space-y-2 font-sans text-sm text-blanc-casse/90">
             <li>
               <strong className="font-ui text-or">

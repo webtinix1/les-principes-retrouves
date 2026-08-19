@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
@@ -12,6 +13,14 @@ export const metadata = pageMetadata({
     "Acte constitutif du Programme de recherche de la Science Métamoderne : préambule et dix articles constitutionnels.",
   path: "/constitution",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** Label liminaire d'un article (Or Maât, casse UI). */
 function ArticleLabel({ children }: { children: React.ReactNode }) {
@@ -67,7 +76,7 @@ export default function Page() {
       <Section tone="nuit" id="preambule">
         <Container>
           <TitreSection>Préambule constitutionnel</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="constitution.preambule.corps" className="mt-8">
             <p className="font-sans italic">
               La Science Métamoderne n&apos;est pas d&apos;abord un ensemble de
               connaissances ; elle est une méthode d&apos;institution durable de
@@ -93,7 +102,7 @@ export default function Page() {
               « Ne rien imposer. Laisser les choses s&apos;imposer d&apos;elles-mêmes
               par la seule puissance du raisonnement. »
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -109,7 +118,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 L&apos;Objet
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_objet.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   La Science Métamoderne a pour objet unique{" "}
                   <strong>l&apos;Intelligibilité elle-même</strong>.
@@ -135,7 +144,7 @@ export default function Page() {
                   </strong>
                   .
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE II -------------------- */}
@@ -144,7 +153,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Principe de Souveraineté du Démontré
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_souverainete.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   Dans la Science Métamoderne, le Programme de recherche peut être
                   plus vaste que le Corpus.
@@ -172,7 +181,7 @@ export default function Page() {
                   résistance à la critique et de son intégration progressive dans un
                   corpus scientifiquement stabilisé.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE III -------------------- */}
@@ -181,7 +190,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 La Distinction constitutionnelle
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_distinction.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   La Science Métamoderne s&apos;organise selon une architecture
                   constitutive à sept niveaux, chacun répondant à une fonction
@@ -253,7 +262,7 @@ export default function Page() {
                   <li>L&apos;École est la communauté vivante qui transmet.</li>
                   <li>Le Corpus est la mémoire génétique qui conserve.</li>
                 </ul>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE IV -------------------- */}
@@ -262,7 +271,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Statut des hypothèses et le Programme d&apos;Expansion
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_hypotheses.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   Le Programme de recherche de Brazzaville comporte plusieurs
                   chantiers théoriques dont les démonstrations ne sont pas encore
@@ -365,7 +374,7 @@ export default function Page() {
                   démonstration, de critique et de vérification qui gouvernent
                   l&apos;ensemble du Programme.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE V -------------------- */}
@@ -374,7 +383,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Statut de la critique
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_critique.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   La critique n&apos;est pas extérieure au Programme de Brazzaville.
                   Elle constitue l&apos;un des mécanismes normaux de son
@@ -395,7 +404,7 @@ export default function Page() {
                   révélateur. Il ne déplace pas le centre de gravité de
                   l&apos;œuvre ; il le rend plus visible.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE VI -------------------- */}
@@ -404,7 +413,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Statut des Organons futurs
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_organons.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   Chaque Organon futur est une application particulière de la présente
                   Constitution. Il n&apos;a pas à redéfinir les fondements.
@@ -428,7 +437,7 @@ export default function Page() {
                   nouvelles démonstrations, de nouveaux concepts, de nouvelles
                   théories et de nouvelles applications.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE VII -------------------- */}
@@ -437,7 +446,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Statut de l&apos;auteur
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_auteur.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   Le chercheur indépendant est le premier serviteur de la
                   Constitution. Il n&apos;a aucun privilège doctrinal.
@@ -459,7 +468,7 @@ export default function Page() {
                   droit ne sont pas des postures de convenance. Ils sont la condition
                   de possibilité de la continuité scientifique.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE VIII -------------------- */}
@@ -468,7 +477,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Les Autorités de convergence
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_autorites.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   La Science Métamoderne ne naît pas du vide. Elle s&apos;assimile à
                   la lignée des précurseurs universels qui, sur les cinq continents,
@@ -591,7 +600,7 @@ export default function Page() {
                   l&apos;intelligibilité. Elle ne juge pas les sciences ; elle cherche
                   à rendre intelligible l&apos;intelligibilité des sciences.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE IX -------------------- */}
@@ -600,7 +609,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 La Formule de clôture éthique
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_cloture_ethique.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   La Science Métamoderne ne demande aucune adhésion préalable. Elle
                   n&apos;invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -618,7 +627,7 @@ export default function Page() {
                   insuffisamment démontrée, toute posture dogmatique. Elle gouverne
                   aussi bien la recherche que son exposition.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
 
             {/* -------------------- ARTICLE X -------------------- */}
@@ -627,7 +636,7 @@ export default function Page() {
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 Le Principe de continuité de l&apos;intelligibilité
               </h3>
-              <Prose className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+              <BlocProse cle="constitution.article_continuite.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
                 <p>
                   L&apos;intelligibilité ne constitue pas un état acquis une fois pour
                   toutes. Elle est un processus continu.
@@ -652,7 +661,7 @@ export default function Page() {
                   augmenter durablement la capacité de l&apos;humanité à produire de
                   l&apos;intelligibilité.
                 </p>
-              </Prose>
+              </BlocProse>
             </Carte>
           </div>
         </Container>
@@ -662,7 +671,7 @@ export default function Page() {
       <Section tone="academique">
         <Container>
           <TitreSection>Disposition finale</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="constitution.disposition_finale.corps" className="mt-8">
             <p className="italic">
               La présente Constitution entre en vigueur à la date de sa proclamation.
             </p>
@@ -678,7 +687,7 @@ export default function Page() {
             <p className="font-ui tracking-widest text-or uppercase">
               [Scellé et opposable pour l&apos;éternité des cycles de la raison]
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 

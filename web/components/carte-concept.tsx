@@ -1,4 +1,5 @@
 import type { Concept } from "@/content/concepts";
+import { BlocTexte } from "@/components/bloc";
 
 /** Carte d'un concept stabilisé : numéro, titre, définition d'autorité, portée opératoire. */
 export function CarteConcept({ concept }: { concept: Concept }) {
@@ -18,13 +19,25 @@ export function CarteConcept({ concept }: { concept: Concept }) {
           <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
             Définition d'autorité
           </dt>
-          <dd className="mt-1 font-sans">{concept.definition}</dd>
+          <BlocTexte
+            as="dd"
+            cle={`concepts.${concept.id}.definition`}
+            className="mt-1 font-sans"
+          >
+            {concept.definition}
+          </BlocTexte>
         </div>
         <div>
           <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
             Portée opératoire
           </dt>
-          <dd className="mt-1 font-sans">{concept.portee}</dd>
+          <BlocTexte
+            as="dd"
+            cle={`concepts.${concept.id}.portee`}
+            className="mt-1 font-sans"
+          >
+            {concept.portee}
+          </BlocTexte>
         </div>
       </dl>
     </article>

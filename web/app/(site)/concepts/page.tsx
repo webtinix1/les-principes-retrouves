@@ -1,6 +1,7 @@
 import { STRATES } from "@/content/concepts";
 import { CarteConcept } from "@/components/carte-concept";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -9,6 +10,14 @@ export const metadata = pageMetadata({
     "L'Infrastructure Lexicale de l'École de Brazzaville : 20 concepts stabilisés en quatre strates (ontologie, épistémologie, méthodologie, arsenal opératoire).",
   path: "/concepts",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** PAGE 8 — CONCEPTS STABILISÉS (Infrastructure Lexicale V4.0). */
 export default function ConceptsPage() {
@@ -33,7 +42,7 @@ export default function ConceptsPage() {
       {/* Introduction */}
       <Section tone="clair">
         <Container>
-          <Prose>
+          <BlocProse cle="concepts.introduction.corps">
             <p>
               Ce vocabulaire ne constitue pas un simple glossaire. Il est le
               système d'exploitation de la Science Métamoderne. Ces vingt
@@ -48,7 +57,7 @@ export default function ConceptsPage() {
               dictionnaire d'autorité de l'École de Brazzaville : chaque
               définition est opposable et immunisée contre l'arbitraire.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,14 @@ export const metadata = pageMetadata({
     "Restituer les conditions de l'intelligibilité : primauté du cerveau sur le laboratoire, Canon de la Découverte en sept principes, sextuor de la structuration intime.",
   path: "/note-epistemologique",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** Le Canon de la Découverte — sept principes (Section 4). */
 const CANON = [
@@ -126,7 +135,7 @@ export default function NoteEpistemologiquePage() {
               Posture métascientifique — l'intelligibilité de l'intelligibilité
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="note_epistemologique.posture.corps">
             <p>
               L'École de Brazzaville n'a pas pour vocation de se substituer, de
               juger ou de valider les disciplines scientifiques constituées. Elle
@@ -151,7 +160,7 @@ export default function NoteEpistemologiquePage() {
               pas la science depuis l'extérieur ; elle en restitue l'architecture,
               en formalise les médiations et en guide la remontée.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -163,7 +172,7 @@ export default function NoteEpistemologiquePage() {
               Axiome central — la primauté du cerveau sur le laboratoire
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="note_epistemologique.axiome.corps">
             <p>
               L'École de Brazzaville affirme un principe fondateur que l'illusion
               empiriste moderne a progressivement occulté :{" "}
@@ -181,7 +190,7 @@ export default function NoteEpistemologiquePage() {
               conçue a priori, la recherche scientifique s'abîme dans une pure
               description phénoménale privée de profondeur ontologique.
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mx-auto mt-8 max-w-[68ch]">
             <Encadre>
               <p className="font-heading text-lg italic">
@@ -190,7 +199,7 @@ export default function NoteEpistemologiquePage() {
               </p>
             </Encadre>
           </div>
-          <Prose className="mt-8">
+          <BlocProse cle="note_epistemologique.axiome.thom" className="mt-8">
             <p>
               Comme le soulignait René Thom, le progrès scientifique est avant
               tout une affaire de représentation mentale partielle des phénomènes,
@@ -208,7 +217,7 @@ export default function NoteEpistemologiquePage() {
               Ces trois autorités de convergence verrouillent définitivement la
               primauté de l'intelligibilité sur l'opératoire.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -270,13 +279,13 @@ export default function NoteEpistemologiquePage() {
               Le Théorème de la Genèse Scientifique — le Canon en 7 principes
             </TitreSection>
           </header>
-          <Prose className="text-blanc-casse">
+          <BlocProse cle="note_epistemologique.theoreme.corps" className="text-blanc-casse">
             <p>
               Toute authentique découverte s'élabore selon un parcours
               inductif-rationnel vertical indéfectible. Ce processus algorithmique
               est modélisé par le Canon de la Découverte en 7 principes :
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mx-auto mt-8 max-w-[68ch]">
             <Encadre>
               <pre className="overflow-x-auto font-mono text-sm text-or">
@@ -320,7 +329,7 @@ export default function NoteEpistemologiquePage() {
               Invalidation du modèle hégélien
             </h3>
           </header>
-          <Prose>
+          <BlocProse cle="note_epistemologique.triade.corps">
             <p>
               Le sens commun moderne, pollué par la dialectique hégélienne (Thèse →
               Antithèse → Synthèse), croit que la « thèse » est le point de départ
@@ -351,7 +360,7 @@ export default function NoteEpistemologiquePage() {
               possibilité des phénomènes. Elle s'est condamnée à décrire les effets
               sans comprendre les causes.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -363,7 +372,7 @@ export default function NoteEpistemologiquePage() {
               Le sextuor de la structuration intime
             </TitreSection>
           </header>
-          <Prose>
+          <BlocProse cle="note_epistemologique.sextuor.corps">
             <p>
               Les trajectoires des grands découvreurs ne sont pas invoquées ici
               comme des preuves d'autorité, mais comme des cas d'étude cliniques
@@ -371,7 +380,7 @@ export default function NoteEpistemologiquePage() {
               <span className="font-mono text-or">Σ = M(F(V(Σ)))</span> et le Canon
               de la Découverte en 7 principes.
             </p>
-          </Prose>
+          </BlocProse>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {SEXTUOR.map((cas) => (
               <Carte key={cas.id}>
@@ -388,7 +397,7 @@ export default function NoteEpistemologiquePage() {
       {/* Appel à l'épreuve */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-2xl">
-          <Prose className="text-blanc-casse">
+          <BlocProse cle="note_epistemologique.pacte.corps" className="text-blanc-casse">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n'invite pas à une croyance. Elle propose une méthode. Elle ne prétend
@@ -396,7 +405,7 @@ export default function NoteEpistemologiquePage() {
               poursuivre selon des règles explicites, discutables et continuellement
               perfectibles.
             </p>
-          </Prose>
+          </BlocProse>
           <p className="mt-8 font-heading text-lg italic text-blanc-casse">
             Ce travail ne demande pas à être accepté sur autorité. Il demande à
             être éprouvé.

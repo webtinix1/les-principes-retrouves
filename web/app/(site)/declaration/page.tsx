@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Section, Container, Prose, TitreSection } from "@/components/section";
+import { Section, Container, TitreSection } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +12,14 @@ export const metadata = pageMetadata({
     "Manifeste public de l'École de Brazzaville : préambule et huit actes inauguraux, scellés à Brazzaville en juillet 2026.",
   path: "/declaration",
 });
+
+/**
+ * Filet de sécurité pour les blocs éditables : la page est prérendue au build
+ * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
+ * appel échouait, ce délai garantit que les textes du back-office reviennent
+ * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
+ */
+export const revalidate = 3600;
 
 /** PAGE 10 — LA DÉCLARATION DE BRAZZAVILLE (Manifeste Public de l'École de Brazzaville). */
 export default function DeclarationDeBrazzaville() {
@@ -55,7 +64,7 @@ export default function DeclarationDeBrazzaville() {
       <Section tone="clair" id="preambule">
         <Container>
           <TitreSection>Préambule — le constat historique</TitreSection>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.preambule.corps" className="mt-8">
             <p>
               L'époque contemporaine dispose d'une puissance descriptive et
               technique sans précédent. Les instruments d'observation se
@@ -94,7 +103,7 @@ export default function DeclarationDeBrazzaville() {
               conditions de possibilité de toute production durable
               d'intelligibilité.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -105,7 +114,7 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
             La proclamation de l'École
           </h3>
-          <Prose className="mt-8 text-blanc">
+          <BlocProse cle="declaration.acte_i.corps" className="mt-8 text-blanc">
             <p>
               Par la présente Déclaration, est instituée l'
               <strong>École de Brazzaville</strong>, communauté scientifique
@@ -137,7 +146,7 @@ export default function DeclarationDeBrazzaville() {
               rédigés entre 1988 et 1992 jusqu'à l'institutionnalisation
               constitutionnelle de 2026.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -148,7 +157,7 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
             L'objet unique : l'intelligibilité
           </h3>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_ii.corps" className="mt-8">
             <p>
               L'École de Brazzaville a pour objet unique et souverain{" "}
               <strong>l'Intelligibilité elle-même</strong>.
@@ -184,7 +193,7 @@ export default function DeclarationDeBrazzaville() {
               activement de ses anomalies vers les principes qui les rendent
               possibles.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -195,7 +204,7 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
             La Science Métamoderne
           </h3>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_iii.intro" className="mt-8">
             <p>
               La présente recherche institue la{" "}
               <strong>Science Métamoderne</strong>, définie comme la science des
@@ -230,13 +239,13 @@ export default function DeclarationDeBrazzaville() {
             </ul>
 
             <p>Elle applique l'équation systémique :</p>
-          </Prose>
+          </BlocProse>
 
           <p className="mt-6 text-center font-mono text-xl text-or sm:text-2xl">
             Σ = M(F(V(Σ)))
           </p>
 
-          <Prose className="mt-6">
+          <BlocProse cle="declaration.acte_iii.equation" className="mt-6">
             <p>
               Elle démontre comment le Substratum Commun (Σ), altéré par le Voile
               Ontologique (V) et le Filtrage institutionnel (F), peut être
@@ -248,13 +257,13 @@ export default function DeclarationDeBrazzaville() {
               et de l'équité procédurale, l'équation universelle se transpose sous
               sa forme anthropologique et cybernétique originelle :
             </p>
-          </Prose>
+          </BlocProse>
 
           <p className="mt-6 text-center font-mono text-xl text-or sm:text-2xl">
             Maât = M(F(V(Maât)))
           </p>
 
-          <Prose className="mt-6">
+          <BlocProse cle="declaration.acte_iii.transposition" className="mt-6">
             <p>
               Cette transposition n'est pas une analogie poétique. Elle est la
               démonstration que les principes qui gouvernent l'intelligibilité du
@@ -263,7 +272,7 @@ export default function DeclarationDeBrazzaville() {
               adossée aux travaux de Jan Assmann et Théophile Obenga, est
               l'opérateur universel de non-contradiction structurelle.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -274,14 +283,14 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
             L'architecture institutionnelle
           </h3>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_iv.corps" className="mt-8">
             <p>
               L'École de Brazzaville s'organise selon une architecture
               constitutive à quatre niveaux, chacun répondant à une fonction
               spécifique dans l'élaboration, la transmission et le développement
               de la connaissance :
             </p>
-          </Prose>
+          </BlocProse>
 
           <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:grid-cols-2">
             <Carte>
@@ -399,7 +408,7 @@ export default function DeclarationDeBrazzaville() {
             </p>
           </Encadre>
 
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_v.corps" className="mt-8">
             <p>
               <em>Les Principes Retrouvés</em> constituent, à cet égard, le
               premier Organon de la Science Métamoderne. Ils n'ont pas pour
@@ -445,7 +454,7 @@ export default function DeclarationDeBrazzaville() {
                 reconstructive dans les systèmes numériques.
               </li>
             </ul>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -456,7 +465,7 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
             Le privilège optique de Brazzaville
           </h3>
-          <Prose className="mt-8 text-blanc">
+          <BlocProse cle="declaration.acte_vi.corps" className="mt-8 text-blanc">
             <p>
               Penser la refondation de l'intelligibilité depuis Brazzaville et
               l'Afrique subsaharienne ne constitue pas un repli identitaire, mais
@@ -495,7 +504,7 @@ export default function DeclarationDeBrazzaville() {
               des circuits de légitimation formels : l'universel se démontre par
               la puissance explicative de sa méthode.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -506,7 +515,7 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
             Le pacte éthique avec la communauté scientifique
           </h3>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_vii.corps" className="mt-8">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n'invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -538,7 +547,7 @@ export default function DeclarationDeBrazzaville() {
               se mesure pas à sa résistance à toute critique, mais à sa capacité à
               intégrer la discussion sans perdre sa cohérence.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
@@ -549,13 +558,13 @@ export default function DeclarationDeBrazzaville() {
           <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
             La formule de clôture éthique
           </h3>
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_viii.corps" className="mt-8">
             <p>
               Nous avons longtemps cherché à savoir ce qu'était la Science
               Métamoderne. Aujourd'hui, nous pouvons répondre en une seule
               phrase :
             </p>
-          </Prose>
+          </BlocProse>
 
           <blockquote className="mx-auto mt-8 max-w-[700px] text-center font-heading text-xl italic text-or sm:text-2xl">
             « La Science Métamoderne n'est pas d'abord un ensemble de
@@ -563,7 +572,7 @@ export default function DeclarationDeBrazzaville() {
             l'intelligibilité. »
           </blockquote>
 
-          <Prose className="mt-8">
+          <BlocProse cle="declaration.acte_viii.synthese" className="mt-8">
             <p>Cette formulation rassemble tout ce qui a été établi :</p>
             <ul className="mt-4 list-disc space-y-2 pl-6">
               <li>Elle n'est pas une discipline concurrente ;</li>
@@ -589,7 +598,7 @@ export default function DeclarationDeBrazzaville() {
               Ce travail ne demande pas à être accepté sur autorité. Il demande à
               être éprouvé.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
 
