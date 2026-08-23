@@ -4,6 +4,8 @@ import { useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+type Regime = "b2b" | "b2c";
+
 type Props = {
   module_id: string;
   module_titre: string;
@@ -11,6 +13,13 @@ type Props = {
   tarif_b2b: string | null;
   tarif_b2c: string | null;
   tarif_devis: string | null;
+  /** Régimes réellement achetables (produit Chariow publié + mappé). */
+  regimes?: Regime[];
+};
+
+const REGIME_LABEL: Record<Regime, string> = {
+  b2b: "Institutionnel (B2B)",
+  b2c: "Individuel (B2C)",
 };
 
 const champ =
@@ -19,14 +28,19 @@ const label =
   "font-ui text-xs font-semibold uppercase tracking-wide text-bleu-nuit-profond/70";
 
 export function CheckoutForm(props: Props) {
+  const regimes: Regime[] = props.regimes ?? ["b2b", "b2c"];
+  const tarif: Record<Regime, string | null> = {
+    b2b: props.tarif_b2b,
+    b2c: props.tarif_b2c,
+  };
+
   const [etat, setEtat] = useState<"idle" | "envoi" | "erreur">("idle");
   const [erreur, setErreur] = useState("");
   // Régime sélectionné : pilote le récapitulatif affiché près du bouton.
-  const [regime, setRegime] = useState<"b2b" | "b2c">("b2b");
+  const [regime, setRegime] = useState<Regime>(regimes[0] ?? "b2b");
 
-  const montant = regime === "b2b" ? props.tarif_b2b : props.tarif_b2c;
-  const regimeLabel =
-    regime === "b2b" ? "Institutionnel (B2B)" : "Individuel (B2C)";
+  const montant = tarif[regime];
+  const regimeLabel = REGIME_LABEL[regime];
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -66,22 +80,29 @@ export function CheckoutForm(props: Props) {
     <form onSubmit={onSubmit} className="space-y-5">
       {props.purchasable && (
         <fieldset>
-          <legend className={label}>Régime tarifaire *</legend>
+          <legend className={label}>
+            {regimes.length > 1 ? "Régime tarifaire *" : "Régime"}
+          </legend>
           <div className="mt-2 grid gap-3 sm:grid-cols-2">
-            <label className="flex cursor-pointer items-start gap-3 rounded-md border border-bleu-nuit-profond/15 bg-white p-3 font-sans text-sm has-[:checked]:border-or has-[:checked]:ring-2 has-[:checked]:ring-or/30">
-              <input type="radio" name="tarif_type" value="b2b" defaultChecked onChange={() => setRegime("b2b")} className="mt-1 accent-[var(--color-or)]" />
-              <span>
-                <span className="font-semibold">Institutionnel (B2B)</span>
-                <span className="mt-0.5 block font-mono text-or">{props.tarif_b2b ?? "—"}</span>
-              </span>
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 rounded-md border border-bleu-nuit-profond/15 bg-white p-3 font-sans text-sm has-[:checked]:border-or has-[:checked]:ring-2 has-[:checked]:ring-or/30">
-              <input type="radio" name="tarif_type" value="b2c" onChange={() => setRegime("b2c")} className="mt-1 accent-[var(--color-or)]" />
-              <span>
-                <span className="font-semibold">Individuel (B2C)</span>
-                <span className="mt-0.5 block font-mono text-or">{props.tarif_b2c ?? "—"}</span>
-              </span>
-            </label>
+            {regimes.map((r) => (
+              <label
+                key={r}
+                className="flex cursor-pointer items-start gap-3 rounded-md border border-bleu-nuit-profond/15 bg-white p-3 font-sans text-sm has-[:checked]:border-or has-[:checked]:ring-2 has-[:checked]:ring-or/30"
+              >
+                <input
+                  type="radio"
+                  name="tarif_type"
+                  value={r}
+                  checked={regime === r}
+                  onChange={() => setRegime(r)}
+                  className="mt-1 accent-[var(--color-or)]"
+                />
+                <span>
+                  <span className="font-semibold">{REGIME_LABEL[r]}</span>
+                  <span className="mt-0.5 block font-mono text-or">{tarif[r] ?? "—"}</span>
+                </span>
+              </label>
+            ))}
           </div>
         </fieldset>
       )}

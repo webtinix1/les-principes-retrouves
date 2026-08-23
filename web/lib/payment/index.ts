@@ -16,20 +16,26 @@ export function getPaymentProvider(): PaymentProvider {
   }
 }
 
+export type Regime = "b2b" | "b2c";
+
 /**
- * Le paiement en ligne peut-il réellement aboutir pour ce module ?
+ * Régimes tarifaires réellement achetables pour ce module.
  *
- * Évite d'afficher un formulaire voué à l'échec : avec Chariow, un achat n'est
- * possible que si le produit est publié ET mappé (CHARIOW_PRODUCT_MAP). Lu à
- * l'exécution → l'ouverture se fait sans reconstruction dès que la map est
- * renseignée. Les autres fournisseurs (mock, cinetpay) répondent toujours.
+ * Avec Chariow, un régime n'est proposé que si son produit est publié ET mappé
+ * (CHARIOW_PRODUCT_MAP) : si seul le B2B est publié, le site n'offre que le B2B
+ * plutôt qu'un formulaire à moitié cassé. Lu à l'exécution → s'ouvre sans
+ * reconstruction dès que la map change. Mock/cinetpay proposent les deux.
  */
-export function inscriptionsOuvertes(moduleId: string): boolean {
-  if (process.env.PAYMENT_PROVIDER !== "chariow") return true;
-  return (
-    chariowProductId(moduleId, "b2b") !== null &&
-    chariowProductId(moduleId, "b2c") !== null
+export function regimesDisponibles(moduleId: string): Regime[] {
+  if (process.env.PAYMENT_PROVIDER !== "chariow") return ["b2b", "b2c"];
+  return (["b2b", "b2c"] as const).filter(
+    (r) => chariowProductId(moduleId, r) !== null,
   );
+}
+
+/** Le paiement en ligne peut-il aboutir pour ce module (au moins un régime) ? */
+export function inscriptionsOuvertes(moduleId: string): boolean {
+  return regimesDisponibles(moduleId).length > 0;
 }
 
 export type { PaymentProvider, CheckoutInput, CheckoutResult } from "./types";

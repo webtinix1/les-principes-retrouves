@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Section, Container } from "@/components/section";
 import { CheckoutForm } from "@/components/checkout-form";
 import { getModule, isPurchasable } from "@/lib/commerce";
-import { inscriptionsOuvertes } from "@/lib/payment";
+import { regimesDisponibles } from "@/lib/payment";
 import { pageMetadata } from "@/lib/seo";
 
 // Lecture de la disponibilité du paiement à l'exécution (env serveur).
@@ -24,8 +24,10 @@ export default async function CommanderPage({
   if (!module) notFound();
 
   const purchasable = isPurchasable(module);
-  // Paiement réellement branché ? Sinon on ne montre pas un formulaire voué à l'échec.
-  const ouvert = !purchasable || inscriptionsOuvertes(module.id);
+  // Régimes réellement achetables (produit publié + mappé). Vide → paiement pas
+  // encore branché : on montre « bientôt » plutôt qu'un formulaire voué à l'échec.
+  const regimes = purchasable ? regimesDisponibles(module.id) : [];
+  const ouvert = !purchasable || regimes.length > 0;
 
   return (
     <Section tone="clair">
@@ -80,6 +82,7 @@ export default async function CommanderPage({
                   tarif_b2b={module.tarif_b2b}
                   tarif_b2c={module.tarif_b2c}
                   tarif_devis={module.tarif_devis}
+                  regimes={regimes}
                 />
               </div>
             </>
