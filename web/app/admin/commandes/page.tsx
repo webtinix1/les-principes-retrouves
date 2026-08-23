@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { setCommandeStatut } from "@/app/admin/actions";
+import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
+import { STATUT_COMMANDE, REGIME_TARIF, libelle } from "@/lib/libelles";
 
 export const dynamic = "force-dynamic";
 
@@ -56,7 +58,7 @@ export default async function AdminCommandes() {
                   {c.buyer_organisation && <div className="text-bleu-nuit-profond/50">{c.buyer_organisation}</div>}
                 </td>
                 <td className="p-3">{c.module_titre}</td>
-                <td className="p-3 uppercase">{c.tarif_type}</td>
+                <td className="p-3">{libelle(REGIME_TARIF, c.tarif_type)}</td>
                 <td className="p-3 whitespace-nowrap font-mono">{c.montant}</td>
                 <td className="p-3 font-mono text-xs">{c.code_acces?.code ?? "—"}</td>
                 <td className="p-3">
@@ -68,10 +70,10 @@ export default async function AdminCommandes() {
                       className="rounded border border-bleu-nuit-profond/15 bg-white px-1.5 py-1 text-xs"
                     >
                       {STATUTS.map((s) => (
-                        <option key={s} value={s}>{s}</option>
+                        <option key={s} value={s}>{libelle(STATUT_COMMANDE, s)}</option>
                       ))}
                     </select>
-                    <button className="rounded bg-bleu-academique px-2 py-1 text-xs text-white hover:bg-bleu-nuit">OK</button>
+                    <BoutonSoumettre variante="primaire" enCours="…">Enregistrer</BoutonSoumettre>
                   </form>
                 </td>
               </tr>

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { WORKING_PAPERS, PIECES_OPERATOIRES } from "@/content/working-papers";
 import { setRessourceDispo } from "@/app/admin/actions";
+import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +34,9 @@ export default async function AdminRessources() {
                 <form action={setRessourceDispo}>
                   <input type="hidden" name="ressource_id" value={r.id} />
                   <input type="hidden" name="is_available" value={isDispo ? "false" : "true"} />
-                  <button className="rounded border border-bleu-nuit-profond/20 px-3 py-1 text-xs hover:bg-gris-clair">
+                  <BoutonSoumettre variante="neutre" enCours="…">
                     {isDispo ? "Désactiver" : "Activer"}
-                  </button>
+                  </BoutonSoumettre>
                 </form>
               </div>
             </div>

@@ -1,19 +1,11 @@
 import Link from "next/link";
 import { LogoMaat } from "@/components/logo-maat";
+import { AdminNav } from "@/components/admin/admin-nav";
 
 export const metadata = {
   title: "Back-office",
   robots: { index: false, follow: false },
 };
-
-const NAV = [
-  { href: "/admin", label: "Tableau de bord" },
-  { href: "/admin/contenu", label: "Contenu" },
-  { href: "/admin/commandes", label: "Commandes" },
-  { href: "/admin/codes", label: "Codes d'accès" },
-  { href: "/admin/messages", label: "Messages" },
-  { href: "/admin/ressources", label: "Ressources" },
-];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,13 +18,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               Back-office
             </span>
           </Link>
-          <nav className="flex flex-wrap gap-x-4 gap-y-1 font-ui text-sm">
-            {NAV.map((n) => (
-              <Link key={n.href} href={n.href} className="text-blanc-casse/80 hover:text-or">
-                {n.label}
-              </Link>
-            ))}
-          </nav>
+          <AdminNav />
           <Link href="/accueil" className="ml-auto font-ui text-xs text-blanc-casse/60 hover:text-or">
             ↗ Voir le site
           </Link>

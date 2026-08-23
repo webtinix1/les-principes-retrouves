@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { setMessageStatut } from "@/app/admin/actions";
+import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
+import { STATUT_MESSAGE, libelle } from "@/lib/libelles";
 
 export const dynamic = "force-dynamic";
 
@@ -35,9 +37,9 @@ export default async function AdminMessages() {
             <form action={setMessageStatut} className="mt-4 flex items-center gap-2">
               <input type="hidden" name="id" value={m.id} />
               <select name="statut" defaultValue={m.statut} className="rounded border border-bleu-nuit-profond/15 bg-white px-2 py-1 text-xs">
-                {STATUTS.map((s) => <option key={s} value={s}>{s}</option>)}
+                {STATUTS.map((s) => <option key={s} value={s}>{libelle(STATUT_MESSAGE, s)}</option>)}
               </select>
-              <button className="rounded bg-bleu-academique px-2 py-1 text-xs text-white hover:bg-bleu-nuit">Enregistrer</button>
+              <BoutonSoumettre variante="primaire" enCours="…">Enregistrer</BoutonSoumettre>
               <a href={`mailto:${m.email}?subject=Re: ${encodeURIComponent(m.sujet)}`} className="ml-2 text-xs text-bleu-academique underline underline-offset-4 hover:text-or">Répondre</a>
             </form>
           </article>

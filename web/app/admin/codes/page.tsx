@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { setCodeRevoked, resendCode } from "@/app/admin/actions";
+import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
+import { NIVEAU_CODE, libelle } from "@/lib/libelles";
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +38,7 @@ export default async function AdminCodes() {
               <tr key={c.id} className="align-top">
                 <td className="p-3 font-mono text-xs whitespace-nowrap text-bleu-nuit-profond/70">{dateFr(c.created_at)}</td>
                 <td className="p-3 font-mono font-semibold text-bleu-nuit-profond">{c.code}</td>
-                <td className="p-3 uppercase">{c.niveau}</td>
+                <td className="p-3">{libelle(NIVEAU_CODE, c.niveau)}</td>
                 <td className="p-3">
                   <div>{c.email}</div>
                   <div className="text-bleu-nuit-profond/50">{c.commande.module_titre}</div>
@@ -53,15 +55,25 @@ export default async function AdminCodes() {
                     <form action={setCodeRevoked}>
                       <input type="hidden" name="id" value={c.id} />
                       <input type="hidden" name="revoked" value={c.revoked ? "false" : "true"} />
-                      <button className="rounded border border-bleu-nuit-profond/20 px-2 py-1 text-xs hover:bg-gris-clair">
-                        {c.revoked ? "Réactiver" : "Révoquer"}
-                      </button>
+                      {c.revoked ? (
+                        <BoutonSoumettre variante="neutre" enCours="Réactivation…">
+                          Réactiver
+                        </BoutonSoumettre>
+                      ) : (
+                        <BoutonSoumettre
+                          variante="danger"
+                          enCours="Révocation…"
+                          confirmer={`Révoquer le code ${c.code} ? ${c.email} perdra immédiatement l'accès aux documents.`}
+                        >
+                          Révoquer
+                        </BoutonSoumettre>
+                      )}
                     </form>
                     <form action={resendCode}>
                       <input type="hidden" name="id" value={c.id} />
-                      <button className="rounded border border-bleu-nuit-profond/20 px-2 py-1 text-xs hover:bg-gris-clair">
+                      <BoutonSoumettre variante="neutre" enCours="Envoi…">
                         Renvoyer l&apos;e-mail
-                      </button>
+                      </BoutonSoumettre>
                     </form>
                   </div>
                 </td>

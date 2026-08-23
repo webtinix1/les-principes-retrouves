@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { BLOC_PAR_CLE, CHEMIN_PAR_CLE, PAGES_BLOCS } from "@/content/blocs";
 import { EditeurContenu } from "@/components/admin/editeur-contenu";
+import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
 import { lireTexteOrigine } from "@/lib/contenu/extraction";
 import {
   enregistrerBloc,
@@ -94,12 +95,13 @@ export default async function AdminContenuBloc({
         <EditeurContenu type={def.type} valeurInitiale={valeurInitiale} />
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          <button
-            type="submit"
-            className="rounded bg-bleu-nuit-profond px-5 py-2 font-ui text-sm font-semibold text-blanc-casse hover:bg-bleu-nuit"
+          <BoutonSoumettre
+            variante="primaire"
+            enCours="Publication…"
+            className="px-5 py-2 text-sm font-semibold"
           >
             Enregistrer et publier
-          </button>
+          </BoutonSoumettre>
           <Link
             href="/admin/contenu"
             className="font-ui text-sm text-bleu-nuit-profond/60 hover:text-or"
@@ -116,12 +118,16 @@ export default async function AdminContenuBloc({
             Ce bloc a été modifié le{" "}
             {surcharge.updated_at.toLocaleString("fr-FR")}.
           </p>
-          <button
-            type="submit"
-            className="mt-2 rounded border border-bleu-nuit-profond/20 px-4 py-2 font-ui text-sm hover:bg-gris-clair"
-          >
-            Revenir au texte d&apos;origine
-          </button>
+          <div className="mt-2">
+            <BoutonSoumettre
+              variante="danger"
+              enCours="Restauration…"
+              confirmer="Revenir au texte d'origine ? La version actuellement publiée sera remplacée par le texte du code (récupérable dans l'historique)."
+              className="px-4 py-2 text-sm"
+            >
+              Revenir au texte d&apos;origine
+            </BoutonSoumettre>
+          </div>
         </form>
       ) : null}
 
@@ -147,9 +153,13 @@ export default async function AdminContenuBloc({
                 </div>
                 <form action={restaurerVersion}>
                   <input type="hidden" name="id" value={v.id} />
-                  <button className="rounded border border-bleu-nuit-profond/20 px-3 py-1 font-ui text-xs hover:bg-gris-clair">
+                  <BoutonSoumettre
+                    variante="neutre"
+                    enCours="…"
+                    confirmer="Republier cette version ? Elle remplacera le texte actuellement en ligne."
+                  >
                     Restaurer
-                  </button>
+                  </BoutonSoumettre>
                 </form>
               </li>
             ))}
