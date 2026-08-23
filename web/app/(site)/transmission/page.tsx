@@ -299,7 +299,12 @@ export default function TransmissionPage() {
                   <Link
                     href={`/commander/${module.id}`}
                     className={cn(
-                      buttonVariants({ variant: "or", size: "cta" }),
+                      buttonVariants({
+                        // Or plein (voie d'achat) pour les modules achetables ;
+                        // sobre pour le Module III, uniquement sur devis.
+                        variant: module.tarif_devis ? "or" : "or-plein",
+                        size: "cta",
+                      }),
                       "w-full",
                     )}
                   >
@@ -321,7 +326,7 @@ export default function TransmissionPage() {
           <BlocProse cle="transmission.paiement.corps" className="mt-6 text-blanc-casse">
             <p>
               L'Institut de Brazzaville a intégré le protocole asynchrone de
-              CinetPay pour garantir la fluidité, la traçabilité et la sécurité
+              Chariow pour garantir la fluidité, la traçabilité et la sécurité
               des transactions financières à l'échelle internationale. Cette
               souveraineté technique est la condition matérielle de notre
               indépendance épistémique.

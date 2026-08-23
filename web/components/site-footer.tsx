@@ -25,7 +25,7 @@ export function SiteFooter() {
             ))}
           </ul>
         </div>
-        <p className="mt-8 border-t border-blanc-casse/10 pt-6 font-ui text-xs leading-relaxed text-blanc-casse/50">
+        <p className="mt-8 border-t border-blanc-casse/10 pt-6 font-ui text-xs leading-relaxed text-blanc-casse/70">
           Les contenus théoriques sont diffusés à titre de référence académique.
           Toute citation doit respecter les normes universitaires en vigueur.
         </p>

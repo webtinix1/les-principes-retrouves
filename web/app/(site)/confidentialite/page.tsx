@@ -71,7 +71,7 @@ export default function Confidentialite() {
               Les données sont destinées au seul Institut de Brazzaville. Des
               prestataires techniques peuvent intervenir en qualité de
               sous-traitants : <strong>Webtinix</strong> (hébergement),{" "}
-              <strong>Resend</strong> (envoi d&apos;e-mails), <strong>CinetPay</strong>{" "}
+              <strong>Resend</strong> (envoi d&apos;e-mails), <strong>Chariow</strong>{" "}
               (paiement) et <strong>Cloudflare Turnstile</strong> (protection
               anti-spam), lorsqu&apos;ils sont activés. Aucune donnée n&apos;est
               vendue ni cédée à des tiers à des fins commerciales.

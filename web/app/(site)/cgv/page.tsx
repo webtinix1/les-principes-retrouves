@@ -61,7 +61,7 @@ export default function CGV() {
             <h2 className="font-heading text-xl font-semibold">4. Prix et paiement</h2>
             <p>
               Le paiement s&apos;effectue par les moyens proposés (Mobile Money et
-              carte bancaire, via le prestataire CinetPay). Le prix est exigible à
+              carte bancaire, via le prestataire Chariow). Le prix est exigible à
               la commande. <span className="font-mono">[Modalités de facturation et TVA/taxes applicables à préciser.]</span>
             </p>
 

@@ -149,8 +149,8 @@ export function CheckoutForm(props: Props) {
       </button>
 
       {props.purchasable && (
-        <p className="font-ui text-xs text-bleu-nuit-profond/50">
-          Paiement sécurisé (Mobile Money & carte) via CinetPay.
+        <p className="font-ui text-xs text-bleu-nuit-profond/70">
+          🔒 Paiement sécurisé (Mobile Money &amp; carte) via Chariow.
         </p>
       )}
     </form>

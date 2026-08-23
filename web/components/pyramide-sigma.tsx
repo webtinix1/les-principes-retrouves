@@ -54,15 +54,19 @@ const NIVEAUX: Record<string, Niveau> = {
 export function PyramideSigma({ className }: { className?: string }) {
   const [actif, setActif] = useState<Niveau | null>(null);
 
-  const survol = (n: Niveau) => ({
+  // Survol (souris) + focus (clavier) + clic/tap (tactile) : au doigt, ni survol
+  // ni focus n'existent, d'où le onClick qui bascule le niveau actif.
+  const interactif = (n: Niveau) => ({
     tabIndex: 0,
     role: "button",
     "aria-label": n.label,
-    className: "cursor-help outline-none [&:focus-visible_rect]:stroke-blanc [&:focus-visible_polygon]:stroke-blanc",
+    "aria-pressed": actif?.id === n.id,
+    className: "cursor-pointer outline-none [&:focus-visible_rect]:stroke-blanc [&:focus-visible_polygon]:stroke-blanc",
     onMouseEnter: () => setActif(n),
     onFocus: () => setActif(n),
     onMouseLeave: () => setActif((c) => (c?.id === n.id ? null : c)),
     onBlur: () => setActif((c) => (c?.id === n.id ? null : c)),
+    onClick: () => setActif((c) => (c?.id === n.id ? null : n)),
   });
 
   return (
@@ -88,13 +92,13 @@ export function PyramideSigma({ className }: { className?: string }) {
         <polygon points="200,440 195,430 205,430" fill="#D4AF37" opacity="0.6" />
 
         {/* Sommet : Σ (Substratum Commun) */}
-        <g {...survol(NIVEAUX.sigma)}>
+        <g {...interactif(NIVEAUX.sigma)}>
           <polygon points="200,40 160,100 240,100" fill="#D4AF37" opacity="0.9" className="pyramid-sigma" />
           <text x="200" y="80" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="24" fontWeight="bold">Σ</text>
         </g>
 
         {/* Polarités π₁ ↔ π₂ */}
-        <g {...survol(NIVEAUX.polarites)}>
+        <g {...interactif(NIVEAUX.polarites)}>
           <rect x="120" y="110" width="160" height="40" rx="4" fill="#D4AF37" opacity="0.7" />
           <text x="160" y="135" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="18" fontWeight="bold">π₁</text>
           <line x1="175" y1="130" x2="225" y2="130" stroke="#1E3A8A" strokeWidth="2" />
@@ -104,7 +108,7 @@ export function PyramideSigma({ className }: { className?: string }) {
         </g>
 
         {/* Charnière Ontologique */}
-        <g {...survol(NIVEAUX.charniere)}>
+        <g {...interactif(NIVEAUX.charniere)}>
           <rect x="100" y="160" width="200" height="35" rx="4" fill="#D4AF37" opacity="0.6" />
           <text x="200" y="182" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12" fontWeight="600">CHARNIÈRE ONTOLOGIQUE</text>
         </g>
@@ -114,24 +118,24 @@ export function PyramideSigma({ className }: { className?: string }) {
         <text x="200" y="227" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12">MANIFESTATION</text>
 
         {/* Voile [V] */}
-        <g {...survol(NIVEAUX.voile)}>
-          <rect x="60" y="250" width="280" height="35" rx="4" fill="#D4AF37" opacity="0.4" />
+        <g {...interactif(NIVEAUX.voile)}>
+          <rect x="60" y="250" width="280" height="35" rx="4" fill="#D4AF37" opacity="0.55" />
           <text x="200" y="272" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="16" fontWeight="bold">[V]</text>
-          <text x="200" y="285" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="9">Voile Ontologique</text>
+          <text x="200" y="285" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="11">Voile Ontologique</text>
         </g>
 
         {/* Filtrage [F] */}
-        <g {...survol(NIVEAUX.filtrage)}>
-          <rect x="40" y="295" width="320" height="35" rx="4" fill="#D4AF37" opacity="0.35" />
+        <g {...interactif(NIVEAUX.filtrage)}>
+          <rect x="40" y="295" width="320" height="35" rx="4" fill="#D4AF37" opacity="0.5" />
           <text x="200" y="317" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="16" fontWeight="bold">[F]</text>
-          <text x="200" y="330" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="9">Filtrage Sélectif</text>
+          <text x="200" y="330" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="11">Filtrage Sélectif</text>
         </g>
 
         {/* Monde Observable (S) */}
-        <g {...survol(NIVEAUX.monde)}>
-          <rect x="20" y="340" width="360" height="50" rx="4" fill="#D4AF37" opacity="0.3" />
+        <g {...interactif(NIVEAUX.monde)}>
+          <rect x="20" y="340" width="360" height="50" rx="4" fill="#D4AF37" opacity="0.5" />
           <text x="200" y="365" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="14" fontWeight="600">MONDE OBSERVABLE (S)</text>
-          <text x="200" y="380" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="10">Fragmentation phénoménale</text>
+          <text x="200" y="380" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12">Fragmentation phénoménale</text>
         </g>
 
         {/* Sens de la double respiration : discrètes, aux extrémités de l'axe */}
@@ -144,7 +148,7 @@ export function PyramideSigma({ className }: { className?: string }) {
         aria-live="polite"
         className="min-h-[3rem] max-w-md text-center font-ui text-sm text-blanc-casse/80"
       >
-        {actif ? actif.definition : "Survolez ou parcourez au clavier chaque niveau de la Pyramide pour en révéler la définition."}
+        {actif ? actif.definition : "Touchez, survolez ou parcourez au clavier chaque niveau de la Pyramide pour en révéler la définition."}
       </figcaption>
     </figure>
   );

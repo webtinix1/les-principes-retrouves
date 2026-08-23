@@ -19,7 +19,7 @@ export function PageStub({
         <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
           {sousTitre}
         </p>
-        <p className="mt-12 font-ui text-sm uppercase tracking-[0.15em] text-blanc-casse/40">
+        <p className="mt-12 font-ui text-sm uppercase tracking-[0.15em] text-blanc-casse/70">
           Contenu en préparation
         </p>
       </div>
