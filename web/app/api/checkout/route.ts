@@ -5,6 +5,7 @@ import { getModule, isPurchasable, tarifFor } from "@/lib/commerce";
 import { getPaymentProvider } from "@/lib/payment";
 import { finalizePaidCommande } from "@/lib/checkout";
 import { sendMail } from "@/lib/email";
+import { rateLimit, clientIp, reponse429 } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -28,6 +29,10 @@ function splitNom(nom: string): { first: string; last: string } {
 }
 
 export async function POST(request: Request) {
+  // Anti-abus du tunnel de commande : 8 requêtes / 10 min par IP.
+  const limite = rateLimit("checkout", clientIp(request), 8, 10 * 60_000);
+  if (!limite.ok) return reponse429(limite.retryApres);
+
   let body: unknown;
   try {
     body = await request.json();

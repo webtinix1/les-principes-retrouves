@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validerCode, ACCESS_COOKIE } from "@/lib/access";
+import { rateLimit, clientIp, reponse429 } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -14,6 +15,10 @@ const RAISONS: Record<string, string> = {
 
 /** Valide un code et pose un cookie httpOnly qui débloque les téléchargements. */
 export async function POST(request: Request) {
+  // Anti-brute-force du code d'accès : 10 tentatives / 5 min par IP.
+  const limite = rateLimit("acces", clientIp(request), 10, 5 * 60_000);
+  if (!limite.ok) return reponse429(limite.retryApres);
+
   let body: unknown;
   try {
     body = await request.json();

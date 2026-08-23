@@ -60,7 +60,15 @@ Plus impliquant, laissé en attente d'arbitrage :
 
 ---
 
-## Points hors design (déjà cadrés ailleurs, en attente client)
+## Durcissement (traité le 2026-08-23, après le Lot 1)
 
-- Rotation des identifiants admin (`ADMIN_BASIC_AUTH` encore au défaut) — **à traiter après le Lot 1**.
-- Limitation de débit sur `/api/acces`, `/api/contact`, `/api/checkout` — **à traiter après le Lot 1**.
+- **Rotation des identifiants admin** : `ADMIN_BASIC_AUTH` n'est plus au défaut
+  (`admin` / `brazzaville2026`). Nouveau hash apr1 dans le `.env` serveur (hors dépôt) ;
+  le mot de passe en clair est remis au client, non stocké dans le code.
+- **Limitation de débit** (`lib/rate-limit.ts`, en mémoire, par IP, sans dépendance) :
+  - `/api/acces` : 10 tentatives / 5 min (anti-brute-force du code d'accès) ;
+  - `/api/contact` : 5 envois / 10 min (anti-spam, en plus de Turnstile) ;
+  - `/api/checkout` : 8 requêtes / 10 min.
+  Réponse `429` avec en-tête `Retry-After`. Vérifié : blocage au-delà du seuil,
+  seaux indépendants par IP. Non distribué (repart à zéro au redémarrage) — suffisant
+  pour un conteneur unique.

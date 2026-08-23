@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/contact-schema";
+import { rateLimit, clientIp, reponse429 } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -59,6 +60,10 @@ async function sendEmail(input: {
 }
 
 export async function POST(request: Request) {
+  // Anti-spam : 5 envois / 10 min par IP (en complément de Turnstile).
+  const limite = rateLimit("contact", clientIp(request), 5, 10 * 60_000);
+  if (!limite.ok) return reponse429(limite.retryApres);
+
   let body: unknown;
   try {
     body = await request.json();
