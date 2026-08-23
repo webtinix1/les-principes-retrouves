@@ -9,6 +9,11 @@
 /*.pdf
 /*.png
 
+# Outils d'agents (sessions Claude locales)
+.agents/
+.claude/
+skills-lock.json
+
 # Système
 .DS_Store
 Thumbs.db
