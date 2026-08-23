@@ -20,7 +20,7 @@ export function SiteNav() {
     <>
       <button
         type="button"
-        className="ml-auto p-2 text-blanc-casse xl:hidden"
+        className="ml-auto grid size-11 place-items-center text-blanc-casse xl:hidden"
         aria-expanded={open}
         aria-controls="site-nav"
         aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -49,7 +49,8 @@ export function SiteNav() {
                   aria-current={active ? "page" : undefined}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "block rounded px-2 py-1.5 text-blanc-casse/80 transition-colors hover:text-or focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-or",
+                    // Cible tactile ≥ 44px dans le panneau mobile ; compacte en barre desktop.
+                    "flex min-h-[44px] items-center rounded px-2 py-1.5 text-blanc-casse/80 transition-colors hover:text-or focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-or xl:min-h-0",
                     active && "text-or",
                   )}
                 >

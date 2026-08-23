@@ -43,20 +43,48 @@ afficher « CinetPay » est faux. La bascule tarifaire € → FCFA reste un poi
 
 ---
 
-## Lot 2 — À décider (NON couvert ici)
+## Lot 2 — Implémenté le 2026-08-23 (3 arbitrages client + ingénierie)
 
-Plus impliquant, laissé en attente d'arbitrage :
+Décisions client : **police du fronton unifiée vers Playfair** ; **curriculum des cartes
+module replié** ; **boucles d'animation de l'accueil calmées**.
 
-- **Fronton** : unifier la police (Playfair sur la porte) ou assumer Cormorant comme « police
-  du seuil » documentée ; revoir le timing d'entrée desktop (CTA « Franchir le seuil » qui
-  apparaît en dernier, ~1,2 s ; probable élément LCP).
-- **Back-office** : filtre de la liste de contenu (Tous / Modifiés / Origine) — tient à
-  12 blocs, casse à ~200 ; garde « modifications non enregistrées » + prévisualisation avant
-  publication ; refonte de *triage* du tableau de bord (compter → alerter).
-- **Front office** : récapitulatif + validation par champ à l'étape paiement ; ancrage
-  prix + CTA en pied de carte ; curriculum replié derrière « voir le détail ».
-- **Perf** : LCP de `/accueil` (police Playfair) ; boucles d'animation infinies sur l'accueil.
-- **A11y** : cibles tactiles < 44px (nav, burger fronton) ; `:focus-visible` sur le menu fronton.
+### Fronton
+- **Police unifiée** : `fronton.css` consomme désormais `--font-playfair` / `--font-lora`
+  (héritées du layout racine) au lieu de Cormorant/EB Garamond ; imports next/font retirés du
+  layout du fronton. La police signature apparaît dès la page-porte. *Vérifié : composition
+  intacte, wordmark « LE FRONTON » en Playfair.*
+- **Timing d'entrée** : cadence resserrée (.55s) et CTA « Franchir le seuil » avancé (délai
+  .16s au lieu de .46s) — la voie d'entrée n'apparaît plus en dernier.
+
+### Front office
+- **Étape paiement** (`checkout-form.tsx`) : bloc **Récapitulatif** (module + régime + montant,
+  réactif au choix B2B/B2C) au-dessus du bouton ; ligne de sécurité + cadenas remontée ; CTA
+  **or plein** portant le montant ; **validation par champ native** (retrait de `noValidate`).
+- **Cartes module** (`transmission`) : tarifs remontés juste après les faits clés ; curriculum
+  + livrables repliés derrière **« Voir le détail du programme »** (`<details>`, sans JS) ;
+  CTA ancré en pied de carte (`mt-auto`) → boutons alignés.
+
+### Back-office
+- **Filtre de la liste de contenu** : chips **Tous / Modifiés / Texte d'origine** (via
+  `searchParams`, avec compteurs) ; repère Or en bord gauche des blocs modifiés. Passe l'échelle.
+- **Garde « modifications non enregistrées »** (`beforeunload`) sur l'éditeur ; anneau de focus
+  sur la surface Tiptap.
+- **Triage du tableau de bord** : les cartes actionnables (messages non traités, devis) passent
+  en Or + « à traiter » quand non-nulles ; les compteurs d'info restent neutres ; chiffres en
+  Playfair `tabular-nums` (fin du « 0 » barré de la fonte mono).
+
+### A11y
+- Cibles tactiles ≥ 44px : burger du fronton et liens de nav du site (panneau mobile).
+- `:focus-visible` ajouté sur le menu du fronton.
+
+### Perf / animations
+- Accueil : la respiration du sommet Σ devient un **souffle d'entrée unique** (plus de boucle
+  infinie) et les axes de flux sont **statiques**. `prefers-reduced-motion` inchangé.
+
+### Reste (⏸, hors Lot 2)
+- Prévisualisation *avant* publication dans l'éditeur (la garde `beforeunload` couvre déjà la
+  perte accidentelle) ; LCP de l'accueil (police Playfair, optimisation fine) ; `shadcn` en
+  `dependencies` ; Turnstile/Resend non activés (clés client) ; bascule tarifaire € → FCFA.
 
 ---
 

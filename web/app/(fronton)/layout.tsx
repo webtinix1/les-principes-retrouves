@@ -1,28 +1,13 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, EB_Garamond } from "next/font/google";
 import { pageMetadata } from "@/lib/seo";
 import "./fronton.css";
 
 /**
- * Polices du fronton, auto-hébergées via next/font (le design d'origine les
- * chargeait depuis Google Fonts, ce que la CSP du site interdit). Exposées en
- * variables CSS et consommées par fronton.css.
+ * Le fronton parle désormais la voix du site : Playfair Display (titres) + Lora
+ * (corps), déjà chargées et exposées en variables CSS par le layout racine
+ * (`--font-playfair`, `--font-lora`), héritées ici. La police signature apparaît
+ * ainsi dès la page-porte — fin de la discontinuité de seuil (audit design).
  */
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const ebGaramond = EB_Garamond({
-  variable: "--font-eb-garamond",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
 
 export const metadata: Metadata = pageMetadata({
   title: "Le Seuil de l'Organon Reconstructif",
@@ -41,9 +26,5 @@ export default function FrontonLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className={`${cormorant.variable} ${ebGaramond.variable} fronton-root`}>
-      {children}
-    </div>
-  );
+  return <div className="fronton-root">{children}</div>;
 }

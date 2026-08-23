@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   module_id: string;
+  module_titre: string;
   purchasable: boolean;
   tarif_b2b: string | null;
   tarif_b2c: string | null;
@@ -20,6 +21,12 @@ const label =
 export function CheckoutForm(props: Props) {
   const [etat, setEtat] = useState<"idle" | "envoi" | "erreur">("idle");
   const [erreur, setErreur] = useState("");
+  // Régime sélectionné : pilote le récapitulatif affiché près du bouton.
+  const [regime, setRegime] = useState<"b2b" | "b2c">("b2b");
+
+  const montant = regime === "b2b" ? props.tarif_b2b : props.tarif_b2c;
+  const regimeLabel =
+    regime === "b2b" ? "Institutionnel (B2B)" : "Individuel (B2C)";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -56,20 +63,20 @@ export function CheckoutForm(props: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5">
       {props.purchasable && (
         <fieldset>
           <legend className={label}>Régime tarifaire *</legend>
           <div className="mt-2 grid gap-3 sm:grid-cols-2">
             <label className="flex cursor-pointer items-start gap-3 rounded-md border border-bleu-nuit-profond/15 bg-white p-3 font-sans text-sm has-[:checked]:border-or has-[:checked]:ring-2 has-[:checked]:ring-or/30">
-              <input type="radio" name="tarif_type" value="b2b" defaultChecked className="mt-1 accent-[var(--color-or)]" />
+              <input type="radio" name="tarif_type" value="b2b" defaultChecked onChange={() => setRegime("b2b")} className="mt-1 accent-[var(--color-or)]" />
               <span>
                 <span className="font-semibold">Institutionnel (B2B)</span>
                 <span className="mt-0.5 block font-mono text-or">{props.tarif_b2b ?? "—"}</span>
               </span>
             </label>
             <label className="flex cursor-pointer items-start gap-3 rounded-md border border-bleu-nuit-profond/15 bg-white p-3 font-sans text-sm has-[:checked]:border-or has-[:checked]:ring-2 has-[:checked]:ring-or/30">
-              <input type="radio" name="tarif_type" value="b2c" className="mt-1 accent-[var(--color-or)]" />
+              <input type="radio" name="tarif_type" value="b2c" onChange={() => setRegime("b2c")} className="mt-1 accent-[var(--color-or)]" />
               <span>
                 <span className="font-semibold">Individuel (B2C)</span>
                 <span className="mt-0.5 block font-mono text-or">{props.tarif_b2c ?? "—"}</span>
@@ -132,27 +139,50 @@ export function CheckoutForm(props: Props) {
         </span>
       </label>
 
+      {props.purchasable && montant && (
+        <div className="rounded-md border border-or/40 bg-or/5 p-4">
+          <p className="font-ui text-xs font-semibold uppercase tracking-wide text-bleu-nuit-profond/60">
+            Récapitulatif
+          </p>
+          <div className="mt-2 flex items-baseline justify-between gap-3">
+            <div className="font-sans text-sm text-bleu-nuit-profond/80">
+              {props.module_titre}
+              <span className="block text-bleu-nuit-profond/60">
+                Régime {regimeLabel}
+              </span>
+            </div>
+            <p className="font-mono text-2xl font-semibold text-bleu-nuit-profond">
+              {montant}
+            </p>
+          </div>
+        </div>
+      )}
+
       {etat === "erreur" && (
         <p role="alert" className="font-ui text-sm text-red-700">{erreur}</p>
+      )}
+
+      {props.purchasable && (
+        <p className="flex items-center gap-1.5 font-ui text-xs text-bleu-nuit-profond/70">
+          <span aria-hidden="true">🔒</span> Paiement sécurisé (Mobile Money
+          &amp; carte) via Chariow.
+        </p>
       )}
 
       <button
         type="submit"
         disabled={etat === "envoi"}
-        className={cn(buttonVariants({ variant: "or", size: "cta" }), "disabled:opacity-60")}
+        className={cn(
+          buttonVariants({ variant: props.purchasable ? "or-plein" : "or", size: "cta" }),
+          "w-full disabled:opacity-60",
+        )}
       >
         {etat === "envoi"
           ? "Traitement…"
           : props.purchasable
-            ? "Procéder au paiement"
+            ? `Procéder au paiement${montant ? ` — ${montant}` : ""}`
             : "Demander un devis"}
       </button>
-
-      {props.purchasable && (
-        <p className="font-ui text-xs text-bleu-nuit-profond/70">
-          🔒 Paiement sécurisé (Mobile Money &amp; carte) via Chariow.
-        </p>
-      )}
     </form>
   );
 }

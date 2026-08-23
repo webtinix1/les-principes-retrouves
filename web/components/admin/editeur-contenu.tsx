@@ -1,9 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EditorContent, useEditor, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import type { TypeBloc } from "@/content/blocs";
+
+/**
+ * Avertit avant de quitter (rafraîchissement, fermeture d'onglet) tant que le
+ * texte diffère de sa valeur d'origine. L'enregistrement passe par une Server
+ * Action en fetch (pas de déchargement de page), donc le garde ne se déclenche
+ * pas sur une sauvegarde légitime.
+ */
+function useGardeModifs(modifie: boolean) {
+  useEffect(() => {
+    if (!modifie) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [modifie]);
+}
 
 /**
  * Éditeur du back-office. Deux modes selon le type de bloc :
@@ -118,6 +136,7 @@ const CONTENU_CLASS = [
 
 function EditeurRiche({ valeurInitiale }: { valeurInitiale: string }) {
   const [valeur, setValeur] = useState(valeurInitiale);
+  useGardeModifs(valeur !== valeurInitiale);
 
   const editor = useEditor({
     // Obligatoire en SSR : évite une hydratation incohérente.
@@ -143,7 +162,7 @@ function EditeurRiche({ valeurInitiale }: { valeurInitiale: string }) {
   return (
     <>
       <input type="hidden" name="valeur" value={valeur} />
-      <div className="overflow-hidden rounded border border-bleu-nuit-profond/20 bg-white">
+      <div className="overflow-hidden rounded border border-bleu-nuit-profond/20 bg-white focus-within:border-or focus-within:ring-2 focus-within:ring-or/30">
         {editor ? <BarreOutils editor={editor} /> : null}
         <EditorContent editor={editor} />
       </div>
@@ -152,10 +171,13 @@ function EditeurRiche({ valeurInitiale }: { valeurInitiale: string }) {
 }
 
 function EditeurSimple({ valeurInitiale }: { valeurInitiale: string }) {
+  const [valeur, setValeur] = useState(valeurInitiale);
+  useGardeModifs(valeur !== valeurInitiale);
   return (
     <textarea
       name="valeur"
-      defaultValue={valeurInitiale}
+      value={valeur}
+      onChange={(e) => setValeur(e.target.value)}
       rows={4}
       className="w-full rounded border border-bleu-nuit-profond/20 bg-white p-4 font-sans text-base leading-relaxed outline-none focus:border-or"
     />

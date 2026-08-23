@@ -146,15 +146,14 @@
    Respecte prefers-reduced-motion (accessibilité).
    ========================================================================== */
 
-/* Pulsation du sommet Σ (« respiration » de l'Unité) */
-@keyframes pulse-sigma {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50%      { opacity: 1;   transform: scale(1.02); }
+/* Respiration d'ENTRÉE du sommet Σ : un souffle unique qui se pose, plutôt
+   qu'une pulsation perpétuelle — sobriété d'une page « Read » solennelle
+   (audit design : les boucles infinies ont été calmées). */
+@keyframes sigma-entree {
+  0%   { opacity: 0.85; transform: scale(0.985); }
+  60%  { opacity: 1;    transform: scale(1.02); }
+  100% { opacity: 1;    transform: scale(1); }
 }
-
-/* Double flèche verticale : flux continu (descendant / ascendant) */
-@keyframes flow-down { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -24; } }
-@keyframes flow-up   { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 24; } }
 
 /* Apparition progressive des sections */
 @keyframes fade-in-up {
@@ -162,9 +161,8 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.pyramid-sigma        { animation: pulse-sigma 4s ease-in-out infinite; transform-origin: center; }
-.flow-ontologique     { animation: flow-down 3s linear infinite; }
-.flow-epistemologique { animation: flow-up 3s linear infinite; }
+.pyramid-sigma { animation: sigma-entree 1.8s ease-out both; transform-origin: center; }
+/* Axes de la double respiration : dessin statique (plus de flux perpétuel). */
 
 .anim-fade-in-up { animation: fade-in-up 0.6s ease-out both; }
 

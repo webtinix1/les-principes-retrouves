@@ -25,3 +25,7 @@ docs/update/*.pdf
 
 # Maquettes source lourdes (référence client, hors dépôt)
 /updating/
+
+# Sauvegardes de .env (contiennent des secrets)
+.env.bak*
+.env.*.bak

@@ -49,6 +49,7 @@ export default async function CommanderPage({
           <div className="mt-6">
             <CheckoutForm
               module_id={module.id}
+              module_titre={module.titre}
               purchasable={purchasable}
               tarif_b2b={module.tarif_b2b}
               tarif_b2c={module.tarif_b2c}

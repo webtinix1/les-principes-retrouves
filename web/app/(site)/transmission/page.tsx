@@ -232,38 +232,7 @@ export default function TransmissionPage() {
                   </div>
                 </dl>
 
-                <div className="mt-5">
-                  <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
-                    Contenu doctrinal détaillé
-                  </p>
-                  <div className="mt-3 space-y-4">
-                    {module.sessions.map((session) => (
-                      <div key={session.titre}>
-                        <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
-                          {session.titre}
-                        </p>
-                        <ul className="mt-1.5 space-y-1 border-l border-or/40 pl-3 font-sans text-[0.8rem] text-bleu-nuit-profond/75">
-                          {session.points.map((point) => (
-                            <li key={point}>{point}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-5">
-                  <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
-                    Livrables
-                  </p>
-                  <ul className="mt-2 space-y-1 font-sans text-[0.8rem] text-bleu-nuit-profond/75">
-                    {module.livrables.map((livrable) => (
-                      <li key={livrable}>{livrable}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Tarifs — mis en évidence (font-ui) */}
+                {/* Tarifs — remontés juste après les faits clés : la carte vend d'abord. */}
                 <div className="mt-6 border-t border-or/30 pt-4">
                   <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
                     Tarifs
@@ -294,8 +263,49 @@ export default function TransmissionPage() {
                   )}
                 </div>
 
-                {/* CTA d'inscription → tunnel de commande */}
-                <div className="mt-6">
+                {/* Programme détaillé — replié par défaut (progressive, sans JS). */}
+                <details className="group mt-5 border-t border-bleu-nuit-profond/10 pt-4">
+                  <summary className="flex cursor-pointer list-none items-center justify-between font-ui text-sm font-semibold text-bleu-academique hover:text-or [&::-webkit-details-marker]:hidden">
+                    <span>Voir le détail du programme</span>
+                    <span className="transition-transform group-open:rotate-180" aria-hidden="true">⌄</span>
+                  </summary>
+
+                  <div className="mt-4 space-y-5">
+                    <div>
+                      <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
+                        Contenu doctrinal détaillé
+                      </p>
+                      <div className="mt-3 space-y-4">
+                        {module.sessions.map((session) => (
+                          <div key={session.titre}>
+                            <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
+                              {session.titre}
+                            </p>
+                            <ul className="mt-1.5 space-y-1 border-l border-or/40 pl-3 font-sans text-[0.8rem] text-bleu-nuit-profond/75">
+                              {session.points.map((point) => (
+                                <li key={point}>{point}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <p className="font-ui text-sm font-semibold text-bleu-nuit-profond">
+                        Livrables
+                      </p>
+                      <ul className="mt-2 space-y-1 font-sans text-[0.8rem] text-bleu-nuit-profond/75">
+                        {module.livrables.map((livrable) => (
+                          <li key={livrable}>{livrable}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </details>
+
+                {/* CTA d'inscription → tunnel de commande (ancré en pied de carte) */}
+                <div className="mt-auto pt-6">
                   <Link
                     href={`/commander/${module.id}`}
                     className={cn(
