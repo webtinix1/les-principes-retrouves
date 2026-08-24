@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { BLOC_PAR_CLE, CHEMIN_PAR_CLE, PAGES_BLOCS } from "@/content/blocs";
 import { EditeurContenu } from "@/components/admin/editeur-contenu";
 import { BoutonSoumettre } from "@/components/admin/bouton-soumettre";
+import { contenuEnTexte } from "@/lib/contenu/sanitize";
 import { lireTexteOrigine } from "@/lib/contenu/extraction";
 import {
   enregistrerBloc,
@@ -57,6 +58,13 @@ export default async function AdminContenuBloc({
         "Enregistrer maintenant remplacerait le texte du site par un contenu vide : " +
         "réessaie plus tard.";
     }
+  }
+
+  // Bloc « texte court » : le champ est un simple <textarea>, qui afficherait
+  // les entités HTML (« L&#x27;Horizon ») telles quelles. On décode en texte
+  // brut. Les blocs riches gardent leur HTML (Tiptap le décode à l'affichage).
+  if (def.type === "simple" && valeurInitiale) {
+    valeurInitiale = contenuEnTexte(valeurInitiale);
   }
 
   const message = Object.keys(MESSAGES).find((k) => params_[k] === "1");
