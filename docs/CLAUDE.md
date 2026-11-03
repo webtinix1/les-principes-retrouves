@@ -25,9 +25,17 @@ Site web académique officiel **« Les Principes Retrouvés »** de Gaudéric MA
 - **Gestionnaire de paquets : yarn.**
 - **Polices auto-hébergées via `next/font`** (Playfair Display, Lora, Fira Code, Inter) — zéro
   requête CDN (perf + RGPD).
-- **Base de données : Prisma + SQLite en dev → PostgreSQL en prod** (conteneur Docker).
+- **Back-office : Payload CMS 3** monté dans l'application Next.js (`/admin`, API REST
+  `/api`), configuration `web/payload.config.ts` + dossier `web/payload/` (2026-11-03,
+  remplace l'ancien back-office maison + Prisma/SQLite).
+- **Base de données : PostgreSQL** (dev : base locale ; prod : service `db` du compose).
+  Schéma versionné dans `web/migrations/` — après toute modification d'une collection ou
+  d'un champ : `yarn migrate:create <nom>` puis committer la migration.
+- **Contenu** : textes des pages = globals « Pages » (registre `web/content/blocs/`),
+  listes (modules, concepts, autorités, ressources) = collections. Le JSX reste le texte
+  d'origine (`content/blocs/origine.json`) : un bloc non modifié est rendu à l'identique.
 - **Déploiement : Docker (sortie `standalone`) derrière Traefik** — `web/Dockerfile` +
-  `docker-compose.web.yml`, piloté par `.env` (mêmes conventions que le site statique).
+  `docker-compose.yml`, piloté par `.env` (mêmes conventions que le site statique).
 - Pages de contenu **prérendues (SSG/ISR)** pour le SEO ; couche applicative (auth, paiement,
   téléchargements protégés, formulaire) via **route handlers** `app/api/`.
 - **Ancienne stack (archivée)** : la maquette `site/` reste en HTML/CSS/JS vanilla statique

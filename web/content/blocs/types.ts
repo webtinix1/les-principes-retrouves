@@ -1,21 +1,22 @@
 /**
- * Registre des blocs de contenu éditables depuis le back-office (/admin/contenu).
+ * Registre des blocs de contenu éditables depuis le back-office Payload
+ * (/admin → groupe « Pages » : un global par page, cf. payload/globals/contenu.ts).
  *
- * PRINCIPE — le code reste la source du texte par défaut. Une page déclare ses
+ * PRINCIPE — le JSX des pages reste le texte d'origine. Une page déclare ses
  * blocs en enveloppant son JSX existant :
  *
- *     <BlocProse cle="manifeste.diagnostic">
+ *     <BlocProse cle="manifeste.diagnostic.corps">
  *       <p>La science contemporaine…</p>
  *     </BlocProse>
  *
- * Sans surcharge en base, le JSX d'origine est rendu tel quel (aucune
- * duplication du texte, aucune régression possible). Avec surcharge, le HTML
- * assaini du back-office le remplace. « Revenir au texte d'origine » supprime
- * simplement la ligne en base.
+ * Tant que le back-office porte ce même texte (`origine.json`) ou rien, le JSX
+ * est rendu tel quel (aucune régression possible). Un texte modifié dans
+ * Payload le remplace ; vider le champ fait revenir le texte d'origine.
  *
- * Ce registre ne porte donc QUE des métadonnées : il sert à lister les blocs
- * dans le back-office, à valider les clés à l'enregistrement et à savoir quelle
- * page revalider. Clés stables "<page>.<section>" (snake_case, CLAUDE.md §4.2).
+ * Ce registre ne porte QUE des métadonnées : il génère les champs des globals
+ * et sait quelle page revalider. Clés stables "<page>.<section>.<partie>"
+ * (snake_case, CLAUDE.md §4.2) — après un ajout : `yarn contenu:extraire`,
+ * puis `yarn migrate:create`.
  */
 
 export type TypeBloc =
@@ -35,6 +36,8 @@ export type BlocDef = {
 };
 
 export type PageBlocs = {
+  /** Identifiant de la page (préfixe des clés, ex. "note_epistemologique"). */
+  page: string;
   /** Chemin public — sert aussi de cible à `revalidatePath` après enregistrement. */
   chemin: string;
   /** Titre affiché dans le back-office. */

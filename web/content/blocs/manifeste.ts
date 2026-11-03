@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page 4 — LE MANIFESTE DE BRAZZAVILLE. */
 export const MANIFESTE_BLOCS: PageBlocs = {
+  page: "manifeste",
   chemin: "/manifeste",
   titre: "Le Manifeste de Brazzaville",
   blocs: [

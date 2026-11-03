@@ -3,15 +3,15 @@ import { PROSE_CLASS } from "@/components/section";
 import { getSurcharge } from "@/lib/contenu";
 
 /**
- * Blocs de contenu éditables depuis le back-office (/admin/contenu).
+ * Blocs de contenu éditables depuis le back-office Payload (/admin → Pages).
  *
- * Le JSX passé en `children` EST le texte par défaut : sans surcharge en base,
- * il est rendu tel quel — aucune duplication, aucune régression possible sur
- * les pages non éditées. Avec surcharge, le HTML assaini du back-office le
+ * Le JSX passé en `children` EST le texte d'origine : tant que le back-office
+ * porte ce même texte (ou rien), il est rendu tel quel — aucune régression
+ * possible sur les pages non éditées. Un texte modifié dans Payload le
  * remplace, en conservant la même typographie.
  *
  * L'attribut `data-bloc` rend le bloc repérable dans le HTML rendu : c'est par
- * lui que l'éditeur récupère le texte d'origine à afficher (cf. `lib/contenu/extraction.ts`).
+ * lui que `scripts/extraire-contenu.ts` relit le texte d'origine.
  */
 
 /**
@@ -41,12 +41,12 @@ type BlocProseProps = {
 export async function BlocProse({ cle, className, children }: BlocProseProps) {
   const surcharge = await getSurcharge(cle);
 
-  if (surcharge !== null) {
+  if (surcharge?.type === "html") {
     return (
       <div
         data-bloc={cle}
         className={cn(PROSE_CLASS, HTML_RICHE_CLASS, className)}
-        dangerouslySetInnerHTML={{ __html: surcharge }}
+        dangerouslySetInnerHTML={{ __html: surcharge.html }}
       />
     );
   }
@@ -68,8 +68,8 @@ type BlocTexteProps = {
 };
 
 /**
- * Bloc de texte court (titre, exergue, chapeau d'une ligne). La surcharge est
- * du texte brut : React l'échappe, aucun HTML n'est interprété.
+ * Bloc de texte court (titre, exergue, chapeau d'une ligne). Le texte du
+ * back-office est brut : React l'échappe, aucun HTML n'est interprété.
  */
 export async function BlocTexte({
   cle,
@@ -81,7 +81,7 @@ export async function BlocTexte({
 
   return (
     <Balise data-bloc={cle} className={className}>
-      {surcharge ?? children}
+      {surcharge?.type === "texte" ? surcharge.texte : children}
     </Balise>
   );
 }

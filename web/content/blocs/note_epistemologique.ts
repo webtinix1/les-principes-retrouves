@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page La Note Épistémologique. */
 export const NOTE_EPISTEMOLOGIQUE_BLOCS: PageBlocs = {
+  page: "note_epistemologique",
   chemin: "/note-epistemologique",
   titre: "La Note Épistémologique",
   blocs: [

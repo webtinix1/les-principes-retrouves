@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page La Constitution Scientifique. */
 export const CONSTITUTION_BLOCS: PageBlocs = {
+  page: "constitution",
   chemin: "/constitution",
   titre: "La Constitution Scientifique",
   blocs: [

@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page L'Ouvrage — le diptyque. */
 export const OUVRAGE_BLOCS: PageBlocs = {
+  page: "ouvrage",
   chemin: "/ouvrage",
   titre: "L'Ouvrage — le diptyque",
   blocs: [

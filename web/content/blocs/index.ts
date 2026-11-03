@@ -33,6 +33,11 @@ export const BLOC_PAR_CLE: Map<string, BlocDef> = new Map(
   PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, b] as const)),
 );
 
+/** Index clé → page (global Payload qui porte le bloc). */
+export const PAGE_PAR_CLE: Map<string, PageBlocs> = new Map(
+  PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, p] as const)),
+);
+
 /** Index clé → chemin public de la page (cible de `revalidatePath`). */
 export const CHEMIN_PAR_CLE: Map<string, string> = new Map(
   PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, p.chemin] as const)),

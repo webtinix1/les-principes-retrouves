@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page L'École de Brazzaville. */
 export const INSTITUTION_BLOCS: PageBlocs = {
+  page: "institution",
   chemin: "/institution",
   titre: "L'École de Brazzaville",
   blocs: [

@@ -1,4 +1,5 @@
-# Portail École de Brazzaville — déploiement de l'APPLICATION Next.js derrière Traefik.
+# Portail École de Brazzaville — APPLICATION Next.js + back-office Payload CMS
+# (PostgreSQL) derrière Traefik.
 # (L'ancien déploiement statique nginx est archivé dans docker-compose.static.yml.ex.)
 # Tout est piloté par le .env (domaine, nom de routeur, fuseau, DB, paiement).
 # Pré-requis : réseau Docker externe "traefik-platform-network" (Traefik : entrypoint
@@ -11,6 +12,9 @@ services:
       dockerfile: Dockerfile
     image: ${COMPOSE_PROJECT_NAME:-principes-retrouves}-web
     restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
     # Durcissement : pas d'escalade de privilèges, aucune capability Linux
     security_opt:
       - no-new-privileges:true
@@ -19,7 +23,13 @@ services:
     environment:
       TZ: ${TZ:-Africa/Brazzaville}
       NODE_ENV: production
-      DATABASE_URL: ${DATABASE_URL:-file:/app/data/prod.db}
+      # Base Payload (service "db" ci-dessous, réseau interne)
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # Clé de chiffrement des sessions du back-office (obligatoire, longue et aléatoire)
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:?PAYLOAD_SECRET manquant dans .env}
+      # Premier compte administrateur (créé seulement si aucun compte n'existe)
+      PAYLOAD_ADMIN_EMAIL: ${PAYLOAD_ADMIN_EMAIL:-}
+      PAYLOAD_ADMIN_PASSWORD: ${PAYLOAD_ADMIN_PASSWORD:-}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-mock}
       # Paiement Chariow (vides tant que non configuré)
@@ -32,11 +42,13 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY:-}
       RESEND_FROM: ${RESEND_FROM:-}
     volumes:
+      # PDF intégraux téléversés depuis le back-office (/app/data/documents)
       - app-data:/app/data
     expose:
       - "3000"
     networks:
       - traefik-platform-network
+      - interne
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-platform-network"
@@ -65,23 +77,55 @@ services:
       - "traefik.http.middlewares.admin-${TRAEFIK_CONFIG_NAME}-auth.basicauth.users=${ADMIN_BASIC_AUTH}"
       - "traefik.http.routers.admin-${TRAEFIK_CONFIG_NAME}.middlewares=admin-${TRAEFIK_CONFIG_NAME}-auth,site-${TRAEFIK_CONFIG_NAME}-secure"
 
-  # PostgreSQL — décommenter au Lot 4 (paiement/accès). Jusque-là, non requis.
-  # db:
-  #   image: postgres:17-alpine
-  #   restart: unless-stopped
-  #   environment:
-  #     POSTGRES_USER: ${POSTGRES_USER}
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-  #     POSTGRES_DB: ${POSTGRES_DB}
-  #     TZ: ${TZ:-Africa/Brazzaville}
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
-  #   networks:
-  #     - traefik-platform-network
+  # PostgreSQL — base du back-office Payload. Jamais exposé à Traefik.
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER manquant dans .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD manquant dans .env}
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB manquant dans .env}
+      TZ: ${TZ:-Africa/Brazzaville}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - interne
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Conteneur « outils » (étape de build complète : sources + node_modules).
+  # Ne démarre jamais seul. Usage — reprise de l'ancienne base SQLite :
+  #   docker compose --profile outils run --rm \
+  #     -v /chemin/prod.db:/import/prod.db -e SQLITE_FILE=/import/prod.db \
+  #     outils yarn import:sqlite
+  outils:
+    profiles: ["outils"]
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      target: builder
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      NODE_ENV: production
+      DOCUMENTS_DIR: /app/data/documents
+    volumes:
+      - app-data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - interne
 
 networks:
   traefik-platform-network:
     external: true
+  # Réseau privé application ↔ base de données
+  interne:
 
 volumes:
-  app-data: # SQLite persistant (Lot 3). Postgres (Lot 4) utilisera db-data.
+  app-data: # Documents protégés téléversés (PDF) + ancien prod.db SQLite à reprendre
+  db-data:  # PostgreSQL (Payload)

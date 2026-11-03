@@ -2,6 +2,7 @@ import type { PageBlocs } from "./types";
 
 /** Blocs éditables de la page La Déclaration d'Institution. */
 export const DECLARATION_BLOCS: PageBlocs = {
+  page: "declaration",
   chemin: "/declaration",
   titre: "La Déclaration d'Institution",
   blocs: [
