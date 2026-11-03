@@ -17,6 +17,7 @@ import { Autorites } from "./payload/collections/Autorites";
 import { GLOBALS_CONTENU } from "./payload/globals/contenu";
 import { editeurProse } from "./payload/editeur";
 import { amorcer } from "./payload/seed";
+import { emailResend } from "./payload/email";
 import { migrations } from "./migrations";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -59,6 +60,8 @@ export default buildConfig({
     // (dossier migrations/) sont appliquées au démarrage du serveur.
     prodMigrations: migrations,
   }),
+  // E-mails du back-office (mot de passe oublié…) via Resend, si configuré.
+  email: emailResend(),
   sharp,
   graphQL: { disable: true },
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },

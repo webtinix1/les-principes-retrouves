@@ -6769,5 +6769,1574 @@
    }
   },
   "html": "<p>L'Institut de Brazzaville a intégré le protocole asynchrone de Chariow pour garantir la fluidité, la traçabilité et la sécurité des transactions financières à l'échelle internationale. Cette souveraineté technique est la condition matérielle de notre indépendance épistémique.</p>"
+ },
+ "mentions_legales.texte.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Éditeur du site",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le présent site est édité par ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Gaudéric MAMBOU",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ", chercheur indépendant, au titre de l'Institut de Brazzaville (École de Brazzaville — Science Métamoderne).",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Forme juridique : [à préciser]. Immatriculation (RCCM / registre) : [à préciser]. Adresse : [adresse], Brazzaville, République du Congo. Contact : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "contact@lesprincipesretrouves.cg",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "mailto:contact@lesprincipesretrouves.cg"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd19"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Directeur de la publication",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Gaudéric MAMBOU.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Hébergement",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le site est hébergé sur une infrastructure serveur dédiée opérée par ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Webtinix",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " — [raison sociale, adresse et contact de l'hébergeur].",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Propriété intellectuelle",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L'ensemble des contenus doctrinaux, textes, concepts, formulations, logo et éléments graphiques du site sont protégés au titre du droit de la propriété intellectuelle. © 2026 Gaudéric MAMBOU. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite. Les citations académiques restent autorisées dans le respect des normes universitaires en vigueur.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Données personnelles",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le traitement des données personnelles est décrit dans la ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "politique de confidentialité",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "/confidentialite"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1a"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Conditions de vente",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "La vente des modules de formation est régie par les ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "conditions générales de vente",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "/cgv"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1b"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<h2>Éditeur du site</h2><p>Le présent site est édité par <strong>Gaudéric MAMBOU</strong>, chercheur indépendant, au titre de l'Institut de Brazzaville (École de Brazzaville — Science Métamoderne).</p><p>Forme juridique : [à préciser]. Immatriculation (RCCM / registre) : [à préciser]. Adresse : [adresse], Brazzaville, République du Congo. Contact : <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Directeur de la publication</h2><p>Gaudéric MAMBOU.</p><h2>Hébergement</h2><p>Le site est hébergé sur une infrastructure serveur dédiée opérée par <strong>Webtinix</strong> — [raison sociale, adresse et contact de l'hébergeur].</p><h2>Propriété intellectuelle</h2><p>L'ensemble des contenus doctrinaux, textes, concepts, formulations, logo et éléments graphiques du site sont protégés au titre du droit de la propriété intellectuelle. © 2026 Gaudéric MAMBOU. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite. Les citations académiques restent autorisées dans le respect des normes universitaires en vigueur.</p><h2>Données personnelles</h2><p>Le traitement des données personnelles est décrit dans la <a href=\"/confidentialite\">politique de confidentialité</a>.</p><h2>Conditions de vente</h2><p>La vente des modules de formation est régie par les <a href=\"/cgv\">conditions générales de vente</a>.</p>"
+ },
+ "confidentialite.texte.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Responsable du traitement",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le responsable du traitement est Gaudéric MAMBOU, Institut de Brazzaville, Brazzaville, République du Congo — contact : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "contact@lesprincipesretrouves.cg",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "mailto:contact@lesprincipesretrouves.cg"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1c"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Données collectées",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le site ne collecte que les données que vous transmettez volontairement :",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 1,
+          "mode": "normal",
+          "style": "",
+          "text": "Formulaire de contact",
+          "type": "text",
+          "version": 1
+         },
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": " : nom, adresse e-mail, organisation (facultative), sujet et message.",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 1,
+          "mode": "normal",
+          "style": "",
+          "text": "Inscription à un module",
+          "type": "text",
+          "version": 1
+         },
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": " : nom, adresse e-mail, organisation (facultative), module choisi, régime tarifaire, montant, statut et référence de paiement.",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 2
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 1,
+          "mode": "normal",
+          "style": "",
+          "text": "Code d'accès",
+          "type": "text",
+          "version": 1
+         },
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": " : le code émis et l'adresse e-mail associée, pour débloquer les documents conditionnés.",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 3
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "list",
+      "version": 1,
+      "listType": "bullet",
+      "start": 1,
+      "tag": "ul"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le site ne recourt à aucun outil de mesure d'audience ni de publicité, et ne dépose aucun cookie de suivi.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Finalités et bases légales",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Répondre aux demandes de contact (mesure préalable / intérêt légitime, avec votre consentement).",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Gérer les inscriptions aux modules et l'accès aux ressources (exécution du contrat).",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 2
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Émettre les justificatifs et assurer le suivi comptable (obligation légale).",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 3
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "list",
+      "version": 1,
+      "listType": "bullet",
+      "start": 1,
+      "tag": "ul"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Destinataires et sous-traitants",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les données sont destinées au seul Institut de Brazzaville. Des prestataires techniques peuvent intervenir en qualité de sous-traitants : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Webtinix",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (hébergement), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Resend",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (envoi d'e-mails), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Chariow",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (paiement) et ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Cloudflare Turnstile",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (protection anti-spam), lorsqu'ils sont activés. Aucune donnée n'est vendue ni cédée à des tiers à des fins commerciales.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Durées de conservation",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Messages de contact : [ex. 3 ans] après le dernier échange.",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Commandes et justificatifs : durée légale de conservation comptable [à préciser].",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 2
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Codes d'accès : le temps de l'accès accordé, puis archivage ou suppression.",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "listitem",
+        "version": 1,
+        "value": 3
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "list",
+      "version": 1,
+      "listType": "bullet",
+      "start": 1,
+      "tag": "ul"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Cookies",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le site utilise un unique cookie strictement nécessaire au fonctionnement : ebz_acces. Il conserve, côté serveur, votre code d'accès afin de maintenir le déblocage des documents pendant environ 30 jours. Il est ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "httpOnly",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " et n'effectue aucun suivi. Étant strictement nécessaire, il ne requiert pas de consentement préalable ; vous pouvez le retirer à tout moment via le bouton « Retirer le code ».",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Vos droits",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Pour les exercer, écrivez à ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "contact@lesprincipesretrouves.cg",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "mailto:contact@lesprincipesretrouves.cg"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1d"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Transferts et sécurité",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les données sont hébergées sur un serveur dédié et transmises via une connexion chiffrée (HTTPS). Certaines opérations (e-mail, paiement) peuvent impliquer des prestataires situés hors de votre pays de résidence ; des garanties appropriées sont recherchées avec ces prestataires. L'accès aux données d'administration est restreint et protégé par authentification.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<h2>Responsable du traitement</h2><p>Le responsable du traitement est Gaudéric MAMBOU, Institut de Brazzaville, Brazzaville, République du Congo — contact : <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Données collectées</h2><p>Le site ne collecte que les données que vous transmettez volontairement :</p><ul><li><strong>Formulaire de contact</strong> : nom, adresse e-mail, organisation (facultative), sujet et message.</li><li><strong>Inscription à un module</strong> : nom, adresse e-mail, organisation (facultative), module choisi, régime tarifaire, montant, statut et référence de paiement.</li><li><strong>Code d'accès</strong> : le code émis et l'adresse e-mail associée, pour débloquer les documents conditionnés.</li></ul><p>Le site ne recourt à aucun outil de mesure d'audience ni de publicité, et ne dépose aucun cookie de suivi.</p><h2>Finalités et bases légales</h2><ul><li>Répondre aux demandes de contact (mesure préalable / intérêt légitime, avec votre consentement).</li><li>Gérer les inscriptions aux modules et l'accès aux ressources (exécution du contrat).</li><li>Émettre les justificatifs et assurer le suivi comptable (obligation légale).</li></ul><h2>Destinataires et sous-traitants</h2><p>Les données sont destinées au seul Institut de Brazzaville. Des prestataires techniques peuvent intervenir en qualité de sous-traitants : <strong>Webtinix</strong> (hébergement), <strong>Resend</strong> (envoi d'e-mails), <strong>Chariow</strong> (paiement) et <strong>Cloudflare Turnstile</strong> (protection anti-spam), lorsqu'ils sont activés. Aucune donnée n'est vendue ni cédée à des tiers à des fins commerciales.</p><h2>Durées de conservation</h2><ul><li>Messages de contact : [ex. 3 ans] après le dernier échange.</li><li>Commandes et justificatifs : durée légale de conservation comptable [à préciser].</li><li>Codes d'accès : le temps de l'accès accordé, puis archivage ou suppression.</li></ul><h2>Cookies</h2><p>Le site utilise un unique cookie strictement nécessaire au fonctionnement : ebz_acces. Il conserve, côté serveur, votre code d'accès afin de maintenir le déblocage des documents pendant environ 30 jours. Il est <em>httpOnly</em> et n'effectue aucun suivi. Étant strictement nécessaire, il ne requiert pas de consentement préalable ; vous pouvez le retirer à tout moment via le bouton « Retirer le code ».</p><h2>Vos droits</h2><p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Pour les exercer, écrivez à <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Transferts et sécurité</h2><p>Les données sont hébergées sur un serveur dédié et transmises via une connexion chiffrée (HTTPS). Certaines opérations (e-mail, paiement) peuvent impliquer des prestataires situés hors de votre pays de résidence ; des garanties appropriées sont recherchées avec ces prestataires. L'accès aux données d'administration est restreint et protégé par authentification.</p>"
+ },
+ "cgv.texte.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "1. Objet",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les présentes conditions régissent la vente, par l'Institut de Brazzaville, des modules de formation présentés sur la page ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "Transmission & Inscriptions",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "/transmission"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1e"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ". Toute inscription emporte acceptation sans réserve des présentes.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "2. Modules et tarifs",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les modules, contenus, durées et tarifs sont décrits sur la page Transmission. Les Modules I et II sont proposés selon un régime institutionnel (B2B) ou individuel (B2C) ; le Module III fait l'objet d'un devis personnalisé. Les prix sont indiqués en euros ; le règlement peut s'effectuer en euros ou en francs CFA (XAF) selon le moyen de paiement.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "3. Inscription et formation du contrat",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L'inscription s'effectue en ligne via le formulaire dédié. Le contrat est réputé formé à la confirmation du paiement, matérialisée par l'émission d'un code d'accès personnel adressé par courrier électronique.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "4. Prix et paiement",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le paiement s'effectue par les moyens proposés (Mobile Money et carte bancaire, via le prestataire Chariow). Le prix est exigible à la commande. [Modalités de facturation et TVA/taxes applicables à préciser.]",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "5. Accès aux ressources",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le code d'accès émis est personnel et non transférable. Il débloque les ressources associées au module pour la durée prévue. Tout usage frauduleux ou partage du code peut entraîner sa révocation.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "6. Droit de rétractation",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Pour les particuliers, un droit de rétractation peut s'appliquer. L'accès immédiat à un contenu numérique ou le commencement de la prestation avant la fin du délai, avec l'accord de l'intéressé, peut y faire exception. [Délai et modalités à fixer selon le droit applicable.]",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "7. Annulation, report, remboursement",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "[Conditions d'annulation, de report des sessions et de remboursement à préciser.]",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "8. Responsabilité et propriété intellectuelle",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les supports de formation sont fournis pour un usage personnel dans le cadre de la formation. Toute reproduction ou diffusion non autorisée est interdite. La responsabilité de l'Institut ne saurait être engagée au-delà du montant réglé au titre du module concerné, dans les limites permises par la loi.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "9. Données personnelles",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le traitement des données est décrit dans la ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "children": [
+         {
+          "detail": 0,
+          "format": 0,
+          "mode": "normal",
+          "style": "",
+          "text": "politique de confidentialité",
+          "type": "text",
+          "version": 1
+         }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "link",
+        "version": 3,
+        "fields": {
+         "linkType": "custom",
+         "newTab": false,
+         "url": "/confidentialite"
+        },
+        "id": "6aea0542ea5ffb5e1e5ecd1f"
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ".",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "10. Droit applicable et litiges",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "heading",
+      "version": 1,
+      "tag": "h2"
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les présentes conditions sont soumises au droit en vigueur en République du Congo et, le cas échéant, aux Actes uniformes de l'OHADA. En cas de litige, une solution amiable sera recherchée en priorité. [Juridiction compétente et clause de médiation à préciser.]",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<h2>1. Objet</h2><p>Les présentes conditions régissent la vente, par l'Institut de Brazzaville, des modules de formation présentés sur la page <a href=\"/transmission\">Transmission &amp; Inscriptions</a>. Toute inscription emporte acceptation sans réserve des présentes.</p><h2>2. Modules et tarifs</h2><p>Les modules, contenus, durées et tarifs sont décrits sur la page Transmission. Les Modules I et II sont proposés selon un régime institutionnel (B2B) ou individuel (B2C) ; le Module III fait l'objet d'un devis personnalisé. Les prix sont indiqués en euros ; le règlement peut s'effectuer en euros ou en francs CFA (XAF) selon le moyen de paiement.</p><h2>3. Inscription et formation du contrat</h2><p>L'inscription s'effectue en ligne via le formulaire dédié. Le contrat est réputé formé à la confirmation du paiement, matérialisée par l'émission d'un code d'accès personnel adressé par courrier électronique.</p><h2>4. Prix et paiement</h2><p>Le paiement s'effectue par les moyens proposés (Mobile Money et carte bancaire, via le prestataire Chariow). Le prix est exigible à la commande. [Modalités de facturation et TVA/taxes applicables à préciser.]</p><h2>5. Accès aux ressources</h2><p>Le code d'accès émis est personnel et non transférable. Il débloque les ressources associées au module pour la durée prévue. Tout usage frauduleux ou partage du code peut entraîner sa révocation.</p><h2>6. Droit de rétractation</h2><p>Pour les particuliers, un droit de rétractation peut s'appliquer. L'accès immédiat à un contenu numérique ou le commencement de la prestation avant la fin du délai, avec l'accord de l'intéressé, peut y faire exception. [Délai et modalités à fixer selon le droit applicable.]</p><h2>7. Annulation, report, remboursement</h2><p>[Conditions d'annulation, de report des sessions et de remboursement à préciser.]</p><h2>8. Responsabilité et propriété intellectuelle</h2><p>Les supports de formation sont fournis pour un usage personnel dans le cadre de la formation. Toute reproduction ou diffusion non autorisée est interdite. La responsabilité de l'Institut ne saurait être engagée au-delà du montant réglé au titre du module concerné, dans les limites permises par la loi.</p><h2>9. Données personnelles</h2><p>Le traitement des données est décrit dans la <a href=\"/confidentialite\">politique de confidentialité</a>.</p><h2>10. Droit applicable et litiges</h2><p>Les présentes conditions sont soumises au droit en vigueur en République du Congo et, le cas échéant, aux Actes uniformes de l'OHADA. En cas de litige, une solution amiable sera recherchée en priorité. [Juridiction compétente et clause de médiation à préciser.]</p>"
  }
 }

@@ -6,6 +6,7 @@ import { STRATES } from "@/content/concepts";
 import { AUTORITES } from "@/content/autorites";
 import { WORKING_PAPERS, PIECES_OPERATOIRES } from "@/content/working-papers";
 import { nomChamp, slugGlobal } from "./globals/contenu";
+import { AMORCE_LISTES } from "./globals/listes";
 
 /**
  * Amorçage idempotent, exécuté au démarrage du serveur (onInit) :
@@ -158,11 +159,30 @@ async function amorcerPages(payload: Payload) {
   }
 }
 
+/** Listes structurées des pages : chaque liste vide reçoit les données d'origine. */
+async function amorcerListes(payload: Payload) {
+  for (const page of PAGES_BLOCS) {
+    const listes = AMORCE_LISTES[page.page];
+    if (!listes) continue;
+    const slug = slugGlobal(page);
+    const actuel = (await payload.findGlobal({ slug, depth: 0 })) as unknown as Record<string, unknown>;
+    const data: Record<string, unknown> = {};
+    for (const [nom, valeur] of Object.entries(listes)) {
+      const existant = actuel[nom];
+      if (!Array.isArray(existant) || existant.length === 0) data[nom] = valeur;
+    }
+    if (Object.keys(data).length === 0) continue;
+    await payload.updateGlobal({ slug, data: data as never });
+    payload.logger.info(`[amorçage] listes de ${page.chemin} : ${Object.keys(data).join(", ")}`);
+  }
+}
+
 export async function amorcer(payload: Payload): Promise<void> {
   try {
     await amorcerAdmin(payload);
     await amorcerCollections(payload);
     await amorcerPages(payload);
+    await amorcerListes(payload);
   } catch (err) {
     payload.logger.error({ err }, "[amorçage] échec");
   }

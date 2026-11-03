@@ -5,12 +5,7 @@ import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
-import {
-  NIVEAUX,
-  MOUVEMENT_ORGANIQUE,
-  CANON,
-  AUTORITES,
-} from "@/content/institution";
+import { getListesInstitution } from "@/lib/cms";
 
 export const metadata = pageMetadata({
   title: "L'Institution",
@@ -28,7 +23,13 @@ export const metadata = pageMetadata({
 export const revalidate = 3600;
 
 /** PAGE 2 — L'INSTITUTION (L'École de Brazzaville). */
-export default function Institution() {
+export default async function Institution() {
+  const {
+    niveaux: NIVEAUX,
+    mouvement_organique: MOUVEMENT_ORGANIQUE,
+    canon: CANON,
+    champs_autorites: AUTORITES,
+  } = await getListesInstitution();
   return (
     <>
       {/* HERO ------------------------------------------------------------- */}

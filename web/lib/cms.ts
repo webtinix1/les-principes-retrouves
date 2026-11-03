@@ -8,6 +8,21 @@ import {
   PIECES_OPERATOIRES as PIECES_CODE,
   type Ressource,
 } from "@/content/working-papers";
+import {
+  NIVEAUX as NIVEAUX_CODE,
+  MOUVEMENT_ORGANIQUE as MOUVEMENT_CODE,
+  CANON as CANON_CODE,
+  AUTORITES as CHAMPS_AUTORITES_CODE,
+  type Niveau,
+  type PrincipeCanon,
+  type ChampAutorites,
+} from "@/content/institution";
+import {
+  NIVEAUX_ACCES as NIVEAUX_ACCES_CODE,
+  PROGRESSION as PROGRESSION_CODE,
+  type NiveauAcces,
+  type EtapeProgression,
+} from "@/content/working-papers";
 
 /**
  * Lecture des listes éditoriales gérées dans Payload, exposées sous les mêmes
@@ -167,4 +182,122 @@ export const getRessources = cache(
       })),
       "ressources",
     ),
+);
+
+/* ── Listes structurées portées par les globals de page ─────────────────── */
+
+type Ligne = Record<string, unknown>;
+
+async function lireListes(slug: "contenu-institution" | "contenu-laboratoire"): Promise<Ligne> {
+  const payload = await payloadClient();
+  return (await payload.findGlobal({ slug, depth: 0 })) as unknown as Ligne;
+}
+
+/** Liste du back-office, ou les données d'origine si elle est vide. */
+function liste<T>(valeur: unknown, conversion: (l: Ligne) => T, origine: T[]): T[] {
+  return Array.isArray(valeur) && valeur.length > 0 ? (valeur as Ligne[]).map(conversion) : origine;
+}
+
+const chaine = (v: unknown) => (typeof v === "string" ? v : "");
+/** Champ facultatif : vide → absent (les pages testent sa présence). */
+const facultatif = (v: unknown) => (typeof v === "string" && v.trim() ? v : undefined);
+const sousTextes = (v: unknown) => (Array.isArray(v) ? (v as Ligne[]).map((x) => chaine(x.texte)) : []);
+
+export type ListesInstitution = {
+  niveaux: Niveau[];
+  mouvement_organique: string[];
+  canon: PrincipeCanon[];
+  champs_autorites: ChampAutorites[];
+};
+
+export const getListesInstitution = cache(
+  (): Promise<ListesInstitution> => {
+    const origine: ListesInstitution = {
+      niveaux: NIVEAUX_CODE,
+      mouvement_organique: MOUVEMENT_CODE,
+      canon: CANON_CODE,
+      champs_autorites: CHAMPS_AUTORITES_CODE,
+    };
+    return ouRepli(
+      async () => {
+        const g = await lireListes("contenu-institution");
+        return {
+          niveaux: liste(
+            g.niveaux,
+            (n) => {
+              const l = sousTextes(n.liste);
+              return {
+                numero: chaine(n.numero),
+                id: chaine(n.niveau_id),
+                titre: chaine(n.titre),
+                fonction: chaine(n.fonction),
+                question_fondamentale: chaine(n.question_fondamentale),
+                corps: sousTextes(n.corps),
+                equation: facultatif(n.equation),
+                liste: l.length ? l : undefined,
+                maxime: facultatif(n.maxime),
+              };
+            },
+            origine.niveaux,
+          ),
+          mouvement_organique: liste(g.mouvement_organique, (x) => chaine(x.texte), origine.mouvement_organique),
+          canon: liste(
+            g.canon,
+            (c) => ({ numero: Number(c.numero), titre: chaine(c.titre), glose: chaine(c.glose) }),
+            origine.canon,
+          ),
+          champs_autorites: liste(
+            g.champs_autorites,
+            (c) => ({
+              id: chaine(c.champ_id),
+              champ: chaine(c.champ),
+              autorites: Array.isArray(c.autorites)
+                ? (c.autorites as Ligne[]).map((a) => ({
+                    nom: chaine(a.nom),
+                    origine: chaine(a.origine),
+                    motif: chaine(a.motif),
+                  }))
+                : [],
+            }),
+            origine.champs_autorites,
+          ),
+        };
+      },
+      origine,
+      "listes de l'Institution",
+    );
+  },
+);
+
+export type ListesLaboratoire = {
+  niveaux_acces: NiveauAcces[];
+  progression: EtapeProgression[];
+};
+
+export const getListesLaboratoire = cache(
+  (): Promise<ListesLaboratoire> => {
+    const origine: ListesLaboratoire = {
+      niveaux_acces: NIVEAUX_ACCES_CODE,
+      progression: PROGRESSION_CODE,
+    };
+    return ouRepli(
+      async () => {
+        const g = await lireListes("contenu-laboratoire");
+        return {
+          niveaux_acces: liste(
+            g.niveaux_acces,
+            (n) => ({ numero: chaine(n.numero), titre: chaine(n.titre), description: chaine(n.description) }),
+            origine.niveaux_acces,
+          ),
+          progression: liste(
+            g.progression,
+            (e) => ({ reference: chaine(e.reference), role: chaine(e.role), prerequis: chaine(e.prerequis) }),
+            origine.progression,
+          ),
+        };
+      },
+      origine,
+      "listes du Laboratoire",
+    );
+  },
 );

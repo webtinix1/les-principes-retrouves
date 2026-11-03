@@ -1,4 +1,5 @@
-import { Section, Container, Prose } from "@/components/section";
+import { Section, Container } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -7,6 +8,9 @@ export const metadata = pageMetadata({
     "Traitement des données personnelles du portail de l'École de Brazzaville : données collectées, finalités, durées, droits et cookies.",
   path: "/confidentialite",
 });
+
+/** Texte éditable depuis le back-office (Pages) — cf. les pages doctrinales. */
+export const revalidate = 3600;
 
 export default function Confidentialite() {
   return (
@@ -26,7 +30,7 @@ export default function Confidentialite() {
             <span className="font-mono">[…]</span> doivent être confirmées avant
             mise en production commerciale.
           </div>
-          <Prose className="max-w-[68ch]">
+          <BlocProse cle="confidentialite.texte.corps" className="max-w-[68ch]">
             <h2 className="mt-0 font-heading text-xl font-semibold">Responsable du traitement</h2>
             <p>
               Le responsable du traitement est Gaudéric MAMBOU, Institut de
@@ -115,7 +119,7 @@ export default function Confidentialite() {
               ces prestataires. L&apos;accès aux données d&apos;administration est
               restreint et protégé par authentification.
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
     </>

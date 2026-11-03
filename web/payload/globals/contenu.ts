@@ -3,6 +3,7 @@ import { PAGES_BLOCS, type BlocDef, type PageBlocs } from "@/content/blocs";
 import { connecte } from "../access";
 import { editeurProse } from "../editeur";
 import { revaliderChemins } from "../revalidation";
+import { LISTES_PAR_PAGE } from "./listes";
 
 /**
  * Contenu éditorial des pages doctrinales : un « global » Payload par page,
@@ -57,5 +58,19 @@ export const GLOBALS_CONTENU: GlobalConfig[] = PAGES_BLOCS.map((page) => ({
   access: { read: connecte, update: connecte },
   versions: { max: 30 },
   hooks: { afterChange: [() => revaliderChemins([page.chemin])] },
-  fields: champsParSection(page.blocs),
+  fields: [
+    ...champsParSection(page.blocs),
+    ...(LISTES_PAR_PAGE[page.page]
+      ? [
+          {
+            type: "collapsible" as const,
+            label: "Listes",
+            admin: {
+              description: "Une liste entièrement vidée revient aux données d'origine.",
+            },
+            fields: LISTES_PAR_PAGE[page.page],
+          },
+        ]
+      : []),
+  ],
 }));

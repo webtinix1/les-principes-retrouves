@@ -16,7 +16,7 @@ import {
 
 /**
  * Éditeur riche calibré sur la typographie réellement employée par les pages
- * doctrinales (gras, italique, intertitres h3/h4, listes, citations, liens,
+ * doctrinales (gras, italique, intertitres h2 (pages légales), h3, h4, listes, citations, liens,
  * exposants/indices). Rien d'autre : le back-office ne doit pas pouvoir sortir
  * du design system.
  */
@@ -27,7 +27,7 @@ export const editeurProse = lexicalEditor({
     ItalicFeature(),
     SuperscriptFeature(),
     SubscriptFeature(),
-    HeadingFeature({ enabledHeadingSizes: ["h3", "h4"] }),
+    HeadingFeature({ enabledHeadingSizes: ["h2", "h3", "h4"] }),
     UnorderedListFeature(),
     OrderedListFeature(),
     BlockquoteFeature(),

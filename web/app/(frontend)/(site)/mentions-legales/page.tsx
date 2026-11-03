@@ -1,4 +1,5 @@
-import { Section, Container, Prose } from "@/components/section";
+import { Section, Container } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -7,6 +8,9 @@ export const metadata = pageMetadata({
     "Mentions légales du portail de l'École de Brazzaville : éditeur, hébergement, propriété intellectuelle.",
   path: "/mentions-legales",
 });
+
+/** Texte éditable depuis le back-office (Pages) — cf. les pages doctrinales. */
+export const revalidate = 3600;
 
 export default function MentionsLegales() {
   return (
@@ -26,7 +30,7 @@ export default function MentionsLegales() {
             <span className="font-mono">[…]</span> doivent être complétés et
             validés par le responsable de la publication et un conseil juridique.
           </div>
-          <Prose className="max-w-[68ch]">
+          <BlocProse cle="mentions_legales.texte.corps" className="max-w-[68ch]">
             <h2 className="mt-0 font-heading text-xl font-semibold">Éditeur du site</h2>
             <p>
               Le présent site est édité par <strong>Gaudéric MAMBOU</strong>,
@@ -87,7 +91,7 @@ export default function MentionsLegales() {
               </a>
               .
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
     </>

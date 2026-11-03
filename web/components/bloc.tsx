@@ -20,6 +20,8 @@ import { getSurcharge } from "@/lib/contenu";
  * et citations sont stylés au cas par cas dans les pages).
  */
 const HTML_RICHE_CLASS = cn(
+  // Intertitres des pages légales (mêmes classes que leur JSX d'origine).
+  "[&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-semibold",
   "[&_h3]:mt-8 [&_h3]:font-heading [&_h3]:text-xl [&_h3]:font-semibold",
   "[&_h4]:mt-6 [&_h4]:font-heading [&_h4]:text-lg [&_h4]:font-semibold",
   "[&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6",

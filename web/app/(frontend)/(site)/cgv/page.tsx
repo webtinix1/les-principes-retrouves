@@ -1,4 +1,5 @@
-import { Section, Container, Prose } from "@/components/section";
+import { Section, Container } from "@/components/section";
+import { BlocProse } from "@/components/bloc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -7,6 +8,9 @@ export const metadata = pageMetadata({
     "Conditions générales de vente des modules de formation de l'Institut de Brazzaville.",
   path: "/cgv",
 });
+
+/** Texte éditable depuis le back-office (Pages) — cf. les pages doctrinales. */
+export const revalidate = 3600;
 
 export default function CGV() {
   return (
@@ -31,7 +35,7 @@ export default function CGV() {
             conseil juridique (droit OHADA / congolais et international) avant toute
             commercialisation.
           </div>
-          <Prose className="max-w-[68ch]">
+          <BlocProse cle="cgv.texte.corps" className="max-w-[68ch]">
             <h2 className="mt-0 font-heading text-xl font-semibold">1. Objet</h2>
             <p>
               Les présentes conditions régissent la vente, par l&apos;Institut de
@@ -109,7 +113,7 @@ export default function CGV() {
               en priorité.{" "}
               <span className="font-mono">[Juridiction compétente et clause de médiation à préciser.]</span>
             </p>
-          </Prose>
+          </BlocProse>
         </Container>
       </Section>
     </>

@@ -33,9 +33,15 @@ function editeur(page: Page) {
     .locator("[contenteditable='true']");
 }
 
+/** Enregistre et attend la réponse du serveur (plus fiable que le toast, éphémère). */
 async function enregistrer(page: Page) {
-  await page.getByRole("button", { name: "Sauvegarder" }).click();
-  await expect(page.getByText(/mis à jour avec succès/i)).toBeVisible();
+  const bouton = page.getByRole("button", { name: "Sauvegarder" });
+  await expect(bouton).toBeEnabled();
+  const reponse = page.waitForResponse(
+    (r) => r.url().includes("/api/globals/contenu-manifeste") && r.request().method() === "POST",
+  );
+  await bouton.click();
+  expect((await reponse).ok()).toBe(true);
 }
 
 test("le back-office modifie un bloc, le publie, puis revient au texte d'origine", async ({
@@ -51,9 +57,12 @@ test("le back-office modifie un bloc, le publie, puis revient au texte d'origine
 
   await connexion(page);
 
-  // L'éditeur est amorcé avec le texte réellement affiché sur la page.
+  // L'éditeur porte le texte affiché (amorçage) ou rien (champ vidé = texte
+  // d'origine, état laissé par une exécution précédente : test rejouable).
   await page.goto(PAGE_ADMIN);
-  await expect(editeur(page)).toContainText("La science contemporaine");
+  await expect(editeur(page)).toBeVisible();
+  const amorce = (await editeur(page).innerText()).trim();
+  expect(amorce === "" || amorce.includes("La science contemporaine")).toBe(true);
 
   // Ajout d'une phrase en fin de bloc, puis enregistrement.
   await editeur(page).click();

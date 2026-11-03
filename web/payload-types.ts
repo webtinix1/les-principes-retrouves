@@ -120,6 +120,9 @@ export interface Config {
     'contenu-ouvrage': ContenuOuvrage;
     'contenu-laboratoire': ContenuLaboratoire;
     'contenu-transmission': ContenuTransmission;
+    'contenu-mentions-legales': ContenuMentionsLegale;
+    'contenu-confidentialite': ContenuConfidentialite;
+    'contenu-cgv': ContenuCgv;
   };
   globalsSelect: {
     'contenu-manifeste': ContenuManifesteSelect<false> | ContenuManifesteSelect<true>;
@@ -131,6 +134,9 @@ export interface Config {
     'contenu-ouvrage': ContenuOuvrageSelect<false> | ContenuOuvrageSelect<true>;
     'contenu-laboratoire': ContenuLaboratoireSelect<false> | ContenuLaboratoireSelect<true>;
     'contenu-transmission': ContenuTransmissionSelect<false> | ContenuTransmissionSelect<true>;
+    'contenu-mentions-legales': ContenuMentionsLegalesSelect<false> | ContenuMentionsLegalesSelect<true>;
+    'contenu-confidentialite': ContenuConfidentialiteSelect<false> | ContenuConfidentialiteSelect<true>;
+    'contenu-cgv': ContenuCgvSelect<false> | ContenuCgvSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1417,6 +1423,59 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  niveaux?:
+    | {
+        numero: string;
+        niveau_id: string;
+        titre: string;
+        fonction: string;
+        question_fondamentale: string;
+        corps?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        equation?: string | null;
+        liste?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        maxime?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  mouvement_organique?:
+    | {
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  champs_autorites?:
+    | {
+        champ_id: string;
+        champ: string;
+        autorites?:
+          | {
+              nom: string;
+              origine: string;
+              motif: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  canon?:
+    | {
+        numero: number;
+        titre: string;
+        glose: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1701,6 +1760,22 @@ export interface ContenuLaboratoire {
     };
     [k: string]: unknown;
   } | null;
+  niveaux_acces?:
+    | {
+        numero: string;
+        titre: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  progression?:
+    | {
+        reference: string;
+        role: string;
+        prerequis: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1743,6 +1818,84 @@ export interface ContenuTransmission {
     [k: string]: unknown;
   } | null;
   paiement_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /mentions-legales. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-mentions-legales".
+ */
+export interface ContenuMentionsLegale {
+  id: string;
+  texte_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /confidentialite. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-confidentialite".
+ */
+export interface ContenuConfidentialite {
+  id: string;
+  texte_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /cgv. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-cgv".
+ */
+export interface ContenuCgv {
+  id: string;
+  texte_corps?: {
     root: {
       type: string;
       children: {
@@ -1838,6 +1991,59 @@ export interface ContenuInstitutionSelect<T extends boolean = true> {
   demarche_transposition?: T;
   demarche_analogie?: T;
   demarche_canon?: T;
+  niveaux?:
+    | T
+    | {
+        numero?: T;
+        niveau_id?: T;
+        titre?: T;
+        fonction?: T;
+        question_fondamentale?: T;
+        corps?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        equation?: T;
+        liste?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        maxime?: T;
+        id?: T;
+      };
+  mouvement_organique?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  champs_autorites?:
+    | T
+    | {
+        champ_id?: T;
+        champ?: T;
+        autorites?:
+          | T
+          | {
+              nom?: T;
+              origine?: T;
+              motif?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  canon?:
+    | T
+    | {
+        numero?: T;
+        titre?: T;
+        glose?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1890,6 +2096,22 @@ export interface ContenuLaboratoireSelect<T extends boolean = true> {
   introduction_corps?: T;
   acces_hybride_corps?: T;
   progression_corps?: T;
+  niveaux_acces?:
+    | T
+    | {
+        numero?: T;
+        titre?: T;
+        description?: T;
+        id?: T;
+      };
+  progression?:
+    | T
+    | {
+        reference?: T;
+        role?: T;
+        prerequis?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1902,6 +2124,36 @@ export interface ContenuTransmissionSelect<T extends boolean = true> {
   argumentaire_corps?: T;
   modules_corps?: T;
   paiement_corps?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-mentions-legales_select".
+ */
+export interface ContenuMentionsLegalesSelect<T extends boolean = true> {
+  texte_corps?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-confidentialite_select".
+ */
+export interface ContenuConfidentialiteSelect<T extends boolean = true> {
+  texte_corps?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-cgv_select".
+ */
+export interface ContenuCgvSelect<T extends boolean = true> {
+  texte_corps?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

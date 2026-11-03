@@ -43,6 +43,14 @@ Au démarrage, le conteneur `web` :
 
 Back-office : `https://${SITE_HOST}/admin`.
 
+> **`NEXT_PUBLIC_SITE_URL` doit être exactement l'URL publique** (`https://${SITE_HOST}`).
+> Payload n'accepte les sessions du back-office que depuis cette origine : avec une
+> autre valeur, la connexion semble fonctionner mais les enregistrements échouent.
+
+**E-mails du back-office** (mot de passe oublié) : envoyés via Resend dès que
+`RESEND_API_KEY` et `RESEND_FROM` sont renseignés (domaine vérifié chez Resend) ;
+sinon ils sont seulement écrits dans les logs du conteneur.
+
 ## Tester la pile en local (sans Traefik)
 
 ```bash

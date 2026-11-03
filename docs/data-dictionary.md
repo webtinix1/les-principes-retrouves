@@ -190,7 +190,7 @@ Le `label` ci-dessous est le **libellé court** affiché dans le header (pour te
 ## 8. Back-office Payload (`web/payload/`) — collections et globals
 
 Identifiants techniques Payload : `id` (UUID), `createdAt`, `updatedAt` (ajoutés
-automatiquement, nommage imposé par Payload). Tous les autres champs : `snake_case`.
+automatiquement, nommage imposé par Payload). Tous les autres champs : `snake_case`. Une liste de page vidée entièrement revient aux données d'origine du code.
 
 | Slug | Rôle | Champs |
 |---|---|---|
@@ -204,4 +204,6 @@ automatiquement, nommage imposé par Payload). Tous les autres champs : `snake_c
 | `concepts` | Concepts stabilisés | `concept_id` (ancre), `numero`, `strate` (→ strates), `titre`, `definition`, `portee` |
 | `autorites` | Autorités de convergence (L'Ouvrage) | `autorite_id`, `ordre`, `nom`, `pays`, `apport` |
 | `users` | Comptes du back-office | `email`, `nom` + champs d'authentification Payload |
-| `contenu-<page>` (globals) | Textes des pages doctrinales | un champ par bloc du registre `content/blocs/` : clé `<page>.<section>.<partie>` → champ `<section>_<partie>` (ex. `manifeste.diagnostic.corps` → `diagnostic_corps`). **Ne jamais renommer une clé** (colonne en base). |
+| `contenu-<page>` (globals) | Textes des pages doctrinales et légales (`cgv`, `mentions-legales`, `confidentialite`) | un champ par bloc du registre `content/blocs/` : clé `<page>.<section>.<partie>` → champ `<section>_<partie>` (ex. `manifeste.diagnostic.corps` → `diagnostic_corps`). **Ne jamais renommer une clé** (colonne en base). |
+| `contenu-institution` (listes) | Listes structurées de L'Institution | `niveaux[]` (`numero`, `niveau_id`, `titre`, `fonction`, `question_fondamentale`, `corps[].texte`, `equation`, `liste[].texte`, `maxime`), `mouvement_organique[].texte`, `champs_autorites[]` (`champ_id`, `champ`, `autorites[]` : `nom`, `origine`, `motif`), `canon[]` (`numero`, `titre`, `glose`) |
+| `contenu-laboratoire` (listes) | Listes structurées du Laboratoire | `niveaux_acces[]` (`numero`, `titre`, `description`), `progression[]` (`reference`, `role`, `prerequis`) |

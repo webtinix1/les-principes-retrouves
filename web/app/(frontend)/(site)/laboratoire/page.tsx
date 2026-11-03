@@ -2,7 +2,6 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { Lock } from "lucide-react";
 
-import { NIVEAUX_ACCES, PROGRESSION } from "@/content/working-papers";
 import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse } from "@/components/bloc";
 import { Carte, Encadre } from "@/components/primitives";
@@ -10,7 +9,7 @@ import { AccesForm } from "@/components/acces-form";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import { getRessources, type RessourceCms } from "@/lib/cms";
+import { getListesLaboratoire, getRessources, type RessourceCms } from "@/lib/cms";
 import { ACCESS_COOKIE, niveauDebloque, validerCode } from "@/lib/access";
 
 export const dynamic = "force-dynamic";
@@ -143,7 +142,8 @@ export default async function LaboratoirePage() {
   const res = code ? await validerCode(code) : null;
   const niveauActif = res && res.valid ? res.niveau : null;
 
-  const ressources = await getRessources();
+  const [ressources, { niveaux_acces: NIVEAUX_ACCES, progression: PROGRESSION }] =
+    await Promise.all([getRessources(), getListesLaboratoire()]);
   const WORKING_PAPERS = ressources.filter((r) => r.categorie === "working_paper");
   const PIECES_OPERATOIRES = ressources.filter((r) => r.categorie === "piece_operatoire");
   const etatRessource = (r: RessourceCms) => ({
