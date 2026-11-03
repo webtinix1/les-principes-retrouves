@@ -43,6 +43,16 @@ Au démarrage, le conteneur `web` :
 
 Back-office : `https://${SITE_HOST}/admin`.
 
+## Tester la pile en local (sans Traefik)
+
+```bash
+cp .env.example .env    # renseigner au minimum POSTGRES_*, PAYLOAD_SECRET, PAYLOAD_ADMIN_*, ADMIN_BASIC_AUTH
+docker network create traefik-platform-network   # une fois
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+```
+
+Site sur `http://localhost:3000`, back-office sur `http://localhost:3000/admin`.
+
 ## Bascule depuis l'ancienne version (SQLite)
 
 L'ancienne version stockait messages, commandes, codes d'accès, disponibilité des
