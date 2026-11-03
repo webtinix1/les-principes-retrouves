@@ -1,0 +1,10 @@
+# Surcharge pour lancer la pile en local, sans Traefik :
+#   docker network create traefik-platform-network   # une fois (réseau attendu par le compose)
+#   docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+# Site : http://localhost:3000 — back-office : http://localhost:3000/admin
+services:
+  web:
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000

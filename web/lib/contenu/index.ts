@@ -1,29 +1,53 @@
 import { cache } from "react";
-import { prisma } from "@/lib/prisma";
+import type { GlobalSlug } from "payload";
+import { payloadClient } from "@/lib/payload";
+import { BLOC_PAR_CLE, PAGE_PAR_CLE } from "@/content/blocs";
+import ORIGINE from "@/content/blocs/origine.json";
+import { nomChamp, slugGlobal } from "@/payload/globals/contenu";
+import { lexicalEnHtml, lexicalEstVide } from "./lexical";
 
 /**
- * Lecture des surcharges éditoriales (back-office) appliquées aux blocs de
- * contenu. Le texte par défaut vit dans le JSX des pages : on ne lit ici que
- * les réécritures.
+ * Lecture du contenu éditorial des pages (globals Payload « contenu-<page> »).
  *
- * `cache()` déduplique la requête sur tout un rendu de page : une seule lecture
- * SQLite quel que soit le nombre de blocs.
+ * Le texte d'origine reste le JSX des pages. On ne s'en écarte que si le
+ * back-office porte un texte DIFFÉRENT de l'origine (`origine.json`) :
+ *   - champ vide, ou identique à l'origine → JSX d'origine (rendu au pixel près) ;
+ *   - champ modifié → texte du back-office.
  */
-export const getSurcharges = cache(async (): Promise<Map<string, string>> => {
+
+type Origine = Record<string, { html?: string; texte?: string }>;
+const ORIGINES = ORIGINE as Origine;
+
+export type Surcharge = { type: "html"; html: string } | { type: "texte"; texte: string };
+
+/** Contenu brut d'un global de page, mis en cache pour tout le rendu. */
+const lireGlobal = cache(async (slug: GlobalSlug): Promise<Record<string, unknown>> => {
   try {
-    const lignes = await prisma.contenuBloc.findMany({
-      select: { cle: true, valeur: true },
-    });
-    return new Map(lignes.map((l) => [l.cle, l.valeur]));
+    const payload = await payloadClient();
+    return (await payload.findGlobal({ slug, depth: 0 })) as unknown as Record<string, unknown>;
   } catch {
-    // Build Docker : aucune base n'existe encore (l'entrypoint migre au
-    // démarrage). On sert alors les textes du code — le conteneur déclenche
-    // une revalidation au boot pour réappliquer les surcharges du volume.
-    return new Map();
+    // Build Docker : aucune base joignable. On sert les textes du code — le
+    // conteneur revalide les pages au démarrage pour réappliquer la base.
+    return {};
   }
 });
 
 /** Surcharge d'un bloc, ou `null` si le texte d'origine (JSX) doit être rendu. */
-export async function getSurcharge(cle: string): Promise<string | null> {
-  return (await getSurcharges()).get(cle) ?? null;
+export async function getSurcharge(cle: string): Promise<Surcharge | null> {
+  const page = PAGE_PAR_CLE.get(cle);
+  const def = BLOC_PAR_CLE.get(cle);
+  if (!page || !def) return null;
+
+  const valeur = (await lireGlobal(slugGlobal(page)))[nomChamp(cle)];
+  const origine = ORIGINES[cle];
+
+  if (def.type === "riche") {
+    if (valeur == null || lexicalEstVide(valeur)) return null;
+    const html = lexicalEnHtml(valeur);
+    return html === origine?.html ? null : { type: "html", html };
+  }
+
+  if (typeof valeur !== "string" || !valeur.trim()) return null;
+  const texte = valeur.trim();
+  return texte === origine?.texte ? null : { type: "texte", texte };
 }

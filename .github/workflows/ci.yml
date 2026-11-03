@@ -1,0 +1,108 @@
+# CI — application Next.js + Payload (web/).
+# Vérifie les types, la compilation de production (sans base, comme le build
+# Docker), puis démarre le serveur sur une base PostgreSQL vide (migrations +
+# amorçage) et rejoue le parcours d'édition du back-office (Playwright).
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: web
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: payload
+          POSTGRES_PASSWORD: payload
+          POSTGRES_DB: principes
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U payload -d principes"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      PAYLOAD_SECRET: ci-secret-0123456789abcdef0123456789
+      PAYLOAD_ADMIN_EMAIL: admin@example.com
+      PAYLOAD_ADMIN_PASSWORD: admin-ci-123
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: web/yarn.lock
+
+      - name: Dépendances
+        run: yarn install --frozen-lockfile
+
+      - name: Types
+        run: npx tsc --noEmit
+
+      - name: Migrations à jour avec le schéma
+        env:
+          DATABASE_URL: postgresql://payload:payload@127.0.0.1:5432/principes
+        run: |
+          # Échoue si un changement de collection/champ n'a pas sa migration.
+          npx payload migrate:create verification_ci --skip-empty 2>&1 | tee /tmp/migrate.log
+          if ls migrations/*verification_ci* >/dev/null 2>&1; then
+            echo "::error::Schéma Payload modifié sans migration : lancer 'yarn migrate:create <nom>' et committer."
+            exit 1
+          fi
+
+      - name: Build de production (sans base, comme dans Docker)
+        env:
+          DATABASE_URL: postgresql://nobody:x@127.0.0.1:1/none
+        run: yarn build
+
+      - name: Démarrage du serveur (base vide → migrations + amorçage)
+        env:
+          NODE_ENV: production
+          PORT: "3000"
+          HOSTNAME: 127.0.0.1
+          DATABASE_URL: postgresql://payload:payload@127.0.0.1:5432/principes
+          NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+        run: |
+          cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && cp -r protected .next/standalone/
+          (cd .next/standalone && nohup node server.js > /tmp/serveur.log 2>&1 &)
+          for i in $(seq 1 60); do
+            curl -sf -o /dev/null http://127.0.0.1:3000/admin/login && break
+            sleep 2
+          done
+          for p in / /accueil /manifeste /institution /laboratoire /transmission /concepts /ouvrage /cgv /admin/login; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:3000$p")
+            echo "$p → $code"
+            [ "$code" = "200" ] || exit 1
+          done
+
+      - name: Navigateur Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Parcours d'édition du back-office
+        env:
+          BASE: http://127.0.0.1:3000
+          ADMIN_EMAIL: admin@example.com
+          ADMIN_PASSWORD: admin-ci-123
+        run: npx playwright test
+
+      - name: Journal du serveur
+        if: always()
+        run: cat /tmp/serveur.log || true

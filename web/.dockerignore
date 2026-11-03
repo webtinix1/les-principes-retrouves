@@ -10,3 +10,6 @@ yarn-error.log
 Dockerfile
 .dockerignore
 README.md
+protected/documents
+test-results
+playwright-report

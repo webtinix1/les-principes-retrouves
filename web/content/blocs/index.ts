@@ -8,6 +8,9 @@ import { NOTE_EPISTEMOLOGIQUE_BLOCS } from "./note_epistemologique";
 import { LABORATOIRE_BLOCS } from "./laboratoire";
 import { TRANSMISSION_BLOCS } from "./transmission";
 import { CONCEPTS_BLOCS } from "./concepts";
+import { CGV_BLOCS } from "./cgv";
+import { MENTIONS_LEGALES_BLOCS } from "./mentions_legales";
+import { CONFIDENTIALITE_BLOCS } from "./confidentialite";
 
 export type { BlocDef, PageBlocs, TypeBloc } from "./types";
 
@@ -26,11 +29,20 @@ export const PAGES_BLOCS: PageBlocs[] = [
   OUVRAGE_BLOCS,
   LABORATOIRE_BLOCS,
   TRANSMISSION_BLOCS,
+  // Pages légales
+  MENTIONS_LEGALES_BLOCS,
+  CONFIDENTIALITE_BLOCS,
+  CGV_BLOCS,
 ];
 
 /** Index clé → définition (validation des enregistrements, rendu de l'éditeur). */
 export const BLOC_PAR_CLE: Map<string, BlocDef> = new Map(
   PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, b] as const)),
+);
+
+/** Index clé → page (global Payload qui porte le bloc). */
+export const PAGE_PAR_CLE: Map<string, PageBlocs> = new Map(
+  PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, p] as const)),
 );
 
 /** Index clé → chemin public de la page (cible de `revalidatePath`). */

@@ -46,12 +46,37 @@ Temps fort de l'accueil : la **Pyramide de Σ** interactive (animation « Métho
   - VS Code → extension **Live Server** → clic droit sur `site/index.html` → *Open with Live Server*.
   - ou : `python -m http.server 3000` à la racine, puis `http://127.0.0.1:3000/site/index.html`.
 
+## Application Next.js + back-office Payload (`web/`)
+
+Le site en production est l'application **Next.js** de `web/`, avec le back-office
+**Payload CMS** sur `/admin` (textes des pages, modules et tarifs, concepts, autorités,
+ressources et PDF protégés, commandes, codes d'accès, messages de contact) et une base
+**PostgreSQL**.
+
+```bash
+cd web
+cp .env.example .env      # DATABASE_URL (PostgreSQL local), PAYLOAD_SECRET, PAYLOAD_ADMIN_*
+yarn install
+yarn dev                  # http://localhost:3000 — admin : http://localhost:3000/admin
+```
+
+Au premier démarrage, la base est amorcée automatiquement (compte admin, modules,
+concepts, autorités, ressources, textes des pages) à partir des données du code.
+
+| Commande (`web/`) | Rôle |
+|---|---|
+| `yarn migrate:create <nom>` | Génère une migration après modification du schéma (à committer) |
+| `yarn generate:types` | Régénère `payload-types.ts` |
+| `yarn generate:importmap` | Régénère l'import map de l'admin (composants personnalisés) |
+| `yarn contenu:extraire` | Régénère `content/blocs/origine.json` depuis le rendu JSX |
+| `yarn import:sqlite` | Reprise one-shot de l'ancienne base SQLite (cf. DEPLOYMENT.md) |
+
 ## Déploiement (Docker + Traefik)
 
 Le domaine et le routeur sont **pilotés par `.env`**, derrière un Traefik existant (réseau `traefik-platform-network`, HTTPS/HSTS gérés par Traefik).
 
 ```bash
-cp .env.example .env      # éditer SITE_HOST + TRAEFIK_CONFIG_NAME
+cp .env.example .env      # SITE_HOST, TRAEFIK_CONFIG_NAME, POSTGRES_*, PAYLOAD_SECRET…
 docker compose up -d --build
 ```
 

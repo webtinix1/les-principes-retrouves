@@ -184,3 +184,26 @@ Le `label` ci-dessous est le **libellé court** affiché dans le header (pour te
 - **Dates** : ISO 8601 (`YYYY-MM-DDTHH:mm:ssZ`).
 
 > Tout nouveau besoin de donnée → ajouter une ligne ici **avant** de coder.
+
+---
+
+## 8. Back-office Payload (`web/payload/`) — collections et globals
+
+Identifiants techniques Payload : `id` (UUID), `createdAt`, `updatedAt` (ajoutés
+automatiquement, nommage imposé par Payload). Tous les autres champs : `snake_case`. Une liste de page vidée entièrement revient aux données d'origine du code.
+
+| Slug | Rôle | Champs |
+|---|---|---|
+| `commandes` | Commande d'un module (achat invité) | `statut` (en_attente · paye · echoue · rembourse · devis_demande), `module_id`, `module_titre`, `tarif_type` (b2b · b2c · devis), `montant`, `devise`, `buyer_nom`, `buyer_email`, `buyer_organisation`, `buyer_telephone`, `buyer_pays`, `payment_provider`, `payment_ref`, `code_acces` (jointure) |
+| `codes-acces` | Code débloquant les téléchargements | `code` (unique), `niveau` (module_i · module_ii · module_iii), `email`, `commande` (→ commandes, unique), `revoked`, `expires_at`, `used_at` |
+| `modules` | Modules de formation | `module_id` (stable), `ordre`, `niveau`, `numero`, `titre`, `public_cible`, `duree`, `prerequis`, `sessions[]` (`titre`, `points[].texte`), `livrables[].texte`, `tarif_b2b`, `tarif_b2c`, `tarif_devis`, `cta_label` |
+| `messages-contact` | Formulaire de contact | `statut` (nouveau · traite · archive), `nom`, `email`, `organisation`, `sujet`, `message`, `consent_rgpd`, `source` |
+| `ressources` | Arsenal du Laboratoire | `ressource_id` (stable, URL de téléchargement), `categorie` (working_paper · piece_operatoire), `ordre`, `niveau_requis`, `is_available`, `fichier` (→ documents), `reference`, `titre`, `classification`, `volume`, `statut`, `soumission`, `resume_label`, `resume[].texte`, `concepts_mobilises[].texte` |
+| `documents` | PDF intégraux protégés (upload, hors `public/`) | `description` + champs d'upload Payload |
+| `strates` | Strates du vocabulaire | `strate_id` (ancre), `ordre`, `titre`, `sous_titre`, `concepts` (jointure) |
+| `concepts` | Concepts stabilisés | `concept_id` (ancre), `numero`, `strate` (→ strates), `titre`, `definition`, `portee` |
+| `autorites` | Autorités de convergence (L'Ouvrage) | `autorite_id`, `ordre`, `nom`, `pays`, `apport` |
+| `users` | Comptes du back-office | `email`, `nom` + champs d'authentification Payload |
+| `contenu-<page>` (globals) | Textes des pages doctrinales et légales (`cgv`, `mentions-legales`, `confidentialite`) | un champ par bloc du registre `content/blocs/` : clé `<page>.<section>.<partie>` → champ `<section>_<partie>` (ex. `manifeste.diagnostic.corps` → `diagnostic_corps`). **Ne jamais renommer une clé** (colonne en base). |
+| `contenu-institution` (listes) | Listes structurées de L'Institution | `niveaux[]` (`numero`, `niveau_id`, `titre`, `fonction`, `question_fondamentale`, `corps[].texte`, `equation`, `liste[].texte`, `maxime`), `mouvement_organique[].texte`, `champs_autorites[]` (`champ_id`, `champ`, `autorites[]` : `nom`, `origine`, `motif`), `canon[]` (`numero`, `titre`, `glose`) |
+| `contenu-laboratoire` (listes) | Listes structurées du Laboratoire | `niveaux_acces[]` (`numero`, `titre`, `description`), `progression[]` (`reference`, `role`, `prerequis`) |

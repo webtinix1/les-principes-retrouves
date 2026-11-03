@@ -1,66 +1,106 @@
-# Déploiement — Les Principes Retrouvés (maquette)
+# Déploiement — Les Principes Retrouvés (Next.js + Payload CMS)
 
-Déploiement de la maquette statique en Docker, derrière **Traefik**, le domaine étant
-**piloté par le `.env`** (même logique que les autres services de la plateforme).
+Application **Next.js** (`web/`) avec back-office **Payload CMS** sur `/admin` et base
+**PostgreSQL**, en Docker derrière **Traefik**, domaine **piloté par le `.env`**.
 
 ## Architecture
 
-- Image **nginx:alpine** servant le contenu de `site/` (statique).
-- Exposée à Traefik via le réseau externe **`traefik-platform-network`**.
-- HTTPS / certificat Let's Encrypt + redirection + HSTS gérés par Traefik (labels).
+| Service | Rôle |
+|---|---|
+| `web` | Next.js (sortie `standalone`) : site public + admin Payload (`/admin`) + API (`/api`) |
+| `db` | PostgreSQL 17 — réseau `interne` uniquement, jamais exposé |
+| `outils` | (profil `outils`, ne démarre jamais seul) image de build complète pour les scripts |
+
+- Volumes : `db-data` (PostgreSQL), `app-data` (`/app/data` : PDF protégés téléversés).
+- HTTPS / Let's Encrypt / redirection / HSTS : labels Traefik ; `/admin` reçoit en plus un
+  basic-auth Traefik (double verrou avec l'authentification Payload).
 
 ## Pré-requis
 
-1. Docker + Docker Compose sur le serveur.
-2. Un **Traefik** déjà en place avec :
-   - un entrypoint **`websecure`** (443),
-   - un certresolver nommé **`le`** (Let's Encrypt),
-   - le réseau externe **`traefik-platform-network`**.
-   > Si le réseau n'existe pas encore : `docker network create traefik-platform-network`
-3. Le **DNS** du domaine (`SITE_HOST`) pointant vers le serveur.
+1. Docker + Docker Compose.
+2. Traefik en place : entrypoint `websecure`, certresolver `le`, réseau externe
+   `traefik-platform-network` (`docker network create traefik-platform-network` sinon).
+3. DNS de `SITE_HOST` pointant vers le serveur.
 
 ## Mise en route
 
 ```bash
 cp .env.example .env
-# Éditer .env : SITE_HOST, TRAEFIK_CONFIG_NAME (unique), TZ
+# Renseigner : SITE_HOST, TRAEFIK_CONFIG_NAME, NEXT_PUBLIC_SITE_URL,
+#   POSTGRES_USER / POSTGRES_PASSWORD / POSTGRES_DB,
+#   PAYLOAD_SECRET (openssl rand -hex 32),
+#   PAYLOAD_ADMIN_EMAIL / PAYLOAD_ADMIN_PASSWORD (premier compte),
+#   ADMIN_BASIC_AUTH, paiement et e-mail.
 docker compose up -d --build
 ```
 
-Le site est alors disponible sur `https://${SITE_HOST}`.
+Au démarrage, le conteneur `web` :
 
-## Variables (.env)
+1. applique les migrations PostgreSQL en attente (`web/migrations/`) ;
+2. amorce ce qui est vide : premier compte admin, modules, concepts, autorités,
+   ressources, textes des pages (jamais d'écrasement) ;
+3. revalide les pages prérendues au build, pour qu'elles servent le contenu de la base.
 
-| Variable | Rôle | Exemple |
-|---|---|---|
-| `COMPOSE_PROJECT_NAME` | Préfixe des conteneurs/images | `principes-retrouves` |
-| `SITE_HOST` | Domaine public servi par Traefik | `lesprincipesretrouves.com` |
-| `TRAEFIK_CONFIG_NAME` | Nom **unique** du routeur Traefik | `preprod`, `prod`, `demo-client` |
-| `TZ` | Fuseau horaire du conteneur | `Africa/Brazzaville` |
+Back-office : `https://${SITE_HOST}/admin`.
 
-## Plusieurs instances (preprod / prod / démo client)
+> **`NEXT_PUBLIC_SITE_URL` doit être exactement l'URL publique** (`https://${SITE_HOST}`).
+> Payload n'accepte les sessions du back-office que depuis cette origine : avec une
+> autre valeur, la connexion semble fonctionner mais les enregistrements échouent.
 
-Dupliquer dans un autre dossier (ou un autre `.env`) avec un `SITE_HOST` et un
-`TRAEFIK_CONFIG_NAME` **différents** — aucun port à gérer, Traefik route par domaine.
+**E-mails du back-office** (mot de passe oublié) : envoyés via Resend dès que
+`RESEND_API_KEY` et `RESEND_FROM` sont renseignés (domaine vérifié chez Resend) ;
+sinon ils sont seulement écrits dans les logs du conteneur.
 
-## Mettre à jour le site
+## Tester la pile en local (sans Traefik)
 
 ```bash
-git pull          # ou copier les nouveaux fichiers de site/
+cp .env.example .env    # renseigner au minimum POSTGRES_*, PAYLOAD_SECRET, PAYLOAD_ADMIN_*, ADMIN_BASIC_AUTH
+docker network create traefik-platform-network   # une fois
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
+```
+
+Site sur `http://localhost:3000`, back-office sur `http://localhost:3000/admin`.
+
+## Bascule depuis l'ancienne version (SQLite)
+
+L'ancienne version stockait messages, commandes, codes d'accès, disponibilité des
+ressources et textes réécrits dans `/app/data/prod.db` (volume `app-data`, conservé). Pour
+les reprendre dans PostgreSQL, **après un premier démarrage** de la nouvelle version :
+
+```bash
+docker compose --profile outils run --rm -e SQLITE_FILE=/app/data/prod.db outils yarn import:sqlite
+docker compose restart web     # republie les pages avec les textes importés
+```
+
+Le script est rejouable sans doublon. Les codes d'accès restent valides ; les anciens liens
+de confirmation de commande (identifiants changés) ne le sont plus.
+
+## Mettre à jour
+
+```bash
+git pull
 docker compose up -d --build
+```
+
+Modification du schéma (collection, champ) : générer la migration en développement
+(`cd web && yarn migrate:create <nom>`) et la committer — elle s'applique au redémarrage.
+
+## Sauvegardes
+
+```bash
+docker compose exec db pg_dump -U "$POSTGRES_USER" "$POSTGRES_DB" > sauvegarde.sql
+docker run --rm -v principes-retrouves_app-data:/d -v "$PWD":/b alpine tar czf /b/documents.tgz -C /d documents
 ```
 
 ## Commandes utiles
 
 ```bash
-docker compose logs -f web      # logs nginx
+docker compose logs -f web      # logs application (migrations, amorçage)
 docker compose ps               # état
-docker compose down             # arrêt
+docker compose down             # arrêt (volumes conservés)
 ```
 
-## Vers la v2 (PrestaShop)
+## Plusieurs instances (preprod / prod / démo)
 
-Quand la maquette sera validée et convertie en thème PrestaShop, ce `docker-compose.yml`
-sera remplacé par une stack PrestaShop + base de données (MariaDB) + volumes, sur le
-**même modèle Traefik piloté par `.env`** que le `docker-compose.yml` Dolibarr de référence.
-Voir `docs/integrations.md`.
+Un dossier (ou un `.env`) par instance, avec `SITE_HOST`, `TRAEFIK_CONFIG_NAME` et
+`COMPOSE_PROJECT_NAME` **différents** — Traefik route par domaine.

@@ -45,4 +45,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/lib/generated/prisma
+# Documents protégés téléversés depuis le back-office (volume en production)
+/protected/documents/
+
+# Résultats Playwright
+/test-results/
+/playwright-report/
