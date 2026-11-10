@@ -160,10 +160,10 @@ export default async function LaboratoirePage() {
             Laboratoire Doctrinal
           </h1>
           <p className="mt-4 font-sans text-lg italic text-or">
-            L'Arsenal Opérationnel de l'Institut de Brazzaville
+            L’Arsenal Opérationnel de l’Institut de Brazzaville
           </p>
           <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
-            « L'intelligibilité théorique se valide par son opérationnalité en
+            « L’intelligibilité théorique se valide par son opérationnalité en
             arène contentieuse. »
           </blockquote>
         </Container>
@@ -180,16 +180,16 @@ export default async function LaboratoirePage() {
               Méthode Reconstructive (Méthode M).
             </p>
             <p>
-              Les documents ci-dessous sont conçus pour armer l'intelligence du
+              Les documents ci-dessous sont conçus pour armer l’intelligence du
               chercheur et du praticien face aux fictions de clôture des
-              paradigmes saturés. Ils matérialisent le passage de l'Organon
+              paradigmes saturés. Ils matérialisent le passage de l’Organon
               théorique (Tome I) au Laboratoire pratique (Tome II), en offrant
-              des protocoles de détection, de qualification et d'action face aux
+              des protocoles de détection, de qualification et d’action face aux
               anomalies structurelles.
             </p>
             <p>
               Chaque pièce est soumise aux mêmes exigences de démonstration qui
-              ont présidé à l'élaboration des <em>Principes Retrouvés</em>.
+              ont présidé à l’élaboration des <em>Principes Retrouvés</em>.
               Aucune ne sollicite une adhésion préalable ; chacune demande à être
               éprouvée dans la rigueur de son application.
             </p>
@@ -200,13 +200,13 @@ export default async function LaboratoirePage() {
       {/* Politique d'accès hybride — présentée comme INFORMATION */}
       <Section tone="gris">
         <Container>
-          <TitreSection>Politique d'accès hybride</TitreSection>
+          <TitreSection>Politique d’accès hybride</TitreSection>
           <BlocProse cle="laboratoire.acces_hybride.corps" className="mt-6 max-w-none">
             <p>
               Conformément au{" "}
               <strong>Principe de Souveraineté du Démontré</strong> et à la
               distinction des deux temporalités (temps de la démonstration /
-              temps de la réception), l'accès à l'arsenal obéit à une logique de
+              temps de la réception), l’accès à l’arsenal obéit à une logique de
               compartimentation sémantique à trois niveaux.
             </p>
           </BlocProse>
@@ -224,7 +224,7 @@ export default async function LaboratoirePage() {
             ))}
           </div>
           <p className="mt-8 font-sans text-base italic text-bleu-nuit-profond/80">
-            L'arsenal se déploie en cinq ressources souveraines, articulées selon
+            L’arsenal se déploie en cinq ressources souveraines, articulées selon
             une progression logique.
           </p>
 
@@ -234,7 +234,7 @@ export default async function LaboratoirePage() {
               Accès conditionné — votre code
             </h3>
             <p className="mt-2 font-sans text-sm text-blanc-casse/80">
-              Les participants aux modules de formation reçoivent un code d'accès
+              Les participants aux modules de formation reçoivent un code d’accès
               qui débloque les documents intégraux. Saisissez-le ci-dessous.
             </p>
             <div className="mt-4">
@@ -272,15 +272,15 @@ export default async function LaboratoirePage() {
       <Section tone="nuit">
         <Container>
           <TitreSection className="text-blanc-casse">
-            La progression logique de l'arsenal
+            La progression logique de l’arsenal
           </TitreSection>
           <BlocProse cle="laboratoire.progression.corps" className="mt-6 max-w-none text-blanc-casse/90">
             <p>
-              L'arsenal se déploie selon une progression rigoureuse qui respecte
-              l'architecture constitutive de la Science Métamoderne. Chaque pièce
-              s'appuie sur la précédente, formant un édifice doctrinal cohérent et
+              L’arsenal se déploie selon une progression rigoureuse qui respecte
+              l’architecture constitutive de la Science Métamoderne. Chaque pièce
+              s’appuie sur la précédente, formant un édifice doctrinal cohérent et
               opposable. Elle respecte également le{" "}
-              <strong>Principe de Souveraineté du Démontré</strong> : l'accès aux
+              <strong>Principe de Souveraineté du Démontré</strong> : l’accès aux
               outils opérationnels est subordonné à la maîtrise préalable des
               fondements épistémologiques.
             </p>

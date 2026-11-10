@@ -34,7 +34,7 @@ export default async function ConceptsPage() {
             Les 20 Piliers de la Science Métamoderne — Version 4.0 enrichie
           </p>
           <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
-            « La précision sémantique est la condition absolue de l'intégrité de
+            « La précision sémantique est la condition absolue de l’intégrité de
             la structure. »
           </blockquote>
         </Container>
@@ -46,17 +46,17 @@ export default async function ConceptsPage() {
           <BlocProse cle="concepts.introduction.corps">
             <p>
               Ce vocabulaire ne constitue pas un simple glossaire. Il est le
-              système d'exploitation de la Science Métamoderne. Ces vingt
+              système d’exploitation de la Science Métamoderne. Ces vingt
               concepts, classés par strates logiques, définissent les conditions
-              de possibilité de l'intelligibilité et les règles de l'action
+              de possibilité de l’intelligibilité et les règles de l’action
               normative.
             </p>
             <p>
               Chaque entrée est verrouillée contre toute dérive disciplinaire,
               toute spéculation gratuite et toute confusion avec les courants
               métamodernes culturels contemporains. Le visiteur dispose ici du
-              dictionnaire d'autorité de l'École de Brazzaville : chaque
-              définition est opposable et immunisée contre l'arbitraire.
+              dictionnaire d’autorité de l’École de Brazzaville : chaque
+              définition est opposable et immunisée contre l’arbitraire.
             </p>
           </BlocProse>
         </Container>

@@ -41,15 +41,15 @@ export default async function TransmissionPage() {
             Transmission &amp; Inscriptions
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
-            L'émancipation intellectuelle et l'arsenal de Rang A
+            L’émancipation intellectuelle et l’arsenal de Rang A
           </p>
           <blockquote className="mt-8 font-heading text-lg italic leading-relaxed text-blanc-casse">
-            « L'esprit humain, trop longtemps livré à son propre sort, abandonné
-            à son propre dénuement face à l'émiettement du savoir et à la fiction
+            « L’esprit humain, trop longtemps livré à son propre sort, abandonné
+            à son propre dénuement face à l’émiettement du savoir et à la fiction
             de clôture des disciplines, trouve ici les conditions de sa
-            souveraineté retrouvée. L'Institut de Brazzaville ne propose pas une
-            adhésion à un dogme, mais la mise à disposition d'un Organon de
-            réintégration. Acquérir cet arsenal, c'est cesser de subir la
+            souveraineté retrouvée. L’Institut de Brazzaville ne propose pas une
+            adhésion à un dogme, mais la mise à disposition d’un Organon de
+            réintégration. Acquérir cet arsenal, c’est cesser de subir la
             fragmentation pour commencer à calculer la cohérence. »
           </blockquote>
         </Container>
@@ -58,15 +58,15 @@ export default async function TransmissionPage() {
       {/* Section 1 — L'argumentaire de la souveraineté */}
       <Section tone="clair">
         <Container>
-          <TitreSection>L'argumentaire de la souveraineté</TitreSection>
+          <TitreSection>L’argumentaire de la souveraineté</TitreSection>
           <BlocProse cle="transmission.argumentaire.corps" className="mt-8">
             <p>
               La science contemporaine a progressivement abandonné le chercheur
               à son propre sort. Enfermé dans des disciplines cloisonnées, soumis
               à un positivisme dogmatique qui sacralise la procédure au détriment
-              de la substance, l'esprit humain est devenu structurellement
+              de la substance, l’esprit humain est devenu structurellement
               aveugle aux architectures profondes qui rendent le réel
-              intelligible. Le savoir ordinaire (K) s'est transformé en une
+              intelligible. Le savoir ordinaire (K) s’est transformé en une
               poussière de faits orphelins, incapable de restituer la complétude
               du système.
             </p>
@@ -76,19 +76,19 @@ export default async function TransmissionPage() {
               <strong>arsenal opératoire de Rang A</strong>.
             </p>
             <p>
-              L'Institut de Brazzaville a pour vocation de former des esprits
-              souverains, capables d'opérer la{" "}
+              L’Institut de Brazzaville a pour vocation de former des esprits
+              souverains, capables d’opérer la{" "}
               <strong>Désadhérence Réflexive</strong> face aux fictions de
               clôture académiques, de détecter les anomalies structurelles, et de
               remonter activement vers les conditions de possibilité de la
               connaissance et de la justice.
             </p>
             <p>
-              La transmission de cet arsenal n'est pas un acte de prosélytisme.
-              C'est un acte de <strong>souveraineté épistémique</strong>. En
-              s'appropriant la Méthode Reconstructive (Méthode M), le praticien —
-              qu'il soit juriste, magistrat, chercheur ou avocat — cesse d'être
-              le spectateur passif d'un droit asphyxiant pour devenir l'opérateur
+              La transmission de cet arsenal n’est pas un acte de prosélytisme.
+              C’est un acte de <strong>souveraineté épistémique</strong>. En
+              s’appropriant la Méthode Reconstructive (Méthode M), le praticien —
+              qu’il soit juriste, magistrat, chercheur ou avocat — cesse d’être
+              le spectateur passif d’un droit asphyxiant pour devenir l’opérateur
               vivant de la rectification systémique. Il acquiert la capacité de
               calculer la cohérence là où les doctrines officielles ne produisent
               que le silence.
@@ -102,22 +102,22 @@ export default async function TransmissionPage() {
         <Container>
           <Encadre>
             <TitreSection className="text-or">
-              La Boucle Vertueuse : Formation → Accès à l'Arsenal
+              La Boucle Vertueuse : Formation → Accès à l’Arsenal
             </TitreSection>
             <div className="mt-6 max-w-[68ch] font-sans text-base leading-relaxed text-blanc-casse [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold">
               <p>
                 Conformément au{" "}
                 <strong>Principe de Souveraineté du Démontré</strong> et à la
                 distinction des deux temporalités (temps de la démonstration /
-                temps de la réception), l'accès à l'arsenal opérationnel du
+                temps de la réception), l’accès à l’arsenal opérationnel du
                 Laboratoire Doctrinal est strictement conditionné à la maîtrise
                 préalable des fondements épistémologiques.
               </p>
               <p>
-                Cette politique d'accès hybride garantit la qualité de la
-                réception et la rigueur de l'application. Elle crée une boucle
-                vertueuse où la formation n'est pas seulement un apport théorique,
-                mais la clé d'accès à l'arsenal opérationnel complet de l'École.
+                Cette politique d’accès hybride garantit la qualité de la
+                réception et la rigueur de l’application. Elle crée une boucle
+                vertueuse où la formation n’est pas seulement un apport théorique,
+                mais la clé d’accès à l’arsenal opérationnel complet de l’École.
               </p>
             </div>
 
@@ -129,12 +129,12 @@ export default async function TransmissionPage() {
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
                   <li>Résumés exécutifs des Working Papers</li>
                   <li>Présentation des Concepts Stabilisés</li>
-                  <li>Extraits de l'Arrêt Pilote (considérants uniquement)</li>
+                  <li>Extraits de l’Arrêt Pilote (considérants uniquement)</li>
                 </ul>
               </div>
               <div>
                 <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
-                  Niveau 2 — Accès conditionné par l'inscription aux modules
+                  Niveau 2 — Accès conditionné par l’inscription aux modules
                 </h3>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
                   <li>
@@ -142,7 +142,7 @@ export default async function TransmissionPage() {
                     WP-02, WP-03)
                   </li>
                   <li>
-                    Module II validé → Accès au Guide Technique d'Invocation
+                    Module II validé → Accès au Guide Technique d’Invocation
                     intégral + Arrêt Pilote intégral commenté
                   </li>
                 </ul>
@@ -152,7 +152,7 @@ export default async function TransmissionPage() {
                   Niveau 3 — Accès premium (Module III)
                 </h3>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
-                  <li>Modèles d'actes juridictionnels personnalisés</li>
+                  <li>Modèles d’actes juridictionnels personnalisés</li>
                   <li>Conseil stratégique sur mesure</li>
                   <li>Accès privilégié au Programme de Recherche</li>
                 </ul>
@@ -160,9 +160,9 @@ export default async function TransmissionPage() {
             </div>
 
             <p className="mt-8 font-sans text-sm italic text-blanc-casse/80">
-              Cette architecture respecte la doctrine scellée : l'universel n'a
+              Cette architecture respecte la doctrine scellée : l’universel n’a
               pas de centre géographique, mais il a une exigence de rigueur.
-              L'accès aux outils opérationnels est subordonné à la maîtrise
+              L’accès aux outils opérationnels est subordonné à la maîtrise
               préalable des fondements épistémologiques.
             </p>
           </Encadre>
@@ -175,11 +175,11 @@ export default async function TransmissionPage() {
           <TitreSection>La grille des modules de formation</TitreSection>
           <BlocProse cle="transmission.modules.corps" className="mt-8">
             <p>
-              L'accès à la transmission de la Science Métamoderne obéit à une
+              L’accès à la transmission de la Science Métamoderne obéit à une
               stricte compartimentation sémantique et financière, interdisant
               toute imposition arbitraire. La double tarification garantit
-              l'universalité de la transmission tout en préservant l'autonomie
-              institutionnelle de l'École.
+              l’universalité de la transmission tout en préservant l’autonomie
+              institutionnelle de l’École.
             </p>
           </BlocProse>
 
@@ -318,9 +318,9 @@ export default async function TransmissionPage() {
           </TitreSection>
           <BlocProse cle="transmission.paiement.corps" className="mt-6 text-blanc-casse">
             <p>
-              L'Institut de Brazzaville a intégré le protocole asynchrone de
+              L’Institut de Brazzaville a intégré le protocole asynchrone de
               Chariow pour garantir la fluidité, la traçabilité et la sécurité
-              des transactions financières à l'échelle internationale. Cette
+              des transactions financières à l’échelle internationale. Cette
               souveraineté technique est la condition matérielle de notre
               indépendance épistémique.
             </p>
@@ -344,8 +344,8 @@ export default async function TransmissionPage() {
             </li>
           </ul>
           <p className="mx-auto mt-6 max-w-[68ch] font-sans text-sm italic text-blanc-casse/70">
-            Aucun frais n'est indexé sur le principe de non-imposition de
-            l'École. Les fonds collectés alimentent exclusivement le Programme de
+            Aucun frais n’est indexé sur le principe de non-imposition de
+            l’École. Les fonds collectés alimentent exclusivement le Programme de
             Recherche, les archives numériques et la formation des chercheurs
             indépendants du Sud global.
           </p>
@@ -372,13 +372,13 @@ export default async function TransmissionPage() {
                 Brazzaville, République du Congo
               </p>
               <p className="mt-3 font-sans text-sm italic text-bleu-nuit-profond/70">
-                Siège de l'Autorité de Certification et du Corpus Fondateur
+                Siège de l’Autorité de Certification et du Corpus Fondateur
               </p>
             </Carte>
 
             <Carte>
               <h3 className="font-heading text-lg font-semibold">
-                L'Antenne de Recherche — Liaison Scientifique et Académique
+                L’Antenne de Recherche — Liaison Scientifique et Académique
               </h3>
               <p className="mt-3 font-sans text-sm text-bleu-nuit-profond/85">
                 Dakar, Sénégal
@@ -441,7 +441,7 @@ export default async function TransmissionPage() {
               href="/declaration"
               className={cn(buttonVariants({ variant: "or", size: "cta" }))}
             >
-              Déposer une déclaration d'épreuve
+              Déposer une déclaration d’épreuve
             </Link>
           </div>
         </Container>

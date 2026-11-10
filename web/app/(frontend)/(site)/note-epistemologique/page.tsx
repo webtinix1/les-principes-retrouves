@@ -118,7 +118,7 @@ export default function NoteEpistemologiquePage() {
             Note épistémologique
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
-            Restituer les conditions de l'intelligibilité
+            Restituer les conditions de l’intelligibilité
           </p>
           <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
             « Le réel est voilé pour tous, filtré pour certains, et
@@ -132,32 +132,32 @@ export default function NoteEpistemologiquePage() {
         <Container>
           <header className="mb-8">
             <TitreSection>
-              Posture métascientifique — l'intelligibilité de l'intelligibilité
+              Posture métascientifique — l’intelligibilité de l’intelligibilité
             </TitreSection>
           </header>
           <BlocProse cle="note_epistemologique.posture.corps">
             <p>
-              L'École de Brazzaville n'a pas pour vocation de se substituer, de
+              L’École de Brazzaville n’a pas pour vocation de se substituer, de
               juger ou de valider les disciplines scientifiques constituées. Elle
               reconnaît pleinement leur autonomie, leurs méthodes propres et
-              l'exactitude de leurs résultats. Son objet est d'un autre ordre :
+              l’exactitude de leurs résultats. Son objet est d’un autre ordre :
               elle se déploie comme une science qui cherche à{" "}
-              <strong>rendre intelligible l'intelligibilité des sciences</strong>.
+              <strong>rendre intelligible l’intelligibilité des sciences</strong>.
             </p>
             <p>
-              L'esprit humain, lorsqu'il est livré à son propre sort, abandonné à
+              L’esprit humain, lorsqu’il est livré à son propre sort, abandonné à
               son propre dénuement et laissé à sa propre merci, subit le chaos des
-              faits bruts et s'enferme dans des tautologies restrictives. Contre
+              faits bruts et s’enferme dans des tautologies restrictives. Contre
               cette entropie cognitive, la Science Métamoderne propose une
               hypothèse structurale générale : les grandes découvertes de
-              l'histoire humaine, par-delà la diversité de leurs objets
+              l’histoire humaine, par-delà la diversité de leurs objets
               particuliers, partagent des invariants structurels profonds dans
               leur mécanisme de production de la connaissance.
             </p>
             <p>
               Cette Note Épistémologique a pour objet de formaliser ces invariants
-              et de les soumettre à l'épreuve de l'examen critique. Elle ne décrit
-              pas la science depuis l'extérieur ; elle en restitue l'architecture,
+              et de les soumettre à l’épreuve de l’examen critique. Elle ne décrit
+              pas la science depuis l’extérieur ; elle en restitue l’architecture,
               en formalise les médiations et en guide la remontée.
             </p>
           </BlocProse>
@@ -174,28 +174,28 @@ export default function NoteEpistemologiquePage() {
           </header>
           <BlocProse cle="note_epistemologique.axiome.corps">
             <p>
-              L'École de Brazzaville affirme un principe fondateur que l'illusion
+              L’École de Brazzaville affirme un principe fondateur que l’illusion
               empiriste moderne a progressivement occulté :{" "}
               <strong>
-                l'accumulation brute de faits issus du hasard de l'instrumentation
+                l’accumulation brute de faits issus du hasard de l’instrumentation
                 technique ne produit jamais de sens
               </strong>
               .
             </p>
             <p>
-              L'expérience n'engendre pas le concept ; elle se contente d'en
-              valider ou d'en falsifier la portée. Le Monde Observable (S) reçoit
-              sa signification de l'Architecture Préalable d'Intelligibilité
-              forgée par l'activité rationnelle de l'esprit. Sans prémisse majeure
-              conçue a priori, la recherche scientifique s'abîme dans une pure
+              L’expérience n’engendre pas le concept ; elle se contente d’en
+              valider ou d’en falsifier la portée. Le Monde Observable (S) reçoit
+              sa signification de l’Architecture Préalable d’Intelligibilité
+              forgée par l’activité rationnelle de l’esprit. Sans prémisse majeure
+              conçue a priori, la recherche scientifique s’abîme dans une pure
               description phénoménale privée de profondeur ontologique.
             </p>
           </BlocProse>
           <div className="mx-auto mt-8 max-w-[68ch]">
             <Encadre>
               <p className="font-heading text-lg italic">
-                Le laboratoire ne crée pas l'ordre ; il juge l'ordre que
-                l'intelligence a d'abord reconnu sous le Voile.
+                Le laboratoire ne crée pas l’ordre ; il juge l’ordre que
+                l’intelligence a d’abord reconnu sous le Voile.
               </p>
             </Encadre>
           </div>
@@ -206,16 +206,16 @@ export default function NoteEpistemologiquePage() {
               et non de simple manipulation technique. Comme le démontrait Pierre
               Delattre, le « secret » des expériences cruciales ne réside pas
               ailleurs que dans le choix judicieux des paramètres significatifs,
-              dicté par l'architecture conceptuelle préalable. Comme l'observait
-              Claude Bernard, la découverte scientifique procède d'une{" "}
+              dicté par l’architecture conceptuelle préalable. Comme l’observait
+              Claude Bernard, la découverte scientifique procède d’une{" "}
               <strong>rationnelle interprétation mentale</strong> qui précède et
-              gouverne l'expérience ; quand nous croyons induire, nous déduisons
-              réellement ; seulement l'expérimentateur se dirige d'après un
+              gouverne l’expérience ; quand nous croyons induire, nous déduisons
+              réellement ; seulement l’expérimentateur se dirige d’après un
               principe supposé ou provisoire.
             </p>
             <p>
               Ces trois autorités de convergence verrouillent définitivement la
-              primauté de l'intelligibilité sur l'opératoire.
+              primauté de l’intelligibilité sur l’opératoire.
             </p>
           </BlocProse>
         </Container>
@@ -226,23 +226,23 @@ export default function NoteEpistemologiquePage() {
         <Container>
           <header className="mb-8">
             <TitreSection>
-              Les deux principes suprêmes d'organisation
+              Les deux principes suprêmes d’organisation
             </TitreSection>
           </header>
           <div className="grid gap-6 lg:grid-cols-2">
             <Carte>
               <h3 className="font-heading text-xl font-semibold">
-                Principe d'Unité Structurelle (Généralisation)
+                Principe d’Unité Structurelle (Généralisation)
               </h3>
               <p className="mt-3 font-heading text-lg italic">
                 « Toutes les échelles du réel obéissent à une même loi organique. »
               </p>
               <p className="mt-4 font-sans leading-relaxed">
-                Le fragment isolé n'a pas de sens intelligible hors de sa relation
+                Le fragment isolé n’a pas de sens intelligible hors de sa relation
                 avec la totalité (<span className="font-mono text-or">Σ</span>).
                 Cette loi traverse la physique, la biologie, le droit et les
-                sciences sociales. L'isomorphisme des découvertes à travers les
-                disciplines n'est pas un hasard ; il est le signe que l'Unité
+                sciences sociales. L’isomorphisme des découvertes à travers les
+                disciplines n’est pas un hasard ; il est le signe que l’Unité
                 Structurelle Absolue (<span className="font-mono text-or">Σ</span>)
                 préexiste à la fragmentation du Voile et du Filtrage.
               </p>
@@ -256,14 +256,14 @@ export default function NoteEpistemologiquePage() {
                 oscillants (<span className="font-mono text-or">π₁ ↔ π₂</span>). »
               </p>
               <p className="mt-4 font-sans leading-relaxed">
-                L'analyse procède par distinction (
+                L’analyse procède par distinction (
                 <span className="font-mono text-or">π₁</span>) et la synthèse opère
                 par relation (<span className="font-mono text-or">π₂</span>). Ces
-                deux polarités ne s'opposent pas ; elles sont les deux battements
-                d'un même cœur rationnel. L'erreur fondamentale des cadres de
+                deux polarités ne s’opposent pas ; elles sont les deux battements
+                d’un même cœur rationnel. L’erreur fondamentale des cadres de
                 pensée classiques est de croire que la relation naît de la
-                rencontre d'éléments préexistants. Le paradigme métamoderne affirme
-                l'inverse : l'unité produit la relation, et la relation définit les
+                rencontre d’éléments préexistants. Le paradigme métamoderne affirme
+                l’inverse : l’unité produit la relation, et la relation définit les
                 termes.
               </p>
             </Carte>
@@ -281,7 +281,7 @@ export default function NoteEpistemologiquePage() {
           </header>
           <BlocProse cle="note_epistemologique.theoreme.corps" className="text-blanc-casse">
             <p>
-              Toute authentique découverte s'élabore selon un parcours
+              Toute authentique découverte s’élabore selon un parcours
               inductif-rationnel vertical indéfectible. Ce processus algorithmique
               est modélisé par le Canon de la Découverte en 7 principes :
             </p>
@@ -333,19 +333,19 @@ export default function NoteEpistemologiquePage() {
             <p>
               Le sens commun moderne, pollué par la dialectique hégélienne (Thèse →
               Antithèse → Synthèse), croit que la « thèse » est le point de départ
-              d'un raisonnement. L'étude étymologique et historique rétablit la
+              d’un raisonnement. L’étude étymologique et historique rétablit la
               vérité scientifique :
             </p>
             <ul className="mt-4 list-disc space-y-2 pl-6">
               <li>
-                <strong>La Thèse (thésis)</strong> n'est pas le commencement. C'est
-                l'action de poser, de soutenir et d'établir. C'est le terme moyen
-                d'un processus.
+                <strong>La Thèse (thésis)</strong> n’est pas le commencement. C’est
+                l’action de poser, de soutenir et d’établir. C’est le terme moyen
+                d’un processus.
               </li>
               <li>
-                <strong>Ce qui précède la thèse, c'est l'Hypothèse (hyppo, « en
+                <strong>Ce qui précède la thèse, c’est l’Hypothèse (hyppo, « en
                 deçà »).</strong>{" "}
-                L'hypothèse est l'interprétation mentale anticipée (Claude
+                L’hypothèse est l’interprétation mentale anticipée (Claude
                 Bernard).
               </li>
             </ul>
@@ -356,8 +356,8 @@ export default function NoteEpistemologiquePage() {
             </p>
             <p>
               En confondant la thèse (le résultat soutenu) avec le point de départ,
-              la science moderne s'est interdite de penser les conditions de
-              possibilité des phénomènes. Elle s'est condamnée à décrire les effets
+              la science moderne s’est interdite de penser les conditions de
+              possibilité des phénomènes. Elle s’est condamnée à décrire les effets
               sans comprendre les causes.
             </p>
           </BlocProse>
@@ -375,8 +375,8 @@ export default function NoteEpistemologiquePage() {
           <BlocProse cle="note_epistemologique.sextuor.corps">
             <p>
               Les trajectoires des grands découvreurs ne sont pas invoquées ici
-              comme des preuves d'autorité, mais comme des cas d'étude cliniques
-              modélisés par l'Équation Cyclique Universelle{" "}
+              comme des preuves d’autorité, mais comme des cas d’étude cliniques
+              modélisés par l’Équation Cyclique Universelle{" "}
               <span className="font-mono text-or">Σ = M(F(V(Σ)))</span> et le Canon
               de la Découverte en 7 principes.
             </p>
@@ -400,7 +400,7 @@ export default function NoteEpistemologiquePage() {
           <BlocProse cle="note_epistemologique.pacte.corps" className="text-blanc-casse">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
-              n'invite pas à une croyance. Elle propose une méthode. Elle ne prétend
+              n’invite pas à une croyance. Elle propose une méthode. Elle ne prétend
               pas clore la recherche. Elle ouvre un espace où la recherche peut se
               poursuivre selon des règles explicites, discutables et continuellement
               perfectibles.
@@ -415,7 +415,7 @@ export default function NoteEpistemologiquePage() {
               href="/ouvrage"
               className={cn(buttonVariants({ variant: "or", size: "cta" }))}
             >
-              Découvrir l'Ouvrage
+              Découvrir l’Ouvrage
             </Link>
           </div>
         </Container>

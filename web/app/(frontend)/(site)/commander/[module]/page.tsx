@@ -20,29 +20,29 @@ export default async function CommanderPage({
   params: Promise<{ module: string }>;
 }) {
   const { module: moduleId } = await params;
-  const module = await getModule(moduleId);
-  if (!module) notFound();
+  const formation = await getModule(moduleId);
+  if (!formation) notFound();
 
-  const purchasable = isPurchasable(module);
+  const purchasable = isPurchasable(formation);
   // Régimes réellement achetables (produit publié + mappé). Vide → paiement pas
   // encore branché : on montre « bientôt » plutôt qu'un formulaire voué à l'échec.
-  const regimes = purchasable ? regimesDisponibles(module.id) : [];
+  const regimes = purchasable ? regimesDisponibles(formation.id) : [];
   const ouvert = !purchasable || regimes.length > 0;
 
   return (
     <Section tone="clair">
       <Container className="max-w-2xl">
         <p className="font-ui text-sm uppercase tracking-[0.15em] text-or">
-          {module.numero}
+          {formation.numero}
         </p>
         <h1 className="mt-2 font-heading text-3xl font-bold text-bleu-nuit-profond sm:text-4xl">
-          {module.titre}
+          {formation.titre}
         </h1>
         <p className="mt-4 font-sans text-sm text-bleu-nuit-profond/75">
-          {module.public_cible}
+          {formation.public_cible}
         </p>
         <p className="mt-2 font-sans text-sm text-bleu-nuit-profond/75">
-          <span className="font-semibold">Durée :</span> {module.duree}
+          <span className="font-semibold">Durée :</span> {formation.duree}
         </p>
 
         <div className="mt-10 surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
@@ -71,17 +71,17 @@ export default async function CommanderPage({
               </h2>
               {!purchasable && (
                 <p className="mt-2 font-sans text-sm text-bleu-nuit-profond/75">
-                  {module.tarif_devis}
+                  {formation.tarif_devis}
                 </p>
               )}
               <div className="mt-6">
                 <CheckoutForm
-                  module_id={module.id}
-                  module_titre={module.titre}
+                  module_id={formation.id}
+                  module_titre={formation.titre}
                   purchasable={purchasable}
-                  tarif_b2b={module.tarif_b2b}
-                  tarif_b2c={module.tarif_b2c}
-                  tarif_devis={module.tarif_devis}
+                  tarif_b2b={formation.tarif_b2b}
+                  tarif_b2c={formation.tarif_b2c}
+                  tarif_devis={formation.tarif_devis}
                   regimes={regimes}
                 />
               </div>
