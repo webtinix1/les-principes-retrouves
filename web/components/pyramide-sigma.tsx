@@ -51,6 +51,34 @@ const NIVEAUX: Record<string, Niveau> = {
   },
 };
 
+/**
+ * Géométrie : un vrai triangle à bords droits, découpé en tranches empilées.
+ * Chaque tranche suit exactement les deux côtés de la pyramide (pas de
+ * marches) ; un interstice de 3 unités les sépare visuellement.
+ */
+const CX = 300;
+const SOMMET = 40;
+const BASE = 510;
+const DEMI_BASE = 290;
+/** Limites verticales des 7 tranches (Σ, π, charnière, manifestation, V, F, S). */
+const LIMITES = [SOMMET, 125, 185, 250, 310, 375, 440, BASE];
+const INTERSTICE = 1.5;
+
+const demiLargeur = (y: number) => (DEMI_BASE * (y - SOMMET)) / (BASE - SOMMET);
+
+/** Points du polygone de la tranche i (triangle pour le sommet, trapèze ensuite). */
+function tranche(i: number) {
+  const haut = i === 0 ? SOMMET : LIMITES[i] + INTERSTICE;
+  const bas = LIMITES[i + 1] - INTERSTICE;
+  const h = demiLargeur(haut);
+  const b = demiLargeur(bas);
+  return i === 0
+    ? `${CX},${haut} ${CX + b},${bas} ${CX - b},${bas}`
+    : `${CX - h},${haut} ${CX + h},${haut} ${CX + b},${bas} ${CX - b},${bas}`;
+}
+
+const milieu = (i: number) => (LIMITES[i] + LIMITES[i + 1]) / 2;
+
 export function PyramideSigma({ className }: { className?: string }) {
   const [actif, setActif] = useState<Niveau | null>(null);
 
@@ -61,7 +89,7 @@ export function PyramideSigma({ className }: { className?: string }) {
     role: "button",
     "aria-label": n.label,
     "aria-pressed": actif?.id === n.id,
-    className: "cursor-pointer outline-none [&:focus-visible_rect]:stroke-blanc [&:focus-visible_polygon]:stroke-blanc",
+    className: "cursor-pointer outline-none [&:focus-visible_polygon]:stroke-blanc [&:focus-visible_polygon]:stroke-2",
     onMouseEnter: () => setActif(n),
     onFocus: () => setActif(n),
     onMouseLeave: () => setActif((c) => (c?.id === n.id ? null : c)),
@@ -72,75 +100,69 @@ export function PyramideSigma({ className }: { className?: string }) {
   return (
     <figure className={cn("flex flex-col items-center gap-4", className)}>
       <svg
-        viewBox="0 0 400 500"
-        className="h-auto w-full max-w-[320px]"
+        viewBox="0 0 600 570"
+        className="h-auto w-full max-w-[600px]"
         role="img"
         aria-label="Pyramide de Σ : de l'Unité Structurelle (sommet) au Monde Observable (base), traversée par la double respiration ontologique et épistémologique."
       >
         {/* Double flèche verticale — descendante (ontologique) et ascendante (épistémologique) */}
         <line
-          x1="200" y1="60" x2="200" y2="440"
-          stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="8,4" opacity="0.35"
-          className="flow-ontologique"
-        />
-        <line
-          x1="200" y1="440" x2="200" y2="60"
+          x1={CX} y1={SOMMET + 12} x2={CX} y2={BASE + 22}
           stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="8,4" opacity="0.45"
           className="flow-epistemologique"
         />
-        <polygon points="200,60 195,70 205,70" fill="#D4AF37" opacity="0.9" />
-        <polygon points="200,440 195,430 205,430" fill="#D4AF37" opacity="0.6" />
+        <polygon points={`${CX},${BASE + 30} ${CX - 5},${BASE + 20} ${CX + 5},${BASE + 20}`} fill="#D4AF37" opacity="0.7" />
 
         {/* Sommet : Σ (Substratum Commun) */}
         <g {...interactif(NIVEAUX.sigma)}>
-          <polygon points="200,40 160,100 240,100" fill="#D4AF37" opacity="0.9" className="pyramid-sigma" />
-          <text x="200" y="80" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="24" fontWeight="bold">Σ</text>
+          <polygon points={tranche(0)} fill="#D4AF37" className="pyramid-sigma" />
+          <text x={CX} y={milieu(0) + 24} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="34" fontWeight="bold">Σ</text>
         </g>
 
         {/* Polarités π₁ ↔ π₂ */}
         <g {...interactif(NIVEAUX.polarites)}>
-          <rect x="120" y="110" width="160" height="40" rx="4" fill="#D4AF37" opacity="0.7" />
-          <text x="160" y="135" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="18" fontWeight="bold">π₁</text>
-          <line x1="175" y1="130" x2="225" y2="130" stroke="#1E3A8A" strokeWidth="2" />
-          <polygon points="175,130 180,127 180,133" fill="#1E3A8A" />
-          <polygon points="225,130 220,127 220,133" fill="#1E3A8A" />
-          <text x="240" y="135" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="18" fontWeight="bold">π₂</text>
+          <polygon points={tranche(1)} fill="#D4AF37" opacity="0.92" />
+          <text x={CX - 42} y={milieu(1) + 8} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="22" fontWeight="bold">π₁</text>
+          <line x1={CX - 24} y1={milieu(1)} x2={CX + 24} y2={milieu(1)} stroke="#1E3A8A" strokeWidth="2" />
+          <polygon points={`${CX - 24},${milieu(1)} ${CX - 18},${milieu(1) - 4} ${CX - 18},${milieu(1) + 4}`} fill="#1E3A8A" />
+          <polygon points={`${CX + 24},${milieu(1)} ${CX + 18},${milieu(1) - 4} ${CX + 18},${milieu(1) + 4}`} fill="#1E3A8A" />
+          <text x={CX + 42} y={milieu(1) + 8} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="22" fontWeight="bold">π₂</text>
         </g>
 
         {/* Charnière Ontologique */}
         <g {...interactif(NIVEAUX.charniere)}>
-          <rect x="100" y="160" width="200" height="35" rx="4" fill="#D4AF37" opacity="0.6" />
-          <text x="200" y="182" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12" fontWeight="600">CHARNIÈRE ONTOLOGIQUE</text>
+          <polygon points={tranche(2)} fill="#D4AF37" opacity="0.86" />
+          <text x={CX} y={milieu(2) + 6} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="14" fontWeight="700">CHARNIÈRE ONTOLOGIQUE</text>
         </g>
 
         {/* Manifestation (transition, non interactive) */}
-        <rect x="80" y="205" width="240" height="35" rx="4" fill="#D4AF37" opacity="0.5" />
-        <text x="200" y="227" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12">MANIFESTATION</text>
+        <polygon points={tranche(3)} fill="#D4AF37" opacity="0.8" />
+        <text x={CX} y={milieu(3) + 6} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="17" fontWeight="600">MANIFESTATION</text>
 
         {/* Voile [V] */}
         <g {...interactif(NIVEAUX.voile)}>
-          <rect x="60" y="250" width="280" height="35" rx="4" fill="#D4AF37" opacity="0.55" />
-          <text x="200" y="272" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="16" fontWeight="bold">[V]</text>
-          <text x="200" y="285" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="11">Voile Ontologique</text>
+          <polygon points={tranche(4)} fill="#D4AF37" opacity="0.75" />
+          <text x={CX} y={milieu(4) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="20" fontWeight="bold">[V]</text>
+          <text x={CX} y={milieu(4) + 18} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="15" fontWeight="500">Voile Ontologique</text>
         </g>
 
         {/* Filtrage [F] */}
         <g {...interactif(NIVEAUX.filtrage)}>
-          <rect x="40" y="295" width="320" height="35" rx="4" fill="#D4AF37" opacity="0.5" />
-          <text x="200" y="317" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="16" fontWeight="bold">[F]</text>
-          <text x="200" y="330" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="11">Filtrage Sélectif</text>
+          <polygon points={tranche(5)} fill="#D4AF37" opacity="0.7" />
+          <text x={CX} y={milieu(5) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="20" fontWeight="bold">[F]</text>
+          <text x={CX} y={milieu(5) + 18} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="15" fontWeight="500">Filtrage Sélectif</text>
         </g>
 
         {/* Monde Observable (S) */}
         <g {...interactif(NIVEAUX.monde)}>
-          <rect x="20" y="340" width="360" height="50" rx="4" fill="#D4AF37" opacity="0.5" />
-          <text x="200" y="365" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="14" fontWeight="600">MONDE OBSERVABLE (S)</text>
-          <text x="200" y="380" textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="12">Fragmentation phénoménale</text>
+          <polygon points={tranche(6)} fill="#D4AF37" opacity="0.65" />
+          <text x={CX} y={milieu(6) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="20" fontWeight="700">MONDE OBSERVABLE (S)</text>
+          <text x={CX} y={milieu(6) + 20} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="16" fontWeight="500">Fragmentation phénoménale</text>
         </g>
 
         {/* Sens de la double respiration : discrètes, aux extrémités de l'axe */}
-        <text x="200" y="30" textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.7">↑ épistémologique</text>
-        <text x="200" y="470" textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="9" opacity="0.7">↓ ontologique</text>
+        <text x={CX} y={SOMMET - 14} textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="12" opacity="0.8">↑ épistémologique</text>
+        <text x={CX} y={BASE + 50} textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="12" opacity="0.8">↓ ontologique</text>
       </svg>
 
       {/* Légende accessible : définition du niveau survolé / focalisé */}
