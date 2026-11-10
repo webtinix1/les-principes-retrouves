@@ -110,6 +110,12 @@ export default async function OuvragePage() {
                 Science de l’Intelligibilité — Traité d’épistémologie
                 fondamentale et de métaphysique logico-mathématique
               </p>
+              <Link
+                href="/ouvrage/tome-i"
+                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-6 self-start")}
+              >
+                Lire les textes liminaires
+              </Link>
               <div className="mt-6 space-y-4 font-sans text-base leading-relaxed">
                 <p className="font-heading text-lg italic">
                   Pourquoi le monde produit-il de plus en plus de données et de
@@ -166,12 +172,6 @@ export default async function OuvragePage() {
                 </p>
                 <p className="font-heading italic">Il demande à être éprouvé.</p>
               </div>
-              <Link
-                href="/ouvrage/tome-i"
-                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-8 self-start")}
-              >
-                Lire les textes liminaires
-              </Link>
             </Carte>
 
             {/* Colonne droite — Tome II */}
@@ -186,6 +186,12 @@ export default async function OuvragePage() {
                 Théorie générale et formalisation d&apos;un principe universel de
                 proactivité judiciaire encadrée
               </p>
+              <Link
+                href="/ouvrage/tome-ii"
+                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-6 self-start")}
+              >
+                Lire le liminaire et trois chapitres
+              </Link>
               <div className="mt-6 space-y-4 font-sans text-base leading-relaxed">
                 <p className="font-heading text-lg italic">
                   Le droit constitutionnel n’est plus capable de nous protéger.
@@ -253,12 +259,6 @@ export default async function OuvragePage() {
                   d’être éprouvé.
                 </p>
               </div>
-              <Link
-                href="/ouvrage/tome-ii"
-                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-8 self-start")}
-              >
-                Lire le liminaire et trois chapitres
-              </Link>
             </Carte>
           </div>
         </Container>

@@ -122,20 +122,28 @@ export default async function TransmissionPage() {
             </div>
 
             <div className="mt-8 grid gap-6 md:grid-cols-3">
-              <div>
-                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
-                  Niveau 1 — Accès libre (diffusion doctrinale)
+              <div className="border-t border-or/30 pt-4">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-or">
+                  Niveau 1
+                </p>
+                <h3 className="mt-1 font-heading text-lg font-semibold text-blanc">
+                  Accès libre
                 </h3>
+                <p className="font-sans text-sm italic text-blanc-casse/75">Diffusion doctrinale</p>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
                   <li>Résumés exécutifs des Working Papers</li>
                   <li>Présentation des Concepts Stabilisés</li>
                   <li>Extraits de l’Arrêt Pilote (considérants uniquement)</li>
                 </ul>
               </div>
-              <div>
-                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
-                  Niveau 2 — Accès conditionné par l’inscription aux modules
+              <div className="border-t border-or/30 pt-4">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-or">
+                  Niveau 2
+                </p>
+                <h3 className="mt-1 font-heading text-lg font-semibold text-blanc">
+                  Accès conditionné
                 </h3>
+                <p className="font-sans text-sm italic text-blanc-casse/75">Par l’inscription aux modules</p>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
                   <li>
                     Module I validé → Accès aux Working Papers intégraux (WP-01,
@@ -147,10 +155,14 @@ export default async function TransmissionPage() {
                   </li>
                 </ul>
               </div>
-              <div>
-                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
-                  Niveau 3 — Accès premium (Module III)
+              <div className="border-t border-or/30 pt-4">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-or">
+                  Niveau 3
+                </p>
+                <h3 className="mt-1 font-heading text-lg font-semibold text-blanc">
+                  Accès premium
                 </h3>
+                <p className="font-sans text-sm italic text-blanc-casse/75">Module III</p>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
                   <li>Modèles d’actes juridictionnels personnalisés</li>
                   <li>Conseil stratégique sur mesure</li>

@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PageSuivante, ReperesPage } from "@/components/navigation-page";
 
 /**
  * Layout des pages de contenu : en-tête + contenu + pied de page.
@@ -22,7 +23,9 @@ export default function SiteLayout({
       <SiteHeader />
       <main id="contenu" className="flex-1">
         {children}
+        <PageSuivante />
       </main>
+      <ReperesPage />
       <SiteFooter />
     </div>
   );

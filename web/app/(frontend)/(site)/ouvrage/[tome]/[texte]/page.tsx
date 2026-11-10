@@ -97,7 +97,7 @@ export default async function LecturePage({
         >
           {aSommaire && (
             <aside className="mb-10 lg:mb-0">
-              <div className="lg:sticky lg:top-8 lg:max-h-[calc(100vh-4rem)] lg:overflow-y-auto">
+              <div className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
                 <SommaireTexte texte={texte} />
               </div>
             </aside>

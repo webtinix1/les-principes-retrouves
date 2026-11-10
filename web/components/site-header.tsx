@@ -9,7 +9,7 @@ import { SiteNav } from "@/components/site-nav";
 export function SiteHeader() {
   return (
     // Aplat Bleu Nuit profond : les design systems excluent les dégradés.
-    <header className="surface-sombre relative z-50 border-b border-or/20 bg-bleu-nuit-profond text-blanc-casse">
+    <header className="surface-sombre sticky top-0 z-50 border-b border-or/20 bg-bleu-nuit-profond text-blanc-casse">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <Link
           href="/accueil"

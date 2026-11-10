@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse, BlocTexte } from "@/components/bloc";
-import { Carte, Encadre } from "@/components/primitives";
+import { Carte } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
@@ -277,36 +277,36 @@ export default function ManifestePage() {
               trois propriétés cumulatives :
             </p>
           </BlocProse>
-          <div className="mx-auto mt-8 grid max-w-[68ch] gap-6">
-            <Encadre>
+          <div className="mt-10 grid gap-8 md:grid-cols-3">
+            <div className="border-t-2 border-or pt-4">
               <p className="font-heading text-xl font-semibold text-or">
                 1. Totalité
               </p>
-              <p className="mt-2 font-sans">
+              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
                 Rien n’existe hors du système. Chaque fragment n’a de sens que
                 rattaché à l’architecture globale qui le rend possible.
               </p>
-            </Encadre>
-            <Encadre>
+            </div>
+            <div className="border-t-2 border-or pt-4">
               <p className="font-heading text-xl font-semibold text-or">
                 2. Indivisibilité
               </p>
-              <p className="mt-2 font-sans">
+              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
                 La fragmentation apparente n’est qu’une illusion transitoire
                 provoquée par les limites de l’observateur. L’unité précède la
                 multiplicité.
               </p>
-            </Encadre>
-            <Encadre>
+            </div>
+            <div className="border-t-2 border-or pt-4">
               <p className="font-heading text-xl font-semibold text-or">
                 3. Cohérence Interne
               </p>
-              <p className="mt-2 font-sans">
+              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
                 Absence absolue de contradiction fonctionnelle. Le système
                 maintient activement sa propre unité face aux agressions du
                 milieu extérieur.
               </p>
-            </Encadre>
+            </div>
           </div>
           <BlocProse cle="manifeste.matrice_maat.conclusion" className="mt-8 text-blanc-casse">
             <p>
@@ -435,7 +435,7 @@ export default function ManifestePage() {
             </p>
           </BlocProse>
           <div className="mx-auto mt-8 max-w-[68ch]">
-            <Encadre className="text-center">
+            <div className="border-y border-or/50 py-6 text-center">
               <BlocTexte
                 cle="manifeste.pacte.exergue"
                 className="font-heading text-lg italic text-blanc-casse"
@@ -443,7 +443,7 @@ export default function ManifestePage() {
                 Ce travail ne demande pas à être accepté sur autorité. Il demande
                 à être éprouvé.
               </BlocTexte>
-            </Encadre>
+            </div>
           </div>
         </Container>
       </Section>

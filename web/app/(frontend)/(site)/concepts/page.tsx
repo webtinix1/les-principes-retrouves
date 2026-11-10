@@ -28,10 +28,10 @@ export default async function ConceptsPage() {
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
           <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
-            Infrastructure Lexicale
+            Concepts stabilisés
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
-            Les 20 Piliers de la Science Métamoderne — Version 4.0 enrichie
+            Infrastructure lexicale — les 20 piliers de la Science Métamoderne, version 4.0 enrichie
           </p>
           <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
             « La précision sémantique est la condition absolue de l’intégrité de
@@ -62,13 +62,54 @@ export default async function ConceptsPage() {
         </Container>
       </Section>
 
+      {/* Index : accès direct à chaque strate et à chaque concept */}
+      <Section tone="clair" className="pt-0 sm:pt-0">
+        <Container>
+          <nav
+            aria-label="Index des concepts"
+            className="rounded-xl border border-bleu-nuit-profond/10 bg-blanc p-6"
+          >
+            <p id="index-concepts" className="font-mono text-xs uppercase tracking-[0.14em] text-or">
+              Index des 20 concepts
+            </p>
+            <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {STRATES.map((strate) => (
+                <div key={strate.id}>
+                  <a
+                    href={`#${strate.id}`}
+                    className="font-heading text-base font-semibold text-bleu-nuit-profond hover:text-bleu-academique hover:underline"
+                  >
+                    {strate.titre}
+                  </a>
+                  <ol className="mt-2 space-y-1">
+                    {strate.concepts.map((c) => (
+                      <li key={c.id}>
+                        <a
+                          href={`#${c.id}`}
+                          className="inline-flex min-h-8 items-baseline gap-2 font-sans text-sm text-bleu-nuit-profond/80 hover:text-bleu-academique hover:underline"
+                        >
+                          <span className="font-mono text-xs text-or" aria-hidden="true">
+                            {String(c.numero).padStart(2, "0")}
+                          </span>
+                          {c.titre}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </nav>
+        </Container>
+      </Section>
+
       {/* Les 4 strates */}
       {STRATES.map((strate, index) => (
-        <Section key={strate.id} tone={index % 2 === 0 ? "gris" : "clair"}>
+        <Section key={strate.id} id={strate.id} tone={index % 2 === 0 ? "gris" : "clair"}>
           <Container>
             <header className="mb-8">
               <TitreSection>{strate.titre}</TitreSection>
-              <p className="mt-2 pl-4 font-sans text-lg italic text-bleu-nuit-profond/70">
+              <p className="mt-2 font-sans text-lg italic text-bleu-nuit-profond/70">
                 {strate.sous_titre}
               </p>
             </header>
