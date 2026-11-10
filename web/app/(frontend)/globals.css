@@ -13,6 +13,7 @@
   --color-bleu-academique: #1e3a8a;   /* Sections principales, fonds institutionnels */
   --color-bleu-nuit: #1a252f;         /* Sections secondaires, encadrés */
   --color-or: #d4af37;                /* Or Maât — titres, équations, bordures, boutons */
+  --color-or-texte: #806417;          /* Or Maât assombri — texte sur fond clair (5,1:1, WCAG AA) */
   --color-blanc: #ffffff;             /* Textes sur fonds sombres */
   --color-blanc-casse: #f9fafb;       /* Fonds clairs, corps de texte */
   --color-gris-clair: #f4f4f5;        /* Sections alternées, encadrés */
@@ -170,7 +171,34 @@
 .site-logo__mark { transition: transform 0.4s ease; }
 .site-logo:hover .site-logo__mark { transform: scale(1.05) rotate(-1deg); }
 
+/* ==========================================================================
+   Règles des design systems (Webtinix · Codewave) appliquées aux pages de
+   contenu, dans la charte du site. Portée : `.site` (layout des pages de
+   contenu) — le Fronton n'est pas concerné.
+   ========================================================================== */
+
+/* Contraste AA : sur une surface claire, l'Or Maât de texte passe à sa
+   variante assombrie ; une surface sombre imbriquée rétablit l'Or d'origine. */
+.site .surface-claire .text-or { color: var(--color-or-texte); }
+.site .surface-claire .surface-sombre .text-or { color: var(--color-or); }
+
+/* Focus visible : anneau Or 3px, décalé, identique sur toutes les cibles. */
+.site :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid color-mix(in oklch, var(--color-or) 70%, transparent);
+  outline-offset: 2px;
+}
+
+/* Pression : léger enfoncement (scale .97) ; désactivé : opacité .42. */
+.site :where(a, button)[data-slot="button"]:active,
+.site .presse:active { transform: scale(0.97); }
+.site :where(button, [data-slot="button"]):disabled { opacity: 0.42; }
+
+/* Ancres : les intertitres ciblés ne passent pas sous l'en-tête. */
+.site :where(h2, h3, h4)[id] { scroll-margin-top: 6rem; }
+
 @media (prefers-reduced-motion: reduce) {
+  .site .presse:active,
+  .site [data-slot="button"]:active { transform: none; }
   .pyramid-sigma,
   .flow-ontologique,
   .flow-epistemologique,

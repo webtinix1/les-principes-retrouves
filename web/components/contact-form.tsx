@@ -62,7 +62,7 @@ export function ContactForm() {
     return (
       <div
         role="status"
-        className="border-l-4 border-or bg-gris-clair p-6 text-bleu-nuit-profond"
+        className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6 text-bleu-nuit-profond"
       >
         <p className="font-heading text-lg font-semibold">Message transmis.</p>
         <p className="mt-2 font-sans text-sm">

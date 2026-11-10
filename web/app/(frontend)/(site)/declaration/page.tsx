@@ -32,7 +32,7 @@ export default function DeclarationDeBrazzaville() {
       >
         <Container>
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-            <h1 className="font-heading text-3xl font-bold uppercase tracking-[0.08em] text-or sm:text-5xl">
+            <h1 className="font-heading text-3xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
               La Déclaration de Brazzaville
             </h1>
             <p className="mt-6 font-sans text-lg italic text-blanc-casse sm:text-xl">
@@ -216,7 +216,7 @@ export default function DeclarationDeBrazzaville() {
             <p className="font-heading font-semibold text-or">
               Formule canonique de démarcation
             </p>
-            <blockquote className="border-l-4 border-or pl-4 font-heading italic text-blanc-casse">
+            <blockquote className="border-y border-or/40 py-4 font-heading italic text-blanc-casse">
               « Le métamodernisme culturel cherche à dépasser le conflit entre
               l'unité et la multiplicité ; la Science Métamoderne cherche à
               comprendre ce qui rend possible leur intelligibilité commune. »

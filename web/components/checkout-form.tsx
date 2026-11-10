@@ -185,7 +185,7 @@ export function CheckoutForm(props: Props) {
 
       {props.purchasable && (
         <p className="flex items-center gap-1.5 font-ui text-xs text-bleu-nuit-profond/70">
-          <span aria-hidden="true">🔒</span> Paiement sécurisé (Mobile Money
+          Paiement sécurisé (Mobile Money
           &amp; carte) via Chariow.
         </p>
       )}

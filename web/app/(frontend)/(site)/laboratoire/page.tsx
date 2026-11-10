@@ -156,7 +156,7 @@ export default async function LaboratoirePage() {
       {/* Hero */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-blanc sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-blanc sm:text-5xl">
             Laboratoire Doctrinal
           </h1>
           <p className="mt-4 font-sans text-lg italic text-or">
@@ -229,7 +229,7 @@ export default async function LaboratoirePage() {
           </p>
 
           {/* Saisie du code d'accès (débloque les téléchargements conditionnés) */}
-          <div className="mt-8 border-l-4 border-or bg-bleu-nuit p-6 text-blanc-casse">
+          <div className="mt-8 surface-sombre rounded-xl border-2 border-or bg-bleu-nuit p-6 text-blanc-casse">
             <h3 className="font-heading text-lg font-semibold text-or">
               Accès conditionné — votre code
             </h3>

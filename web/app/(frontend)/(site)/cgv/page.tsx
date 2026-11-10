@@ -17,7 +17,7 @@ export default function CGV() {
     <>
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
             Conditions générales de vente
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
@@ -28,7 +28,7 @@ export default function CGV() {
 
       <Section tone="clair">
         <Container>
-          <div className="mx-auto mb-8 max-w-[68ch] border-l-4 border-or bg-gris-clair p-4 font-ui text-sm text-bleu-nuit-profond/80">
+          <div className="mx-auto mb-8 max-w-[68ch] surface-claire rounded-xl border border-or/50 bg-gris-clair p-4 font-ui text-sm text-bleu-nuit-profond/80">
             <strong>Projet à valider juridiquement.</strong> Ce document est une
             trame structurée. Les clauses relatives aux tarifs, à la rétractation,
             au remboursement et au droit applicable doivent être arrêtées avec un

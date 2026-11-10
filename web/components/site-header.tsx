@@ -8,7 +8,8 @@ import { SiteNav } from "@/components/site-nav";
  */
 export function SiteHeader() {
   return (
-    <header className="relative z-50 border-b border-or/20 bg-[radial-gradient(130%_200%_at_50%_-60%,#20456c_0%,#122a44_38%,#0b1a30_68%,#070f1e_100%)] text-blanc-casse">
+    // Aplat Bleu Nuit profond : les design systems excluent les dégradés.
+    <header className="surface-sombre relative z-50 border-b border-or/20 bg-bleu-nuit-profond text-blanc-casse">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
         <Link
           href="/accueil"

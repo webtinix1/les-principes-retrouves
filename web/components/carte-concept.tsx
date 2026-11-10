@@ -5,7 +5,7 @@ export function CarteConcept({ concept }: { concept: Concept }) {
   return (
     <article
       id={concept.id}
-      className="scroll-mt-24 border-l-4 border-or bg-blanc-casse p-6 text-bleu-nuit-profond"
+      className="surface-claire scroll-mt-24 rounded-xl border border-bleu-nuit-profond/10 bg-blanc p-6 text-bleu-nuit-profond"
     >
       <header className="flex items-baseline gap-3">
         <span className="font-mono text-sm text-or" aria-hidden="true">
@@ -15,13 +15,13 @@ export function CarteConcept({ concept }: { concept: Concept }) {
       </header>
       <dl className="mt-4 space-y-3 text-sm leading-relaxed">
         <div>
-          <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
-            Définition d'autorité
+          <dt className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
+            Définition d&apos;autorité
           </dt>
           <dd className="mt-1 font-sans">{concept.definition}</dd>
         </div>
         <div>
-          <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
+          <dt className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
             Portée opératoire
           </dt>
           <dd className="mt-1 font-sans">{concept.portee}</dd>

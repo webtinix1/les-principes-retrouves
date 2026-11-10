@@ -37,7 +37,7 @@ export default async function TransmissionPage() {
       {/* Hero */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
             Transmission &amp; Inscriptions
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
@@ -123,7 +123,7 @@ export default async function TransmissionPage() {
 
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               <div>
-                <h3 className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
+                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
                   Niveau 1 — Accès libre (diffusion doctrinale)
                 </h3>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
@@ -133,7 +133,7 @@ export default async function TransmissionPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
+                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
                   Niveau 2 — Accès conditionné par l'inscription aux modules
                 </h3>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">
@@ -148,7 +148,7 @@ export default async function TransmissionPage() {
                 </ul>
               </div>
               <div>
-                <h3 className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
+                <h3 className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
                   Niveau 3 — Accès premium (Module III)
                 </h3>
                 <ul className="mt-3 space-y-1.5 font-sans text-sm text-blanc-casse/90">

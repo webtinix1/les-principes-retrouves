@@ -114,8 +114,8 @@ export default function NoteEpistemologiquePage() {
       {/* Hero */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
-            NOTE ÉPISTÉMOLOGIQUE
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
+            Note épistémologique
           </h1>
           <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
             Restituer les conditions de l'intelligibilité

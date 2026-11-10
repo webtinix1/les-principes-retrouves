@@ -11,12 +11,13 @@ type Tone =
   | "academique" // Bleu Académique — sections principales
   | "profond"; // Bleu Nuit profond — sections solennelles
 
+// `surface-claire` / `surface-sombre` : règle de contraste de l'Or (globals.css).
 const TONES: Record<Tone, string> = {
-  clair: "bg-blanc-casse text-bleu-nuit-profond",
-  gris: "bg-gris-clair text-bleu-nuit-profond",
-  nuit: "bg-bleu-nuit text-blanc-casse",
-  academique: "bg-bleu-academique text-blanc",
-  profond: "bg-bleu-nuit-profond text-blanc-casse",
+  clair: "surface-claire bg-blanc-casse text-bleu-nuit-profond",
+  gris: "surface-claire bg-gris-clair text-bleu-nuit-profond",
+  nuit: "surface-sombre bg-bleu-nuit text-blanc-casse",
+  academique: "surface-sombre bg-bleu-academique text-blanc",
+  profond: "surface-sombre bg-bleu-nuit-profond text-blanc-casse",
 };
 
 export function Section({
@@ -48,10 +49,10 @@ export function Container({
 /**
  * Colonne de lecture « revue » — extraite en constante pour que les blocs
  * éditables (`components/bloc.tsx`) rendent exactement la même typographie.
- * Alignée à gauche avec le même retrait que les titres (filet Or).
+ * Alignée à gauche, au même aplomb que les titres de section.
  */
 export const PROSE_CLASS =
-  "max-w-[72ch] pl-4 font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold";
+  "max-w-[72ch] font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold";
 
 /**
  * Prose — colonne de lecture « revue » : mesure limitée (~68 car.),
@@ -69,7 +70,10 @@ export function Prose({
   );
 }
 
-/** Titre de section (H2) — Playfair, avec filet Or optionnel à gauche. */
+/**
+ * Titre de section (H2) — Playfair, tracking resserré. Le filet Or est posé
+ * au-dessus du titre (les design systems proscrivent la barre latérale).
+ */
 export function TitreSection({
   className,
   children,
@@ -79,8 +83,9 @@ export function TitreSection({
   return (
     <h2
       className={cn(
-        "font-heading text-2xl font-semibold sm:text-3xl",
-        filet && "border-l-4 border-or pl-4",
+        "font-heading text-2xl font-semibold tracking-[-0.01em] text-balance sm:text-3xl",
+        filet &&
+          "before:mb-4 before:block before:h-0.5 before:w-10 before:bg-or before:content-['']",
         className,
       )}
       {...props}

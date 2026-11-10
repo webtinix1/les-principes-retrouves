@@ -17,7 +17,7 @@ export default function Confidentialite() {
     <>
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
             Politique de confidentialité
           </h1>
         </Container>
@@ -25,7 +25,7 @@ export default function Confidentialite() {
 
       <Section tone="clair">
         <Container>
-          <div className="mx-auto mb-8 max-w-[68ch] border-l-4 border-or bg-gris-clair p-4 font-ui text-sm text-bleu-nuit-profond/80">
+          <div className="mx-auto mb-8 max-w-[68ch] surface-claire rounded-xl border border-or/50 bg-gris-clair p-4 font-ui text-sm text-bleu-nuit-profond/80">
             Les durées de conservation et la liste des prestataires{" "}
             <span className="font-mono">[…]</span> doivent être confirmées avant
             mise en production commerciale.

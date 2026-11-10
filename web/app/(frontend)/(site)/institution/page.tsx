@@ -35,7 +35,7 @@ export default async function Institution() {
       {/* HERO ------------------------------------------------------------- */}
       <Section tone="profond" className="py-20 sm:py-28">
         <Container className="max-w-3xl text-center">
-          <h1 className="font-heading text-4xl font-semibold uppercase tracking-[0.08em] text-blanc sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-blanc sm:text-5xl">
             L'Institution
           </h1>
           <p className="mt-5 font-heading text-xl italic text-or sm:text-2xl">
@@ -93,10 +93,10 @@ export default async function Institution() {
           </BlocProse>
 
           <div className="mx-auto mt-8 max-w-[68ch]">
-            <p className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
+            <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
               Formule canonique de démarcation
             </p>
-            <blockquote className="mt-3 border-l-4 border-or pl-4 font-heading text-lg italic">
+            <blockquote className="mt-3 border-y border-or/40 py-4 font-heading text-lg italic">
               « Le métamodernisme culturel cherche à dépasser le conflit entre
               l'unité et la multiplicité ; la Science Métamoderne cherche à
               comprendre ce qui rend possible leur intelligibilité commune. »
@@ -140,7 +140,7 @@ export default async function Institution() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {NIVEAUX.map((niveau) => (
               <Carte key={niveau.id} className="flex flex-col">
-                <p className="font-ui text-sm font-semibold uppercase tracking-wide text-or/90">
+                <p className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
                   Niveau {niveau.numero}
                 </p>
                 <h3 className="mt-1 font-heading text-xl font-semibold">
@@ -178,7 +178,7 @@ export default async function Institution() {
                   </ul>
                 ) : null}
                 {niveau.maxime ? (
-                  <p className="mt-4 border-l-2 border-or pl-3 font-heading text-sm italic">
+                  <p className="mt-4 border-t border-or/40 pt-3 font-heading text-sm italic">
                     « {niveau.maxime} »
                   </p>
                 ) : null}
@@ -216,7 +216,7 @@ export default async function Institution() {
           </BlocProse>
 
           <Encadre className="mx-auto mt-8 max-w-3xl">
-            <h3 className="font-heading text-lg font-semibold uppercase tracking-wide text-or">
+            <h3 className="font-heading text-xl font-semibold text-or">
               Principe de Souveraineté du Démontré
             </h3>
             <div className="mt-4 space-y-3 font-sans italic leading-relaxed">
@@ -333,7 +333,7 @@ export default async function Institution() {
             </p>
           </div>
 
-          <h3 className="mx-auto mt-12 max-w-[68ch] font-ui text-sm font-semibold uppercase tracking-wide text-or">
+          <h3 className="mx-auto mt-12 max-w-[68ch] font-mono text-xs font-medium uppercase tracking-[0.14em] text-or">
             Les autorités de convergence épistémologique
           </h3>
           <div className="mt-6 space-y-8">

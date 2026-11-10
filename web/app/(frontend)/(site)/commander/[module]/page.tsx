@@ -45,7 +45,7 @@ export default async function CommanderPage({
           <span className="font-semibold">Durée :</span> {module.duree}
         </p>
 
-        <div className="mt-10 border-l-4 border-or bg-gris-clair p-6">
+        <div className="mt-10 surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
           {!ouvert ? (
             <>
               <h2 className="font-heading text-xl font-semibold text-bleu-nuit-profond">

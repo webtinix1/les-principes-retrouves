@@ -42,7 +42,7 @@ export default function Page() {
       {/* ============================ HERO ============================ */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-3xl font-bold tracking-wide text-or uppercase sm:text-5xl">
+          <h1 className="font-heading text-3xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
             Constitution scientifique de l&apos;École de Brazzaville
           </h1>
           <p className="mt-6 font-sans text-lg text-blanc-casse italic">
@@ -694,7 +694,7 @@ export default function Page() {
       {/* ======================= APPEL À L'ÉPREUVE ======================= */}
       <Section tone="nuit" className="text-center">
         <Container className="max-w-3xl">
-          <TitreSection className="border-l-0 pl-0 text-center" filet={false}>
+          <TitreSection className="text-center" filet={false}>
             Appel à l&apos;épreuve
           </TitreSection>
           <p className="mt-8 font-heading text-xl text-blanc-casse italic sm:text-2xl">

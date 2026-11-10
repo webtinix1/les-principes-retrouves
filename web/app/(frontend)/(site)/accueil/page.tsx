@@ -39,7 +39,7 @@ export default function LeSeuil() {
 
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
         {/* Dédicace */}
-        <p className="font-heading text-lg font-medium uppercase tracking-[0.12em] text-or">
+        <p className="font-heading text-lg font-medium italic text-or">
           À l&apos;Esprit Humain Souverain, à la Conscience Retrouvée de Kemet, à
           l&apos;Effectivité sans Faille de l&apos;Ordre Juste.
         </p>
@@ -60,7 +60,7 @@ export default function LeSeuil() {
         </blockquote>
 
         {/* Titre de section */}
-        <h1 className="mt-16 font-heading text-2xl font-semibold uppercase tracking-[0.1em] text-blanc sm:text-3xl">
+        <h1 className="mt-16 font-heading text-3xl font-semibold tracking-[-0.01em] text-balance text-blanc sm:text-4xl">
           Science Métamoderne : la science de l&apos;intelligibilité
         </h1>
         <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">

@@ -19,12 +19,14 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
         // Variantes de marque (DOCUMENT DE SYNTHÈSE FINAL) --------------------
+        // Design systems : aplats, sans ombre ni soulèvement ; la pression
+        // (scale .97) et le focus (anneau Or) sont portés par `.site` (globals.css).
         // CTA Or Maât : fond transparent, bordure 2px Or, hover fond Or + texte Bleu.
-        or: "border-2 border-or bg-transparent font-ui font-semibold text-or hover:-translate-y-0.5 hover:bg-or hover:text-bleu-academique hover:shadow-[0_4px_12px_rgba(212,175,55,0.3)]",
+        or: "border-2 border-or bg-transparent font-ui font-semibold text-or hover:bg-or hover:text-bleu-academique",
         // CTA Or plein : action d'achat primaire — l'Or est présent au repos
         // (pas seulement au survol), pour que la voie d'entrée soit lisible d'emblée.
         "or-plein":
-          "border-2 border-or bg-or font-ui font-semibold text-bleu-academique shadow-[0_2px_8px_rgba(212,175,55,0.25)] hover:-translate-y-0.5 hover:bg-[color-mix(in_oklch,var(--color-or),white_12%)] hover:shadow-[0_6px_16px_rgba(212,175,55,0.4)]",
+          "border-2 border-or bg-or font-ui font-semibold text-bleu-academique hover:bg-[color-mix(in_oklch,var(--color-or),white_12%)]",
         // CTA « ligne » : discret, pour fonds sombres.
         ligne:
           "border border-blanc-casse/40 bg-transparent font-ui text-blanc-casse hover:border-or hover:text-or",

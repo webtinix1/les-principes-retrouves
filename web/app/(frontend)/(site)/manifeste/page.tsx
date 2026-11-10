@@ -81,7 +81,7 @@ export default function ManifestePage() {
       {/* Hero */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-or sm:text-5xl">
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
             Le Manifeste de Brazzaville
           </h1>
           <BlocTexte

@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 import { getAutorites } from "@/lib/cms";
-import { Carte, Encadre } from "@/components/primitives";
+import { TOME_I, TOME_II } from "@/content/lectures";
+import { Carte, Encadre, Etiquette } from "@/components/primitives";
 import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse } from "@/components/bloc";
 import { buttonVariants } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const metadata = pageMetadata({
   title: "L'Ouvrage",
   description:
-    "Le Diptyque du Noyau Démontré : Tome I (l'Organon) et Tome II (le Laboratoire Juridique), textes liminaires et les douze autorités de convergence.",
+    "Le Diptyque du Noyau Démontré : Tome I (l'Organon) et Tome II (le Laboratoire Juridique). Textes liminaires et chapitres I, II et VII du Tome II en accès libre, et les douze autorités de convergence.",
   path: "/ouvrage",
 });
 
@@ -31,8 +32,8 @@ export default async function OuvragePage() {
       {/* Hero */}
       <Section tone="profond" className="text-center">
         <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold text-blanc sm:text-5xl">
-            L'OUVRAGE
+          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-blanc sm:text-5xl">
+            L'Ouvrage
           </h1>
           <p className="mt-4 font-sans text-lg italic text-or">
             Les Principes Retrouvés — De l'axiomatique pure à l'application
@@ -100,10 +101,8 @@ export default async function OuvragePage() {
           <TitreSection>Présentation symétrique du diptyque</TitreSection>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {/* Colonne gauche — Tome I */}
-            <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
-                Tome I
-              </p>
+            <Carte className="flex flex-col">
+              <Etiquette>Tome I</Etiquette>
               <h3 className="mt-1 font-heading text-2xl font-semibold">
                 L'Organon
               </h3>
@@ -167,19 +166,25 @@ export default async function OuvragePage() {
                 </p>
                 <p className="font-heading italic">Il demande à être éprouvé.</p>
               </div>
+              <Link
+                href="/ouvrage/tome-i"
+                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-8 self-start")}
+              >
+                Lire les textes liminaires
+              </Link>
             </Carte>
 
             {/* Colonne droite — Tome II */}
-            <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-wide text-or">
-                Tome II
-              </p>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Laboratoire Juridique
+            <Carte className="flex flex-col">
+              <Etiquette>Tome II · Le Laboratoire Juridique</Etiquette>
+              {/* Titre officiel (liminaires du Tome II, octobre 2026). */}
+              <h3 className="mt-1 font-heading text-2xl font-semibold text-balance">
+                La saisine d&apos;office, l&apos;autosaisine et l&apos;action positive
+                du juge constitutionnel
               </h3>
-              <p className="mt-2 font-sans text-sm italic text-bleu-nuit-profond/70">
-                La Proactivité Encadrée — Application opératoire de la matrice Σ
-                au contentieux constitutionnel positif
+              <p className="mt-2 font-sans text-sm italic text-bleu-nuit-profond/75">
+                Théorie générale et formalisation d&apos;un principe universel de
+                proactivité judiciaire encadrée
               </p>
               <div className="mt-6 space-y-4 font-sans text-base leading-relaxed">
                 <p className="font-heading text-lg italic">
@@ -248,6 +253,12 @@ export default async function OuvragePage() {
                   d'être éprouvé.
                 </p>
               </div>
+              <Link
+                href="/ouvrage/tome-ii"
+                className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-8 self-start")}
+              >
+                Lire le liminaire et trois chapitres
+              </Link>
             </Carte>
           </div>
         </Container>
@@ -263,51 +274,48 @@ export default async function OuvragePage() {
               garantissent la réception et la cohérence :
             </p>
           </BlocProse>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Avant-propos du Tome I
-              </h3>
-              <p className="mt-3 font-sans text-base leading-relaxed">
-                Introduction générale à la démarche métamoderne, posant les
-                fondements de la rupture épistémologique et annonçant le
-                Programme de recherche.
-              </p>
-            </Carte>
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Avant-propos du Tome II (enrichi)
-              </h3>
-              <p className="mt-3 font-sans text-base leading-relaxed">
-                Fait le pont entre l'Organon théorique et le Laboratoire
-                Juridique. Annonce le passage de la Pyramide de Σ à la Balance de
-                la Maât. Présente le Théorème de la Validité Inversée comme
-                application de l'équation cyclique au champ juridique. Intègre le
-                cas Mandela à Rivonia comme illustration historique suprême.
-              </p>
-            </Carte>
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Conclusion Générale du Tome I
-              </h3>
-              <p className="mt-3 font-sans text-base leading-relaxed">
-                Scelle l'édifice du Tome I en récapitulant l'ascension des 7
-                Parties. Verrouille le statut de Σ comme nécessité heuristique.
-                Intègre la Note de Confinement Épistémologique sur la preuve
-                microscopique réservée au Programme d'Expansion.
-              </p>
-            </Carte>
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Conclusion Générale du Tome II — Le Verdict de la Balance
-              </h3>
-              <p className="mt-3 font-sans text-base leading-relaxed">
-                Scelle l'édifice du Tome II en récapitulant la remontée du cas
-                concret de Brazzaville vers l'universalité du Principe. Articule
-                les deux tomes comme un seul mouvement organique, régi par la
-                double respiration du réel et de la connaissance.
-              </p>
-            </Carte>
+          {/* Lecture en accès libre — cartes Trello « Modification Tome I / II » :
+              textes publiés un à un, chacun avec son lien ; pour le Tome II,
+              le liminaire d'abord, puis les chapitres I, II et VII. */}
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            {[TOME_I, TOME_II].map((recueil) => (
+              <Carte key={recueil.tome} className="flex flex-col">
+                <Etiquette>{recueil.etiquette} · Accès libre</Etiquette>
+                <h3 className="mt-1 font-heading text-xl font-semibold">
+                  {recueil.titre}
+                </h3>
+                {recueil.parties.map((partie) => (
+                  <div key={partie.titre} className="mt-6">
+                    <p className="font-ui text-sm font-semibold text-bleu-nuit-profond/80">
+                      {partie.titre}
+                    </p>
+                    <ol className="mt-2 divide-y divide-bleu-nuit-profond/10 border-y border-bleu-nuit-profond/10">
+                      {partie.textes.map((texte) => (
+                        <li key={texte.slug}>
+                          <Link
+                            href={`/ouvrage/${recueil.tome}/${texte.slug}`}
+                            className="group flex items-baseline justify-between gap-4 py-2.5 font-sans text-base text-bleu-academique"
+                          >
+                            <span className="underline-offset-4 group-hover:underline">
+                              {texte.titre}
+                            </span>
+                            <span className="text-or" aria-hidden="true">
+                              →
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+                <Link
+                  href={`/ouvrage/${recueil.tome}`}
+                  className={cn(buttonVariants({ variant: "outline", size: "lg" }), "mt-6 self-start font-ui")}
+                >
+                  Sommaire du {recueil.etiquette}
+                </Link>
+              </Carte>
+            ))}
           </div>
         </Container>
       </Section>

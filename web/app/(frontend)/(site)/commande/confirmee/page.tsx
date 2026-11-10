@@ -38,7 +38,7 @@ export default async function ConfirmationPage({
     <Section tone="clair">
       <Container className="max-w-2xl">
         {!commande ? (
-          <div className="border-l-4 border-or bg-gris-clair p-6">
+          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
             <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
               Commande introuvable
             </h1>
@@ -47,7 +47,7 @@ export default async function ConfirmationPage({
             </p>
           </div>
         ) : commande.statut === "devis_demande" ? (
-          <div className="border-l-4 border-or bg-gris-clair p-6">
+          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
             <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
               Demande de devis transmise
             </h1>
@@ -58,7 +58,7 @@ export default async function ConfirmationPage({
             </p>
           </div>
         ) : commande.code_acces ? (
-          <div className="border-l-4 border-or bg-gris-clair p-6">
+          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
             <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
               Inscription confirmée
             </h1>
@@ -83,7 +83,7 @@ export default async function ConfirmationPage({
             </div>
           </div>
         ) : (
-          <div className="border-l-4 border-or bg-gris-clair p-6">
+          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
             <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
               Paiement en cours
             </h1>

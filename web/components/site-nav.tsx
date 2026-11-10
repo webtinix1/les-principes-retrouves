@@ -35,7 +35,7 @@ export function SiteNav() {
         className={cn(
           "font-ui text-sm xl:text-[0.8rem]",
           // Mobile/tablette : panneau déroulant ; desktop (≥1280px) : barre horizontale
-          "absolute inset-x-0 top-full z-50 border-t border-or/20 bg-bleu-nuit shadow-lg shadow-black/30 xl:static xl:z-auto xl:border-0 xl:bg-transparent xl:shadow-none",
+          "absolute inset-x-0 top-full z-50 border-y border-or/20 bg-bleu-nuit xl:static xl:z-auto xl:border-0 xl:bg-transparent",
           open ? "block" : "hidden xl:block",
         )}
       >

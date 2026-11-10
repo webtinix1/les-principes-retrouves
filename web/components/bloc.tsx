@@ -26,7 +26,7 @@ const HTML_RICHE_CLASS = cn(
   "[&_h4]:mt-6 [&_h4]:font-heading [&_h4]:text-lg [&_h4]:font-semibold",
   "[&_ul]:mt-4 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6",
   "[&_ol]:mt-4 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-6",
-  "[&_blockquote]:mt-6 [&_blockquote]:border-l-4 [&_blockquote]:border-or [&_blockquote]:pl-4 [&_blockquote]:font-heading [&_blockquote]:italic",
+  "[&_blockquote]:mt-6 [&_blockquote]:border-y [&_blockquote]:border-or/40 [&_blockquote]:py-4 [&_blockquote]:font-heading [&_blockquote]:text-lg [&_blockquote]:italic",
   "[&_a]:text-or [&_a]:underline [&_a]:underline-offset-2",
   "[&_em]:italic",
 );
