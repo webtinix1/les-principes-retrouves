@@ -21,6 +21,17 @@ export const metadata = pageMetadata({
  */
 export const revalidate = 3600;
 
+/** Les sept étapes du Canon de la Découverte, dans l'ordre de la remontée. */
+const ETAPES_CANON = [
+  { terme: "Architecture préalable", role: "L’infrastructure implicite" },
+  { terme: "Anomalie / Paradoxe", role: "Le point d’impact entropique" },
+  { terme: "Question", role: "La circonscription du vide sémantique" },
+  { terme: "Hypothèse", role: "La Majeure rationnelle (hyppo, en deçà)" },
+  { terme: "Thésis", role: "L’action de poser et de démontrer" },
+  { terme: "Expérantia", role: "Le banc d’essai phénoménal (mineure subordonnée)" },
+  { terme: "Connaissance", role: "La réintégration néguentropique" },
+];
+
 /** Le Canon de la Découverte — sept principes (Section 4). */
 const CANON = [
   {
@@ -286,25 +297,42 @@ export default function NoteEpistemologiquePage() {
               est modélisé par le Canon de la Découverte en 7 principes :
             </p>
           </BlocProse>
-          <div className="mx-auto mt-8 max-w-[68ch]">
-            <Encadre>
-              <pre className="overflow-x-auto font-mono text-sm text-or">
-                {`[ ARCHITECTURE PRÉALABLE ] ← L'infrastructure implicite
-            ↓
-[ ANOMALIE / PARADOXE ]   ← Le point d'impact entropique
-            ↓
-[ QUESTION ]              ← La circonscription du vide sémantique
-            ↓
-[ HYPOTHÈSE ]            ← La Majeure rationnelle (hyppo, en deçà)
-            ↓
-[ THÉSIS ]               ← L'action de poser et de démontrer
-            ↓
-[ EXPÉRANTIA ]           ← Le banc d'essai phénoménal (mineure subordonnée)
-            ↓
-[ CONNAISSANCE ]         ← La réintégration néguentropique`}
-              </pre>
-            </Encadre>
-          </div>
+          {/* Frise verticale du Canon : une étape par ligne, reliées par un filet Or. */}
+          <ol
+            aria-label="Les sept étapes du Canon de la Découverte"
+            className="mx-auto mt-10 max-w-[68ch]"
+          >
+            {ETAPES_CANON.map((etape, i) => {
+              const derniere = i === ETAPES_CANON.length - 1;
+              return (
+                <li key={etape.terme} className="relative grid grid-cols-[2.75rem_1fr] gap-x-5">
+                  {!derniere && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute top-11 bottom-0 left-[1.375rem] w-px -translate-x-1/2 bg-or/50"
+                    />
+                  )}
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "relative z-10 grid size-11 place-items-center rounded-full border font-mono text-sm",
+                      derniere
+                        ? "border-or bg-or font-semibold text-bleu-nuit-profond"
+                        : "border-or/60 bg-bleu-nuit text-or",
+                    )}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className={cn("pt-1.5", !derniere && "pb-8")}>
+                    <p className="font-heading text-xl font-semibold text-blanc">{etape.terme}</p>
+                    <p className="mt-1 font-sans leading-relaxed text-blanc-casse/85">
+                      {etape.role}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             {CANON.map((principe) => (
               <Carte key={principe.id}>
