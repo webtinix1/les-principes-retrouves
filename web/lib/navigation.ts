@@ -14,7 +14,7 @@ export const NAV_PAGES: NavPage[] = [
   { page_id: "institution", label: "Institution", href: "/institution" },
   { page_id: "constitution", label: "Constitution", href: "/constitution" },
   { page_id: "manifeste", label: "Manifeste", href: "/manifeste" },
-  { page_id: "note_epistemologique", label: "Note épistémologique", href: "/note-epistemologique" },
+  { page_id: "note_epistemologique", label: "Note Épistémo", href: "/note-epistemologique" },
   { page_id: "ouvrage", label: "Ouvrage", href: "/ouvrage" },
   { page_id: "laboratoire", label: "Laboratoire", href: "/laboratoire" },
   { page_id: "concepts", label: "Concepts", href: "/concepts" },
