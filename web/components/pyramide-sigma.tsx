@@ -98,7 +98,7 @@ export function PyramideSigma({ className }: { className?: string }) {
   });
 
   return (
-    <figure className={cn("flex flex-col items-center gap-4", className)}>
+    <figure className={cn("flex w-full flex-col items-center gap-4", className)}>
       <svg
         viewBox="0 0 600 570"
         className="h-auto w-full max-w-[600px]"
