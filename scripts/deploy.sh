@@ -53,8 +53,10 @@ ANCIENNE_IMAGE="$(docker compose images -q web 2>/dev/null | head -1 || true)"
 INSTANTANE=""
 
 # 4) Construction de la nouvelle image : l'ancien conteneur continue de servir pendant ce temps.
-log "docker compose build web…"
-docker compose build web
+log "docker compose build --pull web…"
+# --pull : rafraîchit l'image de base (node:22-alpine) — un cache local périmé ne
+# satisfait plus la version de Node exigée par Payload.
+docker compose build --pull web
 
 # 5) Instantané de la base, conteneur web arrêté (aucune écriture entre l'instantané et
 #    les migrations). pg_dump/pg_restore viennent de l'image postgres du service db ;
