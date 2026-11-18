@@ -67,7 +67,7 @@ mkdir -p "$SAUVEGARDES_DIR"
 INSTANTANE="$SAUVEGARDES_DIR/avant-$(date +%Y%m%d-%H%M%S)-$(git rev-parse --short "$COMMIT").dump"
 log "Arrêt de web, puis instantané PostgreSQL → $INSTANTANE"
 docker compose stop web
-docker compose exec -T db sh -c 'pg_dump -Fc -U "$POSTGRES_USER" "$POSTGRES_DB"' > "$INSTANTANE"
+docker compose exec -T db sh -c 'pg_dump -Fc -U "$POSTGRES_USER" "$POSTGRES_DB"' </dev/null > "$INSTANTANE"
 if [ ! -s "$INSTANTANE" ]; then
   log "ERREUR : instantané vide — redémarrage de la version en service, déploiement annulé."
   rm -f "$INSTANTANE"

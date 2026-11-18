@@ -1,7 +1,7 @@
 # Déploiement continu — à chaque merge sur main, une fois le workflow CI réussi,
 # le serveur de production est mis à jour par SSH : checkout du commit validé,
 # puis `docker compose up -d --build`. Le script exécuté côté serveur est
-# scripts/deploy.sh : il est envoyé sur l'entrée standard de ssh, il n'a donc
+# scripts/deploy.sh : il est copié sur le serveur à chaque exécution, il n'a donc
 # pas besoin d'être déjà présent sur le serveur.
 #
 # Secrets attendus (dépôt ou environnement « production ») — cf. DEPLOYMENT.md :
@@ -87,11 +87,22 @@ jobs:
           PORT: ${{ secrets.DEPLOY_PORT || '22' }}
           APP_DIR: ${{ secrets.DEPLOY_PATH }}
         run: |
+          set -o pipefail
           echo "Déploiement de $COMMIT vers $HOST:$APP_DIR"
+          # Le script est copié dans un fichier temporaire côté serveur, puis exécuté
+          # avec l'entrée standard fermée. Exécuté directement par « bash -s », toute
+          # commande qui lit stdin (docker compose exec, ssh…) avalerait la suite du
+          # script, qui s'arrêterait là en silence.
           ssh -i ~/.ssh/deploy_key -p "$PORT" \
               -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 \
               "$SSH_USER@$HOST" \
-              "APP_DIR='$APP_DIR' COMMIT='$COMMIT' bash -s" < scripts/deploy.sh
+              "T=\$(mktemp) && cat > \"\$T\" && APP_DIR='$APP_DIR' COMMIT='$COMMIT' bash \"\$T\" </dev/null; rc=\$?; rm -f \"\$T\"; exit \$rc" \
+              < scripts/deploy.sh | tee /tmp/deploiement.log
+          # Garde-fou : le script doit être allé jusqu'à sa dernière ligne.
+          if ! grep -q "Déploiement terminé" /tmp/deploiement.log; then
+            echo "::error::Le script de déploiement s'est interrompu avant la fin (voir le journal ci-dessus)."
+            exit 1
+          fi
 
       - name: Nettoyage de la clé
         if: always()
