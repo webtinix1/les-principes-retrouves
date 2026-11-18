@@ -2,6 +2,7 @@
 # Vérifie les types, la compilation de production (sans base, comme le build
 # Docker), puis démarre le serveur sur une base PostgreSQL vide (migrations +
 # amorçage) et rejoue le parcours d'édition du back-office (Playwright).
+# Sur main, le workflow « Déploiement » (deploy.yml) s'enchaîne si ce workflow réussit.
 name: CI
 
 on:

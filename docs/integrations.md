@@ -39,8 +39,11 @@
 - **Statut** : non acheté. À acquérir + relier à l'hébergeur (DNS).
 
 ### Versionnement
-- **GitHub** : dépôt à créer pour héberger le code et déclencher les déploiements.
-- **Statut** : non configuré.
+- **GitHub** : dépôt `webtinix1/les-principes-retrouves`. CI sur chaque PR et sur `main`
+  (`.github/workflows/ci.yml`) ; déploiement automatique sur le serveur à chaque merge sur
+  `main` une fois la CI réussie (`.github/workflows/deploy.yml` + `scripts/deploy.sh`, par SSH).
+- **Statut** : workflows en place ; secrets `DEPLOY_*` à renseigner dans le dépôt GitHub
+  (procédure dans `DEPLOYMENT.md`, « Déploiement automatique »).
 
 ---
 
