@@ -80,6 +80,9 @@ cp .env.example .env      # SITE_HOST, TRAEFIK_CONFIG_NAME, POSTGRES_*, PAYLOAD_
 docker compose up -d --build
 ```
 
+Chaque merge sur `main` est **déployé automatiquement** sur le serveur une fois la CI
+réussie (`.github/workflows/deploy.yml`, secrets `DEPLOY_*` à renseigner dans GitHub).
+
 Détails complets : [`DEPLOYMENT.md`](DEPLOYMENT.md).
 
 ## Documentation projet (`docs/`)

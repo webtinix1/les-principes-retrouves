@@ -1,0 +1,109 @@
+# Déploiement continu — à chaque merge sur main, une fois le workflow CI réussi,
+# le serveur de production est mis à jour par SSH : checkout du commit validé,
+# puis `docker compose up -d --build`. Le script exécuté côté serveur est
+# scripts/deploy.sh : il est copié sur le serveur à chaque exécution, il n'a donc
+# pas besoin d'être déjà présent sur le serveur.
+#
+# Secrets attendus (dépôt ou environnement « production ») — cf. DEPLOYMENT.md :
+#   DEPLOY_HOST        hôte du serveur
+#   DEPLOY_USER        utilisateur SSH (membre du groupe docker)
+#   DEPLOY_SSH_KEY     clé privée (ed25519) autorisée sur le serveur
+#   DEPLOY_PATH        dossier du dépôt cloné sur le serveur (contient le .env)
+#   DEPLOY_PORT        (optionnel) port SSH, 22 par défaut
+#   DEPLOY_KNOWN_HOSTS (optionnel mais recommandé) sortie de `ssh-keyscan -H <hôte>`
+name: Déploiement
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  # Relance manuelle (onglet Actions) du commit courant de main.
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  # Un déploiement en cours n'est jamais interrompu : les suivants attendent.
+  cancel-in-progress: false
+
+jobs:
+  production:
+    # Ne déploie que si la CI de main a réussi (ou lancement manuel depuis main).
+    if: >-
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
+      || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: production
+      url: ${{ vars.SITE_URL || 'https://les-principes-retrouves.webtinix.com' }}
+    env:
+      # Commit exact validé par la CI (workflow_run) ou pointé par main (manuel).
+      COMMIT: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.COMMIT }}
+
+      - name: Secrets de déploiement
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          manquants=""
+          for v in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY DEPLOY_PATH; do
+            [ -n "${!v}" ] || manquants="$manquants $v"
+          done
+          if [ -n "$manquants" ]; then
+            echo "::error::Secrets GitHub manquants :$manquants — voir DEPLOYMENT.md (« Déploiement automatique »)."
+            exit 1
+          fi
+
+      - name: Clé SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          if [ -n "$KNOWN_HOSTS" ]; then
+            printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "::warning::DEPLOY_KNOWN_HOSTS absent : empreinte du serveur relevée à la volée (ssh-keyscan), donc non vérifiée."
+            ssh-keyscan -p "$PORT" -H "$HOST" > ~/.ssh/known_hosts 2>/dev/null
+          fi
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Mise à jour du serveur
+        env:
+          HOST: ${{ secrets.DEPLOY_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          PORT: ${{ secrets.DEPLOY_PORT || '22' }}
+          APP_DIR: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          set -o pipefail
+          echo "Déploiement de $COMMIT vers $HOST:$APP_DIR"
+          # Le script est copié dans un fichier temporaire côté serveur, puis exécuté
+          # avec l'entrée standard fermée. Exécuté directement par « bash -s », toute
+          # commande qui lit stdin (docker compose exec, ssh…) avalerait la suite du
+          # script, qui s'arrêterait là en silence.
+          ssh -i ~/.ssh/deploy_key -p "$PORT" \
+              -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 \
+              "$SSH_USER@$HOST" \
+              "T=\$(mktemp) && cat > \"\$T\" && APP_DIR='$APP_DIR' COMMIT='$COMMIT' bash \"\$T\" </dev/null; rc=\$?; rm -f \"\$T\"; exit \$rc" \
+              < scripts/deploy.sh | tee /tmp/deploiement.log
+          # Garde-fou : le script doit être allé jusqu'à sa dernière ligne.
+          if ! grep -q "Déploiement terminé" /tmp/deploiement.log; then
+            echo "::error::Le script de déploiement s'est interrompu avant la fin (voir le journal ci-dessus)."
+            exit 1
+          fi
+
+      - name: Nettoyage de la clé
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
