@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const buttonVariants = cva(
+const variantesBouton = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
@@ -18,21 +18,22 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // Variantes de marque (DOCUMENT DE SYNTHÈSE FINAL) --------------------
-        // CTA Or Maât : fond transparent, bordure 2px Or, hover fond Or + texte Bleu.
-        or: "border-2 border-or bg-transparent font-ui font-semibold text-or hover:-translate-y-0.5 hover:bg-or hover:text-bleu-academique hover:shadow-[0_4px_12px_rgba(212,175,55,0.3)]",
-        // CTA Or plein : action d'achat primaire — l'Or est présent au repos
-        // (pas seulement au survol), pour que la voie d'entrée soit lisible d'emblée.
+        // Variantes de marque (design system de la refonte) --------------
+        // Bouton principal : Or Maât plein, texte nuit. Un seul par écran.
         "or-plein":
-          "border-2 border-or bg-or font-ui font-semibold text-bleu-academique shadow-[0_2px_8px_rgba(212,175,55,0.25)] hover:-translate-y-0.5 hover:bg-[color-mix(in_oklch,var(--color-or),white_12%)] hover:shadow-[0_6px_16px_rgba(212,175,55,0.4)]",
-        // CTA « ligne » : discret, pour fonds sombres.
+          "rounded-[2px] border border-or-700 bg-or-500 font-ui font-semibold text-nuit-950 hover:bg-or-300",
+        // Bouton secondaire : contour nuit sur clair, contour or sur nuit.
+        or: "rounded-[2px] border border-encre bg-transparent font-ui font-semibold text-encre hover:bg-encre hover:text-papier in-[.surface-sombre]:border-or-500 in-[.surface-sombre]:text-or-300 in-[.surface-sombre]:hover:bg-or-500 in-[.surface-sombre]:hover:text-nuit-950",
+        // Bouton nuit plein (inscriptions dans le tableau des modules).
+        nuit: "rounded-[2px] border border-nuit-950 bg-nuit-950 font-ui font-semibold text-papier hover:border-nuit-800 hover:bg-nuit-800 hover:text-white",
+        // Discret sur fond sombre.
         ligne:
-          "border border-blanc-casse/40 bg-transparent font-ui text-blanc-casse hover:border-or hover:text-or",
+          "rounded-[2px] border border-nuit-300/60 bg-transparent font-ui font-medium text-nuit-100 hover:border-or-500 hover:text-or-300",
       },
       size: {
         default:
           "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        cta: "h-auto rounded-md px-6 py-3 text-base",
+        cta: "h-auto min-h-12 gap-2.5 rounded-[2px] px-[22px] py-2 text-[15px] whitespace-normal text-center",
         xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
@@ -56,14 +57,17 @@ function Button({
   variant = "default",
   size = "default",
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonPrimitive.Props & VariantProps<typeof variantesBouton>) {
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={buttonVariants({ variant, size, className })}
       {...props}
     />
   )
 }
+
+/** Classes fusionnées (tailwind-merge) : la variante l’emporte sur la base. */
+const buttonVariants = (...args: Parameters<typeof variantesBouton>) => cn(variantesBouton(...args))
 
 export { Button, buttonVariants }

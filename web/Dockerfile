@@ -11,6 +11,9 @@ RUN yarn install --frozen-lockfile
 # Sert aussi de conteneur « outils » (import SQLite, migrations manuelles) :
 # cf. le service `outils` du docker-compose.yml.
 FROM node:22-alpine AS builder
+# Adresse publique du site, figée au build (canonical, sitemap, robots, Open Graph).
+ARG NEXT_PUBLIC_SITE_URL=https://lesprincipesretrouves.com
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules

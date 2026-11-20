@@ -76,6 +76,7 @@ export interface Config {
     strates: Strate;
     concepts: Concept;
     autorites: Autorite;
+    'textes-lecture': TextesLecture;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -100,6 +101,7 @@ export interface Config {
     strates: StratesSelect<false> | StratesSelect<true>;
     concepts: ConceptsSelect<false> | ConceptsSelect<true>;
     autorites: AutoritesSelect<false> | AutoritesSelect<true>;
+    'textes-lecture': TextesLectureSelect<false> | TextesLectureSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -111,6 +113,7 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'contenu-accueil': ContenuAccueil;
     'contenu-manifeste': ContenuManifeste;
     'contenu-declaration': ContenuDeclaration;
     'contenu-constitution': ContenuConstitution;
@@ -123,8 +126,15 @@ export interface Config {
     'contenu-mentions-legales': ContenuMentionsLegale;
     'contenu-confidentialite': ContenuConfidentialite;
     'contenu-cgv': ContenuCgv;
+    'contenu-site-navigation': ContenuSiteNavigation;
+    'contenu-site-interface': ContenuSiteInterface;
+    'contenu-site-formulaires': ContenuSiteFormulaire;
+    'contenu-site-lecture': ContenuSiteLecture;
+    'vente-ouvrages': VenteOuvrage;
+    recueils: Recueil;
   };
   globalsSelect: {
+    'contenu-accueil': ContenuAccueilSelect<false> | ContenuAccueilSelect<true>;
     'contenu-manifeste': ContenuManifesteSelect<false> | ContenuManifesteSelect<true>;
     'contenu-declaration': ContenuDeclarationSelect<false> | ContenuDeclarationSelect<true>;
     'contenu-constitution': ContenuConstitutionSelect<false> | ContenuConstitutionSelect<true>;
@@ -137,6 +147,12 @@ export interface Config {
     'contenu-mentions-legales': ContenuMentionsLegalesSelect<false> | ContenuMentionsLegalesSelect<true>;
     'contenu-confidentialite': ContenuConfidentialiteSelect<false> | ContenuConfidentialiteSelect<true>;
     'contenu-cgv': ContenuCgvSelect<false> | ContenuCgvSelect<true>;
+    'contenu-site-navigation': ContenuSiteNavigationSelect<false> | ContenuSiteNavigationSelect<true>;
+    'contenu-site-interface': ContenuSiteInterfaceSelect<false> | ContenuSiteInterfaceSelect<true>;
+    'contenu-site-formulaires': ContenuSiteFormulairesSelect<false> | ContenuSiteFormulairesSelect<true>;
+    'contenu-site-lecture': ContenuSiteLectureSelect<false> | ContenuSiteLectureSelect<true>;
+    'vente-ouvrages': VenteOuvragesSelect<false> | VenteOuvragesSelect<true>;
+    recueils: RecueilsSelect<false> | RecueilsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -384,6 +400,95 @@ export interface Autorite {
   createdAt: string;
 }
 /**
+ * Textes en lecture libre des tomes. Leur place dans le sommaire est donnée par le tome, la partie et l’ordre ; les titres des parties se modifient dans « Les deux tomes ».
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "textes-lecture".
+ */
+export interface TextesLecture {
+  id: string;
+  tome: 'tome-i' | 'tome-ii';
+  /**
+   * Numéro de la partie du sommaire du tome (1 = première partie listée dans « Les deux tomes »). Tome II : 1 = Textes liminaires, 2 = Chapitres en accès libre.
+   */
+  partie: number;
+  /**
+   * Rang du texte au sein de sa partie (croissant).
+   */
+  ordre: number;
+  /**
+   * Fin de l’adresse de la page : /ouvrage/<tome>/<slug>. Minuscules, chiffres et tirets. Changer l’adresse casse les liens existants.
+   */
+  slug: string;
+  titre: string;
+  sous_titre?: string | null;
+  /**
+   * Citation d’ouverture, sans guillemets. Laisser vide pour ne rien afficher.
+   */
+  exergue?: string | null;
+  exergue_source?: string | null;
+  blocs?:
+    | (
+        | {
+            texte: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'paragraphe';
+          }
+        | {
+            texte: string;
+            niveau?: ('3' | '4') | null;
+            /**
+             * Identifiant du lien direct vers cette section (ex. 1-le-probleme). Les sections de niveau 3 avec ancre forment le sommaire « Dans ce texte ».
+             */
+            ancre?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'intertitre';
+          }
+        | {
+            /**
+             * Formule ou chaîne opératoire (ex. K → M → K′ → Σ), affichée en police à chasse fixe.
+             */
+            texte: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'formule';
+          }
+        | {
+            ordonnee?: boolean | null;
+            items?:
+              | {
+                  texte: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'liste';
+          }
+        | {
+            /**
+             * Sans guillemets : ils sont ajoutés automatiquement.
+             */
+            texte: string;
+            source?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'citation';
+          }
+        | {
+            texte: string;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'note';
+          }
+      )[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -469,6 +574,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'autorites';
         value: string | Autorite;
+      } | null)
+    | ({
+        relationTo: 'textes-lecture';
+        value: string | TextesLecture;
       } | null)
     | ({
         relationTo: 'users';
@@ -700,6 +809,77 @@ export interface AutoritesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "textes-lecture_select".
+ */
+export interface TextesLectureSelect<T extends boolean = true> {
+  tome?: T;
+  partie?: T;
+  ordre?: T;
+  slug?: T;
+  titre?: T;
+  sous_titre?: T;
+  exergue?: T;
+  exergue_source?: T;
+  blocs?:
+    | T
+    | {
+        paragraphe?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+              blockName?: T;
+            };
+        intertitre?:
+          | T
+          | {
+              texte?: T;
+              niveau?: T;
+              ancre?: T;
+              id?: T;
+              blockName?: T;
+            };
+        formule?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+              blockName?: T;
+            };
+        liste?:
+          | T
+          | {
+              ordonnee?: T;
+              items?:
+                | T
+                | {
+                    texte?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        citation?:
+          | T
+          | {
+              texte?: T;
+              source?: T;
+              id?: T;
+              blockName?: T;
+            };
+        note?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -763,6 +943,92 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Textes de la page /accueil. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-accueil".
+ */
+export interface ContenuAccueil {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  ouverture_dedicace?: string | null;
+  ouverture_surtitre?: string | null;
+  ouverture_titre?: string | null;
+  ouverture_citation?: string | null;
+  ouverture_formules_lecture?: string | null;
+  ouverture_formule_sigma?: string | null;
+  ouverture_formule_maat?: string | null;
+  ouverture_bouton_institut?: string | null;
+  ouverture_bouton_tomes?: string | null;
+  pyramide_titre?: string | null;
+  pyramide_consigne?: string | null;
+  pyramide_axe_descendant?: string | null;
+  pyramide_axe_descendant_legende?: string | null;
+  pyramide_axe_ascendant?: string | null;
+  pyramide_axe_ascendant_legende?: string | null;
+  pyramide_groupe_lecture?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  pyramide_position?: string | null;
+  pyramide_symbole_vide?: string | null;
+  pyramide_lien_entree?: string | null;
+  axiome_citation?: string | null;
+  axiome_titre?: string | null;
+  axiome_texte?: string | null;
+  portes_titre?: string | null;
+  portes_sous_titre?: string | null;
+  plan_titre?: string | null;
+  plan_chapeau?: string | null;
+  plan_famille_seuil?: string | null;
+  cloture_citation?: string | null;
+  cloture_locus?: string | null;
+  cloture_page_suivante?: string | null;
+  cloture_page_suivante_titre?: string | null;
+  /**
+   * Ouverture — la Pyramide de Σ — du sommet à la base. Le libellé peut tenir sur deux lignes (retour à la ligne).
+   */
+  niveaux_pyramide?:
+    | {
+        symbole?: string | null;
+        libelle?: string | null;
+        nom?: string | null;
+        formule?: string | null;
+        definition?: string | null;
+        source_libelle?: string | null;
+        source_lien?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section — Par où entrer
+   */
+  portes?:
+    | {
+        etiquette?: string | null;
+        titre?: string | null;
+        texte?: string | null;
+        action?: string | null;
+        lien?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section — L’œuvre en dix pages — l’identifiant de page (page_id) relie le résumé à sa page : ne pas le modifier.
+   */
+  resumes?:
+    | {
+        page_id?: string | null;
+        titre?: string | null;
+        resume?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Textes de la page /manifeste. Un champ vidé fait revenir le texte d'origine.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -770,8 +1036,12 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface ContenuManifeste {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
   hero_sous_titre?: string | null;
   hero_exergue?: string | null;
+  diagnostic_titre?: string | null;
   diagnostic_corps?: {
     root: {
       type: string;
@@ -787,6 +1057,7 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
+  illusion_quantitative_titre?: string | null;
   illusion_quantitative_corps?: {
     root: {
       type: string;
@@ -802,6 +1073,7 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
+  piege_postmoderne_titre?: string | null;
   piege_postmoderne_corps?: {
     root: {
       type: string;
@@ -817,6 +1089,7 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
+  matrice_maat_titre?: string | null;
   matrice_maat_intro?: {
     root: {
       type: string;
@@ -847,6 +1120,7 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
+  decolonisation_titre?: string | null;
   decolonisation_corps?: {
     root: {
       type: string;
@@ -862,7 +1136,13 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
+  articles_titre?: string | null;
   articles_chapeau?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  articles_etiquette?: string | null;
+  pacte_titre?: string | null;
   pacte_corps?: {
     root: {
       type: string;
@@ -879,7 +1159,31 @@ export interface ContenuManifeste {
     [k: string]: unknown;
   } | null;
   pacte_exergue?: string | null;
+  appel_titre?: string | null;
   appel_corps?: string | null;
+  appel_bouton?: string | null;
+  /**
+   * Section 4 — encadré des trois propriétés cumulatives
+   */
+  matrice?:
+    | {
+        numero?: string | null;
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 6 — numéro en chiffres romains (sert aussi d’ancre : #article-i…)
+   */
+  articles?:
+    | {
+        numero?: string | null;
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -891,6 +1195,20 @@ export interface ContenuManifeste {
  */
 export interface ContenuDeclaration {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_bouton?: string | null;
+  sommaire_preambule?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_acte?: string | null;
+  hero_exergue?: string | null;
+  sommaire_titre?: string | null;
+  sommaire_aria?: string | null;
+  preambule_titre?: string | null;
   preambule_corps?: {
     root: {
       type: string;
@@ -906,6 +1224,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_i_titre?: string | null;
   acte_i_corps?: {
     root: {
       type: string;
@@ -921,6 +1240,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_ii_titre?: string | null;
   acte_ii_corps?: {
     root: {
       type: string;
@@ -936,6 +1256,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_iii_titre?: string | null;
   acte_iii_intro?: {
     root: {
       type: string;
@@ -951,6 +1272,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_iii_formule_sigma?: string | null;
   acte_iii_equation?: {
     root: {
       type: string;
@@ -966,6 +1288,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_iii_formule_maat?: string | null;
   acte_iii_transposition?: {
     root: {
       type: string;
@@ -981,6 +1304,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_iv_titre?: string | null;
   acte_iv_corps?: {
     root: {
       type: string;
@@ -996,6 +1320,76 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_iv_niveau_i_etiquette?: string | null;
+  acte_iv_niveau_i_titre?: string | null;
+  acte_iv_niveau_i_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  acte_iv_niveau_ii_etiquette?: string | null;
+  acte_iv_niveau_ii_titre?: string | null;
+  acte_iv_niveau_ii_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  acte_iv_niveau_iii_etiquette?: string | null;
+  acte_iv_niveau_iii_titre?: string | null;
+  acte_iv_niveau_iii_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  acte_iv_niveau_iv_etiquette?: string | null;
+  acte_iv_niveau_iv_titre?: string | null;
+  acte_iv_niveau_iv_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  acte_v_titre?: string | null;
+  acte_v_encadre?: string | null;
   acte_v_corps?: {
     root: {
       type: string;
@@ -1011,6 +1405,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_vi_titre?: string | null;
   acte_vi_corps?: {
     root: {
       type: string;
@@ -1026,6 +1421,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_vii_titre?: string | null;
   acte_vii_corps?: {
     root: {
       type: string;
@@ -1041,6 +1437,7 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  acte_viii_titre?: string | null;
   acte_viii_corps?: {
     root: {
       type: string;
@@ -1071,6 +1468,11 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
+  appel_titre?: string | null;
+  appel_locus?: string | null;
+  appel_sceau?: string | null;
+  cloture_texte?: string | null;
+  cloture_bouton?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1082,6 +1484,14 @@ export interface ContenuDeclaration {
  */
 export interface ContenuConstitution {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_bouton?: string | null;
+  hero_exergue?: string | null;
+  hero_formule?: string | null;
+  preambule_titre?: string | null;
   preambule_corps?: {
     root: {
       type: string;
@@ -1097,6 +1507,17 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  articles_titre?: string | null;
+  articles_sommaire_lecture?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  articles_lien_lecture?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  articles_etiquette?: string | null;
+  article_objet_titre?: string | null;
   article_objet_corps?: {
     root: {
       type: string;
@@ -1112,6 +1533,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_souverainete_titre?: string | null;
   article_souverainete_corps?: {
     root: {
       type: string;
@@ -1127,6 +1549,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_distinction_titre?: string | null;
   article_distinction_corps?: {
     root: {
       type: string;
@@ -1142,6 +1565,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_hypotheses_titre?: string | null;
   article_hypotheses_corps?: {
     root: {
       type: string;
@@ -1157,6 +1581,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_critique_titre?: string | null;
   article_critique_corps?: {
     root: {
       type: string;
@@ -1172,6 +1597,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_organons_titre?: string | null;
   article_organons_corps?: {
     root: {
       type: string;
@@ -1187,6 +1613,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_auteur_titre?: string | null;
   article_auteur_corps?: {
     root: {
       type: string;
@@ -1202,6 +1629,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_autorites_titre?: string | null;
   article_autorites_corps?: {
     root: {
       type: string;
@@ -1217,6 +1645,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_cloture_ethique_titre?: string | null;
   article_cloture_ethique_corps?: {
     root: {
       type: string;
@@ -1232,6 +1661,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  article_continuite_titre?: string | null;
   article_continuite_corps?: {
     root: {
       type: string;
@@ -1247,6 +1677,7 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  disposition_finale_titre?: string | null;
   disposition_finale_corps?: {
     root: {
       type: string;
@@ -1262,6 +1693,9 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
+  cloture_titre?: string | null;
+  cloture_citation?: string | null;
+  cloture_bouton?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1273,6 +1707,12 @@ export interface ContenuConstitution {
  */
 export interface ContenuInstitution {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_exergue?: string | null;
+  objet_titre?: string | null;
   objet_corps?: {
     root: {
       type: string;
@@ -1288,6 +1728,8 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  objet_formule_etiquette?: string | null;
+  objet_formule_citation?: string | null;
   objet_distinction?: {
     root: {
       type: string;
@@ -1303,6 +1745,7 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  architecture_titre?: string | null;
   architecture_corps?: {
     root: {
       type: string;
@@ -1318,7 +1761,36 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  architecture_schema_lecture?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  architecture_niveau_etiquette?: string | null;
+  architecture_fonction?: string | null;
+  architecture_question?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  architecture_maxime?: string | null;
+  architecture_mouvement_intro?: string | null;
+  souverainete_titre?: string | null;
   souverainete_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  souverainete_encadre_titre?: string | null;
+  souverainete_encadre?: {
     root: {
       type: string;
       children: {
@@ -1348,6 +1820,7 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  privilege_optique_titre?: string | null;
   privilege_optique_corps?: {
     root: {
       type: string;
@@ -1363,6 +1836,32 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  privilege_optique_lignee_titre?: string | null;
+  privilege_optique_lignee?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  privilege_optique_autorites_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  privilege_optique_champ?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  privilege_optique_origine?: string | null;
+  demarche_titre?: string | null;
   demarche_equation?: {
     root: {
       type: string;
@@ -1378,6 +1877,8 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  demarche_formule_sigma?: string | null;
+  demarche_formule_sigma_lecture?: string | null;
   demarche_transposition?: {
     root: {
       type: string;
@@ -1393,6 +1894,8 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  demarche_formule_maat?: string | null;
+  demarche_formule_maat_lecture?: string | null;
   demarche_analogie?: {
     root: {
       type: string;
@@ -1408,6 +1911,7 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  demarche_canon_titre?: string | null;
   demarche_canon?: {
     root: {
       type: string;
@@ -1423,6 +1927,12 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
+  cloture_titre?: string | null;
+  cloture_citation_1?: string | null;
+  cloture_citation_2?: string | null;
+  cloture_bouton_constitution?: string | null;
+  cloture_bouton_manifeste?: string | null;
+  cloture_bouton_ouvrage?: string | null;
   niveaux?:
     | {
         numero: string;
@@ -1487,6 +1997,15 @@ export interface ContenuInstitution {
  */
 export interface ContenuNoteEpistemologique {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_exergue?: string | null;
+  sommaire_posture?: string | null;
+  sommaire_axiome?: string | null;
+  sommaire_canon?: string | null;
+  posture_titre?: string | null;
   posture_corps?: {
     root: {
       type: string;
@@ -1502,6 +2021,7 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  axiome_titre?: string | null;
   axiome_corps?: {
     root: {
       type: string;
@@ -1517,6 +2037,7 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  axiome_encadre?: string | null;
   axiome_thom?: {
     root: {
       type: string;
@@ -1532,6 +2053,56 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  principes_titre?: string | null;
+  principes_unite_titre?: string | null;
+  principes_unite_maxime?: string | null;
+  principes_unite_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  principes_polarite_titre?: string | null;
+  principes_polarite_maxime?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  principes_polarite_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  canon_titre?: string | null;
   theoreme_corps?: {
     root: {
       type: string;
@@ -1547,6 +2118,9 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  canon_frise_aria?: string | null;
+  triade_titre?: string | null;
+  triade_sous_titre?: string | null;
   triade_corps?: {
     root: {
       type: string;
@@ -1562,6 +2136,7 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  sextuor_titre?: string | null;
   sextuor_corps?: {
     root: {
       type: string;
@@ -1592,6 +2167,38 @@ export interface ContenuNoteEpistemologique {
     };
     [k: string]: unknown;
   } | null;
+  cloture_texte?: string | null;
+  cloture_bouton?: string | null;
+  /**
+   * Section 4 — frise numérotée (le dernier élément est mis en valeur)
+   */
+  etapes_canon?:
+    | {
+        terme?: string | null;
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 4 — sous la frise
+   */
+  canon?:
+    | {
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 6 — cartes
+   */
+  sextuor?:
+    | {
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1603,6 +2210,12 @@ export interface ContenuNoteEpistemologique {
  */
 export interface ContenuConcept {
   id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  index_titre?: string | null;
+  hero_exergue?: string | null;
   introduction_corps?: {
     root: {
       type: string;
@@ -1618,6 +2231,13 @@ export interface ContenuConcept {
     };
     [k: string]: unknown;
   } | null;
+  strates_aria?: string | null;
+  index_aria?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  strate_nombre?: string | null;
+  cloture_texte?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1629,21 +2249,13 @@ export interface ContenuConcept {
  */
 export interface ContenuOuvrage {
   id: string;
-  introduction_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_bouton?: string | null;
+  hero_exergue?: string | null;
+  sommaire_autorites?: string | null;
+  sommaire_programme?: string | null;
+  textes_liminaires_titre?: string | null;
   textes_liminaires_corps?: {
     root: {
       type: string;
@@ -1659,62 +2271,15 @@ export interface ContenuOuvrage {
     };
     [k: string]: unknown;
   } | null;
-  autorites_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  programme_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  programme_axes?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Textes de la page /laboratoire. Un champ vidé fait revenir le texte d'origine.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contenu-laboratoire".
- */
-export interface ContenuLaboratoire {
-  id: string;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  acces_libre_bouton_lire?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  acces_libre_compteur?: string | null;
+  introduction_titre?: string | null;
   introduction_corps?: {
     root: {
       type: string;
@@ -1730,6 +2295,154 @@ export interface ContenuLaboratoire {
     };
     [k: string]: unknown;
   } | null;
+  presentation_titre?: string | null;
+  presentation_tome_i_etiquette?: string | null;
+  presentation_tome_i_titre?: string | null;
+  presentation_tome_i_sous_titre?: string | null;
+  presentation_tome_i_question?: string | null;
+  presentation_tome_i_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  presentation_tome_i_lien?: string | null;
+  presentation_tome_ii_etiquette?: string | null;
+  presentation_tome_ii_titre?: string | null;
+  presentation_tome_ii_sous_titre?: string | null;
+  presentation_tome_ii_question?: string | null;
+  presentation_tome_ii_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  presentation_tome_ii_lien?: string | null;
+  autorites_titre?: string | null;
+  autorites_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  programme_titre?: string | null;
+  programme_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  programme_noyau_titre?: string | null;
+  programme_noyau_sous_titre?: string | null;
+  programme_expansion_titre?: string | null;
+  programme_expansion_sous_titre?: string | null;
+  programme_axes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cloture_citation?: string | null;
+  cloture_lien?: string | null;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  /**
+   * Section 5 — Encadré « Noyau Démontré / Programme d’Expansion » — colonne gauche. Le terme s'affiche en gras, suivi du texte.
+   */
+  noyau?:
+    | {
+        terme?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 5 — Encadré « Noyau Démontré / Programme d’Expansion » — colonne droite. Le terme s'affiche en gras, suivi du texte.
+   */
+  expansion?:
+    | {
+        terme?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /laboratoire. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-laboratoire".
+ */
+export interface ContenuLaboratoire {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_exergue?: string | null;
+  introduction_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  acces_titre?: string | null;
   acces_hybride_corps?: {
     root: {
       type: string;
@@ -1745,6 +2458,12 @@ export interface ContenuLaboratoire {
     };
     [k: string]: unknown;
   } | null;
+  acces_ressources?: string | null;
+  code_titre?: string | null;
+  code_texte?: string | null;
+  working_papers_titre?: string | null;
+  pieces_titre?: string | null;
+  progression_titre?: string | null;
   progression_corps?: {
     root: {
       type: string;
@@ -1760,6 +2479,8 @@ export interface ContenuLaboratoire {
     };
     [k: string]: unknown;
   } | null;
+  cloture_texte?: string | null;
+  cloture_lien?: string | null;
   niveaux_acces?:
     | {
         numero: string;
@@ -1787,6 +2508,15 @@ export interface ContenuLaboratoire {
  */
 export interface ContenuTransmission {
   id: string;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  hero_bouton_comparer?: string | null;
+  hero_bouton_secretariat?: string | null;
+  hero_exergue?: string | null;
+  sommaire_boucle?: string | null;
+  sommaire_grille?: string | null;
+  sommaire_paiement?: string | null;
+  argumentaire_titre?: string | null;
   argumentaire_corps?: {
     root: {
       type: string;
@@ -1802,6 +2532,26 @@ export interface ContenuTransmission {
     };
     [k: string]: unknown;
   } | null;
+  boucle_titre?: string | null;
+  boucle_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  boucle_schema_aria?: string | null;
+  boucle_legende?: string | null;
+  boucle_doctrine?: string | null;
+  grille_titre?: string | null;
   modules_corps?: {
     root: {
       type: string;
@@ -1817,6 +2567,8 @@ export interface ContenuTransmission {
     };
     [k: string]: unknown;
   } | null;
+  grille_note?: string | null;
+  paiement_titre?: string | null;
   paiement_corps?: {
     root: {
       type: string;
@@ -1832,6 +2584,77 @@ export interface ContenuTransmission {
     };
     [k: string]: unknown;
   } | null;
+  paiement_frais?: string | null;
+  contact_titre?: string | null;
+  contact_sous_titre?: string | null;
+  contact_siege_titre?: string | null;
+  contact_siege_ligne_1?: string | null;
+  contact_siege_ligne_2?: string | null;
+  contact_siege_ligne_3?: string | null;
+  contact_antenne_titre?: string | null;
+  contact_antenne_ligne_1?: string | null;
+  contact_antenne_ligne_2?: string | null;
+  contact_numerique_titre?: string | null;
+  contact_numerique_email?: string | null;
+  contact_numerique_site?: string | null;
+  demande_titre?: string | null;
+  demande_texte?: string | null;
+  cloture_citation?: string | null;
+  cloture_lien?: string | null;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  /**
+   * Section 2 — La Boucle Vertueuse — trois cartes, de gauche à droite (la mise en forme dépend du rang : claire, encadrée, sombre). Dans un accès, le texte avant « → » s'affiche en gras.
+   */
+  niveaux?:
+    | {
+        niveau?: string | null;
+        titre?: string | null;
+        sous_titre?: string | null;
+        acces?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        condition?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 2 — La Boucle Vertueuse — frise sous les trois niveaux. Un code « EBZ-… » s'affiche en police à chasse fixe.
+   */
+  etapes?:
+    | {
+        cap?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 3 — La grille des modules — ligne « Accès » du tableau, dans l’ordre des modules (I, II, III)
+   */
+  acces_modules?:
+    | {
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Section 4 — Paiement — trois colonnes (icônes dans l'ordre : mobile, carte, devises)
+   */
+  moyens_paiement?:
+    | {
+        titre?: string | null;
+        detail?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1843,6 +2666,22 @@ export interface ContenuTransmission {
  */
 export interface ContenuMentionsLegale {
   id: string;
+  hero_titre?: string | null;
+  avertissement_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   texte_corps?: {
     root: {
       type: string;
@@ -1858,6 +2697,8 @@ export interface ContenuMentionsLegale {
     };
     [k: string]: unknown;
   } | null;
+  seo_titre?: string | null;
+  seo_description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1869,6 +2710,22 @@ export interface ContenuMentionsLegale {
  */
 export interface ContenuConfidentialite {
   id: string;
+  hero_titre?: string | null;
+  avertissement_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   texte_corps?: {
     root: {
       type: string;
@@ -1884,6 +2741,8 @@ export interface ContenuConfidentialite {
     };
     [k: string]: unknown;
   } | null;
+  seo_titre?: string | null;
+  seo_description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1895,6 +2754,23 @@ export interface ContenuConfidentialite {
  */
 export interface ContenuCgv {
   id: string;
+  hero_titre?: string | null;
+  hero_sous_titre?: string | null;
+  avertissement_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   texte_corps?: {
     root: {
       type: string;
@@ -1910,26 +2786,629 @@ export interface ContenuCgv {
     };
     [k: string]: unknown;
   } | null;
+  seo_titre?: string | null;
+  seo_description?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * Textes communs à tout le site. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-navigation".
+ */
+export interface ContenuSiteNavigation {
+  id: string;
+  acces_aller_au_contenu?: string | null;
+  marque_nom?: string | null;
+  marque_devise?: string | null;
+  marque_logo_aria?: string | null;
+  entete_contact?: string | null;
+  entete_menu_ouvrir?: string | null;
+  entete_menu_fermer?: string | null;
+  entete_nav_aria?: string | null;
+  menu_seuil?: string | null;
+  menu_institution?: string | null;
+  menu_constitution?: string | null;
+  menu_manifeste?: string | null;
+  menu_note_epistemologique?: string | null;
+  menu_ouvrage?: string | null;
+  menu_laboratoire?: string | null;
+  menu_concepts?: string | null;
+  menu_transmission?: string | null;
+  menu_declaration?: string | null;
+  position_sur_total?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  position_precedente_aria?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  position_suivante_aria?: string | null;
+  familles_seuil?: string | null;
+  familles_fondements?: string | null;
+  familles_savoir?: string | null;
+  familles_parcours?: string | null;
+  titre_seuil?: string | null;
+  titre_institution?: string | null;
+  titre_constitution?: string | null;
+  titre_manifeste?: string | null;
+  titre_note_epistemologique?: string | null;
+  titre_ouvrage?: string | null;
+  titre_laboratoire?: string | null;
+  titre_concepts?: string | null;
+  titre_transmission?: string | null;
+  titre_declaration?: string | null;
+  pagination_nav_aria?: string | null;
+  pagination_precedente?: string | null;
+  pagination_suivante?: string | null;
+  pagination_retour_debut?: string | null;
+  pied_adresse?: string | null;
+  pied_email?: string | null;
+  pied_colonne_seuil?: string | null;
+  pied_fronton?: string | null;
+  pied_mentions?: string | null;
+  pied_lien_mentions_legales?: string | null;
+  pied_lien_confidentialite?: string | null;
+  pied_lien_cgv?: string | null;
+  seo_titre_defaut?: string | null;
+  seo_modele_titre?: string | null;
+  seo_description?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes communs à tout le site. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-interface".
+ */
+export interface ContenuSiteInterface {
+  id: string;
+  sommaire_titre?: string | null;
+  badge_acces_libre?: string | null;
+  badge_dans_ouvrage?: string | null;
+  fil_ariane_aria?: string | null;
+  concept_definition?: string | null;
+  concept_portee?: string | null;
+  ressource_debloque?: string | null;
+  ressource_en_preparation?: string | null;
+  ressource_classification?: string | null;
+  ressource_volume?: string | null;
+  ressource_statut?: string | null;
+  ressource_soumission?: string | null;
+  ressource_resume_suffixe?: string | null;
+  ressource_concepts_mobilises?: string | null;
+  ressource_telecharger?: string | null;
+  ressource_bientot?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  ressource_reserve_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  ressource_reserve?: string | null;
+  ressource_saisir_code?: string | null;
+  niveau_module_i?: string | null;
+  niveau_module_ii?: string | null;
+  niveau_module_iii?: string | null;
+  niveau_inconnu?: string | null;
+  boucle_aria?: string | null;
+  boucle_ici?: string | null;
+  boucle_legende?: string | null;
+  code_copier?: string | null;
+  code_copie?: string | null;
+  legal_fil_accueil?: string | null;
+  comparaison_legende?: string | null;
+  comparaison_comparer?: string | null;
+  comparaison_public_cible?: string | null;
+  comparaison_duree?: string | null;
+  comparaison_prerequis?: string | null;
+  comparaison_regime_b2b?: string | null;
+  comparaison_regime_b2c?: string | null;
+  comparaison_acces?: string | null;
+  comparaison_programme?: string | null;
+  comparaison_tarifs?: string | null;
+  comparaison_programme_ouvrir?: string | null;
+  comparaison_programme_fermer?: string | null;
+  comparaison_livrables?: string | null;
+  comparaison_onglets_aria?: string | null;
+  commander_seo_titre?: string | null;
+  commander_seo_description?: string | null;
+  commander_fil_transmission?: string | null;
+  commander_duree?: string | null;
+  commander_prerequis?: string | null;
+  commander_ce_que_vous_recevez?: string | null;
+  commander_voir_programme?: string | null;
+  commander_bientot_titre?: string | null;
+  commander_bientot_texte?: string | null;
+  commander_bientot_lien?: string | null;
+  commander_formulaire_titre?: string | null;
+  commander_devis_titre?: string | null;
+  commander_apres_demande?: string | null;
+  commander_paiement_securise?: string | null;
+  commander_question?: string | null;
+  commander_question_lien?: string | null;
+  confirmation_seo_titre?: string | null;
+  confirmation_fil_transmission?: string | null;
+  confirmation_fil_confirmation?: string | null;
+  confirmation_introuvable_titre?: string | null;
+  confirmation_introuvable_texte?: string | null;
+  confirmation_devis_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  confirmation_devis_texte?: string | null;
+  confirmation_confirmee_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  confirmation_confirmee_texte?: string | null;
+  confirmation_votre_code?: string | null;
+  confirmation_acceder_laboratoire?: string | null;
+  confirmation_attente_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  confirmation_attente_texte?: string | null;
+  erreur404_surtitre?: string | null;
+  erreur404_titre?: string | null;
+  erreur404_texte?: string | null;
+  erreur404_accueil?: string | null;
+  erreur404_tomes?: string | null;
+  erreur404_plan?: string | null;
+  /**
+   * Boucle d’accès (inscription, confirmation, Laboratoire). Garder quatre étapes, dans l’ordre. Le code « EBZ-XXXX-XXXX » est mis en forme automatiquement.
+   */
+  boucle_etapes?:
+    | {
+        repere?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Inscription à un module (/commander/…) — colonne latérale « Après votre demande »
+   */
+  commander_etapes_paiement?:
+    | {
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Inscription à un module (/commander/…) — colonne latérale « Après votre demande »
+   */
+  commander_etapes_devis?:
+    | {
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Inscription à un module (/commander/…) — « Paiement sécurisé ». Icônes dans l’ordre : téléphone, carte, devises.
+   */
+  commander_moyens?:
+    | {
+        titre?: string | null;
+        detail?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes communs à tout le site. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-formulaires".
+ */
+export interface ContenuSiteFormulaire {
+  id: string;
+  commun_nom?: string | null;
+  commun_email?: string | null;
+  commun_organisation?: string | null;
+  commun_champ_obligatoire?: string | null;
+  commun_erreur?: string | null;
+  commun_indisponible?: string | null;
+  contact_facultatif?: string | null;
+  contact_objet?: string | null;
+  contact_message?: string | null;
+  contact_consentement?: string | null;
+  contact_envoi?: string | null;
+  contact_bouton?: string | null;
+  contact_succes_titre?: string | null;
+  contact_succes_texte?: string | null;
+  inscription_regime_choix?: string | null;
+  inscription_regime?: string | null;
+  inscription_regime_b2b?: string | null;
+  inscription_regime_b2c?: string | null;
+  inscription_telephone?: string | null;
+  inscription_telephone_exemple?: string | null;
+  inscription_pays?: string | null;
+  inscription_consentement?: string | null;
+  inscription_recapitulatif?: string | null;
+  inscription_paiement_securise?: string | null;
+  inscription_traitement?: string | null;
+  inscription_payer?: string | null;
+  inscription_devis?: string | null;
+  acces_code?: string | null;
+  acces_exemple?: string | null;
+  acces_verification?: string | null;
+  acces_debloquer?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  acces_actif?: string | null;
+  acces_retirer?: string | null;
+  acces_erreur?: string | null;
+  acces_indisponible?: string | null;
+  /**
+   * Formulaire d’inscription à un module (/commander/…). Le code (deux lettres) est transmis à la passerelle de paiement : ne pas le modifier. « CG » reste présélectionné.
+   */
+  pays?:
+    | {
+        code?: string | null;
+        libelle?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes communs à tout le site. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-lecture".
+ */
+export interface ContenuSiteLecture {
+  id: string;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  seo_tome_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  seo_tome_description?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  seo_texte_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  seo_texte_description?: string | null;
+  fil_ariane_ouvrage?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_surtitre?: string | null;
+  sommaire_commencer?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_compteur?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_partie_un?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_partie_plusieurs?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  sommaire_plan_titre?: string | null;
+  sommaire_plan_note?: string | null;
+  ligne_lire?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  meta_minutes?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  meta_minutes_long?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  meta_minutes_compact?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  meta_sections?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  texte_position?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  texte_duree?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  rail_aria?: string | null;
+  rail_textes_ouverts?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  rail_vous_lisez?: string | null;
+  rail_lu?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  rail_sommaire?: string | null;
+  mobile_sommaire?: string | null;
+  mobile_progression_aria?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  texte_mention?: string | null;
+  navigation_aria?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  navigation_suivant?: string | null;
+  navigation_continuer?: string | null;
+  navigation_precedent?: string | null;
+  navigation_retour_ouvrage?: string | null;
+  navigation_revenir?: string | null;
+  outils_aria?: string | null;
+  outils_notions?: string | null;
+  outils_dans_ce_texte?: string | null;
+  citer_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  citer_reference?: string | null;
+  citer_copier?: string | null;
+  citer_copiee?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  acquerir_bouton?: string | null;
+  acquerir_nouvel_onglet?: string | null;
+  acquerir_paiement?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Liens d’achat des tomes sur Chariow. Un bouton « Acquérir » apparaît sur le site pour chaque tome dont le lien est renseigné.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vente-ouvrages".
+ */
+export interface VenteOuvrage {
+  id: string;
+  tome_i?: {
+    /**
+     * Laisser vide tant que le produit n’est pas en vente : le bouton d’achat reste masqué.
+     */
+    lien_achat?: string | null;
+    prix?: string | null;
+    format?: string | null;
+  };
+  tome_ii?: {
+    /**
+     * Laisser vide tant que le produit n’est pas en vente : le bouton d’achat reste masqué.
+     */
+    lien_achat?: string | null;
+    prix?: string | null;
+    format?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Titres, présentation, parties et plan des deux tomes en lecture libre. Laisser le titre d’un tome vide fait revenir ses textes d’origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recueils".
+ */
+export interface Recueil {
+  id: string;
+  tome_i?: {
+    etiquette?: string | null;
+    titre?: string | null;
+    sous_titre?: string | null;
+    /**
+     * Paragraphes d’introduction du sommaire. Le premier sert aussi de description pour Google.
+     */
+    presentation?:
+      | {
+          texte: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Groupes de textes, dans l’ordre. Un texte est rangé dans une partie par son numéro (champ « Partie » de « Textes des tomes » : 1 = la première ligne ci-dessous). Sommaire : /ouvrage/tome-i.
+     */
+    parties?:
+      | {
+          titre: string;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Facultatif. Une ligne commençant par « Partie » ouvre un groupe. Pour un chapitre en accès libre, indiquez l’adresse (slug) de son texte.
+     */
+    plan?:
+      | {
+          titre: string;
+          /**
+           * Vide = réservé à l’ouvrage.
+           */
+          libre?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  tome_ii?: {
+    etiquette?: string | null;
+    titre?: string | null;
+    sous_titre?: string | null;
+    /**
+     * Paragraphes d’introduction du sommaire. Le premier sert aussi de description pour Google.
+     */
+    presentation?:
+      | {
+          texte: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Groupes de textes, dans l’ordre. Un texte est rangé dans une partie par son numéro (champ « Partie » de « Textes des tomes » : 1 = la première ligne ci-dessous). Sommaire : /ouvrage/tome-ii.
+     */
+    parties?:
+      | {
+          titre: string;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Facultatif. Une ligne commençant par « Partie » ouvre un groupe. Pour un chapitre en accès libre, indiquez l’adresse (slug) de son texte.
+     */
+    plan?:
+      | {
+          titre: string;
+          /**
+           * Vide = réservé à l’ouvrage.
+           */
+          libre?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-accueil_select".
+ */
+export interface ContenuAccueilSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  ouverture_dedicace?: T;
+  ouverture_surtitre?: T;
+  ouverture_titre?: T;
+  ouverture_citation?: T;
+  ouverture_formules_lecture?: T;
+  ouverture_formule_sigma?: T;
+  ouverture_formule_maat?: T;
+  ouverture_bouton_institut?: T;
+  ouverture_bouton_tomes?: T;
+  pyramide_titre?: T;
+  pyramide_consigne?: T;
+  pyramide_axe_descendant?: T;
+  pyramide_axe_descendant_legende?: T;
+  pyramide_axe_ascendant?: T;
+  pyramide_axe_ascendant_legende?: T;
+  pyramide_groupe_lecture?: T;
+  pyramide_position?: T;
+  pyramide_symbole_vide?: T;
+  pyramide_lien_entree?: T;
+  axiome_citation?: T;
+  axiome_titre?: T;
+  axiome_texte?: T;
+  portes_titre?: T;
+  portes_sous_titre?: T;
+  plan_titre?: T;
+  plan_chapeau?: T;
+  plan_famille_seuil?: T;
+  cloture_citation?: T;
+  cloture_locus?: T;
+  cloture_page_suivante?: T;
+  cloture_page_suivante_titre?: T;
+  niveaux_pyramide?:
+    | T
+    | {
+        symbole?: T;
+        libelle?: T;
+        nom?: T;
+        formule?: T;
+        definition?: T;
+        source_libelle?: T;
+        source_lien?: T;
+        id?: T;
+      };
+  portes?:
+    | T
+    | {
+        etiquette?: T;
+        titre?: T;
+        texte?: T;
+        action?: T;
+        lien?: T;
+        id?: T;
+      };
+  resumes?:
+    | T
+    | {
+        page_id?: T;
+        titre?: T;
+        resume?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contenu-manifeste_select".
  */
 export interface ContenuManifesteSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
   hero_sous_titre?: T;
   hero_exergue?: T;
+  diagnostic_titre?: T;
   diagnostic_corps?: T;
+  illusion_quantitative_titre?: T;
   illusion_quantitative_corps?: T;
+  piege_postmoderne_titre?: T;
   piege_postmoderne_corps?: T;
+  matrice_maat_titre?: T;
   matrice_maat_intro?: T;
   matrice_maat_conclusion?: T;
+  decolonisation_titre?: T;
   decolonisation_corps?: T;
+  articles_titre?: T;
   articles_chapeau?: T;
+  articles_etiquette?: T;
+  pacte_titre?: T;
   pacte_corps?: T;
   pacte_exergue?: T;
+  appel_titre?: T;
   appel_corps?: T;
+  appel_bouton?: T;
+  matrice?:
+    | T
+    | {
+        numero?: T;
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
+  articles?:
+    | T
+    | {
+        numero?: T;
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1939,18 +3418,57 @@ export interface ContenuManifesteSelect<T extends boolean = true> {
  * via the `definition` "contenu-declaration_select".
  */
 export interface ContenuDeclarationSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_bouton?: T;
+  sommaire_preambule?: T;
+  sommaire_acte?: T;
+  hero_exergue?: T;
+  sommaire_titre?: T;
+  sommaire_aria?: T;
+  preambule_titre?: T;
   preambule_corps?: T;
+  acte_i_titre?: T;
   acte_i_corps?: T;
+  acte_ii_titre?: T;
   acte_ii_corps?: T;
+  acte_iii_titre?: T;
   acte_iii_intro?: T;
+  acte_iii_formule_sigma?: T;
   acte_iii_equation?: T;
+  acte_iii_formule_maat?: T;
   acte_iii_transposition?: T;
+  acte_iv_titre?: T;
   acte_iv_corps?: T;
+  acte_iv_niveau_i_etiquette?: T;
+  acte_iv_niveau_i_titre?: T;
+  acte_iv_niveau_i_corps?: T;
+  acte_iv_niveau_ii_etiquette?: T;
+  acte_iv_niveau_ii_titre?: T;
+  acte_iv_niveau_ii_corps?: T;
+  acte_iv_niveau_iii_etiquette?: T;
+  acte_iv_niveau_iii_titre?: T;
+  acte_iv_niveau_iii_corps?: T;
+  acte_iv_niveau_iv_etiquette?: T;
+  acte_iv_niveau_iv_titre?: T;
+  acte_iv_niveau_iv_corps?: T;
+  acte_v_titre?: T;
+  acte_v_encadre?: T;
   acte_v_corps?: T;
+  acte_vi_titre?: T;
   acte_vi_corps?: T;
+  acte_vii_titre?: T;
   acte_vii_corps?: T;
+  acte_viii_titre?: T;
   acte_viii_corps?: T;
   acte_viii_synthese?: T;
+  appel_titre?: T;
+  appel_locus?: T;
+  appel_sceau?: T;
+  cloture_texte?: T;
+  cloture_bouton?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1960,18 +3478,44 @@ export interface ContenuDeclarationSelect<T extends boolean = true> {
  * via the `definition` "contenu-constitution_select".
  */
 export interface ContenuConstitutionSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_bouton?: T;
+  hero_exergue?: T;
+  hero_formule?: T;
+  preambule_titre?: T;
   preambule_corps?: T;
+  articles_titre?: T;
+  articles_sommaire_lecture?: T;
+  articles_lien_lecture?: T;
+  articles_etiquette?: T;
+  article_objet_titre?: T;
   article_objet_corps?: T;
+  article_souverainete_titre?: T;
   article_souverainete_corps?: T;
+  article_distinction_titre?: T;
   article_distinction_corps?: T;
+  article_hypotheses_titre?: T;
   article_hypotheses_corps?: T;
+  article_critique_titre?: T;
   article_critique_corps?: T;
+  article_organons_titre?: T;
   article_organons_corps?: T;
+  article_auteur_titre?: T;
   article_auteur_corps?: T;
+  article_autorites_titre?: T;
   article_autorites_corps?: T;
+  article_cloture_ethique_titre?: T;
   article_cloture_ethique_corps?: T;
+  article_continuite_titre?: T;
   article_continuite_corps?: T;
+  disposition_finale_titre?: T;
   disposition_finale_corps?: T;
+  cloture_titre?: T;
+  cloture_citation?: T;
+  cloture_bouton?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -1981,16 +3525,52 @@ export interface ContenuConstitutionSelect<T extends boolean = true> {
  * via the `definition` "contenu-institution_select".
  */
 export interface ContenuInstitutionSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_exergue?: T;
+  objet_titre?: T;
   objet_corps?: T;
+  objet_formule_etiquette?: T;
+  objet_formule_citation?: T;
   objet_distinction?: T;
+  architecture_titre?: T;
   architecture_corps?: T;
+  architecture_schema_lecture?: T;
+  architecture_niveau_etiquette?: T;
+  architecture_fonction?: T;
+  architecture_question?: T;
+  architecture_maxime?: T;
+  architecture_mouvement_intro?: T;
+  souverainete_titre?: T;
   souverainete_corps?: T;
+  souverainete_encadre_titre?: T;
+  souverainete_encadre?: T;
   souverainete_portee?: T;
+  privilege_optique_titre?: T;
   privilege_optique_corps?: T;
+  privilege_optique_lignee_titre?: T;
+  privilege_optique_lignee?: T;
+  privilege_optique_autorites_titre?: T;
+  privilege_optique_champ?: T;
+  privilege_optique_origine?: T;
+  demarche_titre?: T;
   demarche_equation?: T;
+  demarche_formule_sigma?: T;
+  demarche_formule_sigma_lecture?: T;
   demarche_transposition?: T;
+  demarche_formule_maat?: T;
+  demarche_formule_maat_lecture?: T;
   demarche_analogie?: T;
+  demarche_canon_titre?: T;
   demarche_canon?: T;
+  cloture_titre?: T;
+  cloture_citation_1?: T;
+  cloture_citation_2?: T;
+  cloture_bouton_constitution?: T;
+  cloture_bouton_manifeste?: T;
+  cloture_bouton_ouvrage?: T;
   niveaux?:
     | T
     | {
@@ -2053,13 +3633,59 @@ export interface ContenuInstitutionSelect<T extends boolean = true> {
  * via the `definition` "contenu-note-epistemologique_select".
  */
 export interface ContenuNoteEpistemologiqueSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_exergue?: T;
+  sommaire_posture?: T;
+  sommaire_axiome?: T;
+  sommaire_canon?: T;
+  posture_titre?: T;
   posture_corps?: T;
+  axiome_titre?: T;
   axiome_corps?: T;
+  axiome_encadre?: T;
   axiome_thom?: T;
+  principes_titre?: T;
+  principes_unite_titre?: T;
+  principes_unite_maxime?: T;
+  principes_unite_corps?: T;
+  principes_polarite_titre?: T;
+  principes_polarite_maxime?: T;
+  principes_polarite_corps?: T;
+  canon_titre?: T;
   theoreme_corps?: T;
+  canon_frise_aria?: T;
+  triade_titre?: T;
+  triade_sous_titre?: T;
   triade_corps?: T;
+  sextuor_titre?: T;
   sextuor_corps?: T;
   pacte_corps?: T;
+  cloture_texte?: T;
+  cloture_bouton?: T;
+  etapes_canon?:
+    | T
+    | {
+        terme?: T;
+        role?: T;
+        id?: T;
+      };
+  canon?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
+  sextuor?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2069,7 +3695,17 @@ export interface ContenuNoteEpistemologiqueSelect<T extends boolean = true> {
  * via the `definition` "contenu-concepts_select".
  */
 export interface ContenuConceptsSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  index_titre?: T;
+  hero_exergue?: T;
   introduction_corps?: T;
+  strates_aria?: T;
+  index_aria?: T;
+  strate_nombre?: T;
+  cloture_texte?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2079,11 +3715,58 @@ export interface ContenuConceptsSelect<T extends boolean = true> {
  * via the `definition` "contenu-ouvrage_select".
  */
 export interface ContenuOuvrageSelect<T extends boolean = true> {
-  introduction_corps?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_bouton?: T;
+  hero_exergue?: T;
+  sommaire_autorites?: T;
+  sommaire_programme?: T;
+  textes_liminaires_titre?: T;
   textes_liminaires_corps?: T;
+  acces_libre_bouton_lire?: T;
+  acces_libre_compteur?: T;
+  introduction_titre?: T;
+  introduction_corps?: T;
+  presentation_titre?: T;
+  presentation_tome_i_etiquette?: T;
+  presentation_tome_i_titre?: T;
+  presentation_tome_i_sous_titre?: T;
+  presentation_tome_i_question?: T;
+  presentation_tome_i_corps?: T;
+  presentation_tome_i_lien?: T;
+  presentation_tome_ii_etiquette?: T;
+  presentation_tome_ii_titre?: T;
+  presentation_tome_ii_sous_titre?: T;
+  presentation_tome_ii_question?: T;
+  presentation_tome_ii_corps?: T;
+  presentation_tome_ii_lien?: T;
+  autorites_titre?: T;
   autorites_corps?: T;
+  programme_titre?: T;
   programme_corps?: T;
+  programme_noyau_titre?: T;
+  programme_noyau_sous_titre?: T;
+  programme_expansion_titre?: T;
+  programme_expansion_sous_titre?: T;
   programme_axes?: T;
+  cloture_citation?: T;
+  cloture_lien?: T;
+  seo_titre?: T;
+  seo_description?: T;
+  noyau?:
+    | T
+    | {
+        terme?: T;
+        texte?: T;
+        id?: T;
+      };
+  expansion?:
+    | T
+    | {
+        terme?: T;
+        texte?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2093,9 +3776,23 @@ export interface ContenuOuvrageSelect<T extends boolean = true> {
  * via the `definition` "contenu-laboratoire_select".
  */
 export interface ContenuLaboratoireSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_exergue?: T;
   introduction_corps?: T;
+  acces_titre?: T;
   acces_hybride_corps?: T;
+  acces_ressources?: T;
+  code_titre?: T;
+  code_texte?: T;
+  working_papers_titre?: T;
+  pieces_titre?: T;
+  progression_titre?: T;
   progression_corps?: T;
+  cloture_texte?: T;
+  cloture_lien?: T;
   niveaux_acces?:
     | T
     | {
@@ -2121,9 +3818,85 @@ export interface ContenuLaboratoireSelect<T extends boolean = true> {
  * via the `definition` "contenu-transmission_select".
  */
 export interface ContenuTransmissionSelect<T extends boolean = true> {
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  hero_bouton_comparer?: T;
+  hero_bouton_secretariat?: T;
+  hero_exergue?: T;
+  sommaire_boucle?: T;
+  sommaire_grille?: T;
+  sommaire_paiement?: T;
+  argumentaire_titre?: T;
   argumentaire_corps?: T;
+  boucle_titre?: T;
+  boucle_corps?: T;
+  boucle_schema_aria?: T;
+  boucle_legende?: T;
+  boucle_doctrine?: T;
+  grille_titre?: T;
   modules_corps?: T;
+  grille_note?: T;
+  paiement_titre?: T;
   paiement_corps?: T;
+  paiement_frais?: T;
+  contact_titre?: T;
+  contact_sous_titre?: T;
+  contact_siege_titre?: T;
+  contact_siege_ligne_1?: T;
+  contact_siege_ligne_2?: T;
+  contact_siege_ligne_3?: T;
+  contact_antenne_titre?: T;
+  contact_antenne_ligne_1?: T;
+  contact_antenne_ligne_2?: T;
+  contact_numerique_titre?: T;
+  contact_numerique_email?: T;
+  contact_numerique_site?: T;
+  demande_titre?: T;
+  demande_texte?: T;
+  cloture_citation?: T;
+  cloture_lien?: T;
+  seo_titre?: T;
+  seo_description?: T;
+  niveaux?:
+    | T
+    | {
+        niveau?: T;
+        titre?: T;
+        sous_titre?: T;
+        acces?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        condition?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  etapes?:
+    | T
+    | {
+        cap?: T;
+        texte?: T;
+        id?: T;
+      };
+  acces_modules?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  moyens_paiement?:
+    | T
+    | {
+        titre?: T;
+        detail?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2133,7 +3906,11 @@ export interface ContenuTransmissionSelect<T extends boolean = true> {
  * via the `definition` "contenu-mentions-legales_select".
  */
 export interface ContenuMentionsLegalesSelect<T extends boolean = true> {
+  hero_titre?: T;
+  avertissement_corps?: T;
   texte_corps?: T;
+  seo_titre?: T;
+  seo_description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2143,7 +3920,11 @@ export interface ContenuMentionsLegalesSelect<T extends boolean = true> {
  * via the `definition` "contenu-confidentialite_select".
  */
 export interface ContenuConfidentialiteSelect<T extends boolean = true> {
+  hero_titre?: T;
+  avertissement_corps?: T;
   texte_corps?: T;
+  seo_titre?: T;
+  seo_description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -2153,7 +3934,373 @@ export interface ContenuConfidentialiteSelect<T extends boolean = true> {
  * via the `definition` "contenu-cgv_select".
  */
 export interface ContenuCgvSelect<T extends boolean = true> {
+  hero_titre?: T;
+  hero_sous_titre?: T;
+  avertissement_corps?: T;
   texte_corps?: T;
+  seo_titre?: T;
+  seo_description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-navigation_select".
+ */
+export interface ContenuSiteNavigationSelect<T extends boolean = true> {
+  acces_aller_au_contenu?: T;
+  marque_nom?: T;
+  marque_devise?: T;
+  marque_logo_aria?: T;
+  entete_contact?: T;
+  entete_menu_ouvrir?: T;
+  entete_menu_fermer?: T;
+  entete_nav_aria?: T;
+  menu_seuil?: T;
+  menu_institution?: T;
+  menu_constitution?: T;
+  menu_manifeste?: T;
+  menu_note_epistemologique?: T;
+  menu_ouvrage?: T;
+  menu_laboratoire?: T;
+  menu_concepts?: T;
+  menu_transmission?: T;
+  menu_declaration?: T;
+  position_sur_total?: T;
+  position_precedente_aria?: T;
+  position_suivante_aria?: T;
+  familles_seuil?: T;
+  familles_fondements?: T;
+  familles_savoir?: T;
+  familles_parcours?: T;
+  titre_seuil?: T;
+  titre_institution?: T;
+  titre_constitution?: T;
+  titre_manifeste?: T;
+  titre_note_epistemologique?: T;
+  titre_ouvrage?: T;
+  titre_laboratoire?: T;
+  titre_concepts?: T;
+  titre_transmission?: T;
+  titre_declaration?: T;
+  pagination_nav_aria?: T;
+  pagination_precedente?: T;
+  pagination_suivante?: T;
+  pagination_retour_debut?: T;
+  pied_adresse?: T;
+  pied_email?: T;
+  pied_colonne_seuil?: T;
+  pied_fronton?: T;
+  pied_mentions?: T;
+  pied_lien_mentions_legales?: T;
+  pied_lien_confidentialite?: T;
+  pied_lien_cgv?: T;
+  seo_titre_defaut?: T;
+  seo_modele_titre?: T;
+  seo_description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-interface_select".
+ */
+export interface ContenuSiteInterfaceSelect<T extends boolean = true> {
+  sommaire_titre?: T;
+  badge_acces_libre?: T;
+  badge_dans_ouvrage?: T;
+  fil_ariane_aria?: T;
+  concept_definition?: T;
+  concept_portee?: T;
+  ressource_debloque?: T;
+  ressource_en_preparation?: T;
+  ressource_classification?: T;
+  ressource_volume?: T;
+  ressource_statut?: T;
+  ressource_soumission?: T;
+  ressource_resume_suffixe?: T;
+  ressource_concepts_mobilises?: T;
+  ressource_telecharger?: T;
+  ressource_bientot?: T;
+  ressource_reserve_titre?: T;
+  ressource_reserve?: T;
+  ressource_saisir_code?: T;
+  niveau_module_i?: T;
+  niveau_module_ii?: T;
+  niveau_module_iii?: T;
+  niveau_inconnu?: T;
+  boucle_aria?: T;
+  boucle_ici?: T;
+  boucle_legende?: T;
+  code_copier?: T;
+  code_copie?: T;
+  legal_fil_accueil?: T;
+  comparaison_legende?: T;
+  comparaison_comparer?: T;
+  comparaison_public_cible?: T;
+  comparaison_duree?: T;
+  comparaison_prerequis?: T;
+  comparaison_regime_b2b?: T;
+  comparaison_regime_b2c?: T;
+  comparaison_acces?: T;
+  comparaison_programme?: T;
+  comparaison_tarifs?: T;
+  comparaison_programme_ouvrir?: T;
+  comparaison_programme_fermer?: T;
+  comparaison_livrables?: T;
+  comparaison_onglets_aria?: T;
+  commander_seo_titre?: T;
+  commander_seo_description?: T;
+  commander_fil_transmission?: T;
+  commander_duree?: T;
+  commander_prerequis?: T;
+  commander_ce_que_vous_recevez?: T;
+  commander_voir_programme?: T;
+  commander_bientot_titre?: T;
+  commander_bientot_texte?: T;
+  commander_bientot_lien?: T;
+  commander_formulaire_titre?: T;
+  commander_devis_titre?: T;
+  commander_apres_demande?: T;
+  commander_paiement_securise?: T;
+  commander_question?: T;
+  commander_question_lien?: T;
+  confirmation_seo_titre?: T;
+  confirmation_fil_transmission?: T;
+  confirmation_fil_confirmation?: T;
+  confirmation_introuvable_titre?: T;
+  confirmation_introuvable_texte?: T;
+  confirmation_devis_titre?: T;
+  confirmation_devis_texte?: T;
+  confirmation_confirmee_titre?: T;
+  confirmation_confirmee_texte?: T;
+  confirmation_votre_code?: T;
+  confirmation_acceder_laboratoire?: T;
+  confirmation_attente_titre?: T;
+  confirmation_attente_texte?: T;
+  erreur404_surtitre?: T;
+  erreur404_titre?: T;
+  erreur404_texte?: T;
+  erreur404_accueil?: T;
+  erreur404_tomes?: T;
+  erreur404_plan?: T;
+  boucle_etapes?:
+    | T
+    | {
+        repere?: T;
+        texte?: T;
+        id?: T;
+      };
+  commander_etapes_paiement?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  commander_etapes_devis?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  commander_moyens?:
+    | T
+    | {
+        titre?: T;
+        detail?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-formulaires_select".
+ */
+export interface ContenuSiteFormulairesSelect<T extends boolean = true> {
+  commun_nom?: T;
+  commun_email?: T;
+  commun_organisation?: T;
+  commun_champ_obligatoire?: T;
+  commun_erreur?: T;
+  commun_indisponible?: T;
+  contact_facultatif?: T;
+  contact_objet?: T;
+  contact_message?: T;
+  contact_consentement?: T;
+  contact_envoi?: T;
+  contact_bouton?: T;
+  contact_succes_titre?: T;
+  contact_succes_texte?: T;
+  inscription_regime_choix?: T;
+  inscription_regime?: T;
+  inscription_regime_b2b?: T;
+  inscription_regime_b2c?: T;
+  inscription_telephone?: T;
+  inscription_telephone_exemple?: T;
+  inscription_pays?: T;
+  inscription_consentement?: T;
+  inscription_recapitulatif?: T;
+  inscription_paiement_securise?: T;
+  inscription_traitement?: T;
+  inscription_payer?: T;
+  inscription_devis?: T;
+  acces_code?: T;
+  acces_exemple?: T;
+  acces_verification?: T;
+  acces_debloquer?: T;
+  acces_actif?: T;
+  acces_retirer?: T;
+  acces_erreur?: T;
+  acces_indisponible?: T;
+  pays?:
+    | T
+    | {
+        code?: T;
+        libelle?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-site-lecture_select".
+ */
+export interface ContenuSiteLectureSelect<T extends boolean = true> {
+  seo_tome_titre?: T;
+  seo_tome_description?: T;
+  seo_texte_titre?: T;
+  seo_texte_description?: T;
+  fil_ariane_ouvrage?: T;
+  sommaire_surtitre?: T;
+  sommaire_commencer?: T;
+  sommaire_compteur?: T;
+  sommaire_partie_un?: T;
+  sommaire_partie_plusieurs?: T;
+  sommaire_plan_titre?: T;
+  sommaire_plan_note?: T;
+  ligne_lire?: T;
+  meta_minutes?: T;
+  meta_minutes_long?: T;
+  meta_minutes_compact?: T;
+  meta_sections?: T;
+  texte_position?: T;
+  texte_duree?: T;
+  rail_aria?: T;
+  rail_textes_ouverts?: T;
+  rail_vous_lisez?: T;
+  rail_lu?: T;
+  rail_sommaire?: T;
+  mobile_sommaire?: T;
+  mobile_progression_aria?: T;
+  texte_mention?: T;
+  navigation_aria?: T;
+  navigation_suivant?: T;
+  navigation_continuer?: T;
+  navigation_precedent?: T;
+  navigation_retour_ouvrage?: T;
+  navigation_revenir?: T;
+  outils_aria?: T;
+  outils_notions?: T;
+  outils_dans_ce_texte?: T;
+  citer_titre?: T;
+  citer_reference?: T;
+  citer_copier?: T;
+  citer_copiee?: T;
+  acquerir_bouton?: T;
+  acquerir_nouvel_onglet?: T;
+  acquerir_paiement?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "vente-ouvrages_select".
+ */
+export interface VenteOuvragesSelect<T extends boolean = true> {
+  tome_i?:
+    | T
+    | {
+        lien_achat?: T;
+        prix?: T;
+        format?: T;
+      };
+  tome_ii?:
+    | T
+    | {
+        lien_achat?: T;
+        prix?: T;
+        format?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recueils_select".
+ */
+export interface RecueilsSelect<T extends boolean = true> {
+  tome_i?:
+    | T
+    | {
+        etiquette?: T;
+        titre?: T;
+        sous_titre?: T;
+        presentation?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        parties?:
+          | T
+          | {
+              titre?: T;
+              description?: T;
+              id?: T;
+            };
+        plan?:
+          | T
+          | {
+              titre?: T;
+              libre?: T;
+              id?: T;
+            };
+      };
+  tome_ii?:
+    | T
+    | {
+        etiquette?: T;
+        titre?: T;
+        sous_titre?: T;
+        presentation?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        parties?:
+          | T
+          | {
+              titre?: T;
+              description?: T;
+              id?: T;
+            };
+        plan?:
+          | T
+          | {
+              titre?: T;
+              libre?: T;
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

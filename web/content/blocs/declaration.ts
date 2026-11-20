@@ -1,4 +1,35 @@
-import type { PageBlocs } from "./types";
+import type { BlocDef, PageBlocs } from "./types";
+
+/** Les quatre niveaux de l'Acte IV : étiquette, titre (H3) et texte (riche). */
+const NIVEAUX_ACTE_IV: [string, string, string][] = [
+  ["i", "Niveau I", "Le Programme de Recherche (Le Principe)"],
+  ["ii", "Niveau II", "L’Institut de Brazzaville (L’Institution)"],
+  ["iii", "Niveau III", "L’École de Brazzaville (La Communauté)"],
+  ["iv", "Niveau IV", "Le Corpus Scientifique (La Mémoire Génétique)"],
+];
+
+const BLOCS_NIVEAUX: BlocDef[] = NIVEAUX_ACTE_IV.flatMap(([n, etiquette, titre]) => [
+  {
+    cle: `declaration.acte_iv.niveau_${n}_etiquette`,
+    label: `${etiquette} — étiquette`,
+    type: "simple",
+    aide: `Acte IV — carte « ${etiquette} »`,
+    defaut: etiquette,
+  },
+  {
+    cle: `declaration.acte_iv.niveau_${n}_titre`,
+    label: `${etiquette} — titre (H3)`,
+    type: "simple",
+    aide: `Acte IV — carte « ${etiquette} »`,
+    defaut: titre,
+  },
+  {
+    cle: `declaration.acte_iv.niveau_${n}_corps`,
+    label: `${etiquette} — texte`,
+    type: "riche",
+    aide: `Acte IV — carte « ${etiquette} » (deux paragraphes)`,
+  },
+]);
 
 /** Blocs éditables de la page La Déclaration d'Institution. */
 export const DECLARATION_BLOCS: PageBlocs = {
@@ -7,10 +38,96 @@ export const DECLARATION_BLOCS: PageBlocs = {
   titre: "La Déclaration d'Institution",
   blocs: [
     {
+      cle: "declaration.seo.titre",
+      label: "Titre de la page (onglet et Google)",
+      type: "simple",
+      aide: "Référencement (Google)",
+      defaut: "La Déclaration de Brazzaville",
+    },
+    {
+      cle: "declaration.seo.description",
+      label: "Description (résultats Google)",
+      type: "simple",
+      aide: "Référencement (Google)",
+      defaut:
+        "Manifeste public de l'École de Brazzaville : préambule et huit actes inauguraux, scellés à Brazzaville en juillet 2026.",
+    },
+    {
+      cle: "declaration.hero.titre",
+      label: "Titre principal (H1)",
+      type: "simple",
+      aide: "En-tête de page",
+      defaut: "La Déclaration de Brazzaville",
+    },
+    {
+      cle: "declaration.hero.sous_titre",
+      label: "Sous-titre",
+      type: "simple",
+      aide: "En-tête de page — sous le titre principal",
+      defaut: "Manifeste Public de l’École de Brazzaville",
+    },
+    {
+      cle: "declaration.hero.bouton",
+      label: "Bouton « Lire la déclaration »",
+      type: "simple",
+      aide: "En-tête de page — bouton vers le préambule",
+      defaut: "Lire la déclaration intégrale ↓",
+    },
+    {
+      cle: "declaration.sommaire.preambule",
+      label: "Sommaire — entrée « Préambule »",
+      type: "simple",
+      aide: "Sommaires de la page (en-tête et liste latérale) — libellé court du préambule",
+      defaut: "Préambule",
+    },
+    {
+      cle: "declaration.sommaire.acte",
+      label: "Intitulé « Acte N »",
+      type: "simple",
+      aide: "Sommaire d'en-tête et intitulé au-dessus du titre de chaque acte — {numero} = numéro romain",
+      defaut: "Acte {numero}",
+    },
+    {
+      cle: "declaration.hero.exergue",
+      label: "Exergue (et maxime de l'Acte VIII)",
+      type: "simple",
+      aide: "En-tête de page — citation en ouverture ; reprise dans l'encadré doré de l'Acte VIII",
+      defaut:
+        "« La Science Métamoderne n’est pas d’abord un ensemble de connaissances ; elle est une méthode d’institution durable de l’intelligibilité. »",
+    },
+    {
+      cle: "declaration.sommaire.titre",
+      label: "Liste latérale des actes — titre",
+      type: "simple",
+      aide: "Liste latérale collante (ordinateur)",
+      defaut: "Sur cette page",
+    },
+    {
+      cle: "declaration.sommaire.aria",
+      label: "Liste latérale des actes — libellé d'accessibilité",
+      type: "simple",
+      aide: "Liste latérale collante — lu par les lecteurs d'écran (invisible à l'écran)",
+      defaut: "Les actes de la Déclaration",
+    },
+    {
+      cle: "declaration.preambule.titre",
+      label: "Préambule — titre (H2)",
+      type: "simple",
+      aide: "Ouverture — Préambule",
+      defaut: "Préambule — le constat historique",
+    },
+    {
       cle: "declaration.preambule.corps",
       label: "Préambule — le constat historique",
       type: "riche",
       aide: "Ouverture",
+    },
+    {
+      cle: "declaration.acte_i.titre",
+      label: "Acte I — titre",
+      type: "simple",
+      aide: "Acte I (aussi utilisé dans les sommaires)",
+      defaut: "La proclamation de l’École",
     },
     {
       cle: "declaration.acte_i.corps",
@@ -19,10 +136,24 @@ export const DECLARATION_BLOCS: PageBlocs = {
       aide: "Acte I",
     },
     {
+      cle: "declaration.acte_ii.titre",
+      label: "Acte II — titre",
+      type: "simple",
+      aide: "Acte II (aussi utilisé dans les sommaires)",
+      defaut: "L’objet unique : l’intelligibilité",
+    },
+    {
       cle: "declaration.acte_ii.corps",
       label: "Acte II — L'objet unique : l'intelligibilité",
       type: "riche",
       aide: "Acte II",
+    },
+    {
+      cle: "declaration.acte_iii.titre",
+      label: "Acte III — titre",
+      type: "simple",
+      aide: "Acte III (aussi utilisé dans les sommaires)",
+      defaut: "La Science Métamoderne",
     },
     {
       cle: "declaration.acte_iii.intro",
@@ -31,10 +162,24 @@ export const DECLARATION_BLOCS: PageBlocs = {
       aide: "Acte III",
     },
     {
+      cle: "declaration.acte_iii.formule_sigma",
+      label: "Acte III — équation systémique",
+      type: "simple",
+      aide: "Acte III — formule encadrée",
+      defaut: "Σ = M(F(V(Σ)))",
+    },
+    {
       cle: "declaration.acte_iii.equation",
       label: "Acte III — après l'équation Σ = M(F(V(Σ)))",
       type: "riche",
       aide: "Acte III",
+    },
+    {
+      cle: "declaration.acte_iii.formule_maat",
+      label: "Acte III — équation transposée (Maât)",
+      type: "simple",
+      aide: "Acte III — formule encadrée",
+      defaut: "Maât = M(F(V(Maât)))",
     },
     {
       cle: "declaration.acte_iii.transposition",
@@ -43,10 +188,33 @@ export const DECLARATION_BLOCS: PageBlocs = {
       aide: "Acte III",
     },
     {
+      cle: "declaration.acte_iv.titre",
+      label: "Acte IV — titre",
+      type: "simple",
+      aide: "Acte IV (aussi utilisé dans les sommaires)",
+      defaut: "L’architecture institutionnelle",
+    },
+    {
       cle: "declaration.acte_iv.corps",
       label: "Acte IV — L'architecture institutionnelle",
       type: "riche",
       aide: "Acte IV",
+    },
+    ...BLOCS_NIVEAUX,
+    {
+      cle: "declaration.acte_v.titre",
+      label: "Acte V — titre",
+      type: "simple",
+      aide: "Acte V (aussi utilisé dans les sommaires)",
+      defaut: "Le principe de fécondité scientifique",
+    },
+    {
+      cle: "declaration.acte_v.encadre",
+      label: "Acte V — encadré d'ouverture",
+      type: "simple",
+      aide: "Acte V — paragraphe en italique entre deux filets",
+      defaut:
+        "Une théorie ne devient véritablement scientifique que lorsqu’elle est capable de produire davantage qu’elle-même. Sa valeur ne réside pas seulement dans les démonstrations qu’elle contient, mais dans sa capacité à rendre possibles de nouvelles démonstrations, de nouveaux concepts, de nouvelles théories et de nouvelles applications.",
     },
     {
       cle: "declaration.acte_v.corps",
@@ -55,16 +223,37 @@ export const DECLARATION_BLOCS: PageBlocs = {
       aide: "Acte V",
     },
     {
+      cle: "declaration.acte_vi.titre",
+      label: "Acte VI — titre",
+      type: "simple",
+      aide: "Acte VI (aussi utilisé dans les sommaires)",
+      defaut: "Le privilège optique de Brazzaville",
+    },
+    {
       cle: "declaration.acte_vi.corps",
       label: "Acte VI — Le privilège optique de Brazzaville",
       type: "riche",
       aide: "Acte VI",
     },
     {
+      cle: "declaration.acte_vii.titre",
+      label: "Acte VII — titre",
+      type: "simple",
+      aide: "Acte VII (aussi utilisé dans les sommaires)",
+      defaut: "Le pacte éthique avec la communauté scientifique",
+    },
+    {
       cle: "declaration.acte_vii.corps",
       label: "Acte VII — Le pacte éthique",
       type: "riche",
       aide: "Acte VII",
+    },
+    {
+      cle: "declaration.acte_viii.titre",
+      label: "Acte VIII — titre",
+      type: "simple",
+      aide: "Acte VIII (aussi utilisé dans les sommaires)",
+      defaut: "La formule de clôture éthique",
     },
     {
       cle: "declaration.acte_viii.corps",
@@ -77,6 +266,41 @@ export const DECLARATION_BLOCS: PageBlocs = {
       label: "Acte VIII — la synthèse finale",
       type: "riche",
       aide: "Acte VIII",
+    },
+    {
+      cle: "declaration.appel.titre",
+      label: "Disposition finale — titre (H2)",
+      type: "simple",
+      aide: "Disposition finale (aussi utilisé dans les sommaires)",
+      defaut: "Disposition finale et appel à l’épreuve",
+    },
+    {
+      cle: "declaration.appel.locus",
+      label: "Disposition finale — locus",
+      type: "simple",
+      aide: "Disposition finale — lieu et date",
+      defaut: "Locus : Brazzaville — Juillet 2026",
+    },
+    {
+      cle: "declaration.appel.sceau",
+      label: "Disposition finale — formule de scellement",
+      type: "simple",
+      aide: "Disposition finale — ligne entre crochets",
+      defaut: "[ Scellé et proclamé pour la communauté scientifique internationale ]",
+    },
+    {
+      cle: "declaration.cloture.texte",
+      label: "Phrase de clôture",
+      type: "simple",
+      aide: "Fin de page — phrase en italique",
+      defaut: "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »",
+    },
+    {
+      cle: "declaration.cloture.bouton",
+      label: "Bouton de fin de page",
+      type: "simple",
+      aide: "Fin de page — bouton vers l’Institut",
+      defaut: "Accéder à l’Institut de Brazzaville →",
     },
   ],
 };

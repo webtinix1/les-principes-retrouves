@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Carte — bloc de contenu à bordure gauche Or Maât (4px), fond Gris Clair.
- * Motif récurrent du document (cartes concepts, autorités, modules, articles).
+ * Carte — fond blanc, filet 1 px, rayon 4 px, sans ombre ni barre latérale.
  */
 export function Carte({
   className,
@@ -12,7 +11,7 @@ export function Carte({
   return (
     <div
       className={cn(
-        "border-l-4 border-or bg-gris-clair p-6 text-bleu-nuit-profond",
+        "surface-claire rounded-[4px] border border-filet bg-blanc p-6 text-encre md:p-8",
         className,
       )}
       {...props}
@@ -23,8 +22,8 @@ export function Carte({
 }
 
 /**
- * Encadré — cadre à bordure Or Maât (2px) sur fond Bleu Nuit, réservé aux
- * formulations canoniques (Axiome de Non-Perte, maximes, articles scellés).
+ * Encadré fort — fond nuit, titre or. Un seul par page : l'axiome ou la
+ * maxime de la page. Pas de bordure dorée.
  */
 export function Encadre({
   className,
@@ -34,7 +33,51 @@ export function Encadre({
   return (
     <div
       className={cn(
-        "border-2 border-or bg-bleu-nuit p-8 text-blanc-casse",
+        "surface-sombre rounded-[4px] bg-nuit-950 px-6 py-8 text-nuit-100 md:px-12 md:py-11",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Étiquette — Fira Code 12 px, capitales espacées 0,14 em. Or 700 sur clair,
+ * Or Maât sur nuit (règle `.surface-claire .text-or` de globals.css).
+ */
+export function Etiquette({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"p">) {
+  return (
+    <p
+      className={cn(
+        "font-code text-xs font-normal uppercase tracking-[0.14em] text-or",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </p>
+  );
+}
+
+/**
+ * Avis — encadré d'information sur fond clair (mentions, confirmations).
+ * Fond papier 2 et filets, sans or.
+ */
+export function Avis({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        "surface-claire rounded-[4px] border border-filet bg-papier-2 p-6 text-encre",
         className,
       )}
       {...props}

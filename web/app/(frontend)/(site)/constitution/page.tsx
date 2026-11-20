@@ -1,18 +1,24 @@
 import Link from "next/link";
 
-import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse } from "@/components/bloc";
-import { Carte, Encadre } from "@/components/primitives";
+import {
+  ArticleNumerote,
+  BlocSection,
+  Cloture,
+  Exergue,
+  OuverturePage,
+} from "@/components/editorial";
 import { buttonVariants } from "@/components/ui/button";
 import { pageMetadata } from "@/lib/seo";
-import { cn } from "@/lib/utils";
+import { getTexte, getTextes } from "@/lib/contenu";
 
-export const metadata = pageMetadata({
-  title: "Constitution Scientifique",
-  description:
-    "Acte constitutif du Programme de recherche de la Science Métamoderne : préambule et dix articles constitutionnels.",
-  path: "/constitution",
-});
+export async function generateMetadata() {
+  return pageMetadata({
+    title: await getTexte("constitution.seo.titre"),
+    description: await getTexte("constitution.seo.description"),
+    path: "/constitution",
+  });
+}
 
 /**
  * Filet de sécurité pour les blocs éditables : la page est prérendue au build
@@ -22,103 +28,126 @@ export const metadata = pageMetadata({
  */
 export const revalidate = 3600;
 
-/** Label liminaire d'un article (Or Maât, casse UI). */
-function ArticleLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-ui text-sm font-semibold tracking-widest text-or uppercase">
-      {children}
-    </p>
-  );
-}
+/**
+ * Les dix articles : ancre, numéro et clé du registre (« constitution.article_<cle>.* »).
+ * Leurs titres (H3) alimentent aussi le sommaire latéral.
+ */
+const ARTICLES = [
+  { id: "article-i", romain: "I", cle: "objet" },
+  { id: "article-ii", romain: "II", cle: "souverainete" },
+  { id: "article-iii", romain: "III", cle: "distinction" },
+  { id: "article-iv", romain: "IV", cle: "hypotheses" },
+  { id: "article-v", romain: "V", cle: "critique" },
+  { id: "article-vi", romain: "VI", cle: "organons" },
+  { id: "article-vii", romain: "VII", cle: "auteur" },
+  { id: "article-viii", romain: "VIII", cle: "autorites" },
+  { id: "article-ix", romain: "IX", cle: "cloture_ethique" },
+  { id: "article-x", romain: "X", cle: "continuite" },
+];
+
+type EntreeArticle = { id: string; romain: string; titre: string };
 
 /** Intitulé secondaire à l'intérieur d'un article. */
 function SousTitre({ children }: { children: React.ReactNode }) {
-  return <p className="mt-6 font-ui font-semibold">{children}</p>;
+  return (
+    <p className="mt-8! font-ui text-[15.5px] leading-snug font-semibold text-encre">{children}</p>
+  );
 }
 
-export default function Page() {
+export default async function Page() {
+  const textes = await getTextes("constitution");
+  /** Texte simple de la page (clé sans le préfixe « constitution. »). */
+  const t = (cle: string, valeurs?: Record<string, string | number>) => {
+    const v = textes[cle];
+    if (v === undefined) throw new Error(`Bloc inconnu du registre : constitution.${cle}`);
+    // Marqueurs {nom} remplacés par leur valeur.
+    return Object.entries(valeurs ?? {}).reduce((acc, [k, x]) => acc.split(`{${k}}`).join(String(x)), v);
+  };
+  const SOMMAIRE = [
+    { id: "preambule", label: t("preambule.titre") },
+    { id: "articles", label: t("articles.titre") },
+    { id: "disposition", label: t("disposition_finale.titre") },
+  ];
+  const articles: EntreeArticle[] = ARTICLES.map((a) => ({
+    id: a.id,
+    romain: a.romain,
+    titre: t(`article_${a.cle}.titre`),
+  }));
+  /** Étiquette et titre de l'article n° `romain`. */
+  const art = (romain: string) => {
+    const a = articles.find((x) => x.romain === romain);
+    return { etiquette: t("articles.etiquette", { romain }), titre: a?.titre ?? "" };
+  };
   return (
     <>
-      {/* ============================ HERO ============================ */}
-      <Section tone="profond" className="text-center">
-        <Container className="max-w-3xl">
-          <h1 className="font-heading text-3xl font-bold tracking-wide text-or uppercase sm:text-5xl">
-            Constitution scientifique de l&apos;École de Brazzaville
-          </h1>
-          <p className="mt-6 font-sans text-lg text-blanc-casse italic">
-            Acte constitutif du Programme de recherche de la Science Métamoderne
-          </p>
-
-          <Encadre className="mx-auto mt-10 max-w-2xl">
-            <p className="font-heading text-xl text-or italic sm:text-2xl">
-              « Ne rien imposer. Laisser les choses s&apos;imposer d&apos;elles-mêmes
-              par la seule puissance du raisonnement. »
-            </p>
-          </Encadre>
-
-          <p className="mt-8 font-sans text-blanc-casse italic">
-            « Ce travail ne demande pas à être accepté sur autorité. Il demande à
-            être éprouvé. »
-          </p>
-
-          <div className="mt-10">
-            <a
-              href="#articles"
-              className={cn(buttonVariants({ variant: "ligne", size: "cta" }))}
-            >
-              Lire la Constitution intégrale ↓
-            </a>
-          </div>
-        </Container>
-      </Section>
+      {/* ============================ OUVERTURE ============================ */}
+      <OuverturePage
+        page_id="constitution"
+        titre={t("hero.titre")}
+        sousTitre={t("hero.sous_titre")}
+        sommaire={SOMMAIRE}
+        actions={
+          <a href="#articles" className={buttonVariants({ variant: "or-plein", size: "cta" })}>
+            {t("hero.bouton")} <span aria-hidden="true">↓</span>
+          </a>
+        }
+      >
+        <Exergue>{t("hero.exergue")}</Exergue>
+        <p className="m-rise mt-5 font-texte text-[1.0625rem] leading-[1.6] text-encre-2 italic" style={{ "--dl": "1100ms" } as React.CSSProperties}>
+          {t("hero.formule")}
+        </p>
+      </OuverturePage>
 
       {/* ==================== PRÉAMBULE CONSTITUTIONNEL ==================== */}
-      <Section tone="nuit" id="preambule">
-        <Container>
-          <TitreSection>Préambule constitutionnel</TitreSection>
-          <BlocProse cle="constitution.preambule.corps" className="mt-8">
-            <p className="font-sans italic">
-              La Science Métamoderne n&apos;est pas d&apos;abord un ensemble de
-              connaissances ; elle est une méthode d&apos;institution durable de
-              l&apos;intelligibilité.
-            </p>
-            <p>
-              Toute tradition scientifique appelée à se développer durablement
-              suppose la réunion de conditions explicites de production, de
-              validation, de transmission et de renouvellement du savoir. La
-              présente Constitution a pour objet de formaliser ces conditions, afin
-              que la recherche de l&apos;intelligibilité puisse devenir elle-même un
-              objet de science.
-            </p>
-            <p>
-              Elle ne promet ni révélation définitive ni autorité particulière. Elle
-              définit une exigence de travail.
-            </p>
-            <p>
-              Sa maxime fondatrice, qui gouverne l&apos;ensemble de ses articles, est
-              la suivante :
-            </p>
-            <p className="font-heading text-lg text-or italic">
-              « Ne rien imposer. Laisser les choses s&apos;imposer d&apos;elles-mêmes
-              par la seule puissance du raisonnement. »
-            </p>
-          </BlocProse>
-        </Container>
-      </Section>
+      <BlocSection id="preambule" titre={t("preambule.titre")} bordure={false}>
+        <BlocProse cle="constitution.preambule.corps">
+          <p className="italic">
+            La Science Métamoderne n&apos;est pas d&apos;abord un ensemble de
+            connaissances ; elle est une méthode d&apos;institution durable de
+            l&apos;intelligibilité.
+          </p>
+          <p>
+            Toute tradition scientifique appelée à se développer durablement
+            suppose la réunion de conditions explicites de production, de
+            validation, de transmission et de renouvellement du savoir. La
+            présente Constitution a pour objet de formaliser ces conditions, afin
+            que la recherche de l&apos;intelligibilité puisse devenir elle-même un
+            objet de science.
+          </p>
+          <p>
+            Elle ne promet ni révélation définitive ni autorité particulière. Elle
+            définit une exigence de travail.
+          </p>
+          <p>
+            Sa maxime fondatrice, qui gouverne l&apos;ensemble de ses articles, est
+            la suivante :
+          </p>
+          {/* L'encadré fort de la page : la maxime fondatrice. */}
+          <p className="surface-sombre mt-8! rounded-[4px] bg-nuit-950 px-6 py-8 font-titre text-[1.375rem] leading-[1.4] text-or-500 italic md:px-12 md:py-11 md:text-[1.625rem]">
+            « Ne rien imposer. Laisser les choses s&apos;imposer d&apos;elles-mêmes
+            par la seule puissance du raisonnement. »
+          </p>
+        </BlocProse>
+      </BlocSection>
 
       {/* ================= LES DIX ARTICLES CONSTITUTIONNELS ================= */}
-      <Section tone="clair" id="articles">
-        <Container>
-          <TitreSection>Les dix articles constitutionnels</TitreSection>
+      <section id="articles" className="surface-claire bg-papier px-5 pb-14 md:pb-24 lg:px-6 xl:px-10">
+        <div className="mx-auto grid max-w-[1280px] gap-x-6 gap-y-8 border-t border-filet pt-14 md:pt-24 lg:grid-cols-12">
+          <aside className="flex flex-col gap-6 lg:col-span-3">
+            <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:text-[1.875rem]">
+              {t("articles.titre")}
+            </h2>
+            <SommaireArticles
+              articles={articles}
+              lecture={t("articles.sommaire_lecture")}
+              lienLecture={(a) => t("articles.lien_lecture", { romain: a.romain, titre: a.titre })}
+            />
+          </aside>
 
-          <div className="mt-10 space-y-8">
+          <div className="flex min-w-0 flex-col gap-14 lg:col-span-8 lg:col-start-4">
             {/* -------------------- ARTICLE I -------------------- */}
-            <Carte>
-              <ArticleLabel>Article I</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                L&apos;Objet
-              </h3>
-              <BlocProse cle="constitution.article_objet.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-i" romain="I" {...art("I")}>
+              <BlocProse cle="constitution.article_objet.corps" className="text-encre">
                 <p>
                   La Science Métamoderne a pour objet unique{" "}
                   <strong>l&apos;Intelligibilité elle-même</strong>.
@@ -145,15 +174,11 @@ export default function Page() {
                   .
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE II -------------------- */}
-            <Carte>
-              <ArticleLabel>Article II</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Principe de Souveraineté du Démontré
-              </h3>
-              <BlocProse cle="constitution.article_souverainete.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-ii" romain="II" {...art("II")}>
+              <BlocProse cle="constitution.article_souverainete.corps" className="text-encre">
                 <p>
                   Dans la Science Métamoderne, le Programme de recherche peut être
                   plus vaste que le Corpus.
@@ -182,15 +207,11 @@ export default function Page() {
                   corpus scientifiquement stabilisé.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE III -------------------- */}
-            <Carte>
-              <ArticleLabel>Article III</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                La Distinction constitutionnelle
-              </h3>
-              <BlocProse cle="constitution.article_distinction.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-iii" romain="III" {...art("III")}>
+              <BlocProse cle="constitution.article_distinction.corps" className="text-encre">
                 <p>
                   La Science Métamoderne s&apos;organise selon une architecture
                   constitutive à sept niveaux, chacun répondant à une fonction
@@ -263,15 +284,11 @@ export default function Page() {
                   <li>Le Corpus est la mémoire génétique qui conserve.</li>
                 </ul>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE IV -------------------- */}
-            <Carte>
-              <ArticleLabel>Article IV</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Statut des hypothèses et le Programme d&apos;Expansion
-              </h3>
-              <BlocProse cle="constitution.article_hypotheses.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-iv" romain="IV" {...art("IV")}>
+              <BlocProse cle="constitution.article_hypotheses.corps" className="text-encre">
                 <p>
                   Le Programme de recherche de Brazzaville comporte plusieurs
                   chantiers théoriques dont les démonstrations ne sont pas encore
@@ -375,15 +392,11 @@ export default function Page() {
                   l&apos;ensemble du Programme.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE V -------------------- */}
-            <Carte>
-              <ArticleLabel>Article V</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Statut de la critique
-              </h3>
-              <BlocProse cle="constitution.article_critique.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-v" romain="V" {...art("V")}>
+              <BlocProse cle="constitution.article_critique.corps" className="text-encre">
                 <p>
                   La critique n&apos;est pas extérieure au Programme de Brazzaville.
                   Elle constitue l&apos;un des mécanismes normaux de son
@@ -405,15 +418,11 @@ export default function Page() {
                   l&apos;œuvre ; il le rend plus visible.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE VI -------------------- */}
-            <Carte>
-              <ArticleLabel>Article VI</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Statut des Organons futurs
-              </h3>
-              <BlocProse cle="constitution.article_organons.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-vi" romain="VI" {...art("VI")}>
+              <BlocProse cle="constitution.article_organons.corps" className="text-encre">
                 <p>
                   Chaque Organon futur est une application particulière de la présente
                   Constitution. Il n&apos;a pas à redéfinir les fondements.
@@ -438,15 +447,11 @@ export default function Page() {
                   théories et de nouvelles applications.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE VII -------------------- */}
-            <Carte>
-              <ArticleLabel>Article VII</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Statut de l&apos;auteur
-              </h3>
-              <BlocProse cle="constitution.article_auteur.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-vii" romain="VII" {...art("VII")}>
+              <BlocProse cle="constitution.article_auteur.corps" className="text-encre">
                 <p>
                   Le chercheur indépendant est le premier serviteur de la
                   Constitution. Il n&apos;a aucun privilège doctrinal.
@@ -469,15 +474,11 @@ export default function Page() {
                   de possibilité de la continuité scientifique.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE VIII -------------------- */}
-            <Carte>
-              <ArticleLabel>Article VIII</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Les Autorités de convergence
-              </h3>
-              <BlocProse cle="constitution.article_autorites.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-viii" romain="VIII" {...art("VIII")}>
+              <BlocProse cle="constitution.article_autorites.corps" className="text-encre">
                 <p>
                   La Science Métamoderne ne naît pas du vide. Elle s&apos;assimile à
                   la lignée des précurseurs universels qui, sur les cinq continents,
@@ -601,15 +602,11 @@ export default function Page() {
                   à rendre intelligible l&apos;intelligibilité des sciences.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE IX -------------------- */}
-            <Carte>
-              <ArticleLabel>Article IX</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                La Formule de clôture éthique
-              </h3>
-              <BlocProse cle="constitution.article_cloture_ethique.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-ix" romain="IX" {...art("IX")}>
+              <BlocProse cle="constitution.article_cloture_ethique.corps" className="text-encre">
                 <p>
                   La Science Métamoderne ne demande aucune adhésion préalable. Elle
                   n&apos;invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -617,7 +614,7 @@ export default function Page() {
                   peut se poursuivre selon des règles explicites, discutables et
                   continuellement perfectibles.
                 </p>
-                <p className="font-heading text-lg text-bleu-nuit-profond italic">
+                <p className="pl-6 text-encre-2 italic">
                   « Ce travail ne demande pas à être accepté sur autorité. Il demande
                   à être éprouvé. »
                 </p>
@@ -628,15 +625,11 @@ export default function Page() {
                   aussi bien la recherche que son exposition.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
 
             {/* -------------------- ARTICLE X -------------------- */}
-            <Carte>
-              <ArticleLabel>Article X</ArticleLabel>
-              <h3 className="mt-1 font-heading text-2xl font-semibold">
-                Le Principe de continuité de l&apos;intelligibilité
-              </h3>
-              <BlocProse cle="constitution.article_continuite.corps" className="mt-4 mx-0 max-w-none text-bleu-nuit-profond">
+            <ArticleNumerote id="article-x" romain="X" {...art("X")}>
+              <BlocProse cle="constitution.article_continuite.corps" className="text-encre">
                 <p>
                   L&apos;intelligibilité ne constitue pas un état acquis une fois pour
                   toutes. Elle est un processus continu.
@@ -662,56 +655,98 @@ export default function Page() {
                   l&apos;intelligibilité.
                 </p>
               </BlocProse>
-            </Carte>
+            </ArticleNumerote>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* ======================= DISPOSITION FINALE ======================= */}
-      <Section tone="academique">
-        <Container>
-          <TitreSection>Disposition finale</TitreSection>
-          <BlocProse cle="constitution.disposition_finale.corps" className="mt-8">
-            <p className="italic">
-              La présente Constitution entre en vigueur à la date de sa proclamation.
-            </p>
-            <p className="italic">
-              Elle ne peut être modifiée que par l&apos;Institut de Brazzaville, sur
-              proposition argumentée de la communauté scientifique de l&apos;École, et
-              selon les mêmes exigences de démonstration et de critique qui gouvernent
-              l&apos;ensemble du Programme.
-            </p>
-            <p className="mt-6 font-ui font-semibold">
-              Locus : Brazzaville — Juillet 2026
-            </p>
-            <p className="font-ui tracking-widest text-or uppercase">
-              [Scellé et opposable pour l&apos;éternité des cycles de la raison]
-            </p>
-          </BlocProse>
-        </Container>
-      </Section>
+      <BlocSection id="disposition" titre={t("disposition_finale.titre")}>
+        <BlocProse cle="constitution.disposition_finale.corps">
+          <p className="italic">
+            La présente Constitution entre en vigueur à la date de sa proclamation.
+          </p>
+          <p className="italic">
+            Elle ne peut être modifiée que par l&apos;Institut de Brazzaville, sur
+            proposition argumentée de la communauté scientifique de l&apos;École, et
+            selon les mêmes exigences de démonstration et de critique qui gouvernent
+            l&apos;ensemble du Programme.
+          </p>
+          <p className="mt-8! border-t border-filet pt-6 font-ui text-[15px] font-semibold text-encre">
+            Locus : Brazzaville — Juillet 2026
+          </p>
+          <p className="mt-2! font-code text-xs leading-[1.6] tracking-[0.14em] text-or-700 uppercase">
+            [Scellé et opposable pour l&apos;éternité des cycles de la raison]
+          </p>
+        </BlocProse>
+      </BlocSection>
 
       {/* ======================= APPEL À L'ÉPREUVE ======================= */}
-      <Section tone="nuit" className="text-center">
-        <Container className="max-w-3xl">
-          <TitreSection className="border-l-0 pl-0 text-center" filet={false}>
-            Appel à l&apos;épreuve
-          </TitreSection>
-          <p className="mt-8 font-heading text-xl text-blanc-casse italic sm:text-2xl">
-            « La Constitution scientifique de l&apos;École de Brazzaville ne demande
-            pas à être acceptée sur autorité. Elle demande à être éprouvée par la
-            recherche elle-même. »
-          </p>
-          <div className="mt-10">
-            <Link
-              href="/manifeste"
-              className={cn(buttonVariants({ variant: "or", size: "cta" }))}
-            >
-              Explorer le Manifeste →
-            </Link>
-          </div>
-        </Container>
-      </Section>
+      <Cloture
+        suite={
+          <Link
+            href="/manifeste"
+            className={buttonVariants({ variant: "or-plein", size: "cta" })}
+          >
+            {t("cloture.bouton")} <span className="arr" aria-hidden="true">→</span>
+          </Link>
+        }
+      >
+        <h2 className="mb-5 font-titre text-[1.75rem] leading-[1.18] font-medium text-encre not-italic md:text-[2.125rem]">
+          {t("cloture.titre")}
+        </h2>
+        <p>{t("cloture.citation")}</p>
+      </Cloture>
+    </>
+  );
+}
+
+/** Sommaire latéral des dix articles (collant sur ordinateur). */
+function SommaireArticles({
+  articles: ARTICLES,
+  lecture,
+  lienLecture,
+}: {
+  articles: EntreeArticle[];
+  /** aria-label des deux sommaires. */
+  lecture: string;
+  /** aria-label d'un numéro du sommaire mobile. */
+  lienLecture: (a: EntreeArticle) => string;
+}) {
+  return (
+    <>
+      {/* Mobile : les dix numéros, en grille compacte. */}
+      <nav aria-label={lecture} className="lg:hidden">
+        <ol className="grid grid-cols-5 gap-1.5">
+          {ARTICLES.map((a) => (
+            <li key={a.id}>
+              <a
+                href={`#${a.id}`}
+                aria-label={lienLecture(a)}
+                className="flex min-h-11 items-center justify-center rounded-[2px] border border-filet bg-blanc font-titre text-lg text-or-700 hover:border-encre"
+              >
+                {a.romain}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      {/* Ordinateur : la liste des articles, collante. */}
+      <nav aria-label={lecture} className="sticky top-6 hidden lg:block">
+        <ol className="border-b border-filet-doux">
+          {ARTICLES.map((a) => (
+            <li key={a.id}>
+              <a
+                href={`#${a.id}`}
+                className="glisse grid min-h-11 grid-cols-[40px_1fr] items-baseline gap-2 border-t border-filet-doux py-2 font-ui text-[14px] leading-snug text-encre-2 hover:text-encre hover:underline hover:decoration-or-500 hover:decoration-2 hover:underline-offset-[5px]"
+              >
+                <span className="font-titre text-[15px] text-or-700">{a.romain}</span>
+                {a.titre}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
     </>
   );
 }

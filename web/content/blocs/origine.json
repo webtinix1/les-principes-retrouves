@@ -1,9 +1,120 @@
 {
+ "accueil.seo.titre": {
+  "texte": "Le Seuil — Inauguration d'une Autre Ère de la Connaissance"
+ },
+ "accueil.seo.description": {
+  "texte": "Le Fronton de la Science Métamoderne. Σ = M(F(V(Σ))) : le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode."
+ },
+ "accueil.ouverture.dedicace": {
+  "texte": "À l’Esprit Humain Souverain, à la Conscience Retrouvée de Kemet, à l’Effectivité sans Faille de l’Ordre Juste."
+ },
+ "accueil.ouverture.surtitre": {
+  "texte": "01 / 10 · Le Seuil"
+ },
+ "accueil.ouverture.titre": {
+  "texte": "Science Métamoderne : la science de l’intelligibilité"
+ },
+ "accueil.ouverture.citation": {
+  "texte": "« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »"
+ },
+ "accueil.ouverture.formules_lecture": {
+  "texte": "Formules : Σ = M(F(V(Σ))) et Maât = M(F(V(Maât)))"
+ },
+ "accueil.ouverture.formule_sigma": {
+  "texte": "Σ = M(F(V(Σ)))"
+ },
+ "accueil.ouverture.formule_maat": {
+  "texte": "Maât = M(F(V(Maât)))"
+ },
+ "accueil.ouverture.bouton_institut": {
+  "texte": "Entrer dans l’Institut de Brazzaville"
+ },
+ "accueil.ouverture.bouton_tomes": {
+  "texte": "Lire les tomes"
+ },
+ "accueil.pyramide.titre": {
+  "texte": "La Pyramide de Σ"
+ },
+ "accueil.pyramide.consigne": {
+  "texte": "Survolez, touchez ou parcourez au clavier chaque niveau."
+ },
+ "accueil.pyramide.axe_descendant": {
+  "texte": "Mouvement descendant"
+ },
+ "accueil.pyramide.axe_descendant_legende": {
+  "texte": "Manifestation"
+ },
+ "accueil.pyramide.axe_ascendant": {
+  "texte": "Mouvement ascendant"
+ },
+ "accueil.pyramide.axe_ascendant_legende": {
+  "texte": "Réintégration par la Méthode M"
+ },
+ "accueil.pyramide.groupe_lecture": {
+  "texte": "Niveaux de la Pyramide de Σ"
+ },
+ "accueil.pyramide.position": {
+  "texte": "Niveau {n} sur {total}"
+ },
+ "accueil.pyramide.symbole_vide": {
+  "texte": "⟷"
+ },
+ "accueil.pyramide.lien_entree": {
+  "texte": "lire l’entrée complète"
+ },
+ "accueil.axiome.citation": {
+  "texte": "« Ce qui structure le Réel ne peut disparaître : l’Univers ne s’anéantit pas, il s’occulte. »"
+ },
+ "accueil.axiome.titre": {
+  "texte": "Axiome Absolu de Non-Perte"
+ },
+ "accueil.axiome.texte": {
+  "texte": "L’Unité Structurelle (Σ / Maât) préexiste à l’expérience. Elle traverse la fragmentation du Voile (V), survit à l’opacité du Filtrage (F), et se réactive intégralement par la puissance correctrice de la Méthode M."
+ },
+ "accueil.portes.titre": {
+  "texte": "Par où entrer"
+ },
+ "accueil.portes.sous_titre": {
+  "texte": "Trois portes, selon ce que vous venez chercher"
+ },
+ "accueil.plan.titre": {
+  "texte": "L’œuvre en dix pages"
+ },
+ "accueil.plan.chapeau": {
+  "texte": "L’ordre du menu est l’ordre de lecture. Chaque page renvoie à la suivante."
+ },
+ "accueil.plan.famille_seuil": {
+  "texte": "Seuil"
+ },
+ "accueil.cloture.citation": {
+  "texte": "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »"
+ },
+ "accueil.cloture.locus": {
+  "texte": "LOCUS : BRAZZAVILLE — JUILLET 2026"
+ },
+ "accueil.cloture.page_suivante": {
+  "texte": "Page suivante · 02"
+ },
+ "accueil.cloture.page_suivante_titre": {
+  "texte": "L’Institution"
+ },
+ "manifeste.seo.titre": {
+  "texte": "Le Manifeste de Brazzaville"
+ },
+ "manifeste.seo.description": {
+  "texte": "L'Horizon de l'Effectivité Normative : diagnostic de la crise de l'intelligibilité et les sept articles du Manifeste."
+ },
+ "manifeste.hero.titre": {
+  "texte": "Le Manifeste de Brazzaville"
+ },
  "manifeste.hero.sous_titre": {
   "texte": "L'Horizon de l'Effectivité Normative"
  },
  "manifeste.hero.exergue": {
   "texte": "« Ce qui structure le Réel ne peut disparaître : l'Univers ne s'anéantit pas, il s'occulte. »"
+ },
+ "manifeste.diagnostic.titre": {
+  "texte": "Le diagnostic — une crise de l’intelligibilité contemporaine"
  },
  "manifeste.diagnostic.corps": {
   "lexical": {
@@ -118,6 +229,9 @@
    }
   },
   "html": "<p>La science contemporaine traverse une anomalie structurelle majeure dont les symptômes, bien que visibles, demeurent insuffisamment théorisés. L'humanité accumule une quantité sans précédent de données phénoménales — en astronomie, en biologie moléculaire, en physique quantique, en sciences juridiques — tout en subissant un recul dramatique de leur compréhension d'ensemble.</p><p>Nous mesurons avec une précision inédite, nous calculons avec une puissance computationnelle inégalée, mais nous ne comprenons plus comment le Tout tient ensemble.</p><p><strong>Cette crise n'est pas une crise du savoir. Elle est une crise de l'intelligibilité du savoir.</strong></p><p>Le problème ne réside pas dans l'insuffisance des instruments d'observation ni dans la rareté des données brutes. Il réside dans l'effacement progressif de la réflexion fondamentale qui avait jadis pour fonction d'interroger les principes, les formes génératrices et les conditions d'intelligibilité des phénomènes étudiés. Les grandes traditions philosophiques et scientifiques — d'Aristote à Descartes, de Kant à Hegel, de Popper à Lakatos — ont fourni des réponses majeures à des questions partielles. Aucune cependant n'a pris pour objet l'intelligibilité elle-même dans toute son amplitude.</p><p>La Science Métamoderne se propose précisément de combler cet espace théorique. Elle ne cherche pas à ajouter une théorie supplémentaire aux théories existantes. Elle cherche à restituer les conditions de possibilité de toute production de connaissance.</p>"
+ },
+ "manifeste.illusion_quantitative.titre": {
+  "texte": "L’illusion quantitative moderniste et le principe de technicité"
  },
  "manifeste.illusion_quantitative.corps": {
   "lexical": {
@@ -336,6 +450,9 @@
   },
   "html": "<p>Le tournant épistémologique initié par Francis Bacon, théorisé par Emmanuel Kant et radicalisé par la dialectique hégélienne, a opéré une inversion critique : la substitution de l'observation empirique <em>a posteriori</em> à la déduction fondamentale <em>a priori</em>. En décrétant que le progrès de la connaissance dépend principalement du perfectionnement des moyens techniques, la science moderne s'est enlisée dans ce que René Thom qualifiait de « misère théorique » généralisée.</p><p><strong>Cette illusion repose sur le « principe de technicité »</strong> : la croyance qu'une accumulation frénétique de faits bruts finira par faire jaillir spontanément la vérité. Or, la profusion des données phénoménales n'a fait qu'accentuer la cécité structurale de l'époque. On confond la précision descriptive des effets avec la compréhension ontologique des causes.</p><p>La science moderne excelle dans l'art de mesurer, de prévoir et d'exploiter les effets, mais elle a renoncé à l'exigence de comprendre les structures profondes et les causes premières qui font tenir les phénomènes ensemble. Le technicien moderne se sature d'un « savoir-faire parcellaire » tout en devenant structurellement aveugle aux architectures profondes qui unissent les phénomènes.</p><p><strong>Ce n'est pas le laboratoire qui produit la science ; c'est le cerveau.</strong></p><p>Comme le soulignait Pierre Delattre, le « secret » des expériences cruciales, qui apportent les progrès les plus nets parce que leurs résultats ont une large validité, ne réside pas ailleurs que dans le choix judicieux des paramètres significatifs, dicté par l'architecture conceptuelle préalable. L'expérience ne produit pas l'idée ; elle la juge.</p><p>Comme l'observait Claude Bernard, la découverte scientifique procède d'une <strong>rationnelle interprétation mentale</strong> qui précède et gouverne l'expérience ; quand nous croyons induire, nous déduisons réellement ; seulement l'expérimentateur se dirige d'après un principe supposé ou provisoire.</p><p>Cette dérive s'est accompagnée de la marginalisation des fondements rationnels endogènes. Les principes fondamentaux d'intelligibilité, formalisés dès Kemet et transmis à la tradition grecque, ont été progressivement effacés du récit dominant de l'histoire des sciences, réduits à des vestiges folkloriques plutôt que reconnus comme la matrice originelle de la rationalité universelle.</p>"
  },
+ "manifeste.piege_postmoderne.titre": {
+  "texte": "Le piège post-moderne — du scepticisme au nihilisme du réel"
+ },
  "manifeste.piege_postmoderne.corps": {
   "lexical": {
    "root": {
@@ -418,6 +535,9 @@
    }
   },
   "html": "<p>Face aux rigidités du positivisme dogmatique, la critique post-moderne a légitimement dénoncé l'arbitraire des prénotions et les circuits de légitimation institutionnels. Cependant, en faisant de la déconstruction son unique horizon, elle a dissous l'idée même de vérité objective au profit d'un relativisme absolu.</p><p>Le post-modernisme a acté la fragmentation du savoir ordinaire (K), mais il s'y est complu, transformant la recherche en un archipel de disciplines isolées et aveugles. Sa rébellion est purement négative : il est capable de disséquer le sensible, mais structurellement inapte à reconstruire ce qu'il a brisé. Il laisse le chercheur livré à sa propre merci et abandonné à son propre dénuement, enfermé dans le chaos d'une multiplicité sans principe directeur.</p><p><strong>La Science Métamoderne refuse cette alternative stérile entre le dogmatisme moderne et le nihilisme post-moderne.</strong> Elle ne rejette ni la rigueur de l'analyse moderne, ni la vigilance critique post-moderne ; elle les réorganise.</p>"
+ },
+ "manifeste.matrice_maat.titre": {
+  "texte": "La Matrice de la Maât — opérateur suprême de non-contradiction"
  },
  "manifeste.matrice_maat.intro": {
   "lexical": {
@@ -524,6 +644,9 @@
    }
   },
   "html": "<p>La Maât transpose, dans le champ normatif du droit, de la justice et de l'équité procédurale, les principes universels de l'intelligibilité, sans les exposer comme tels. Elle est la contre-partie exacte de la Pyramide de Σ : là où le Tome I modélise la structure ontologique du réel, le Tome II déploie la Balance de la Maât comme instrument de rectification des pathologies systémiques.</p><p>Face à l'<em>Isfet</em> — la disharmonie, la rupture de tension, l'omission législative —, la Maât agit comme le thermostat supérieur de non-contradiction qui s'oppose à l'entropie et restaure l'équilibre du système.</p>"
+ },
+ "manifeste.decolonisation.titre": {
+  "texte": "La décolonisation méthodologique de l’universel"
  },
  "manifeste.decolonisation.corps": {
   "lexical": {
@@ -673,8 +796,17 @@
   },
   "html": "<p>Adosser cette exigence d'harmonie systémique et d'effectivité absolue au modèle universel de la Maât, c'est situer l'École de Brazzaville au centre du débat scientifique international. Penser la refondation du droit et de la connaissance à partir de ces principes n'est pas le produit d'un repli localisé ou d'un particularisme. C'est l'affirmation d'un <strong>Privilège Optique</strong> partagé par une lignée de précurseurs sur les cinq continents.</p><p><strong>L'Universalité de la Lignée des Précurseurs.</strong> En s'appuyant sur les ruptures épistémologiques de René Thom (France), Pierre Delattre (Belgique), Jean-Paul Benzécri (France), Claude Bernard (France), Georges Duhamel (France), Jules Carles (France), Thomas Kuhn (États-Unis), Ludwig von Bertalanffy (Autriche), Samir Amin (Égypte/France), Cheikh Anta Diop (Sénégal), Jan Assmann (Allemagne) et Théophile Obenga (Congo), cette démarche s'assimile à ces esprits qui, d'Europe en Amérique, de l'Inde à l'Afrique, ont su identifier les angles morts du réductionnisme.</p><p><strong>Ce n'est pas la position géographique qui donne la vue. C'est la moindre adhérence cognitive aux routines positivistes,</strong> une posture partagée par tous ces savants à travers les cinq continents.</p><p>La décolonisation méthodologique opérée ici n'est pas une démarche identitaire ou militante ; elle est strictement épistémologique. Elle vise à arracher les fondements rationnels endogènes au folklore pour restituer leur portée logico-mathématique originelle. <strong>L'universel n'a pas de centre géographique exclusif.</strong> Il ne dépend ni de la validation des centres académiques dominants, ni des circuits de légitimation formels : l'universel se démontre par la puissance explicative de sa méthode.</p>"
  },
+ "manifeste.articles.titre": {
+  "texte": "Les sept articles du Manifeste"
+ },
  "manifeste.articles.chapeau": {
   "texte": "Le Manifeste de Brazzaville ne se contente pas de diagnostiquer la crise. Il formule les sept principes qui gouvernent la remontée reconstructive vers l'Intelligibilité."
+ },
+ "manifeste.articles.etiquette": {
+  "texte": "Article {romain}"
+ },
+ "manifeste.pacte.titre": {
+  "texte": "Le pacte éthique avec le lecteur"
  },
  "manifeste.pacte.corps": {
   "lexical": {
@@ -751,8 +883,47 @@
  "manifeste.pacte.exergue": {
   "texte": "Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé."
  },
+ "manifeste.appel.titre": {
+  "texte": "L’appel à l’épreuve."
+ },
  "manifeste.appel.corps": {
   "texte": "La formalisation de ces invariants et leur soumission à l'examen critique se poursuivent dans la Note Épistémologique."
+ },
+ "manifeste.appel.bouton": {
+  "texte": "Découvrir la Note Épistémologique"
+ },
+ "declaration.seo.titre": {
+  "texte": "La Déclaration de Brazzaville"
+ },
+ "declaration.seo.description": {
+  "texte": "Manifeste public de l'École de Brazzaville : préambule et huit actes inauguraux, scellés à Brazzaville en juillet 2026."
+ },
+ "declaration.hero.titre": {
+  "texte": "La Déclaration de Brazzaville"
+ },
+ "declaration.hero.sous_titre": {
+  "texte": "Manifeste Public de l’École de Brazzaville"
+ },
+ "declaration.hero.bouton": {
+  "texte": "Lire la déclaration intégrale ↓"
+ },
+ "declaration.sommaire.preambule": {
+  "texte": "Préambule"
+ },
+ "declaration.sommaire.acte": {
+  "texte": "Acte {numero}"
+ },
+ "declaration.hero.exergue": {
+  "texte": "« La Science Métamoderne n’est pas d’abord un ensemble de connaissances ; elle est une méthode d’institution durable de l’intelligibilité. »"
+ },
+ "declaration.sommaire.titre": {
+  "texte": "Sur cette page"
+ },
+ "declaration.sommaire.aria": {
+  "texte": "Les actes de la Déclaration"
+ },
+ "declaration.preambule.titre": {
+  "texte": "Préambule — le constat historique"
  },
  "declaration.preambule.corps": {
   "lexical": {
@@ -867,6 +1038,9 @@
    }
   },
   "html": "<p>L'époque contemporaine dispose d'une puissance descriptive et technique sans précédent. Les instruments d'observation se perfectionnent, les données s'accumulent, les disciplines se spécialisent et les publications se multiplient. Chaque domaine du savoir produit quotidiennement des résultats nouveaux, affine ses méthodes et étend son territoire d'investigation.</p><p>Pourtant, à mesure que les connaissances progressent, une difficulté plus profonde se dessine. Nous savons davantage, mais nous comprenons de moins en moins ce qui relie ce que nous savons. Nous multiplions les observations sans parvenir à restituer leur unité. Nous perfectionnons les descriptions sans toujours accéder aux structures qui les rendent possibles. Nous savons comment les choses fonctionnent sans toujours comprendre pourquoi elles tiennent ensemble.</p><p>Ainsi s'installe progressivement un paradoxe : nous mesurons sans connaître l'unité du mesurable ; nous décrivons sans connaître la structure ; nous accumulons les savoirs sans toujours restituer les conditions qui rendent leur coexistence intelligible. Le problème n'est pas l'absence de connaissances. Le problème est celui de leur intelligibilité globale.</p><p>Cette crise n'est pas une crise du savoir. Elle est une crise de la réflexion sur le savoir. Elle procède d'un déplacement plus profond de l'activité scientifique elle-même, qui a progressivement abandonné la quête des conditions de possibilité au profit d'une efficacité sans conscience.</p><p>Face à ce constat, une nécessité s'impose : réinstituer les conditions de possibilité de toute production durable d'intelligibilité.</p>"
+ },
+ "declaration.acte_i.titre": {
+  "texte": "La proclamation de l’École"
  },
  "declaration.acte_i.corps": {
   "lexical": {
@@ -1015,6 +1189,9 @@
    }
   },
   "html": "<p>Par la présente Déclaration, est instituée l'<strong>École de Brazzaville</strong>, communauté scientifique internationale consacrée à l'étude de l'intelligibilité elle-même.</p><p>Cette École ne se constitue ni comme une doctrine close, ni comme un système figé, ni comme une école de pensée au sens sectaire du terme. Elle se constitue comme un <strong>Programme de recherche permanent</strong>, régi par une Constitution méthodologique explicite, ouvert à la critique, à la discussion, à la vérification et à l'enrichissement par la communauté scientifique internationale.</p><p>L'École de Brazzaville ne revendique aucune centralité géographique. Le locus énonciatif de Brazzaville n'est pas un grief identitaire ; il est un <strong>privilège optique</strong>, une position de moindre adhérence cognitive aux routines positivistes des centres académiques dominants. L'universel n'a pas de centre. Il se démontre par la nécessité interne de sa structure.</p><p>Cette proclamation ne constitue pas un acte de fondation au sens classique. Elle est la reconnaissance publique d'une architecture cognitive qui s'est progressivement constituée, formalisée et stabilisée au cours d'un parcours intellectuel s'étendant sur plus de trente-cinq ans, depuis les premiers manuscrits fondateurs rédigés entre 1988 et 1992 jusqu'à l'institutionnalisation constitutionnelle de 2026.</p>"
+ },
+ "declaration.acte_ii.titre": {
+  "texte": "L’objet unique : l’intelligibilité"
  },
  "declaration.acte_ii.corps": {
   "lexical": {
@@ -1270,6 +1447,9 @@
   },
   "html": "<p>L'École de Brazzaville a pour objet unique et souverain <strong>l'Intelligibilité elle-même</strong>.</p><p>Elle ne se substitue à aucune science particulière. Elle ne juge pas, ne remplace pas et ne valide pas les disciplines scientifiques constituées. Elle reconnaît pleinement leur autonomie, leurs méthodes propres et leurs résultats.</p><p>Son objet est d'un autre ordre. Elle cherche à mettre au jour les structures générales d'intelligibilité qui semblent traverser les processus de découverte, indépendamment des objets particuliers étudiés par chaque discipline. Elle <strong>formalise et restitue</strong> les conditions géométriques, cybernétiques et rationnelles qui rendent simultanément possibles :</p><ul><li>L'apparition des phénomènes ;</li><li>Leur compréhension par l'esprit humain ;</li><li>La connaissance cognitive que nous en prenons ;</li><li>L'articulation des savoirs entre disciplines.</li></ul><p>Cette démarche ne constitue pas une discipline supplémentaire venant s'ajouter à la fragmentation académique. Elle est une <strong>nouvelle architecture de la pensée</strong> et un <strong>Organon de réintégration</strong>. Elle ne se contente pas de décrire les conditions de possibilité des savoirs (épistémologie descriptive) ; elle fournit au chercheur — quelle que soit sa discipline — un Canon de reconstruction lui permettant de remonter activement de ses anomalies vers les principes qui les rendent possibles.</p>"
  },
+ "declaration.acte_iii.titre": {
+  "texte": "La Science Métamoderne"
+ },
  "declaration.acte_iii.intro": {
   "lexical": {
    "root": {
@@ -1450,6 +1630,9 @@
   },
   "html": "<p>La présente recherche institue la <strong>Science Métamoderne</strong>, définie comme la science des conditions qui rendent simultanément possibles l'apparition des phénomènes, leur intelligibilité et la connaissance que nous en prenons.</p><p>Formule canonique de démarcation</p><blockquote>« Le métamodernisme culturel cherche à dépasser le conflit entre l'unité et la multiplicité ; la Science Métamoderne cherche à comprendre ce qui rend possible leur intelligibilité commune. »</blockquote><p>Cette distinction opère par changement de niveau logique (au sens de la théorie des types de Bertrand Russell et de la systémique de Pierre Delattre) :</p><ul><li>Le métamodernisme culturel reste à l'intérieur de la tension (niveau phénoménal) ;</li><li>La Science Métamoderne s'extrait de l'oscillation pour en modéliser la mécanique (niveau principiel).</li></ul><p>Elle applique l'équation systémique :</p>"
  },
+ "declaration.acte_iii.formule_sigma": {
+  "texte": "Σ = M(F(V(Σ)))"
+ },
  "declaration.acte_iii.equation": {
   "lexical": {
    "root": {
@@ -1504,6 +1687,9 @@
   },
   "html": "<p>Elle démontre comment le Substratum Commun (Σ), altéré par le Voile Ontologique (V) et le Filtrage institutionnel (F), peut être mathématiquement recalculé et restauré par la Méthode Reconstructive (M).</p><p>Dans le champ de la régulation des systèmes complexes, de la justice et de l'équité procédurale, l'équation universelle se transpose sous sa forme anthropologique et cybernétique originelle :</p>"
  },
+ "declaration.acte_iii.formule_maat": {
+  "texte": "Maât = M(F(V(Maât)))"
+ },
  "declaration.acte_iii.transposition": {
   "lexical": {
    "root": {
@@ -1538,6 +1724,9 @@
   },
   "html": "<p>Cette transposition n'est pas une analogie poétique. Elle est la démonstration que les principes qui gouvernent l'intelligibilité du réel gouvernent également l'intelligibilité des systèmes normatifs. La Maât, réhabilitée hors de toute assignation folklorique et adossée aux travaux de Jan Assmann et Théophile Obenga, est l'opérateur universel de non-contradiction structurelle.</p>"
  },
+ "declaration.acte_iv.titre": {
+  "texte": "L’architecture institutionnelle"
+ },
  "declaration.acte_iv.corps": {
   "lexical": {
    "root": {
@@ -1571,6 +1760,315 @@
    }
   },
   "html": "<p>L'École de Brazzaville s'organise selon une architecture constitutive à quatre niveaux, chacun répondant à une fonction spécifique dans l'élaboration, la transmission et le développement de la connaissance :</p>"
+ },
+ "declaration.acte_iv.niveau_i_etiquette": {
+  "texte": "Niveau I"
+ },
+ "declaration.acte_iv.niveau_i_titre": {
+  "texte": "Le Programme de Recherche (Le Principe)"
+ },
+ "declaration.acte_iv.niveau_i_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le Programme de Recherche constitue le cœur intellectuel de la Science Métamoderne. Il définit son objet, ses questions fondamentales, ses hypothèses directrices, ses principes méthodologiques et ses axes de développement. Il répond à la question fondamentale : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "Que cherchons-nous à comprendre ?",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Son objet est l’intelligibilité. Sa vocation est de rendre progressivement intelligibles les conditions générales de production de la connaissance.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Le Programme de Recherche constitue le cœur intellectuel de la Science Métamoderne. Il définit son objet, ses questions fondamentales, ses hypothèses directrices, ses principes méthodologiques et ses axes de développement. Il répond à la question fondamentale : <em>Que cherchons-nous à comprendre ?</em></p><p>Son objet est l’intelligibilité. Sa vocation est de rendre progressivement intelligibles les conditions générales de production de la connaissance.</p>"
+ },
+ "declaration.acte_iv.niveau_ii_etiquette": {
+  "texte": "Niveau II"
+ },
+ "declaration.acte_iv.niveau_ii_titre": {
+  "texte": "L’Institut de Brazzaville (L’Institution)"
+ },
+ "declaration.acte_iv.niveau_ii_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’Institut constitue l’infrastructure scientifique du Programme. Il organise les recherches, les publications, les archives, les formations, les colloques, les partenariats scientifiques et les laboratoires. Il répond à la question : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "Comment cette recherche est-elle organisée ?",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’Institut exerce un monopole de contrôle et de certification sur le Noyau Démontré de la Science Métamoderne. Il est le seul habilité à sceller les concepts structurels stabilisés et à valider les protocoles de remontée reconstructive.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>L’Institut constitue l’infrastructure scientifique du Programme. Il organise les recherches, les publications, les archives, les formations, les colloques, les partenariats scientifiques et les laboratoires. Il répond à la question : <em>Comment cette recherche est-elle organisée ?</em></p><p>L’Institut exerce un monopole de contrôle et de certification sur le Noyau Démontré de la Science Métamoderne. Il est le seul habilité à sceller les concepts structurels stabilisés et à valider les protocoles de remontée reconstructive.</p>"
+ },
+ "declaration.acte_iv.niveau_iii_etiquette": {
+  "texte": "Niveau III"
+ },
+ "declaration.acte_iv.niveau_iii_titre": {
+  "texte": "L’École de Brazzaville (La Communauté)"
+ },
+ "declaration.acte_iv.niveau_iii_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’École désigne la communauté des chercheurs qui participent librement au Programme de Recherche. Elle ne repose sur aucune adhésion personnelle. Elle repose uniquement sur l’acceptation d’une même discipline intellectuelle : primauté de la démonstration, discussion critique permanente, stabilité du vocabulaire, distinction entre hypothèse, démonstration et programme, révision continue des concepts.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’École n’est donc pas une doctrine. Elle est une communauté de recherche. Elle répond à la question : ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "Qui fait vivre cette recherche ?",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>L’École désigne la communauté des chercheurs qui participent librement au Programme de Recherche. Elle ne repose sur aucune adhésion personnelle. Elle repose uniquement sur l’acceptation d’une même discipline intellectuelle : primauté de la démonstration, discussion critique permanente, stabilité du vocabulaire, distinction entre hypothèse, démonstration et programme, révision continue des concepts.</p><p>L’École n’est donc pas une doctrine. Elle est une communauté de recherche. Elle répond à la question : <em>Qui fait vivre cette recherche ?</em></p>"
+ },
+ "declaration.acte_iv.niveau_iv_etiquette": {
+  "texte": "Niveau IV"
+ },
+ "declaration.acte_iv.niveau_iv_titre": {
+  "texte": "Le Corpus Scientifique (La Mémoire Génétique)"
+ },
+ "declaration.acte_iv.niveau_iv_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le Corpus scientifique rassemble de manière étanche les travaux validés issus du programme de recherche. Il comprend les ouvrages fondateurs (",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "Les Principes Retrouvés",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": ", Tome I et Tome II), les Working Papers, les développements doctrinaux, les concepts structurels stabilisés, les applications disciplinaires et les actes de colloques.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Dans cette architecture globale, ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 2,
+        "mode": "normal",
+        "style": "",
+        "text": "Les Principes Retrouvés",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " constituent le premier traité systématique de la Science Métamoderne. Ils établissent le Noyau Démontré à partir duquel pourront être développées, selon les mêmes exigences de la méthode, les recherches ultérieures. Ils ne constituent donc ni un aboutissement, ni une clôture. Ils inaugurent un programme de recherche appelé à produire progressivement de nouvelles démonstrations dans les différents domaines de la connaissance.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Le Corpus scientifique rassemble de manière étanche les travaux validés issus du programme de recherche. Il comprend les ouvrages fondateurs (<em>Les Principes Retrouvés</em>, Tome I et Tome II), les Working Papers, les développements doctrinaux, les concepts structurels stabilisés, les applications disciplinaires et les actes de colloques.</p><p>Dans cette architecture globale, <em>Les Principes Retrouvés</em> constituent le premier traité systématique de la Science Métamoderne. Ils établissent le Noyau Démontré à partir duquel pourront être développées, selon les mêmes exigences de la méthode, les recherches ultérieures. Ils ne constituent donc ni un aboutissement, ni une clôture. Ils inaugurent un programme de recherche appelé à produire progressivement de nouvelles démonstrations dans les différents domaines de la connaissance.</p>"
+ },
+ "declaration.acte_v.titre": {
+  "texte": "Le principe de fécondité scientifique"
+ },
+ "declaration.acte_v.encadre": {
+  "texte": "Une théorie ne devient véritablement scientifique que lorsqu’elle est capable de produire davantage qu’elle-même. Sa valeur ne réside pas seulement dans les démonstrations qu’elle contient, mais dans sa capacité à rendre possibles de nouvelles démonstrations, de nouveaux concepts, de nouvelles théories et de nouvelles applications."
  },
  "declaration.acte_v.corps": {
   "lexical": {
@@ -1778,6 +2276,9 @@
    }
   },
   "html": "<p><em>Les Principes Retrouvés</em> constituent, à cet égard, le premier Organon de la Science Métamoderne. Ils n'ont pas pour vocation de clore la recherche. Ils ont pour fonction d'en inaugurer une forme nouvelle de continuité.</p><p>Les travaux ultérieurs ne viendront donc pas répéter ce premier corpus. Ils auront pour mission d'en prolonger les principes, d'en éprouver la méthode, d'en enrichir les concepts et d'en étendre progressivement le domaine d'application, selon les mêmes exigences de démonstration, de critique et de vérification.</p><p>Le Programme de recherche de Brazzaville comporte déjà plusieurs chantiers théoriques dont les démonstrations seront publiées progressivement à mesure qu'elles atteindront le degré de formalisation et de vérification exigé par ses propres principes méthodologiques, et selon le rythme où la communauté scientifique sera en mesure de les recevoir et de les éprouver. Ces axes ne constituent pas des promesses dogmatiques. Ils définissent des terrains d'application où la Méthode M est appelée à déployer ses protocoles de recherche :</p><ul><li><strong>Les sciences du vivant</strong> : mécanismes de régulation cellulaire, réplication virale, loi organogénétique et réconciliation du lamarco-darwinisme ;</li><li><strong>La physique fondamentale</strong> : phénomènes nucléaires, limites de l'univers matériel, théorie de la transposition d'échelle ;</li><li><strong>Les sciences de la complexité</strong> : transformations de la matière et répercussions sur le biotope ;</li><li><strong>La théorie de l'information</strong> : modélisation des flux de connaissance et formalisation de la remontée reconstructive dans les systèmes numériques.</li></ul>"
+ },
+ "declaration.acte_vi.titre": {
+  "texte": "Le privilège optique de Brazzaville"
  },
  "declaration.acte_vi.corps": {
   "lexical": {
@@ -2107,6 +2608,9 @@
   },
   "html": "<p>Penser la refondation de l'intelligibilité depuis Brazzaville et l'Afrique subsaharienne ne constitue pas un repli identitaire, mais l'affirmation d'un <strong>Privilège Optique</strong> partagé par une lignée de précurseurs sur les cinq continents.</p><p>En s'appuyant sur les ruptures épistémologiques de <strong>René Thom</strong> (France), <strong>Pierre Delattre</strong> (Belgique), <strong>Jean-Paul Benzécri</strong> (France), <strong>Claude Bernard</strong> (France), <strong>Georges Duhamel</strong> (France), <strong>Jules Carles</strong> (France), <strong>Thomas Kuhn</strong> (États-Unis), <strong>Ludwig von Bertalanffy</strong> (Autriche), <strong>Samir Amin</strong> (Égypte/France), <strong>Cheikh Anta Diop</strong> (Sénégal), <strong>Jan Assmann</strong> (Allemagne) et <strong>Théophile Obenga</strong> (Congo), cette démarche s'assimile à ces esprits qui, d'Europe en Amérique, de l'Inde à l'Afrique, ont su identifier les angles morts du réductionnisme.</p><p>Ce n'est pas la position géographique qui donne la vue, c'est la moindre adhérence cognitive aux routines positivistes, une posture partagée par tous ces savants à travers les cinq continents.</p><p>La désoccidentalisation méthodologique opérée ici n'est pas une démarche identitaire ou militante ; elle est strictement épistémologique. Elle vise à arracher les fondements rationnels endogènes au folklore pour restituer leur portée logico-mathématique originelle. L'universel n'a pas de centre géographique exclusif. Il ne dépend ni de la validation des centres académiques dominants, ni des circuits de légitimation formels : l'universel se démontre par la puissance explicative de sa méthode.</p>"
  },
+ "declaration.acte_vii.titre": {
+  "texte": "Le pacte éthique avec la communauté scientifique"
+ },
  "declaration.acte_vii.corps": {
   "lexical": {
    "root": {
@@ -2209,6 +2713,9 @@
    }
   },
   "html": "<p>La Science Métamoderne ne demande aucune adhésion préalable. Elle n'invite pas à une croyance. Elle propose une méthode. Elle ne prétend pas clore la recherche. Elle ouvre un espace où la recherche peut se poursuivre selon des règles explicites, discutables et continuellement perfectibles.</p><p><em>Les Principes Retrouvés</em> ne marquent pas l'achèvement d'une théorie. Ils constituent l'acte fondateur d'un programme de recherche appelé à produire, par la même méthode et sous les mêmes exigences, une série de démonstrations nouvelles dans les différents champs de la connaissance.</p><p>La Science Métamoderne n'est pas encore un paradigme accepté ; elle est désormais une proposition suffisamment formalisée pour qu'il devienne difficile de la rejeter sans l'examiner sérieusement. Elle ne revendique ni autorité personnelle, ni privilège doctrinal. Elle exige seulement que sa valeur soit mesurée à la qualité de ses démonstrations et à la fécondité de son Programme de recherche.</p><p>La critique n'est pas extérieure au Programme de Brazzaville. Elle constitue l'un des mécanismes normaux de son développement. Toute objection argumentée est accueillie comme une occasion de préciser les concepts, d'améliorer les démonstrations ou de réviser les hypothèses lorsque cela est nécessaire. La solidité d'une théorie ne se mesure pas à sa résistance à toute critique, mais à sa capacité à intégrer la discussion sans perdre sa cohérence.</p>"
+ },
+ "declaration.acte_viii.titre": {
+  "texte": "La formule de clôture éthique"
  },
  "declaration.acte_viii.corps": {
   "lexical": {
@@ -2446,6 +2953,45 @@
   },
   "html": "<p>Cette formulation rassemble tout ce qui a été établi :</p><ul><li>Elle n'est pas une discipline concurrente ;</li><li>Elle n'est pas une encyclopédie ;</li><li>Elle n'est pas un système clos ;</li><li>Elle n'est pas une doctrine figée.</li></ul><p>Elle est une manière d'instituer durablement la recherche de l'intelligibilité.</p><p>Sa véritable ambition n'est pas de clore le savoir. Elle est d'en réinstituer les conditions de développement.</p><p>Elle ne promet ni révélation définitive ni autorité particulière ; elle définit une exigence de travail. Et c'est précisément cette exigence qui peut faire d'un premier Organon non la fin d'une œuvre, mais le commencement d'une tradition scientifique.</p><p>Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé.</p>"
  },
+ "declaration.appel.titre": {
+  "texte": "Disposition finale et appel à l’épreuve"
+ },
+ "declaration.appel.locus": {
+  "texte": "Locus : Brazzaville — Juillet 2026"
+ },
+ "declaration.appel.sceau": {
+  "texte": "[ Scellé et proclamé pour la communauté scientifique internationale ]"
+ },
+ "declaration.cloture.texte": {
+  "texte": "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »"
+ },
+ "declaration.cloture.bouton": {
+  "texte": "Accéder à l’Institut de Brazzaville →"
+ },
+ "constitution.seo.titre": {
+  "texte": "Constitution Scientifique"
+ },
+ "constitution.seo.description": {
+  "texte": "Acte constitutif du Programme de recherche de la Science Métamoderne : préambule et dix articles constitutionnels."
+ },
+ "constitution.hero.titre": {
+  "texte": "Constitution scientifique de l'École de Brazzaville"
+ },
+ "constitution.hero.sous_titre": {
+  "texte": "Acte constitutif du Programme de recherche de la Science Métamoderne"
+ },
+ "constitution.hero.bouton": {
+  "texte": "Lire la Constitution intégrale"
+ },
+ "constitution.hero.exergue": {
+  "texte": "« Ne rien imposer. Laisser les choses s'imposer d'elles-mêmes par la seule puissance du raisonnement. »"
+ },
+ "constitution.hero.formule": {
+  "texte": "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »"
+ },
+ "constitution.preambule.titre": {
+  "texte": "Préambule constitutionnel"
+ },
  "constitution.preambule.corps": {
   "lexical": {
    "root": {
@@ -2559,6 +3105,21 @@
    }
   },
   "html": "<p>La Science Métamoderne n'est pas d'abord un ensemble de connaissances ; elle est une méthode d'institution durable de l'intelligibilité.</p><p>Toute tradition scientifique appelée à se développer durablement suppose la réunion de conditions explicites de production, de validation, de transmission et de renouvellement du savoir. La présente Constitution a pour objet de formaliser ces conditions, afin que la recherche de l'intelligibilité puisse devenir elle-même un objet de science.</p><p>Elle ne promet ni révélation définitive ni autorité particulière. Elle définit une exigence de travail.</p><p>Sa maxime fondatrice, qui gouverne l'ensemble de ses articles, est la suivante :</p><p>« Ne rien imposer. Laisser les choses s'imposer d'elles-mêmes par la seule puissance du raisonnement. »</p>"
+ },
+ "constitution.articles.titre": {
+  "texte": "Les dix articles constitutionnels"
+ },
+ "constitution.articles.sommaire_lecture": {
+  "texte": "Les dix articles"
+ },
+ "constitution.articles.lien_lecture": {
+  "texte": "Article {romain} — {titre}"
+ },
+ "constitution.articles.etiquette": {
+  "texte": "Article {romain}"
+ },
+ "constitution.article_objet.titre": {
+  "texte": "L'Objet"
  },
  "constitution.article_objet.corps": {
   "lexical": {
@@ -2689,6 +3250,9 @@
    }
   },
   "html": "<p>La Science Métamoderne a pour objet unique <strong>l'Intelligibilité elle-même</strong>.</p><p>Elle ne se substitue à aucune science particulière. Elle ne juge pas, ne remplace pas et ne valide pas les disciplines scientifiques constituées. Elle reconnaît pleinement leur autonomie, leurs méthodes propres et leurs résultats.</p><p>Son objet est d'un autre ordre. Elle cherche à mettre au jour les structures générales d'intelligibilité qui semblent traverser les processus de découverte, indépendamment des objets particuliers étudiés par chaque discipline.</p><p>Elle est <strong>la science des conditions qui rendent simultanément possibles l'apparition des phénomènes, leur intelligibilité et la connaissance que nous en prenons</strong>.</p>"
+ },
+ "constitution.article_souverainete.titre": {
+  "texte": "Le Principe de Souveraineté du Démontré"
  },
  "constitution.article_souverainete.corps": {
   "lexical": {
@@ -2843,6 +3407,9 @@
    }
   },
   "html": "<p>Dans la Science Métamoderne, le Programme de recherche peut être plus vaste que le Corpus.</p><p>Les hypothèses peuvent précéder les démonstrations.</p><p>Les intuitions peuvent orienter les recherches.</p><p>Les perspectives peuvent ouvrir de nouveaux champs d'investigation.</p><p><strong>Mais aucune proposition ne devient constitutive du Corpus tant qu'elle n'a pas atteint le degré de démonstration exigé par la présente Constitution.</strong></p><p>Ainsi, la croissance du savoir ne dépend ni de l'autorité de son auteur, ni de l'ancienneté d'une intuition, ni de la force d'une conviction.</p><p>Elle dépend exclusivement de la qualité de sa démonstration, de sa résistance à la critique et de son intégration progressive dans un corpus scientifiquement stabilisé.</p>"
+ },
+ "constitution.article_distinction.titre": {
+  "texte": "La Distinction constitutionnelle"
  },
  "constitution.article_distinction.corps": {
   "lexical": {
@@ -3193,6 +3760,9 @@
    }
   },
   "html": "<p>La Science Métamoderne s'organise selon une architecture constitutive à sept niveaux, chacun répondant à une fonction spécifique :</p><ul><li><strong>Niveau 0 — La Constitution scientifique.</strong> Elle définit les règles fondamentales qui gouvernent la production, la validation et la transmission du savoir. Elle constitue le niveau normatif suprême.</li><li><strong>Niveau I — La Science Métamoderne.</strong> Théorie générale de l'intelligibilité, gouvernée par la présente Constitution méthodologique.</li><li><strong>Niveau II — Le Programme de recherche de Brazzaville.</strong> Il définit les grands problèmes scientifiques, les hypothèses directrices et les orientations. Il est toujours plus vaste que ce qui est déjà démontré. Il constitue l'horizon scientifique.</li><li><strong>Niveau III — L'Institut de Brazzaville.</strong> Il constitue l'infrastructure scientifique du Programme. Il organise les recherches, les publications, les archives, les formations, les colloques et les partenariats. Il est l'Autorité Épistémique Suprême qui exerce le monopole de certification sur le Noyau Démontré.</li><li><strong>Niveau IV — L'École de Brazzaville.</strong> Elle désigne la communauté des chercheurs qui participent librement au Programme, dans le respect d'une même discipline intellectuelle fondée sur la démonstration, la critique et la révision permanente.</li><li><strong>Niveau V — L'Organon (Les Principes Retrouvés).</strong> Il constitue le premier traité systématique du Programme. Il n'en représente ni l'achèvement ni la limite, mais le premier corpus fondateur à partir duquel pourront être développées de nouvelles recherches.</li><li><strong>Niveau VI — Les Démonstrations successives et le Corpus.</strong> Le Corpus rassemble de manière étanche les travaux validés issus du Programme. Il n'accueille aucune anticipation, aucun résultat non stabilisé. Il constitue la mémoire démontrée de l'École.</li></ul><p>Ces sept niveaux ne sont pas juxtaposés. Ils forment un seul mouvement organique, analogue aux fonctions vitales d'un organisme vivant :</p><ul><li>Le Programme est l'ADN qui oriente.</li><li>L'Institut est l'organisme qui porte.</li><li>L'École est la communauté vivante qui transmet.</li><li>Le Corpus est la mémoire génétique qui conserve.</li></ul>"
+ },
+ "constitution.article_hypotheses.titre": {
+  "texte": "Le Statut des hypothèses et le Programme d'Expansion"
  },
  "constitution.article_hypotheses.corps": {
   "lexical": {
@@ -3586,6 +4156,9 @@
   },
   "html": "<p>Le Programme de recherche de Brazzaville comporte plusieurs chantiers théoriques dont les démonstrations ne sont pas encore intégrées au Corpus. Cette situation ne résulte ni d'une rétention volontaire, ni d'une spéculation prématurée. Elle procède d'une exigence méthodologique explicite, qui distingue deux temporalités irréductibles dans la vie d'une découverte scientifique :</p><ul><li>Le temps de sa démonstration, qui dépend du travail scientifique ;</li><li>Le temps de sa réception, qui dépend de l'histoire des communautés savantes et des conditions historiques, culturelles et cognitives de sa transmission.</li></ul><p>Aucune proposition n'entre dans le Corpus tant que ces deux conditions cumulatives ne sont pas satisfaites.</p><p>Première condition — La maturité démonstrative interne</p><p>Aucune proposition ne devient constitutive du Corpus tant qu'elle n'a pas satisfait aux exigences de démonstration, de critique et de vérification fixées par la présente Constitution. Une théorie peut être rationnellement établie et demeurer hors du Corpus aussi longtemps qu'elle n'a pas atteint le degré de formalisation, de discussion et de stabilisation requis par les principes méthodologiques de l'École.</p><p>Deuxième condition — La maturité de la réception scientifique</p><p>Certaines vérités, bien que rationnellement établies, ne peuvent être communiquées sans être dénaturées tant que la communauté scientifique n'a pas atteint le niveau de compréhension requis pour les recevoir et les éprouver. Le Voile Ontologique et le Filtrage Sélectif opèrent également à l'échelle historique : la transmission d'une vérité microscopique à une conscience macroscopique saturée exigerait une conversion qualitative que seule l'élévation progressive des capacités collectives d'intelligibilité peut permettre.</p><p>Ainsi, les démonstrations en cours seront publiées progressivement, à mesure qu'elles atteindront le degré de formalisation exigé par les principes méthodologiques de l'École, et selon le rythme où la communauté scientifique sera en mesure de les recevoir et de les éprouver.</p><p>Effet attendu du Programme</p><p>L'un des effets attendus de la diffusion du Programme est de contribuer à l'élévation des capacités collectives d'intelligibilité. Cet effet n'en constitue pas l'objet premier. L'objet du Programme demeure l'intelligibilité elle-même. L'élévation des capacités cognitives collectives en est une conséquence méthodologique, non un programme d'ingénierie morale ou spirituelle.</p><p>Axes du Programme d'Expansion</p><p>Le Programme d'Expansion comprend notamment les chantiers suivants, dont les démonstrations seront versées au Corpus selon les conditions cumulatives énoncées ci-dessus :</p><ul><li>Les sciences du vivant (mécanismes de régulation cellulaire, réplication virale) ;</li><li>La physique fondamentale (phénomènes nucléaires, limites de l'univers matériel) ;</li><li>Les sciences de la complexité (transformations de la matière et répercussions sur le biotope) ;</li><li>La théorie de la connaissance appliquée à la transposition d'échelle (passage des transformations qualitatives intimes aux émergences qualitatives systémiques).</li></ul><p>Ces axes ne constituent pas des promesses dogmatiques. Ils définissent des terrains d'application où la Méthode M est appelée à déployer ses protocoles, selon les mêmes exigences de démonstration, de critique et de vérification qui gouvernent l'ensemble du Programme.</p>"
  },
+ "constitution.article_critique.titre": {
+  "texte": "Le Statut de la critique"
+ },
  "constitution.article_critique.corps": {
   "lexical": {
    "root": {
@@ -3679,6 +4252,9 @@
    }
   },
   "html": "<p>La critique n'est pas extérieure au Programme de Brazzaville. Elle constitue l'un des mécanismes normaux de son développement.</p><p>Toute objection argumentée est accueillie comme une occasion de préciser les concepts, d'améliorer les démonstrations ou de réviser les hypothèses lorsque cela est nécessaire.</p><p>La solidité d'une théorie ne se mesure pas à sa résistance à toute critique, mais à sa capacité à intégrer la discussion sans perdre sa cohérence.</p><p>Le critique externe n'est pas un réfutateur ; il est un révélateur. Il ne déplace pas le centre de gravité de l'œuvre ; il le rend plus visible.</p>"
+ },
+ "constitution.article_organons.titre": {
+  "texte": "Le Statut des Organons futurs"
  },
  "constitution.article_organons.corps": {
   "lexical": {
@@ -3794,6 +4370,9 @@
   },
   "html": "<p>Chaque Organon futur est une application particulière de la présente Constitution. Il n'a pas à redéfinir les fondements.</p><p>Il constitue une démonstration autonome, soumise aux mêmes exigences que le premier Organon (Les Principes Retrouvés).</p><p>Les travaux ultérieurs ne viendront pas répéter le premier corpus. Ils auront pour mission d'en prolonger les principes, d'en éprouver la méthode, d'en enrichir les concepts et d'en étendre progressivement le domaine d'application.</p><p>Principe de fécondité scientifique</p><p>Une théorie ne devient véritablement scientifique que lorsqu'elle est capable de produire davantage qu'elle-même. Sa valeur ne réside pas seulement dans les démonstrations qu'elle contient, mais dans sa capacité à rendre possibles de nouvelles démonstrations, de nouveaux concepts, de nouvelles théories et de nouvelles applications.</p>"
  },
+ "constitution.article_auteur.titre": {
+  "texte": "Le Statut de l'auteur"
+ },
  "constitution.article_auteur.corps": {
   "lexical": {
    "root": {
@@ -3887,6 +4466,9 @@
    }
   },
   "html": "<p>Le chercheur indépendant est le premier serviteur de la Constitution. Il n'a aucun privilège doctrinal.</p><p>Une fois la Constitution posée, le Programme peut, en principe, être poursuivi par d'autres chercheurs qui appliqueront les mêmes exigences méthodologiques, même s'ils contestent certaines démonstrations, en proposent de nouvelles ou révisent le corpus existant.</p><p>L'œuvre cesse d'être seulement celle d'un chercheur particulier. Elle devient la proposition d'un cadre normatif de production, de validation et d'évolution des connaissances.</p><p>L'effacement de l'ego et la posture d'universalité de droit ne sont pas des postures de convenance. Ils sont la condition de possibilité de la continuité scientifique.</p>"
+ },
+ "constitution.article_autorites.titre": {
+  "texte": "Les Autorités de convergence"
  },
  "constitution.article_autorites.corps": {
   "lexical": {
@@ -4406,6 +4988,9 @@
   },
   "html": "<p>La Science Métamoderne ne naît pas du vide. Elle s'assimile à la lignée des précurseurs universels qui, sur les cinq continents, ont su identifier les angles morts du réductionnisme et réinstituer les conditions de possibilité de l'intelligibilité.</p><p>Ses autorités de convergence s'organisent selon trois champs épistémiques complémentaires, chacun apportant une pièce décisive à l'édifice.</p><p>Dans le champ de l'épistémologie et de la systémique</p><ul><li><strong>René Thom (France)</strong> — pour la critique de la misère théorique, la modélisation des catastrophes et la réhabilitation de la représentation mentale comme véritable moteur de la découverte scientifique ;</li><li><strong>Pierre Delattre (Belgique)</strong> — pour la théorie générale des systèmes ouverts à éléments discrets, la distinction entre syntaxe mathématique et sémantique conceptuelle, et la formalisation des lois d'interaction topologiques invariantes ;</li><li><strong>Jean-Paul Benzécri (France)</strong> — pour la réhabilitation de l'induction a posteriori libérée des prénotions arbitraires, et la démonstration que l'expérience ne produit pas l'idée mais la juge ;</li><li><strong>Claude Bernard (France)</strong> — pour l'exigence de l'idée directrice préalable, la découverte du milieu intérieur comme thermostat de non-contradiction structurelle du vivant, et la démonstration que « quand nous croyons induire, nous déduisons réellement » ;</li><li><strong>Georges Duhamel (France)</strong> — pour la vigilance critique face à l'aliénation par le machinisme et la routine technique, et la réaffirmation de la primauté de l'intelligibilité sur l'opératoire ;</li><li><strong>Thomas Kuhn (États-Unis)</strong> — pour la structure des révolutions scientifiques, la modélisation des changements de paradigmes et l'identification des anomalies comme déclencheurs de la reconstruction théorique ;</li><li><strong>Ludwig von Bertalanffy (Autriche)</strong> — pour la théorie générale des systèmes et la formalisation des principes d'organisation communs aux systèmes vivants, physiques et sociaux.</li></ul><p>Dans le champ des sciences du vivant et du transformisme</p><ul><li><strong>Jules Carles (France)</strong> — pour son œuvre majeure Le Transformisme, qui interroge les mécanismes profonds de l'évolution des espèces et la réconciliation des héritages lamarckien et darwinien. C'est précisément à partir de l'étude intensive de son ouvrage (1988-1989, au Centre culturel français de Brazzaville) que la présente recherche a formulé, dès l'âge de dix-neuf ans, la loi organogénétique unifiant ces deux traditions sous le concept de Lamarco-darwinisme, posant ainsi les fondements biologiques de la théorie générale de la conversion du principiel en phénoménal.</li></ul><p>Dans le champ de la décolonisation épistémique et de la réhabilitation des matrices endogènes</p><ul><li><strong>Samir Amin (Égypte/France)</strong> — pour la déconstruction de l'eurocentrisme épistémique, la théorie de l'accumulation à l'échelle mondiale et la démonstration que l'universel n'a pas de centre géographique exclusif ;</li><li><strong>Cheikh Anta Diop (Sénégal)</strong> — pour l'unité épistémologique de l'Afrique, la réhabilitation des matrices scientifiques de Kemet et la démonstration de l'antériorité des formalisations africaines dans les domaines de la mathématique, de l'astronomie et de la médecine ;</li><li><strong>Jan Assmann (Allemagne) et Théophile Obenga (Congo)</strong> — pour la réhabilitation de la Maât comme opérateur logique universel de non-contradiction structurelle, arrachée au folklore mémoriel pour être élevée au rang de modèle cybernétique d'harmonie systémique et de justice effective.</li></ul><p>Posture méthodologique</p><p>Ce n'est pas la position géographique qui donne la vue. C'est la moindre adhérence cognitive aux routines positivistes, une posture partagée par tous ces savants à travers les cinq continents.</p><p>La Science Métamoderne ne se substitue à aucune de ces autorités. Elle les articule en une architecture supérieure qui formalise ce qu'elles ont en commun lorsqu'elles produisent de l'intelligibilité. Elle ne juge pas les sciences ; elle cherche à rendre intelligible l'intelligibilité des sciences.</p>"
  },
+ "constitution.article_cloture_ethique.titre": {
+  "texte": "La Formule de clôture éthique"
+ },
  "constitution.article_cloture_ethique.corps": {
   "lexical": {
    "root": {
@@ -4479,6 +5064,9 @@
    }
   },
   "html": "<p>La Science Métamoderne ne demande aucune adhésion préalable. Elle n'invite pas à une croyance. Elle propose une méthode. Elle ne prétend pas clore la recherche. Elle ouvre un espace où la recherche peut se poursuivre selon des règles explicites, discutables et continuellement perfectibles.</p><p>« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »</p><p>Cette formule constitue le pacte éthique fondateur de l'École. Elle interdit toute affirmation arbitraire, toute conclusion insuffisamment démontrée, toute posture dogmatique. Elle gouverne aussi bien la recherche que son exposition.</p>"
+ },
+ "constitution.article_continuite.titre": {
+  "texte": "Le Principe de continuité de l'intelligibilité"
  },
  "constitution.article_continuite.corps": {
   "lexical": {
@@ -4594,6 +5182,9 @@
   },
   "html": "<p>L'intelligibilité ne constitue pas un état acquis une fois pour toutes. Elle est un processus continu.</p><p>Elle se découvre. Elle se démontre. Elle se transmet. Elle s'institue. Elle se développe.</p><p>Toute tradition scientifique durable est celle qui parvient à organiser cette continuité sans jamais interrompre le dialogue entre les principes, les phénomènes, la démonstration et la critique.</p><p>La vocation de la Science Métamoderne est d'expliciter les conditions de cette continuité afin que la recherche de l'intelligibilité puisse devenir elle-même un objet de science.</p><p>Le Programme de Brazzaville n'est pas un programme destiné à résoudre une liste de problèmes. Il est un programme destiné à augmenter durablement la capacité de l'humanité à produire de l'intelligibilité.</p>"
  },
+ "constitution.disposition_finale.titre": {
+  "texte": "Disposition finale"
+ },
  "constitution.disposition_finale.corps": {
   "lexical": {
    "root": {
@@ -4687,6 +5278,33 @@
    }
   },
   "html": "<p>La présente Constitution entre en vigueur à la date de sa proclamation.</p><p>Elle ne peut être modifiée que par l'Institut de Brazzaville, sur proposition argumentée de la communauté scientifique de l'École, et selon les mêmes exigences de démonstration et de critique qui gouvernent l'ensemble du Programme.</p><p>Locus : Brazzaville — Juillet 2026</p><p>[Scellé et opposable pour l'éternité des cycles de la raison]</p>"
+ },
+ "constitution.cloture.titre": {
+  "texte": "Appel à l'épreuve"
+ },
+ "constitution.cloture.citation": {
+  "texte": "« La Constitution scientifique de l'École de Brazzaville ne demande pas à être acceptée sur autorité. Elle demande à être éprouvée par la recherche elle-même. »"
+ },
+ "constitution.cloture.bouton": {
+  "texte": "Explorer le Manifeste"
+ },
+ "institution.seo.titre": {
+  "texte": "L'Institution"
+ },
+ "institution.seo.description": {
+  "texte": "L'École de Brazzaville et le Programme de recherche de la Science Métamoderne : architecture à sept niveaux, souveraineté du démontré, privilège optique."
+ },
+ "institution.hero.titre": {
+  "texte": "L’Institution"
+ },
+ "institution.hero.sous_titre": {
+  "texte": "L’École de Brazzaville et le Programme de recherche de la Science Métamoderne"
+ },
+ "institution.hero.exergue": {
+  "texte": "« La Science Métamoderne n’est pas d’abord un ensemble de connaissances ; elle est une méthode d’institution durable de l’intelligibilité. »"
+ },
+ "institution.objet.titre": {
+  "texte": "L’objet unique — l’Intelligibilité"
  },
  "institution.objet.corps": {
   "lexical": {
@@ -4942,6 +5560,12 @@
   },
   "html": "<p>L'École de Brazzaville a pour objet unique et souverain <strong>l'Intelligibilité elle-même</strong>.</p><p>Elle ne se substitue à aucune science particulière. Elle ne juge pas, ne remplace pas et ne valide pas les disciplines scientifiques constituées. Elle reconnaît pleinement leur autonomie, leurs méthodes propres et leurs résultats.</p><p>Son objet est d'un autre ordre. Elle cherche à mettre au jour les structures générales d'intelligibilité qui semblent traverser les processus de découverte, indépendamment des objets particuliers étudiés par chaque discipline. Elle <strong>formalise et restitue</strong> les conditions géométriques, cybernétiques et rationnelles qui rendent simultanément possibles :</p><ul><li>L'apparition des phénomènes ;</li><li>Leur compréhension par l'esprit humain ;</li><li>La connaissance cognitive que nous en prenons ;</li><li>L'articulation des savoirs entre disciplines.</li></ul><p>Cette démarche ne constitue pas une discipline supplémentaire venant s'ajouter à la fragmentation académique. Elle est une <strong>nouvelle architecture de la pensée</strong> et un <strong>Organon de réintégration</strong>. Elle ne se contente pas de décrire les conditions de possibilité des savoirs (épistémologie descriptive) ; elle fournit au chercheur — quelle que soit sa discipline — un Canon de reconstruction lui permettant de remonter activement de ses anomalies vers les principes qui les rendent possibles.</p>"
  },
+ "institution.objet.formule_etiquette": {
+  "texte": "Formule canonique de démarcation"
+ },
+ "institution.objet.formule_citation": {
+  "texte": "« Le métamodernisme culturel cherche à dépasser le conflit entre l’unité et la multiplicité ; la Science Métamoderne cherche à comprendre ce qui rend possible leur intelligibilité commune. »"
+ },
  "institution.objet.distinction": {
   "lexical": {
    "root": {
@@ -5026,6 +5650,9 @@
   },
   "html": "<p>Cette distinction opère par changement de niveau logique (au sens de la théorie des types de Bertrand Russell et de la systémique de Pierre Delattre) :</p><ul><li>Le métamodernisme culturel reste à l'intérieur de la tension (niveau phénoménal) ;</li><li>La Science Métamoderne s'extrait de l'oscillation pour en modéliser la mécanique (niveau principiel).</li></ul>"
  },
+ "institution.architecture.titre": {
+  "texte": "L’architecture institutionnelle à sept niveaux"
+ },
  "institution.architecture.corps": {
   "lexical": {
    "root": {
@@ -5060,6 +5687,27 @@
   },
   "html": "<p>Conformément à la Constitution Scientifique de l'École de Brazzaville, le Programme de recherche s'organise selon une architecture constitutive à sept niveaux, chacun répondant à une fonction spécifique dans l'élaboration, la transmission et le développement de la connaissance :</p>"
  },
+ "institution.architecture.schema_lecture": {
+  "texte": "Les sept niveaux"
+ },
+ "institution.architecture.niveau_etiquette": {
+  "texte": "Niveau {numero}"
+ },
+ "institution.architecture.fonction": {
+  "texte": "Fonction :"
+ },
+ "institution.architecture.question": {
+  "texte": "Question fondamentale :"
+ },
+ "institution.architecture.maxime": {
+  "texte": "« {maxime} »"
+ },
+ "institution.architecture.mouvement_intro": {
+  "texte": "Ces sept niveaux ne sont pas juxtaposés. Ils forment un seul mouvement organique, analogue aux fonctions vitales d’un organisme vivant :"
+ },
+ "institution.souverainete.titre": {
+  "texte": "Le Principe de Souveraineté du Démontré"
+ },
  "institution.souverainete.corps": {
   "lexical": {
    "root": {
@@ -5093,6 +5741,163 @@
    }
   },
   "html": "<p>Le Principe de Souveraineté du Démontré constitue le premier article de la Constitution Scientifique de l'École de Brazzaville. Il s'énonce ainsi :</p>"
+ },
+ "institution.souverainete.encadre_titre": {
+  "texte": "Principe de Souveraineté du Démontré"
+ },
+ "institution.souverainete.encadre": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Dans la Science Métamoderne, le Programme de recherche peut être plus vaste que le Corpus.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les hypothèses peuvent précéder les démonstrations.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les intuitions peuvent orienter les recherches.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les perspectives peuvent ouvrir de nouveaux champs d’investigation.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Mais aucune proposition ne devient constitutive du Corpus tant qu’elle n’a pas atteint le degré de démonstration exigé par la Constitution méthodologique de la Science Métamoderne.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Ainsi, la croissance du savoir ne dépend ni de l’autorité de son auteur, ni de l’ancienneté d’une intuition, ni de la force d’une conviction.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Elle dépend exclusivement de la qualité de sa démonstration, de sa résistance à la critique et de son intégration progressive dans un corpus scientifiquement stabilisé.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Dans la Science Métamoderne, le Programme de recherche peut être plus vaste que le Corpus.</p><p>Les hypothèses peuvent précéder les démonstrations.</p><p>Les intuitions peuvent orienter les recherches.</p><p>Les perspectives peuvent ouvrir de nouveaux champs d’investigation.</p><p>Mais aucune proposition ne devient constitutive du Corpus tant qu’elle n’a pas atteint le degré de démonstration exigé par la Constitution méthodologique de la Science Métamoderne.</p><p>Ainsi, la croissance du savoir ne dépend ni de l’autorité de son auteur, ni de l’ancienneté d’une intuition, ni de la force d’une conviction.</p><p>Elle dépend exclusivement de la qualité de sa démonstration, de sa résistance à la critique et de son intégration progressive dans un corpus scientifiquement stabilisé.</p>"
  },
  "institution.souverainete.portee": {
   "lexical": {
@@ -5218,6 +6023,9 @@
   },
   "html": "<p>Ce principe est redoutable. Il protège définitivement l'École contre toute accusation de dogmatisme. Il interdit à tout censeur de reprocher de ne pas avoir tout publié : ce qui n'est pas dans le Corpus n'y est pas parce qu'il n'a pas encore satisfait aux exigences de la Constitution, non parce qu'il n'existe pas.</p><p>Toute découverte scientifique possède deux temporalités distinctes :</p><ul><li>Le temps de sa démonstration, qui dépend du travail scientifique ;</li><li>Le temps de sa réception, qui dépend de l'histoire des communautés savantes et des conditions historiques, culturelles et cognitives de sa transmission.</li></ul><p>Une science durable doit posséder une théorie de la publication aussi rigoureuse que sa théorie de la découverte.</p>"
  },
+ "institution.privilege_optique.titre": {
+  "texte": "Le Privilège Optique de Brazzaville"
+ },
  "institution.privilege_optique.corps": {
   "lexical": {
    "root": {
@@ -5310,6 +6118,291 @@
   },
   "html": "<p>Penser la refondation de l'intelligibilité depuis Brazzaville et l'Afrique subsaharienne ne constitue pas un repli identitaire, mais l'affirmation d'un <strong>Privilège Optique</strong> partagé par une lignée de précurseurs sur les cinq continents.</p><p>Écrit depuis Brazzaville, ce travail ne revendique aucune centralité géographique. Le locus énonciatif du Fronton n'est pas un grief identitaire ; il est un privilège optique, une position de moindre adhérence cognitive aux routines positivistes des centres académiques dominants. L'universel n'a pas de centre. Il se démontre par la nécessité interne de sa structure.</p><p>La désoccidentalisation méthodologique opérée ici n'est pas une démarche identitaire ou militante ; elle est strictement épistémologique. Elle vise à arracher les fondements rationnels endogènes au folklore pour restituer leur portée logico-mathématique originelle.</p>"
  },
+ "institution.privilege_optique.lignee_titre": {
+  "texte": "L’Universalité de la Lignée des Précurseurs"
+ },
+ "institution.privilege_optique.lignee": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "En s’appuyant sur les ruptures épistémologiques de ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "René Thom",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Pierre Delattre",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Belgique), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Jean-Paul Benzécri",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Claude Bernard",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Georges Duhamel",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Jules Carles",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Thomas Kuhn",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (États-Unis), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Ludwig von Bertalanffy",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Autriche), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Samir Amin",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Égypte/France), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Cheikh Anta Diop",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Sénégal), ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Jan Assmann",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Allemagne) et ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Théophile Obenga",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " (Congo), cette démarche s’assimile à ces esprits qui, d’Europe en Amérique, de l’Inde à l’Afrique, ont su identifier les angles morts du réductionnisme.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Ce n’est pas la position géographique qui donne la vue. C’est la moindre adhérence cognitive aux routines positivistes, une posture partagée par tous ces savants à travers les cinq continents.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>En s’appuyant sur les ruptures épistémologiques de <strong>René Thom</strong> (France), <strong>Pierre Delattre</strong> (Belgique), <strong>Jean-Paul Benzécri</strong> (France), <strong>Claude Bernard</strong> (France), <strong>Georges Duhamel</strong> (France), <strong>Jules Carles</strong> (France), <strong>Thomas Kuhn</strong> (États-Unis), <strong>Ludwig von Bertalanffy</strong> (Autriche), <strong>Samir Amin</strong> (Égypte/France), <strong>Cheikh Anta Diop</strong> (Sénégal), <strong>Jan Assmann</strong> (Allemagne) et <strong>Théophile Obenga</strong> (Congo), cette démarche s’assimile à ces esprits qui, d’Europe en Amérique, de l’Inde à l’Afrique, ont su identifier les angles morts du réductionnisme.</p><p>Ce n’est pas la position géographique qui donne la vue. C’est la moindre adhérence cognitive aux routines positivistes, une posture partagée par tous ces savants à travers les cinq continents.</p>"
+ },
+ "institution.privilege_optique.autorites_titre": {
+  "texte": "Les autorités de convergence épistémologique"
+ },
+ "institution.privilege_optique.champ": {
+  "texte": "{champ} :"
+ },
+ "institution.privilege_optique.origine": {
+  "texte": "({origine})"
+ },
+ "institution.demarche.titre": {
+  "texte": "La démarche épistémologique"
+ },
  "institution.demarche.equation": {
   "lexical": {
    "root": {
@@ -5343,6 +6436,12 @@
    }
   },
   "html": "<p>La Science Métamoderne applique l'équation systémique :</p>"
+ },
+ "institution.demarche.formule_sigma": {
+  "texte": "Σ = M(F(V(Σ)))"
+ },
+ "institution.demarche.formule_sigma_lecture": {
+  "texte": "Sigma égale M de F de V de Sigma"
  },
  "institution.demarche.transposition": {
   "lexical": {
@@ -5398,6 +6497,12 @@
   },
   "html": "<p>Elle démontre comment le Substratum Commun (Σ), altéré par le Voile Ontologique (V) et le Filtrage institutionnel (F), peut être mathématiquement recalculé et restauré par la Méthode Reconstructive (M).</p><p>Dans le champ de la régulation des systèmes complexes, de la justice et de l'équité procédurale, l'équation universelle se transpose sous sa forme anthropologique et cybernétique originelle :</p>"
  },
+ "institution.demarche.formule_maat": {
+  "texte": "Maât = M(F(V(Maât)))"
+ },
+ "institution.demarche.formule_maat_lecture": {
+  "texte": "Maât égale M de F de V de Maât"
+ },
  "institution.demarche.analogie": {
   "lexical": {
    "root": {
@@ -5432,6 +6537,9 @@
   },
   "html": "<p>Cette transposition n'est pas une analogie poétique. Elle est la démonstration que les principes qui gouvernent l'intelligibilité du réel gouvernent également l'intelligibilité des systèmes normatifs. La Maât, réhabilitée hors de toute assignation folklorique et adossée aux travaux de Jan Assmann et Théophile Obenga, est l'opérateur universel de non-contradiction structurelle.</p>"
  },
+ "institution.demarche.canon_titre": {
+  "texte": "La démarche épistémologique obéit au Canon de la Découverte en sept principes :"
+ },
  "institution.demarche.canon": {
   "lexical": {
    "root": {
@@ -5465,6 +6573,51 @@
    }
   },
   "html": "<p>Ce Canon ne décrit pas la science depuis l'extérieur ; il fournit au chercheur — quelle que soit sa discipline — un Organon de réintégration lui permettant de remonter activement de ses anomalies vers les principes qui les rendent possibles.</p>"
+ },
+ "institution.cloture.titre": {
+  "texte": "Appel à l’épreuve"
+ },
+ "institution.cloture.citation_1": {
+  "texte": "« La Science Métamoderne ne demande aucune adhésion préalable. Elle invite à une enquête. Elle ne sollicite pas une croyance. Elle propose une méthode."
+ },
+ "institution.cloture.citation_2": {
+  "texte": "Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »"
+ },
+ "institution.cloture.bouton_constitution": {
+  "texte": "Lire la Constitution Scientifique"
+ },
+ "institution.cloture.bouton_manifeste": {
+  "texte": "Découvrir le Manifeste"
+ },
+ "institution.cloture.bouton_ouvrage": {
+  "texte": "Explorer l’Ouvrage"
+ },
+ "note_epistemologique.seo.titre": {
+  "texte": "Note Épistémologique"
+ },
+ "note_epistemologique.seo.description": {
+  "texte": "Restituer les conditions de l'intelligibilité : primauté du cerveau sur le laboratoire, Canon de la Découverte en sept principes, sextuor de la structuration intime."
+ },
+ "note_epistemologique.hero.titre": {
+  "texte": "Note épistémologique"
+ },
+ "note_epistemologique.hero.sous_titre": {
+  "texte": "Restituer les conditions de l’intelligibilité"
+ },
+ "note_epistemologique.hero.exergue": {
+  "texte": "« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »"
+ },
+ "note_epistemologique.sommaire.posture": {
+  "texte": "Posture métascientifique"
+ },
+ "note_epistemologique.sommaire.axiome": {
+  "texte": "Axiome central"
+ },
+ "note_epistemologique.sommaire.canon": {
+  "texte": "Le Canon en 7 principes"
+ },
+ "note_epistemologique.posture.titre": {
+  "texte": "Posture métascientifique — l’intelligibilité de l’intelligibilité"
  },
  "note_epistemologique.posture.corps": {
   "lexical": {
@@ -5558,6 +6711,9 @@
   },
   "html": "<p>L'École de Brazzaville n'a pas pour vocation de se substituer, de juger ou de valider les disciplines scientifiques constituées. Elle reconnaît pleinement leur autonomie, leurs méthodes propres et l'exactitude de leurs résultats. Son objet est d'un autre ordre : elle se déploie comme une science qui cherche à <strong>rendre intelligible l'intelligibilité des sciences</strong>.</p><p>L'esprit humain, lorsqu'il est livré à son propre sort, abandonné à son propre dénuement et laissé à sa propre merci, subit le chaos des faits bruts et s'enferme dans des tautologies restrictives. Contre cette entropie cognitive, la Science Métamoderne propose une hypothèse structurale générale : les grandes découvertes de l'histoire humaine, par-delà la diversité de leurs objets particuliers, partagent des invariants structurels profonds dans leur mécanisme de production de la connaissance.</p><p>Cette Note Épistémologique a pour objet de formaliser ces invariants et de les soumettre à l'épreuve de l'examen critique. Elle ne décrit pas la science depuis l'extérieur ; elle en restitue l'architecture, en formalise les médiations et en guide la remontée.</p>"
  },
+ "note_epistemologique.axiome.titre": {
+  "texte": "Axiome central — la primauté du cerveau sur le laboratoire"
+ },
  "note_epistemologique.axiome.corps": {
   "lexical": {
    "root": {
@@ -5629,6 +6785,9 @@
    }
   },
   "html": "<p>L'École de Brazzaville affirme un principe fondateur que l'illusion empiriste moderne a progressivement occulté : <strong>l'accumulation brute de faits issus du hasard de l'instrumentation technique ne produit jamais de sens</strong>.</p><p>L'expérience n'engendre pas le concept ; elle se contente d'en valider ou d'en falsifier la portée. Le Monde Observable (S) reçoit sa signification de l'Architecture Préalable d'Intelligibilité forgée par l'activité rationnelle de l'esprit. Sans prémisse majeure conçue a priori, la recherche scientifique s'abîme dans une pure description phénoménale privée de profondeur ontologique.</p>"
+ },
+ "note_epistemologique.axiome.encadre": {
+  "texte": "Le laboratoire ne crée pas l’ordre ; il juge l’ordre que l’intelligence a d’abord reconnu sous le Voile."
  },
  "note_epistemologique.axiome.thom": {
   "lexical": {
@@ -5702,6 +6861,123 @@
   },
   "html": "<p>Comme le soulignait René Thom, le progrès scientifique est avant tout une affaire de représentation mentale partielle des phénomènes, et non de simple manipulation technique. Comme le démontrait Pierre Delattre, le « secret » des expériences cruciales ne réside pas ailleurs que dans le choix judicieux des paramètres significatifs, dicté par l'architecture conceptuelle préalable. Comme l'observait Claude Bernard, la découverte scientifique procède d'une <strong>rationnelle interprétation mentale</strong> qui précède et gouverne l'expérience ; quand nous croyons induire, nous déduisons réellement ; seulement l'expérimentateur se dirige d'après un principe supposé ou provisoire.</p><p>Ces trois autorités de convergence verrouillent définitivement la primauté de l'intelligibilité sur l'opératoire.</p>"
  },
+ "note_epistemologique.principes.titre": {
+  "texte": "Les deux principes suprêmes d’organisation"
+ },
+ "note_epistemologique.principes.unite_titre": {
+  "texte": "Principe d’Unité Structurelle (Généralisation)"
+ },
+ "note_epistemologique.principes.unite_maxime": {
+  "texte": "« Toutes les échelles du réel obéissent à une même loi organique. »"
+ },
+ "note_epistemologique.principes.unite_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le fragment isolé n’a pas de sens intelligible hors de sa relation avec la totalité (Σ). Cette loi traverse la physique, la biologie, le droit et les sciences sociales. L’isomorphisme des découvertes à travers les disciplines n’est pas un hasard ; il est le signe que l’Unité Structurelle Absolue (Σ) préexiste à la fragmentation du Voile et du Filtrage.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Le fragment isolé n’a pas de sens intelligible hors de sa relation avec la totalité (Σ). Cette loi traverse la physique, la biologie, le droit et les sciences sociales. L’isomorphisme des découvertes à travers les disciplines n’est pas un hasard ; il est le signe que l’Unité Structurelle Absolue (Σ) préexiste à la fragmentation du Voile et du Filtrage.</p>"
+ },
+ "note_epistemologique.principes.polarite_titre": {
+  "texte": "Principe de Polarité Complémentaire (Dualité)"
+ },
+ "note_epistemologique.principes.polarite_maxime": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "« Toute réalité intelligible comporte deux pôles corrélatifs et oscillants (π₁ ↔ π₂). »",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>« Toute réalité intelligible comporte deux pôles corrélatifs et oscillants (π₁ ↔ π₂). »</p>"
+ },
+ "note_epistemologique.principes.polarite_corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’analyse procède par distinction (π₁) et la synthèse opère par relation (π₂). Ces deux polarités ne s’opposent pas ; elles sont les deux battements d’un même cœur rationnel. L’erreur fondamentale des cadres de pensée classiques est de croire que la relation naît de la rencontre d’éléments préexistants. Le paradigme métamoderne affirme l’inverse : l’unité produit la relation, et la relation définit les termes.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>L’analyse procède par distinction (π₁) et la synthèse opère par relation (π₂). Ces deux polarités ne s’opposent pas ; elles sont les deux battements d’un même cœur rationnel. L’erreur fondamentale des cadres de pensée classiques est de croire que la relation naît de la rencontre d’éléments préexistants. Le paradigme métamoderne affirme l’inverse : l’unité produit la relation, et la relation définit les termes.</p>"
+ },
+ "note_epistemologique.canon.titre": {
+  "texte": "Le Théorème de la Genèse Scientifique — le Canon en 7 principes"
+ },
  "note_epistemologique.theoreme.corps": {
   "lexical": {
    "root": {
@@ -5735,6 +7011,15 @@
    }
   },
   "html": "<p>Toute authentique découverte s'élabore selon un parcours inductif-rationnel vertical indéfectible. Ce processus algorithmique est modélisé par le Canon de la Découverte en 7 principes :</p>"
+ },
+ "note_epistemologique.canon.frise_aria": {
+  "texte": "Les sept étapes du Canon de la Découverte"
+ },
+ "note_epistemologique.triade.titre": {
+  "texte": "Rectification de la triade dialectique"
+ },
+ "note_epistemologique.triade.sous_titre": {
+  "texte": "Invalidation du modèle hégélien"
  },
  "note_epistemologique.triade.corps": {
   "lexical": {
@@ -5887,6 +7172,9 @@
   },
   "html": "<p>Le sens commun moderne, pollué par la dialectique hégélienne (Thèse → Antithèse → Synthèse), croit que la « thèse » est le point de départ d'un raisonnement. L'étude étymologique et historique rétablit la vérité scientifique :</p><ul><li><strong>La Thèse (thésis)</strong> n'est pas le commencement. C'est l'action de poser, de soutenir et d'établir. C'est le terme moyen d'un processus.</li><li><strong>Ce qui précède la thèse, c'est l'Hypothèse (hyppo, « en deçà »).</strong> L'hypothèse est l'interprétation mentale anticipée (Claude Bernard).</li></ul><p><strong>La séquence réelle de la découverte :</strong> Intuition/Paradoxe → Hypothèse → Thésis (démonstration) → Expérantia (vérification)</p><p>En confondant la thèse (le résultat soutenu) avec le point de départ, la science moderne s'est interdite de penser les conditions de possibilité des phénomènes. Elle s'est condamnée à décrire les effets sans comprendre les causes.</p>"
  },
+ "note_epistemologique.sextuor.titre": {
+  "texte": "Le sextuor de la structuration intime"
+ },
  "note_epistemologique.sextuor.corps": {
   "lexical": {
    "root": {
@@ -5955,6 +7243,30 @@
   },
   "html": "<p>La Science Métamoderne ne demande aucune adhésion préalable. Elle n'invite pas à une croyance. Elle propose une méthode. Elle ne prétend pas clore la recherche. Elle ouvre un espace où la recherche peut se poursuivre selon des règles explicites, discutables et continuellement perfectibles.</p>"
  },
+ "note_epistemologique.cloture.texte": {
+  "texte": "Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé."
+ },
+ "note_epistemologique.cloture.bouton": {
+  "texte": "Découvrir l’Ouvrage"
+ },
+ "concepts.seo.titre": {
+  "texte": "Concepts Stabilisés"
+ },
+ "concepts.seo.description": {
+  "texte": "L'Infrastructure Lexicale de l'École de Brazzaville : 20 concepts stabilisés en quatre strates (ontologie, épistémologie, méthodologie, arsenal opératoire)."
+ },
+ "concepts.hero.titre": {
+  "texte": "Concepts stabilisés"
+ },
+ "concepts.hero.sous_titre": {
+  "texte": "Infrastructure lexicale — les 20 piliers de la Science Métamoderne, version 4.0 enrichie"
+ },
+ "concepts.index.titre": {
+  "texte": "Index des 20 concepts"
+ },
+ "concepts.hero.exergue": {
+  "texte": "« La précision sémantique est la condition absolue de l’intégrité de la structure. »"
+ },
  "concepts.introduction.corps": {
   "lexical": {
    "root": {
@@ -6008,6 +7320,82 @@
    }
   },
   "html": "<p>Ce vocabulaire ne constitue pas un simple glossaire. Il est le système d'exploitation de la Science Métamoderne. Ces vingt concepts, classés par strates logiques, définissent les conditions de possibilité de l'intelligibilité et les règles de l'action normative.</p><p>Chaque entrée est verrouillée contre toute dérive disciplinaire, toute spéculation gratuite et toute confusion avec les courants métamodernes culturels contemporains. Le visiteur dispose ici du dictionnaire d'autorité de l'École de Brazzaville : chaque définition est opposable et immunisée contre l'arbitraire.</p>"
+ },
+ "concepts.strates.aria": {
+  "texte": "Strates"
+ },
+ "concepts.index.aria": {
+  "texte": "Index des concepts"
+ },
+ "concepts.strate.nombre": {
+  "texte": "{n} concepts"
+ },
+ "concepts.cloture.texte": {
+  "texte": "« Ces concepts ne demandent pas à être acceptés sur autorité. Ils demandent à être éprouvés dans la rigueur de leur application. »"
+ },
+ "ouvrage.hero.titre": {
+  "texte": "L’Ouvrage"
+ },
+ "ouvrage.hero.sous_titre": {
+  "texte": "Les Principes Retrouvés — De l’axiomatique pure à l’application juridictionnelle"
+ },
+ "ouvrage.hero.bouton": {
+  "texte": "Lire en accès libre"
+ },
+ "ouvrage.hero.exergue": {
+  "texte": "« Ce diptyque ne constitue pas une théorie supplémentaire parmi les théories existantes. Il inaugure un Programme de recherche consacré à l’étude de l’intelligibilité elle-même. »"
+ },
+ "ouvrage.sommaire.autorites": {
+  "texte": "Les 12 Autorités de Convergence"
+ },
+ "ouvrage.sommaire.programme": {
+  "texte": "Le Programme de recherche"
+ },
+ "ouvrage.textes_liminaires.titre": {
+  "texte": "Les textes liminaires du diptyque"
+ },
+ "ouvrage.textes_liminaires.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Le diptyque est encadré par des textes liminaires qui en garantissent la réception et la cohérence :",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Le diptyque est encadré par des textes liminaires qui en garantissent la réception et la cohérence :</p>"
+ },
+ "ouvrage.acces_libre.bouton_lire": {
+  "texte": "Lire le {tome}"
+ },
+ "ouvrage.acces_libre.compteur": {
+  "texte": "{n} textes en accès libre"
+ },
+ "ouvrage.introduction.titre": {
+  "texte": "Introduction au diptyque"
  },
  "ouvrage.introduction.corps": {
   "lexical": {
@@ -6222,7 +7610,22 @@
   },
   "html": "<p><em>Les Principes Retrouvés</em> ne se présentent ni comme une doctrine achevée, ni comme un système clos, ni comme une philosophie supplémentaire des sciences. Ils se constituent comme le <strong>premier traité systématique</strong> issu d'un Programme Général de Recherche ayant pour objet l'intelligibilité elle-même.</p><p>L'architecture de l'ensemble repose sur une symétrie rigoureuse entre deux mouvements complémentaires :</p><p><strong>Le Tome I</strong> pose l'ontologie et l'épistémologie fondamentales. Il formalise la matrice Σ et déploie le Canon de la Découverte en sept principes. Il constitue l'<strong>Organon</strong> — l'instrument de recherche de second ordre qui permet au chercheur, quelle que soit sa discipline, de remonter de ses anomalies vers les principes qui les rendent possibles.</p><p><strong>Le Tome II</strong> transpose cette axiomatique dans le laboratoire du droit constitutionnel. Il formule le <strong>Théorème de la Validité Inversée</strong> et codifie la Proactivité Judiciaire Encadrée. Il constitue le terrain d'essai clinique où la méthode est éprouvée sur les pathologies systémiques de l'État de droit.</p><p>Ensemble, ces deux volumes ne clôturent pas la recherche. Ils ouvrent un espace où la recherche peut se poursuivre selon des règles explicites, discutables et continuellement perfectibles. Si cette démarche est fondée, <em>Les Principes Retrouvés</em> ne marquent pas l'achèvement d'une théorie. Ils constituent l'acte fondateur d'un programme de recherche appelé à produire, par la même méthode et sous les mêmes exigences, une série de démonstrations nouvelles dans les différents champs de la connaissance.</p>"
  },
- "ouvrage.textes_liminaires.corps": {
+ "ouvrage.presentation.titre": {
+  "texte": "Présentation symétrique du diptyque"
+ },
+ "ouvrage.presentation.tome_i.etiquette": {
+  "texte": "Tome I"
+ },
+ "ouvrage.presentation.tome_i.titre": {
+  "texte": "L’Organon"
+ },
+ "ouvrage.presentation.tome_i.sous_titre": {
+  "texte": "Science de l’Intelligibilité — Traité d’épistémologie fondamentale et de métaphysique logico-mathématique"
+ },
+ "ouvrage.presentation.tome_i.question": {
+  "texte": "Pourquoi le monde produit-il de plus en plus de données et de moins en moins de sens ?"
+ },
+ "ouvrage.presentation.tome_i.corps": {
   "lexical": {
    "root": {
     "children": [
@@ -6233,7 +7636,107 @@
         "format": 0,
         "mode": "normal",
         "style": "",
-        "text": "Le diptyque est encadré par des textes liminaires qui en garantissent la réception et la cohérence :",
+        "text": "De l’astronomie à la biologie, de la gestion de l’État aux sciences normatives, la rationalité contemporaine traverse une crise invisible mais profonde : l’hyperspécialisation a fragmenté la connaissance. Chaque discipline s’est murée dans son jargon, s’avérant structurellement incapable de communiquer avec les domaines limitrophes. Nous mesurons tout, nous calculons tout, mais nous ne comprenons plus comment le Tout tient ensemble. C’est la « misère théorique » de notre époque.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Né au cœur de l’École de Brazzaville, ce livre pose les fondements d’une rupture épistémologique majeure : la Science Métamoderne, ayant pour objet unique l’intelligibilité elle-même. Étrangère aux postures esthétiques et aux oscillations sensibles du métamodernisme culturel, elle s’impose comme la première tentative systématique de faire de l’intelligibilité le centre de gravité d’une science générale.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "À travers la formulation de son Équation Cyclique Universelle Σ = M(F(V(Σ))), cette recherche démontre que le Réel n’est pas un chaos aléatoire, mais une structure unifiée dont les lois préexistent à l’observation. Le Substratum Commun (Σ) ne s’impose pas comme un objet observé, mais comme une condition de possibilité déduite par nécessité heuristique : la cohérence du réel et de la connaissance devient difficilement pensable sans lui.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Contre la méthode empirique classique et la triade dialectique hégélienne, cet ouvrage réhabilite la primauté absolue du cerveau sur le laboratoire et déploie le Canon de la Découverte en sept principes. Il ne décrit pas la science depuis l’extérieur ; il fournit au chercheur — quelle que soit sa discipline — un Organon de réintégration lui permettant de remonter activement de ses anomalies vers les principes qui les rendent possibles.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "S’assimilant à la lignée des précurseurs universels qui, d’Europe en Amérique, de l’Inde à l’Afrique, ont su identifier les angles morts du réductionnisme — René Thom, Pierre Delattre, Jean-Paul Benzécri, Claude Bernard, Georges Duhamel, Jules Carles, Thomas Kuhn, Ludwig von Bertalanffy, Samir Amin, Cheikh Anta Diop, Jan Assmann, Théophile Obenga — ce travail ne sollicite pas la permission des paradigmes saturés. Il ne demande pas à être accepté sur autorité.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Il demande à être éprouvé.",
         "type": "text",
         "version": 1
        }
@@ -6254,7 +7757,202 @@
     "version": 1
    }
   },
-  "html": "<p>Le diptyque est encadré par des textes liminaires qui en garantissent la réception et la cohérence :</p>"
+  "html": "<p>De l’astronomie à la biologie, de la gestion de l’État aux sciences normatives, la rationalité contemporaine traverse une crise invisible mais profonde : l’hyperspécialisation a fragmenté la connaissance. Chaque discipline s’est murée dans son jargon, s’avérant structurellement incapable de communiquer avec les domaines limitrophes. Nous mesurons tout, nous calculons tout, mais nous ne comprenons plus comment le Tout tient ensemble. C’est la « misère théorique » de notre époque.</p><p>Né au cœur de l’École de Brazzaville, ce livre pose les fondements d’une rupture épistémologique majeure : la Science Métamoderne, ayant pour objet unique l’intelligibilité elle-même. Étrangère aux postures esthétiques et aux oscillations sensibles du métamodernisme culturel, elle s’impose comme la première tentative systématique de faire de l’intelligibilité le centre de gravité d’une science générale.</p><p>À travers la formulation de son Équation Cyclique Universelle Σ = M(F(V(Σ))), cette recherche démontre que le Réel n’est pas un chaos aléatoire, mais une structure unifiée dont les lois préexistent à l’observation. Le Substratum Commun (Σ) ne s’impose pas comme un objet observé, mais comme une condition de possibilité déduite par nécessité heuristique : la cohérence du réel et de la connaissance devient difficilement pensable sans lui.</p><p>Contre la méthode empirique classique et la triade dialectique hégélienne, cet ouvrage réhabilite la primauté absolue du cerveau sur le laboratoire et déploie le Canon de la Découverte en sept principes. Il ne décrit pas la science depuis l’extérieur ; il fournit au chercheur — quelle que soit sa discipline — un Organon de réintégration lui permettant de remonter activement de ses anomalies vers les principes qui les rendent possibles.</p><p>S’assimilant à la lignée des précurseurs universels qui, d’Europe en Amérique, de l’Inde à l’Afrique, ont su identifier les angles morts du réductionnisme — René Thom, Pierre Delattre, Jean-Paul Benzécri, Claude Bernard, Georges Duhamel, Jules Carles, Thomas Kuhn, Ludwig von Bertalanffy, Samir Amin, Cheikh Anta Diop, Jan Assmann, Théophile Obenga — ce travail ne sollicite pas la permission des paradigmes saturés. Il ne demande pas à être accepté sur autorité.</p><p>Il demande à être éprouvé.</p>"
+ },
+ "ouvrage.presentation.tome_i.lien": {
+  "texte": "Lire les textes liminaires"
+ },
+ "ouvrage.presentation.tome_ii.etiquette": {
+  "texte": "Tome II · Le Laboratoire Juridique"
+ },
+ "ouvrage.presentation.tome_ii.titre": {
+  "texte": "La saisine d'office, l'autosaisine et l'action positive du juge constitutionnel"
+ },
+ "ouvrage.presentation.tome_ii.sous_titre": {
+  "texte": "Théorie générale et formalisation d'un principe universel de proactivité judiciaire encadrée"
+ },
+ "ouvrage.presentation.tome_ii.question": {
+  "texte": "Le droit constitutionnel n’est plus capable de nous protéger. Comment le réparer ?"
+ },
+ "ouvrage.presentation.tome_ii.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Enfermé dans le cul-de-sac du positivisme abstrait, le constitutionnalisme moderne s’est transformé en une simple bureaucratie textuelle. Les cours de justice et les parlements excellent à vérifier la conformité des procédures, mais restent aveugles aux injustices réelles qui consument la société.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Sous prétexte de neutralité, le formalisme kelsénien est devenu le complice silencieux de l’invisibilisation des violations du pacte social.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Dans ce second volume, cette recherche transforme le droit en un véritable laboratoire systémique et formule une loi implacable, le Théorème de la Validité Inversée : V(S) = C(S) × E(S). L’annulation de l’effectivité sémantique emporte mathématiquement l’invalidation absolue de la validité globale. Une Constitution de papier ne vaut rien si ses promesses ne sont pas concrètement vécues sur le terrain.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "S’appuyant sur l’isomorphisme de l’archipel des laboratoires mondiaux — de la Public Interest Litigation indienne à l’Estado de Cosas Inconstitucional colombien, du contrôle de conventionnalité ex officio mexicain aux constitutions transformatives sud-africaine et kenyane, de l’autosaisine béninoise à l’Existenzminimum allemand, jusqu’à la dissidence constructive américaine et à la lecture corrective canadienne — cet ouvrage réhabilite la Maât, science universelle de la non-contradiction structurelle de Rang A.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Ce traité dote le praticien abandonné à son propre dénuement d’un arsenal d’action infaillible, démontrant pourquoi l’autosaisine et la saisine d’office du juge constitutionnel face à l’Urgence Caractérisée (Gravité Systémique, Irréparabilité des droits, Carence Chronique du législateur) constituent une obligation cybernétique de rétroaction négative face à l’entropie de l’Isfet.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "L’analyse clinique du procès de Nelson Mandela à Rivonia (1963-1964) fournit l’illustration historique suprême de la collision entre le Syllogisme Dégradé de la Cour de Pretoria et le Syllogisme Réel de la Majeure universelle de la dignité humaine.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Écrit depuis Brazzaville, ce travail ne revendique aucune centralité géographique. Le locus énonciatif du Fronton n’est pas un grief identitaire ; il est un privilège optique, une position de moindre adhérence aux routines cognitives des centres académiques dominants. L’universel n’a pas de centre. Il se démontre par la nécessité interne de sa structure.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Ce livre ne demande pas à être accepté sur autorité. Il exige d’être éprouvé.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Enfermé dans le cul-de-sac du positivisme abstrait, le constitutionnalisme moderne s’est transformé en une simple bureaucratie textuelle. Les cours de justice et les parlements excellent à vérifier la conformité des procédures, mais restent aveugles aux injustices réelles qui consument la société.</p><p>Sous prétexte de neutralité, le formalisme kelsénien est devenu le complice silencieux de l’invisibilisation des violations du pacte social.</p><p>Dans ce second volume, cette recherche transforme le droit en un véritable laboratoire systémique et formule une loi implacable, le Théorème de la Validité Inversée : V(S) = C(S) × E(S). L’annulation de l’effectivité sémantique emporte mathématiquement l’invalidation absolue de la validité globale. Une Constitution de papier ne vaut rien si ses promesses ne sont pas concrètement vécues sur le terrain.</p><p>S’appuyant sur l’isomorphisme de l’archipel des laboratoires mondiaux — de la Public Interest Litigation indienne à l’Estado de Cosas Inconstitucional colombien, du contrôle de conventionnalité ex officio mexicain aux constitutions transformatives sud-africaine et kenyane, de l’autosaisine béninoise à l’Existenzminimum allemand, jusqu’à la dissidence constructive américaine et à la lecture corrective canadienne — cet ouvrage réhabilite la Maât, science universelle de la non-contradiction structurelle de Rang A.</p><p>Ce traité dote le praticien abandonné à son propre dénuement d’un arsenal d’action infaillible, démontrant pourquoi l’autosaisine et la saisine d’office du juge constitutionnel face à l’Urgence Caractérisée (Gravité Systémique, Irréparabilité des droits, Carence Chronique du législateur) constituent une obligation cybernétique de rétroaction négative face à l’entropie de l’Isfet.</p><p>L’analyse clinique du procès de Nelson Mandela à Rivonia (1963-1964) fournit l’illustration historique suprême de la collision entre le Syllogisme Dégradé de la Cour de Pretoria et le Syllogisme Réel de la Majeure universelle de la dignité humaine.</p><p>Écrit depuis Brazzaville, ce travail ne revendique aucune centralité géographique. Le locus énonciatif du Fronton n’est pas un grief identitaire ; il est un privilège optique, une position de moindre adhérence aux routines cognitives des centres académiques dominants. L’universel n’a pas de centre. Il se démontre par la nécessité interne de sa structure.</p><p>Ce livre ne demande pas à être accepté sur autorité. Il exige d’être éprouvé.</p>"
+ },
+ "ouvrage.presentation.tome_ii.lien": {
+  "texte": "Lire le liminaire et trois chapitres"
+ },
+ "ouvrage.autorites.titre": {
+  "texte": "L’ancrage doctrinal — Les 12 Autorités de Convergence"
  },
  "ouvrage.autorites.corps": {
   "lexical": {
@@ -6290,6 +7988,9 @@
   },
   "html": "<p>L'œuvre ne naît pas du vide. Elle dialogue avec les plus hautes autorités scientifiques et juridiques pour instituer un nouveau cadre d'intelligibilité. L'ancrage doctrinal s'articule autour de trois champs épistémiques complémentaires : l'épistémologie et la systémique, les sciences du vivant et du transformisme, la décolonisation épistémique et la réhabilitation des matrices endogènes.</p>"
  },
+ "ouvrage.programme.titre": {
+  "texte": "Le Programme de recherche — Noyau et Expansion"
+ },
  "ouvrage.programme.corps": {
   "lexical": {
    "root": {
@@ -6324,6 +8025,18 @@
   },
   "html": "<p>Conformément au Principe de Souveraineté du Démontré scellé dans la Constitution Scientifique de l'École, l'ouvrage distingue rigoureusement deux niveaux :</p>"
  },
+ "ouvrage.programme.noyau.titre": {
+  "texte": "Le Noyau Démontré"
+ },
+ "ouvrage.programme.noyau.sous_titre": {
+  "texte": "Les Principes Retrouvés"
+ },
+ "ouvrage.programme.expansion.titre": {
+  "texte": "Le Programme d’Expansion"
+ },
+ "ouvrage.programme.expansion.sous_titre": {
+  "texte": "Les chantiers émergents"
+ },
  "ouvrage.programme.axes": {
   "lexical": {
    "root": {
@@ -6357,6 +8070,33 @@
    }
   },
   "html": "<p>Ces axes ne constituent pas des promesses dogmatiques. Ils définissent des terrains d'application où la Méthode M est appelée à déployer ses protocoles de recherche, selon les mêmes exigences de démonstration, de critique et de vérification qui ont présidé à l'élaboration des présents travaux.</p>"
+ },
+ "ouvrage.cloture.citation": {
+  "texte": "« La Science Métamoderne ne demande aucune adhésion préalable. Elle invite à une enquête. Elle ne sollicite pas une croyance. Elle propose une méthode. »"
+ },
+ "ouvrage.cloture.lien": {
+  "texte": "Accéder au Laboratoire Doctrinal"
+ },
+ "ouvrage.seo.titre": {
+  "texte": "L'Ouvrage"
+ },
+ "ouvrage.seo.description": {
+  "texte": "Le Diptyque du Noyau Démontré : Tome I (l'Organon) et Tome II (le Laboratoire Juridique). Textes liminaires et chapitres I, II et VII du Tome II en accès libre, et les douze autorités de convergence."
+ },
+ "laboratoire.seo.titre": {
+  "texte": "Laboratoire Doctrinal"
+ },
+ "laboratoire.seo.description": {
+  "texte": "L'Arsenal Opérationnel de l'Institut de Brazzaville : trois Working Papers fondateurs, Guide Technique d'Invocation et Arrêt Pilote, sous politique d'accès hybride."
+ },
+ "laboratoire.hero.titre": {
+  "texte": "Laboratoire Doctrinal"
+ },
+ "laboratoire.hero.sous_titre": {
+  "texte": "L’Arsenal Opérationnel de l’Institut de Brazzaville"
+ },
+ "laboratoire.hero.exergue": {
+  "texte": "« L’intelligibilité théorique se valide par son opérationnalité en arène contentieuse. »"
  },
  "laboratoire.introduction.corps": {
   "lexical": {
@@ -6450,6 +8190,9 @@
   },
   "html": "<p>Ce Laboratoire ne propose pas de simples commentaires académiques. Il met à disposition des praticiens mondiaux — juristes, magistrats, chercheurs, avocats — les instruments concrets de la Méthode Reconstructive (Méthode M).</p><p>Les documents ci-dessous sont conçus pour armer l'intelligence du chercheur et du praticien face aux fictions de clôture des paradigmes saturés. Ils matérialisent le passage de l'Organon théorique (Tome I) au Laboratoire pratique (Tome II), en offrant des protocoles de détection, de qualification et d'action face aux anomalies structurelles.</p><p>Chaque pièce est soumise aux mêmes exigences de démonstration qui ont présidé à l'élaboration des <em>Principes Retrouvés</em>. Aucune ne sollicite une adhésion préalable ; chacune demande à être éprouvée dans la rigueur de son application.</p>"
  },
+ "laboratoire.acces.titre": {
+  "texte": "Politique d’accès hybride"
+ },
  "laboratoire.acces_hybride.corps": {
   "lexical": {
    "root": {
@@ -6502,6 +8245,24 @@
   },
   "html": "<p>Conformément au <strong>Principe de Souveraineté du Démontré</strong> et à la distinction des deux temporalités (temps de la démonstration / temps de la réception), l'accès à l'arsenal obéit à une logique de compartimentation sémantique à trois niveaux.</p>"
  },
+ "laboratoire.acces.ressources": {
+  "texte": "L’arsenal se déploie en cinq ressources souveraines, articulées selon une progression logique."
+ },
+ "laboratoire.code.titre": {
+  "texte": "Accès conditionné — votre code"
+ },
+ "laboratoire.code.texte": {
+  "texte": "Les participants aux modules de formation reçoivent un code d’accès qui débloque les documents intégraux. Saisissez-le ci-dessous."
+ },
+ "laboratoire.working_papers.titre": {
+  "texte": "Les trois Working Papers fondateurs"
+ },
+ "laboratoire.pieces.titre": {
+  "texte": "Les deux pièces opératoires"
+ },
+ "laboratoire.progression.titre": {
+  "texte": "La progression logique de l’arsenal"
+ },
  "laboratoire.progression.corps": {
   "lexical": {
    "root": {
@@ -6553,6 +8314,39 @@
    }
   },
   "html": "<p>L'arsenal se déploie selon une progression rigoureuse qui respecte l'architecture constitutive de la Science Métamoderne. Chaque pièce s'appuie sur la précédente, formant un édifice doctrinal cohérent et opposable. Elle respecte également le <strong>Principe de Souveraineté du Démontré</strong> : l'accès aux outils opérationnels est subordonné à la maîtrise préalable des fondements épistémologiques.</p>"
+ },
+ "laboratoire.cloture.texte": {
+  "texte": "« Les outils présentés dans ce Laboratoire ne demandent pas à être acceptés sur autorité. Ils demandent à être éprouvés dans la rigueur de leur application. »"
+ },
+ "laboratoire.cloture.lien": {
+  "texte": "Consulter les Concepts Stabilisés"
+ },
+ "transmission.hero.titre": {
+  "texte": "Transmission & Inscriptions"
+ },
+ "transmission.hero.sous_titre": {
+  "texte": "L’émancipation intellectuelle et l’arsenal de Rang A"
+ },
+ "transmission.hero.bouton_comparer": {
+  "texte": "Comparer les trois modules"
+ },
+ "transmission.hero.bouton_secretariat": {
+  "texte": "Écrire au Secrétariat"
+ },
+ "transmission.hero.exergue": {
+  "texte": "« L’esprit humain, trop longtemps livré à son propre sort, abandonné à son propre dénuement face à l’émiettement du savoir et à la fiction de clôture des disciplines, trouve ici les conditions de sa souveraineté retrouvée. L’Institut de Brazzaville ne propose pas une adhésion à un dogme, mais la mise à disposition d’un Organon de réintégration. Acquérir cet arsenal, c’est cesser de subir la fragmentation pour commencer à calculer la cohérence. »"
+ },
+ "transmission.sommaire.boucle": {
+  "texte": "La Boucle Vertueuse"
+ },
+ "transmission.sommaire.grille": {
+  "texte": "La grille des modules"
+ },
+ "transmission.sommaire.paiement": {
+  "texte": "Paiement sécurisé"
+ },
+ "transmission.argumentaire.titre": {
+  "texte": "L’argumentaire de la souveraineté"
  },
  "transmission.argumentaire.corps": {
   "lexical": {
@@ -6702,6 +8496,93 @@
   },
   "html": "<p>La science contemporaine a progressivement abandonné le chercheur à son propre sort. Enfermé dans des disciplines cloisonnées, soumis à un positivisme dogmatique qui sacralise la procédure au détriment de la substance, l'esprit humain est devenu structurellement aveugle aux architectures profondes qui rendent le réel intelligible. Le savoir ordinaire (K) s'est transformé en une poussière de faits orphelins, incapable de restituer la complétude du système.</p><p>Face à cette violence institutionnelle, la Science Métamoderne ne propose pas une énième théorie spéculative. Elle déploie un <strong>arsenal opératoire de Rang A</strong>.</p><p>L'Institut de Brazzaville a pour vocation de former des esprits souverains, capables d'opérer la <strong>Désadhérence Réflexive</strong> face aux fictions de clôture académiques, de détecter les anomalies structurelles, et de remonter activement vers les conditions de possibilité de la connaissance et de la justice.</p><p>La transmission de cet arsenal n'est pas un acte de prosélytisme. C'est un acte de <strong>souveraineté épistémique</strong>. En s'appropriant la Méthode Reconstructive (Méthode M), le praticien — qu'il soit juriste, magistrat, chercheur ou avocat — cesse d'être le spectateur passif d'un droit asphyxiant pour devenir l'opérateur vivant de la rectification systémique. Il acquiert la capacité de calculer la cohérence là où les doctrines officielles ne produisent que le silence.</p>"
  },
+ "transmission.boucle.titre": {
+  "texte": "La Boucle Vertueuse : Formation → Accès à l’Arsenal"
+ },
+ "transmission.boucle.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Conformément au ",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Principe de Souveraineté du Démontré",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " et à la distinction des deux temporalités (temps de la démonstration / temps de la réception), l’accès à l’arsenal opérationnel du Laboratoire Doctrinal est strictement conditionné à la maîtrise préalable des fondements épistémologiques.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     },
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Cette politique d’accès hybride garantit la qualité de la réception et la rigueur de l’application. Elle crée une boucle vertueuse où la formation n’est pas seulement un apport théorique, mais la clé d’accès à l’arsenal opérationnel complet de l’École.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Conformément au <strong>Principe de Souveraineté du Démontré</strong> et à la distinction des deux temporalités (temps de la démonstration / temps de la réception), l’accès à l’arsenal opérationnel du Laboratoire Doctrinal est strictement conditionné à la maîtrise préalable des fondements épistémologiques.</p><p>Cette politique d’accès hybride garantit la qualité de la réception et la rigueur de l’application. Elle crée une boucle vertueuse où la formation n’est pas seulement un apport théorique, mais la clé d’accès à l’arsenal opérationnel complet de l’École.</p>"
+ },
+ "transmission.boucle.schema_aria": {
+  "texte": "Les trois niveaux d’accès à l’arsenal"
+ },
+ "transmission.boucle.legende": {
+  "texte": "Le parcours de l’inscrit, de la Transmission au Laboratoire Doctrinal."
+ },
+ "transmission.boucle.doctrine": {
+  "texte": "Cette architecture respecte la doctrine scellée : l’universel n’a pas de centre géographique, mais il a une exigence de rigueur. L’accès aux outils opérationnels est subordonné à la maîtrise préalable des fondements épistémologiques."
+ },
+ "transmission.grille.titre": {
+  "texte": "La grille des modules de formation"
+ },
  "transmission.modules.corps": {
   "lexical": {
    "root": {
@@ -6736,6 +8617,12 @@
   },
   "html": "<p>L'accès à la transmission de la Science Métamoderne obéit à une stricte compartimentation sémantique et financière, interdisant toute imposition arbitraire. La double tarification garantit l'universalité de la transmission tout en préservant l'autonomie institutionnelle de l'École.</p>"
  },
+ "transmission.grille.note": {
+  "texte": "Le régime (B2B ou B2C) se choisit à l’étape suivante, sur le formulaire d’inscription."
+ },
+ "transmission.paiement.titre": {
+  "texte": "Passerelle de paiement sécurisée et souveraine"
+ },
  "transmission.paiement.corps": {
   "lexical": {
    "root": {
@@ -6769,6 +8656,100 @@
    }
   },
   "html": "<p>L'Institut de Brazzaville a intégré le protocole asynchrone de Chariow pour garantir la fluidité, la traçabilité et la sécurité des transactions financières à l'échelle internationale. Cette souveraineté technique est la condition matérielle de notre indépendance épistémique.</p>"
+ },
+ "transmission.paiement.frais": {
+  "texte": "Aucun frais n’est indexé sur le principe de non-imposition de l’École. Les fonds collectés alimentent exclusivement le Programme de Recherche, les archives numériques et la formation des chercheurs indépendants du Sud global."
+ },
+ "transmission.contact.titre": {
+  "texte": "Secrétariat International"
+ },
+ "transmission.contact.sous_titre": {
+  "texte": "Coordonnées et Liaison Scientifique"
+ },
+ "transmission.contact.siege.titre": {
+  "texte": "Le Siège — Institut de Brazzaville"
+ },
+ "transmission.contact.siege.ligne_1": {
+  "texte": "Autorité Épistémique Suprême de la Science Métamoderne"
+ },
+ "transmission.contact.siege.ligne_2": {
+  "texte": "Brazzaville, République du Congo"
+ },
+ "transmission.contact.siege.ligne_3": {
+  "texte": "Siège de l’Autorité de Certification et du Corpus Fondateur"
+ },
+ "transmission.contact.antenne.titre": {
+  "texte": "L’Antenne de Recherche — Liaison Scientifique et Académique"
+ },
+ "transmission.contact.antenne.ligne_1": {
+  "texte": "Dakar, Sénégal"
+ },
+ "transmission.contact.antenne.ligne_2": {
+  "texte": "Pôle de recherche interdisciplinaire et de dialogue avec les écoles de pensée africaines"
+ },
+ "transmission.contact.numerique.titre": {
+  "texte": "Contact numérique"
+ },
+ "transmission.contact.numerique.email": {
+  "texte": "contact@lesprincipesretrouves.cg"
+ },
+ "transmission.contact.numerique.site": {
+  "texte": "www.lesprincipesretrouves.cg"
+ },
+ "transmission.demande.titre": {
+  "texte": "Adresser une demande"
+ },
+ "transmission.demande.texte": {
+  "texte": "Toute correspondance scientifique, institutionnelle ou relative aux modules peut être adressée au Secrétariat International."
+ },
+ "transmission.cloture.citation": {
+  "texte": "« Ces concepts ne demandent pas à être acceptés sur autorité. Ils demandent à être éprouvés dans la rigueur de leur application. »"
+ },
+ "transmission.cloture.lien": {
+  "texte": "Déposer une déclaration d’épreuve"
+ },
+ "transmission.seo.titre": {
+  "texte": "Transmission & Inscriptions"
+ },
+ "transmission.seo.description": {
+  "texte": "L'enseignement, l'arsenal opérationnel et le secrétariat international : trois modules de formation, la boucle vertueuse et les coordonnées de l'Institut."
+ },
+ "mentions_legales.hero.titre": {
+  "texte": "Mentions légales"
+ },
+ "mentions_legales.avertissement.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Document en cours de finalisation. Les éléments entre crochets […] doivent être complétés et validés par le responsable de la publication et un conseil juridique.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Document en cours de finalisation. Les éléments entre crochets […] doivent être complétés et validés par le responsable de la publication et un conseil juridique.</p>"
  },
  "mentions_legales.texte.corps": {
   "lexical": {
@@ -7172,6 +9153,49 @@
    }
   },
   "html": "<h2>Éditeur du site</h2><p>Le présent site est édité par <strong>Gaudéric MAMBOU</strong>, chercheur indépendant, au titre de l'Institut de Brazzaville (École de Brazzaville — Science Métamoderne).</p><p>Forme juridique : [à préciser]. Immatriculation (RCCM / registre) : [à préciser]. Adresse : [adresse], Brazzaville, République du Congo. Contact : <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Directeur de la publication</h2><p>Gaudéric MAMBOU.</p><h2>Hébergement</h2><p>Le site est hébergé sur une infrastructure serveur dédiée opérée par <strong>Webtinix</strong> — [raison sociale, adresse et contact de l'hébergeur].</p><h2>Propriété intellectuelle</h2><p>L'ensemble des contenus doctrinaux, textes, concepts, formulations, logo et éléments graphiques du site sont protégés au titre du droit de la propriété intellectuelle. © 2026 Gaudéric MAMBOU. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable, est interdite. Les citations académiques restent autorisées dans le respect des normes universitaires en vigueur.</p><h2>Données personnelles</h2><p>Le traitement des données personnelles est décrit dans la <a href=\"/confidentialite\">politique de confidentialité</a>.</p><h2>Conditions de vente</h2><p>La vente des modules de formation est régie par les <a href=\"/cgv\">conditions générales de vente</a>.</p>"
+ },
+ "mentions_legales.seo.titre": {
+  "texte": "Mentions légales"
+ },
+ "mentions_legales.seo.description": {
+  "texte": "Mentions légales du portail de l'École de Brazzaville : éditeur, hébergement, propriété intellectuelle."
+ },
+ "confidentialite.hero.titre": {
+  "texte": "Politique de confidentialité"
+ },
+ "confidentialite.avertissement.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": "Les durées de conservation et la liste des prestataires […] doivent être confirmées avant mise en production commerciale.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 0,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p>Les durées de conservation et la liste des prestataires […] doivent être confirmées avant mise en production commerciale.</p>"
  },
  "confidentialite.texte.corps": {
   "lexical": {
@@ -7869,6 +9893,61 @@
   },
   "html": "<h2>Responsable du traitement</h2><p>Le responsable du traitement est Gaudéric MAMBOU, Institut de Brazzaville, Brazzaville, République du Congo — contact : <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Données collectées</h2><p>Le site ne collecte que les données que vous transmettez volontairement :</p><ul><li><strong>Formulaire de contact</strong> : nom, adresse e-mail, organisation (facultative), sujet et message.</li><li><strong>Inscription à un module</strong> : nom, adresse e-mail, organisation (facultative), module choisi, régime tarifaire, montant, statut et référence de paiement.</li><li><strong>Code d'accès</strong> : le code émis et l'adresse e-mail associée, pour débloquer les documents conditionnés.</li></ul><p>Le site ne recourt à aucun outil de mesure d'audience ni de publicité, et ne dépose aucun cookie de suivi.</p><h2>Finalités et bases légales</h2><ul><li>Répondre aux demandes de contact (mesure préalable / intérêt légitime, avec votre consentement).</li><li>Gérer les inscriptions aux modules et l'accès aux ressources (exécution du contrat).</li><li>Émettre les justificatifs et assurer le suivi comptable (obligation légale).</li></ul><h2>Destinataires et sous-traitants</h2><p>Les données sont destinées au seul Institut de Brazzaville. Des prestataires techniques peuvent intervenir en qualité de sous-traitants : <strong>Webtinix</strong> (hébergement), <strong>Resend</strong> (envoi d'e-mails), <strong>Chariow</strong> (paiement) et <strong>Cloudflare Turnstile</strong> (protection anti-spam), lorsqu'ils sont activés. Aucune donnée n'est vendue ni cédée à des tiers à des fins commerciales.</p><h2>Durées de conservation</h2><ul><li>Messages de contact : [ex. 3 ans] après le dernier échange.</li><li>Commandes et justificatifs : durée légale de conservation comptable [à préciser].</li><li>Codes d'accès : le temps de l'accès accordé, puis archivage ou suppression.</li></ul><h2>Cookies</h2><p>Le site utilise un unique cookie strictement nécessaire au fonctionnement : ebz_acces. Il conserve, côté serveur, votre code d'accès afin de maintenir le déblocage des documents pendant environ 30 jours. Il est <em>httpOnly</em> et n'effectue aucun suivi. Étant strictement nécessaire, il ne requiert pas de consentement préalable ; vous pouvez le retirer à tout moment via le bouton « Retirer le code ».</p><h2>Vos droits</h2><p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité sur vos données. Pour les exercer, écrivez à <a href=\"mailto:contact@lesprincipesretrouves.cg\">contact@lesprincipesretrouves.cg</a>.</p><h2>Transferts et sécurité</h2><p>Les données sont hébergées sur un serveur dédié et transmises via une connexion chiffrée (HTTPS). Certaines opérations (e-mail, paiement) peuvent impliquer des prestataires situés hors de votre pays de résidence ; des garanties appropriées sont recherchées avec ces prestataires. L'accès aux données d'administration est restreint et protégé par authentification.</p>"
  },
+ "confidentialite.seo.titre": {
+  "texte": "Politique de confidentialité"
+ },
+ "confidentialite.seo.description": {
+  "texte": "Traitement des données personnelles du portail de l'École de Brazzaville : données collectées, finalités, durées, droits et cookies."
+ },
+ "cgv.hero.titre": {
+  "texte": "Conditions générales de vente"
+ },
+ "cgv.hero.sous_titre": {
+  "texte": "Modules de formation de l'Institut de Brazzaville"
+ },
+ "cgv.avertissement.corps": {
+  "lexical": {
+   "root": {
+    "children": [
+     {
+      "children": [
+       {
+        "detail": 0,
+        "format": 1,
+        "mode": "normal",
+        "style": "",
+        "text": "Projet à valider juridiquement.",
+        "type": "text",
+        "version": 1
+       },
+       {
+        "detail": 0,
+        "format": 0,
+        "mode": "normal",
+        "style": "",
+        "text": " Ce document est une trame structurée. Les clauses relatives aux tarifs, à la rétractation, au remboursement et au droit applicable doivent être arrêtées avec un conseil juridique (droit OHADA / congolais et international) avant toute commercialisation.",
+        "type": "text",
+        "version": 1
+       }
+      ],
+      "direction": null,
+      "format": "",
+      "indent": 0,
+      "type": "paragraph",
+      "version": 1,
+      "textFormat": 1,
+      "textStyle": ""
+     }
+    ],
+    "direction": null,
+    "format": "",
+    "indent": 0,
+    "type": "root",
+    "version": 1
+   }
+  },
+  "html": "<p><strong>Projet à valider juridiquement.</strong> Ce document est une trame structurée. Les clauses relatives aux tarifs, à la rétractation, au remboursement et au droit applicable doivent être arrêtées avec un conseil juridique (droit OHADA / congolais et international) avant toute commercialisation.</p>"
+ },
  "cgv.texte.corps": {
   "lexical": {
    "root": {
@@ -8338,5 +10417,629 @@
    }
   },
   "html": "<h2>1. Objet</h2><p>Les présentes conditions régissent la vente, par l'Institut de Brazzaville, des modules de formation présentés sur la page <a href=\"/transmission\">Transmission &amp; Inscriptions</a>. Toute inscription emporte acceptation sans réserve des présentes.</p><h2>2. Modules et tarifs</h2><p>Les modules, contenus, durées et tarifs sont décrits sur la page Transmission. Les Modules I et II sont proposés selon un régime institutionnel (B2B) ou individuel (B2C) ; le Module III fait l'objet d'un devis personnalisé. Les prix sont indiqués en euros ; le règlement peut s'effectuer en euros ou en francs CFA (XAF) selon le moyen de paiement.</p><h2>3. Inscription et formation du contrat</h2><p>L'inscription s'effectue en ligne via le formulaire dédié. Le contrat est réputé formé à la confirmation du paiement, matérialisée par l'émission d'un code d'accès personnel adressé par courrier électronique.</p><h2>4. Prix et paiement</h2><p>Le paiement s'effectue par les moyens proposés (Mobile Money et carte bancaire, via le prestataire Chariow). Le prix est exigible à la commande. [Modalités de facturation et TVA/taxes applicables à préciser.]</p><h2>5. Accès aux ressources</h2><p>Le code d'accès émis est personnel et non transférable. Il débloque les ressources associées au module pour la durée prévue. Tout usage frauduleux ou partage du code peut entraîner sa révocation.</p><h2>6. Droit de rétractation</h2><p>Pour les particuliers, un droit de rétractation peut s'appliquer. L'accès immédiat à un contenu numérique ou le commencement de la prestation avant la fin du délai, avec l'accord de l'intéressé, peut y faire exception. [Délai et modalités à fixer selon le droit applicable.]</p><h2>7. Annulation, report, remboursement</h2><p>[Conditions d'annulation, de report des sessions et de remboursement à préciser.]</p><h2>8. Responsabilité et propriété intellectuelle</h2><p>Les supports de formation sont fournis pour un usage personnel dans le cadre de la formation. Toute reproduction ou diffusion non autorisée est interdite. La responsabilité de l'Institut ne saurait être engagée au-delà du montant réglé au titre du module concerné, dans les limites permises par la loi.</p><h2>9. Données personnelles</h2><p>Le traitement des données est décrit dans la <a href=\"/confidentialite\">politique de confidentialité</a>.</p><h2>10. Droit applicable et litiges</h2><p>Les présentes conditions sont soumises au droit en vigueur en République du Congo et, le cas échéant, aux Actes uniformes de l'OHADA. En cas de litige, une solution amiable sera recherchée en priorité. [Juridiction compétente et clause de médiation à préciser.]</p>"
+ },
+ "cgv.seo.titre": {
+  "texte": "Conditions générales de vente"
+ },
+ "cgv.seo.description": {
+  "texte": "Conditions générales de vente des modules de formation de l'Institut de Brazzaville."
+ },
+ "site_navigation.acces.aller_au_contenu": {
+  "texte": "Aller au contenu"
+ },
+ "site_navigation.marque.nom": {
+  "texte": "Les Principes Retrouvés"
+ },
+ "site_navigation.marque.devise": {
+  "texte": "École de Brazzaville"
+ },
+ "site_navigation.marque.logo_aria": {
+  "texte": "Les Principes Retrouvés — retour au Fronton"
+ },
+ "site_navigation.entete.contact": {
+  "texte": "Contact"
+ },
+ "site_navigation.entete.menu_ouvrir": {
+  "texte": "Menu"
+ },
+ "site_navigation.entete.menu_fermer": {
+  "texte": "Fermer"
+ },
+ "site_navigation.entete.nav_aria": {
+  "texte": "Navigation principale"
+ },
+ "site_navigation.menu.seuil": {
+  "texte": "Accueil"
+ },
+ "site_navigation.menu.institution": {
+  "texte": "Institution"
+ },
+ "site_navigation.menu.constitution": {
+  "texte": "Constitution"
+ },
+ "site_navigation.menu.manifeste": {
+  "texte": "Manifeste"
+ },
+ "site_navigation.menu.note_epistemologique": {
+  "texte": "Note Épistémo"
+ },
+ "site_navigation.menu.ouvrage": {
+  "texte": "Ouvrage"
+ },
+ "site_navigation.menu.laboratoire": {
+  "texte": "Laboratoire"
+ },
+ "site_navigation.menu.concepts": {
+  "texte": "Concepts"
+ },
+ "site_navigation.menu.transmission": {
+  "texte": "Transmission"
+ },
+ "site_navigation.menu.declaration": {
+  "texte": "Déclaration"
+ },
+ "site_navigation.position.sur_total": {
+  "texte": "/ 10"
+ },
+ "site_navigation.position.precedente_aria": {
+  "texte": "Page précédente : {page}"
+ },
+ "site_navigation.position.suivante_aria": {
+  "texte": "Page suivante : {page}"
+ },
+ "site_navigation.familles.seuil": {
+  "texte": "Le Seuil"
+ },
+ "site_navigation.familles.fondements": {
+  "texte": "Fondements"
+ },
+ "site_navigation.familles.savoir": {
+  "texte": "Savoir"
+ },
+ "site_navigation.familles.parcours": {
+  "texte": "Parcours"
+ },
+ "site_navigation.titre.seuil": {
+  "texte": "Accueil"
+ },
+ "site_navigation.titre.institution": {
+  "texte": "L’Institution"
+ },
+ "site_navigation.titre.constitution": {
+  "texte": "Constitution scientifique"
+ },
+ "site_navigation.titre.manifeste": {
+  "texte": "Le Manifeste de Brazzaville"
+ },
+ "site_navigation.titre.note_epistemologique": {
+  "texte": "Note épistémologique"
+ },
+ "site_navigation.titre.ouvrage": {
+  "texte": "L’Ouvrage"
+ },
+ "site_navigation.titre.laboratoire": {
+  "texte": "Laboratoire Doctrinal"
+ },
+ "site_navigation.titre.concepts": {
+  "texte": "Concepts stabilisés"
+ },
+ "site_navigation.titre.transmission": {
+  "texte": "Transmission & Inscriptions"
+ },
+ "site_navigation.titre.declaration": {
+  "texte": "La Déclaration de Brazzaville"
+ },
+ "site_navigation.pagination.nav_aria": {
+  "texte": "Pages voisines"
+ },
+ "site_navigation.pagination.precedente": {
+  "texte": "Page précédente"
+ },
+ "site_navigation.pagination.suivante": {
+  "texte": "Page suivante"
+ },
+ "site_navigation.pagination.retour_debut": {
+  "texte": "Revenir au début"
+ },
+ "site_navigation.pied.adresse": {
+  "texte": "Institut de Brazzaville, République du Congo"
+ },
+ "site_navigation.pied.email": {
+  "texte": "contact@lesprincipesretrouves.cg"
+ },
+ "site_navigation.pied.colonne_seuil": {
+  "texte": "Seuil"
+ },
+ "site_navigation.pied.fronton": {
+  "texte": "Le Fronton"
+ },
+ "site_navigation.pied.mentions": {
+  "texte": "© 2026 Gaudéric MAMBOU, recherche indépendante. Les contenus théoriques sont diffusés à titre de référence académique. Toute citation doit respecter les normes universitaires en vigueur."
+ },
+ "site_navigation.pied.lien_mentions_legales": {
+  "texte": "Mentions légales"
+ },
+ "site_navigation.pied.lien_confidentialite": {
+  "texte": "Politique de confidentialité"
+ },
+ "site_navigation.pied.lien_cgv": {
+  "texte": "Conditions de vente"
+ },
+ "site_navigation.seo.titre_defaut": {
+  "texte": "Les Principes Retrouvés | École de Brazzaville | Science Métamoderne"
+ },
+ "site_navigation.seo.modele_titre": {
+  "texte": "%s | Les Principes Retrouvés"
+ },
+ "site_navigation.seo.description": {
+  "texte": "Portail de l'École de Brazzaville — Science Métamoderne : théorie générale de l'intelligibilité, épistémologie et droit constitutionnel."
+ },
+ "site_interface.sommaire.titre": {
+  "texte": "Sur cette page"
+ },
+ "site_interface.badge.acces_libre": {
+  "texte": "Accès libre"
+ },
+ "site_interface.badge.dans_ouvrage": {
+  "texte": "Dans l’ouvrage"
+ },
+ "site_interface.fil_ariane.aria": {
+  "texte": "Fil d’Ariane"
+ },
+ "site_interface.concept.definition": {
+  "texte": "Définition d'autorité"
+ },
+ "site_interface.concept.portee": {
+  "texte": "Portée opératoire"
+ },
+ "site_interface.ressource.debloque": {
+  "texte": "Débloqué"
+ },
+ "site_interface.ressource.en_preparation": {
+  "texte": "En préparation"
+ },
+ "site_interface.ressource.classification": {
+  "texte": "Classification :"
+ },
+ "site_interface.ressource.volume": {
+  "texte": "Volume :"
+ },
+ "site_interface.ressource.statut": {
+  "texte": "Statut :"
+ },
+ "site_interface.ressource.soumission": {
+  "texte": "Soumission :"
+ },
+ "site_interface.ressource.resume_suffixe": {
+  "texte": "(accès libre)"
+ },
+ "site_interface.ressource.concepts_mobilises": {
+  "texte": "Concepts mobilisés"
+ },
+ "site_interface.ressource.telecharger": {
+  "texte": "Télécharger le document intégral (PDF)"
+ },
+ "site_interface.ressource.bientot": {
+  "texte": "Document intégral — bientôt disponible"
+ },
+ "site_interface.ressource.reserve_titre": {
+  "texte": "Accès réservé ({niveau})"
+ },
+ "site_interface.ressource.reserve": {
+  "texte": "Réservé aux participants — {niveau}"
+ },
+ "site_interface.ressource.saisir_code": {
+  "texte": "Saisissez votre code d'accès (section « Politique d'accès ») pour débloquer."
+ },
+ "site_interface.niveau.module_i": {
+  "texte": "Module I"
+ },
+ "site_interface.niveau.module_ii": {
+  "texte": "Module II"
+ },
+ "site_interface.niveau.module_iii": {
+  "texte": "Module III"
+ },
+ "site_interface.niveau.inconnu": {
+  "texte": "un module"
+ },
+ "site_interface.boucle.aria": {
+  "texte": "La boucle d’accès à l’arsenal"
+ },
+ "site_interface.boucle.ici": {
+  "texte": "Vous êtes ici"
+ },
+ "site_interface.boucle.legende": {
+  "texte": "Le parcours de l’inscrit, de la Transmission au Laboratoire Doctrinal."
+ },
+ "site_interface.code.copier": {
+  "texte": "Copier"
+ },
+ "site_interface.code.copie": {
+  "texte": "Copié"
+ },
+ "site_interface.legal.fil_accueil": {
+  "texte": "Accueil"
+ },
+ "site_interface.comparaison.legende": {
+  "texte": "Comparaison des trois modules de formation"
+ },
+ "site_interface.comparaison.comparer": {
+  "texte": "Comparer"
+ },
+ "site_interface.comparaison.public_cible": {
+  "texte": "Public cible"
+ },
+ "site_interface.comparaison.duree": {
+  "texte": "Durée"
+ },
+ "site_interface.comparaison.prerequis": {
+  "texte": "Prérequis"
+ },
+ "site_interface.comparaison.regime_b2b": {
+  "texte": "Régime Institutionnel (B2B)"
+ },
+ "site_interface.comparaison.regime_b2c": {
+  "texte": "Régime Dérogatoire Individuel (B2C)"
+ },
+ "site_interface.comparaison.acces": {
+  "texte": "Accès débloqué"
+ },
+ "site_interface.comparaison.programme": {
+  "texte": "Programme"
+ },
+ "site_interface.comparaison.tarifs": {
+  "texte": "Tarifs"
+ },
+ "site_interface.comparaison.programme_ouvrir": {
+  "texte": "Programme détaillé"
+ },
+ "site_interface.comparaison.programme_fermer": {
+  "texte": "Masquer le programme"
+ },
+ "site_interface.comparaison.livrables": {
+  "texte": "Livrables"
+ },
+ "site_interface.comparaison.onglets_aria": {
+  "texte": "Modules de formation"
+ },
+ "site_interface.commander.seo.titre": {
+  "texte": "Inscription"
+ },
+ "site_interface.commander.seo.description": {
+  "texte": "Inscription à un module de formation de l'Institut de Brazzaville."
+ },
+ "site_interface.commander.fil_transmission": {
+  "texte": "Transmission"
+ },
+ "site_interface.commander.duree": {
+  "texte": "Durée :"
+ },
+ "site_interface.commander.prerequis": {
+  "texte": "Prérequis :"
+ },
+ "site_interface.commander.ce_que_vous_recevez": {
+  "texte": "Ce que vous recevez"
+ },
+ "site_interface.commander.voir_programme": {
+  "texte": "Voir le programme détaillé des sessions"
+ },
+ "site_interface.commander.bientot_titre": {
+  "texte": "Inscriptions bientôt ouvertes"
+ },
+ "site_interface.commander.bientot_texte": {
+  "texte": "Le paiement en ligne de ce module est en cours d'activation. Les inscriptions ouvriront très prochainement. Pour être informé de l'ouverture ou réserver votre place dès maintenant, écrivez au Secrétariat International."
+ },
+ "site_interface.commander.bientot_lien": {
+  "texte": "Contacter le Secrétariat →"
+ },
+ "site_interface.commander.formulaire_titre": {
+  "texte": "Formulaire d'inscription"
+ },
+ "site_interface.commander.devis_titre": {
+  "texte": "Demande de devis"
+ },
+ "site_interface.commander.apres_demande": {
+  "texte": "Après votre demande"
+ },
+ "site_interface.commander.paiement_securise": {
+  "texte": "Paiement sécurisé"
+ },
+ "site_interface.commander.question": {
+  "texte": "Une question ?"
+ },
+ "site_interface.commander.question_lien": {
+  "texte": "Écrire au Secrétariat International"
+ },
+ "site_interface.confirmation.seo.titre": {
+  "texte": "Confirmation"
+ },
+ "site_interface.confirmation.fil_transmission": {
+  "texte": "Transmission"
+ },
+ "site_interface.confirmation.fil_confirmation": {
+  "texte": "Confirmation"
+ },
+ "site_interface.confirmation.introuvable_titre": {
+  "texte": "Commande introuvable"
+ },
+ "site_interface.confirmation.introuvable_texte": {
+  "texte": "Le lien de confirmation est invalide ou a expiré."
+ },
+ "site_interface.confirmation.devis_titre": {
+  "texte": "Demande de devis transmise"
+ },
+ "site_interface.confirmation.devis_texte": {
+  "texte": "Votre demande concernant « {module} » a été enregistrée. Le Secrétariat International vous recontactera à l'adresse {email}."
+ },
+ "site_interface.confirmation.confirmee_titre": {
+  "texte": "Inscription confirmée"
+ },
+ "site_interface.confirmation.confirmee_texte": {
+  "texte": "Votre inscription à « {module} » est confirmée. Votre code d'accès, également envoyé à {email}, débloque les ressources associées sur le Laboratoire Doctrinal."
+ },
+ "site_interface.confirmation.votre_code": {
+  "texte": "Votre code d'accès"
+ },
+ "site_interface.confirmation.acceder_laboratoire": {
+  "texte": "Accéder au Laboratoire Doctrinal"
+ },
+ "site_interface.confirmation.attente_titre": {
+  "texte": "Paiement en cours"
+ },
+ "site_interface.confirmation.attente_texte": {
+  "texte": "Votre commande « {module} » est en attente de confirmation de paiement. Votre code d'accès vous sera envoyé à {email} dès validation."
+ },
+ "site_interface.erreur404.surtitre": {
+  "texte": "Erreur 404"
+ },
+ "site_interface.erreur404.titre": {
+  "texte": "Page introuvable"
+ },
+ "site_interface.erreur404.texte": {
+  "texte": "L’adresse demandée ne correspond à aucune page du site. Elle a pu être déplacée, ou mal saisie."
+ },
+ "site_interface.erreur404.accueil": {
+  "texte": "Revenir à l’accueil"
+ },
+ "site_interface.erreur404.tomes": {
+  "texte": "Lire les tomes"
+ },
+ "site_interface.erreur404.plan": {
+  "texte": "Les dix pages"
+ },
+ "site_formulaires.commun.nom": {
+  "texte": "Nom *"
+ },
+ "site_formulaires.commun.email": {
+  "texte": "E-mail *"
+ },
+ "site_formulaires.commun.organisation": {
+  "texte": "Organisation"
+ },
+ "site_formulaires.commun.champ_obligatoire": {
+  "texte": "* champ obligatoire"
+ },
+ "site_formulaires.commun.erreur": {
+  "texte": "Une erreur est survenue."
+ },
+ "site_formulaires.commun.indisponible": {
+  "texte": "Le service est momentanément indisponible."
+ },
+ "site_formulaires.contact.facultatif": {
+  "texte": "(facultatif)"
+ },
+ "site_formulaires.contact.objet": {
+  "texte": "Objet *"
+ },
+ "site_formulaires.contact.message": {
+  "texte": "Message *"
+ },
+ "site_formulaires.contact.consentement": {
+  "texte": "J'accepte que mes données soient traitées aux fins de traitement de ma demande, conformément à la politique de confidentialité."
+ },
+ "site_formulaires.contact.envoi": {
+  "texte": "Envoi en cours…"
+ },
+ "site_formulaires.contact.bouton": {
+  "texte": "Transmettre au Secrétariat"
+ },
+ "site_formulaires.contact.succes_titre": {
+  "texte": "Message transmis."
+ },
+ "site_formulaires.contact.succes_texte": {
+  "texte": "Le Secrétariat International accusera réception de votre demande. Merci."
+ },
+ "site_formulaires.inscription.regime_choix": {
+  "texte": "Régime tarifaire *"
+ },
+ "site_formulaires.inscription.regime": {
+  "texte": "Régime"
+ },
+ "site_formulaires.inscription.regime_b2b": {
+  "texte": "Institutionnel (B2B)"
+ },
+ "site_formulaires.inscription.regime_b2c": {
+  "texte": "Individuel (B2C)"
+ },
+ "site_formulaires.inscription.telephone": {
+  "texte": "Téléphone *"
+ },
+ "site_formulaires.inscription.telephone_exemple": {
+  "texte": "Ex. 06 000 00 00"
+ },
+ "site_formulaires.inscription.pays": {
+  "texte": "Pays"
+ },
+ "site_formulaires.inscription.consentement": {
+  "texte": "J'accepte que mes données soient conservées aux fins de gestion de mon inscription, conformément à la politique de confidentialité."
+ },
+ "site_formulaires.inscription.recapitulatif": {
+  "texte": "Récapitulatif"
+ },
+ "site_formulaires.inscription.paiement_securise": {
+  "texte": "Paiement sécurisé (Mobile Money & carte) via Chariow."
+ },
+ "site_formulaires.inscription.traitement": {
+  "texte": "Traitement…"
+ },
+ "site_formulaires.inscription.payer": {
+  "texte": "Procéder au paiement"
+ },
+ "site_formulaires.inscription.devis": {
+  "texte": "Demander un devis"
+ },
+ "site_formulaires.acces.code": {
+  "texte": "Code d'accès"
+ },
+ "site_formulaires.acces.exemple": {
+  "texte": "EBZ-XXXX-XXXX"
+ },
+ "site_formulaires.acces.verification": {
+  "texte": "Vérification…"
+ },
+ "site_formulaires.acces.debloquer": {
+  "texte": "Débloquer"
+ },
+ "site_formulaires.acces.actif": {
+  "texte": "Accès actif — {niveau}"
+ },
+ "site_formulaires.acces.retirer": {
+  "texte": "Retirer le code"
+ },
+ "site_formulaires.acces.erreur": {
+  "texte": "Code invalide."
+ },
+ "site_formulaires.acces.indisponible": {
+  "texte": "Service momentanément indisponible."
+ },
+ "site_lecture.seo.tome_titre": {
+  "texte": "{tome} — {titre} : textes en accès libre"
+ },
+ "site_lecture.seo.tome_description": {
+  "texte": "{presentation}"
+ },
+ "site_lecture.seo.texte_titre": {
+  "texte": "{titre} — {tome}"
+ },
+ "site_lecture.seo.texte_description": {
+  "texte": "{extrait}"
+ },
+ "site_lecture.fil_ariane.ouvrage": {
+  "texte": "L’Ouvrage"
+ },
+ "site_lecture.sommaire.surtitre": {
+  "texte": "{tome} · Accès libre"
+ },
+ "site_lecture.sommaire.commencer": {
+  "texte": "Commencer la lecture"
+ },
+ "site_lecture.sommaire.compteur": {
+  "texte": "{n} textes · {min} min de lecture"
+ },
+ "site_lecture.sommaire.partie_un": {
+  "texte": "{n} texte"
+ },
+ "site_lecture.sommaire.partie_plusieurs": {
+  "texte": "{n} textes"
+ },
+ "site_lecture.sommaire.plan_titre": {
+  "texte": "Plan du {tome}"
+ },
+ "site_lecture.sommaire.plan_note": {
+  "texte": "Les chapitres marqués « Accès libre » se lisent en ligne. Les autres chapitres, les démonstrations successives et les annexes restent réservés à l'ouvrage."
+ },
+ "site_lecture.ligne.lire": {
+  "texte": "Lire"
+ },
+ "site_lecture.meta.minutes": {
+  "texte": "{min} min"
+ },
+ "site_lecture.meta.minutes_long": {
+  "texte": "{min} min de lecture"
+ },
+ "site_lecture.meta.minutes_compact": {
+  "texte": "{min} min"
+ },
+ "site_lecture.meta.sections": {
+  "texte": "{n} sections"
+ },
+ "site_lecture.texte.position": {
+  "texte": "{tome} · Texte {n} sur {total}"
+ },
+ "site_lecture.texte.duree": {
+  "texte": "{min} min de lecture"
+ },
+ "site_lecture.rail.aria": {
+  "texte": "Textes du {tome}"
+ },
+ "site_lecture.rail.textes_ouverts": {
+  "texte": "Textes ouverts"
+ },
+ "site_lecture.rail.vous_lisez": {
+  "texte": "Vous lisez · {p} %"
+ },
+ "site_lecture.rail.lu": {
+  "texte": "· lu"
+ },
+ "site_lecture.rail.sommaire": {
+  "texte": "Sommaire du {tome}"
+ },
+ "site_lecture.mobile.sommaire": {
+  "texte": "Sommaire"
+ },
+ "site_lecture.mobile.progression_aria": {
+  "texte": "Progression de la lecture"
+ },
+ "site_lecture.texte.mention": {
+  "texte": "Extrait destiné à la présentation publique. La version intégrale du {tome} demeure réservée à l’acquisition de l’ouvrage. Toute citation doit respecter les normes universitaires en vigueur."
+ },
+ "site_lecture.navigation.aria": {
+  "texte": "Textes voisins"
+ },
+ "site_lecture.navigation.suivant": {
+  "texte": "Texte suivant · {n} sur {total}"
+ },
+ "site_lecture.navigation.continuer": {
+  "texte": "Continuer la lecture"
+ },
+ "site_lecture.navigation.precedent": {
+  "texte": "← Texte précédent"
+ },
+ "site_lecture.navigation.retour_ouvrage": {
+  "texte": "← Revenir"
+ },
+ "site_lecture.navigation.revenir": {
+  "texte": "Revenir"
+ },
+ "site_lecture.outils.aria": {
+  "texte": "Outils de lecture"
+ },
+ "site_lecture.outils.notions": {
+  "texte": "Notions de ce texte"
+ },
+ "site_lecture.outils.dans_ce_texte": {
+  "texte": "Dans ce texte"
+ },
+ "site_lecture.citer.titre": {
+  "texte": "Pour citer ce texte"
+ },
+ "site_lecture.citer.reference": {
+  "texte": "Mambou, G., « {titre} », *Les Principes Retrouvés*, t. {tome}, *{recueil}*, Brazzaville."
+ },
+ "site_lecture.citer.copier": {
+  "texte": "Copier la référence"
+ },
+ "site_lecture.citer.copiee": {
+  "texte": "Référence copiée"
+ },
+ "site_lecture.acquerir.bouton": {
+  "texte": "Acquérir le {tome}"
+ },
+ "site_lecture.acquerir.nouvel_onglet": {
+  "texte": "(ouvre la page de paiement dans un nouvel onglet)"
+ },
+ "site_lecture.acquerir.paiement": {
+  "texte": "Paiement sécurisé via Chariow"
  }
 }

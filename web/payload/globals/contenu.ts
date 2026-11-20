@@ -1,8 +1,8 @@
 import type { Field, GlobalConfig, GlobalSlug } from "payload";
-import { PAGES_BLOCS, type BlocDef, type PageBlocs } from "@/content/blocs";
+import { PAGES_BLOCS, type BlocDef, type ListeDef, type PageBlocs } from "@/content/blocs";
 import { connecte } from "../access";
 import { editeurProse } from "../editeur";
-import { revaliderChemins } from "../revalidation";
+import { revaliderChemins, revaliderSite } from "../revalidation";
 import { LISTES_PAR_PAGE } from "./listes";
 
 /**
@@ -28,7 +28,40 @@ function champ(bloc: BlocDef): Field {
   const commun = { name: nomChamp(bloc.cle), label: bloc.label };
   return bloc.type === "riche"
     ? { ...commun, type: "richText", editor: editeurProse }
-    : { ...commun, type: "textarea", admin: { rows: 2 } };
+    : {
+        ...commun,
+        type: "textarea",
+        admin: {
+          rows: 2,
+          ...(bloc.defaut && /\{\w+\}/.test(bloc.defaut)
+            ? { description: "Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver." }
+            : {}),
+        },
+      };
+}
+
+/** Champ Payload d'une liste structurée du registre. */
+export function champListe(l: ListeDef): Field {
+  return {
+    name: l.nom,
+    type: "array",
+    label: l.label,
+    labels: { singular: l.element ?? "Élément", plural: l.label },
+    admin: { initCollapsed: true, ...(l.aide ? { description: l.aide } : {}) },
+    fields: l.champs.map((c): Field =>
+      c.type === "lignes"
+        ? {
+            name: c.nom,
+            type: "array",
+            label: c.label,
+            labels: { singular: "Ligne", plural: "Lignes" },
+            fields: [{ name: "texte", type: "textarea", label: "Texte", required: true, admin: { rows: 2 } }],
+          }
+        : c.type === "zone"
+          ? { name: c.nom, type: "textarea", label: c.label, admin: { rows: 3 } }
+          : { name: c.nom, type: "text", label: c.label },
+    ),
+  };
 }
 
 /** Regroupe les champs consécutifs d'une même section (`aide`) dans un volet repliable. */
@@ -52,15 +85,20 @@ export const GLOBALS_CONTENU: GlobalConfig[] = PAGES_BLOCS.map((page) => ({
   slug: slugGlobal(page),
   label: page.titre,
   admin: {
-    group: "Pages",
-    description: `Textes de la page ${page.chemin}. Un champ vidé fait revenir le texte d'origine.`,
+    group: page.groupe ?? "Pages",
+    description:
+      page.portee === "site"
+        ? "Textes communs à tout le site. Un champ vidé fait revenir le texte d'origine."
+        : `Textes de la page ${page.chemin}. Un champ vidé fait revenir le texte d'origine.`,
   },
   access: { read: connecte, update: connecte },
   versions: { max: 30 },
-  hooks: { afterChange: [() => revaliderChemins([page.chemin])] },
+  hooks: {
+    afterChange: [() => (page.portee === "site" ? revaliderSite() : revaliderChemins([page.chemin]))],
+  },
   fields: [
     ...champsParSection(page.blocs),
-    ...(LISTES_PAR_PAGE[page.page]
+    ...(LISTES_PAR_PAGE[page.page] || page.listes?.length
       ? [
           {
             type: "collapsible" as const,
@@ -68,7 +106,7 @@ export const GLOBALS_CONTENU: GlobalConfig[] = PAGES_BLOCS.map((page) => ({
             admin: {
               description: "Une liste entièrement vidée revient aux données d'origine.",
             },
-            fields: LISTES_PAR_PAGE[page.page],
+            fields: [...(LISTES_PAR_PAGE[page.page] ?? []), ...(page.listes ?? []).map(champListe)],
           },
         ]
       : []),

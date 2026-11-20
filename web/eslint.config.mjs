@@ -12,7 +12,18 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Migrations générées par Payload (`payload migrate:create`) : signature imposée.
+    "migrations/**",
   ]),
+  {
+    rules: {
+      // Préfixe « _ » = variable volontairement ignorée (ex. retrait par déstructuration).
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;

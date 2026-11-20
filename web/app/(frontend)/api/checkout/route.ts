@@ -50,20 +50,20 @@ export async function POST(request: Request) {
   const data = parsed.data;
 
   const payload = await payloadClient();
-  const module = await getModule(data.module_id);
-  if (!module) {
+  const formation = await getModule(data.module_id);
+  if (!formation) {
     return NextResponse.json({ ok: false, error: "Module inconnu." }, { status: 404 });
   }
 
   // Module III (sur devis) : pas de paiement, on enregistre une demande.
-  if (data.tarif_type === "devis" || !isPurchasable(module)) {
+  if (data.tarif_type === "devis" || !isPurchasable(formation)) {
     const commande = await payload.create({
       collection: "commandes",
       data: {
-        module_id: module.id,
-        module_titre: `${module.numero} — ${module.titre}`,
+        module_id: formation.id,
+        module_titre: `${formation.numero} — ${formation.titre}`,
         tarif_type: "devis",
-        montant: module.tarif_devis ?? "Sur devis",
+        montant: formation.tarif_devis ?? "Sur devis",
         buyer_nom: data.buyer_nom,
         buyer_email: data.buyer_email,
         buyer_organisation: data.buyer_organisation || null,
@@ -76,8 +76,8 @@ export async function POST(request: Request) {
     });
     await sendMail({
       to: process.env.CONTACT_INBOX_EMAIL ?? "",
-      subject: `[Devis] ${module.numero} — ${data.buyer_nom}`,
-      text: `Demande de devis.\nModule : ${module.titre}\nNom : ${data.buyer_nom}\nE-mail : ${data.buyer_email}\nOrganisation : ${data.buyer_organisation || "—"}`,
+      subject: `[Devis] ${formation.numero} — ${data.buyer_nom}`,
+      text: `Demande de devis.\nModule : ${formation.titre}\nNom : ${data.buyer_nom}\nE-mail : ${data.buyer_email}\nOrganisation : ${data.buyer_organisation || "—"}`,
       replyTo: data.buyer_email,
     });
     return NextResponse.json({ ok: true, redirect: `/commande/confirmee?c=${commande.id}` });
@@ -85,13 +85,13 @@ export async function POST(request: Request) {
 
   // Modules I & II : création de la commande puis paiement.
   const provider = getPaymentProvider();
-  const montant = tarifFor(module, data.tarif_type);
+  const montant = tarifFor(formation, data.tarif_type);
 
   const commande = await payload.create({
     collection: "commandes",
     data: {
-      module_id: module.id,
-      module_titre: `${module.numero} — ${module.titre}`,
+      module_id: formation.id,
+      module_titre: `${formation.numero} — ${formation.titre}`,
       tarif_type: data.tarif_type,
       montant,
       buyer_nom: data.buyer_nom,
@@ -110,7 +110,7 @@ export async function POST(request: Request) {
   try {
     const result = await provider.createCheckout({
       commande_id: commande.id,
-      module_id: module.id,
+      module_id: formation.id,
       tarif_type: data.tarif_type,
       montant,
       devise: commande.devise,

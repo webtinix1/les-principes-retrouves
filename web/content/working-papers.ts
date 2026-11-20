@@ -169,7 +169,7 @@ export const NIVEAUX_ACCES: NiveauAcces[] = [
     numero: "Niveau 2",
     titre: "Accès conditionné",
     description:
-      "Les documents intégraux (Working Papers, Guide Technique, Arrêt Pilote) sont réservés aux participants des modules de formation, garantissant ainsi la qualité de la réception et la rigueur de l'application.",
+      "Les documents intégraux (Working Papers, Arrêt Pilote) sont réservés aux participants des modules de formation, garantissant ainsi la qualité de la réception et la rigueur de l'application.",
   },
   {
     numero: "Niveau 3",

@@ -1,30 +1,35 @@
 import type { Concept } from "@/content/concepts";
+import { getTexte } from "@/lib/contenu";
 
 /** Carte d'un concept stabilisé : numéro, titre, définition d'autorité, portée opératoire. */
-export function CarteConcept({ concept }: { concept: Concept }) {
+export async function CarteConcept({ concept }: { concept: Concept }) {
+  const definition = await getTexte("site_interface.concept.definition");
+  const portee = await getTexte("site_interface.concept.portee");
   return (
     <article
       id={concept.id}
-      className="scroll-mt-24 border-l-4 border-or bg-blanc-casse p-6 text-bleu-nuit-profond"
+      className="surface-claire rv flex flex-col gap-5 rounded-[4px] border border-filet bg-blanc p-6 text-encre md:p-8 lg:scroll-mt-28!"
     >
-      <header className="flex items-baseline gap-3">
-        <span className="font-mono text-sm text-or" aria-hidden="true">
+      <header className="grid grid-cols-[32px_minmax(0,1fr)] items-baseline gap-x-3">
+        <span className="font-code text-[13px] text-or-700" aria-hidden="true">
           {String(concept.numero).padStart(2, "0")}
         </span>
-        <h3 className="font-heading text-xl font-semibold">{concept.titre}</h3>
+        <h3 className="font-titre text-[1.375rem] leading-[1.25] font-medium text-encre md:text-[1.5rem]">
+          {concept.titre}
+        </h3>
       </header>
-      <dl className="mt-4 space-y-3 text-sm leading-relaxed">
-        <div>
-          <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
-            Définition d'autorité
+      <dl className="flex flex-col gap-5 border-t border-filet-doux pt-5">
+        <div className="flex flex-col gap-1.5">
+          <dt className="font-code text-[11.5px] tracking-[0.14em] text-encre-3 uppercase">
+            {definition}
           </dt>
-          <dd className="mt-1 font-sans">{concept.definition}</dd>
+          <dd className="font-texte text-[16.5px] leading-[1.65] text-encre">{concept.definition}</dd>
         </div>
-        <div>
-          <dt className="font-ui text-xs font-semibold uppercase tracking-wide text-or/90">
-            Portée opératoire
+        <div className="flex flex-col gap-1.5">
+          <dt className="font-code text-[11.5px] tracking-[0.14em] text-encre-3 uppercase">
+            {portee}
           </dt>
-          <dd className="mt-1 font-sans">{concept.portee}</dd>
+          <dd className="font-texte text-[16.5px] leading-[1.65] text-encre-2">{concept.portee}</dd>
         </div>
       </dl>
     </article>

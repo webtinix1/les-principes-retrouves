@@ -5,6 +5,7 @@ import { MODULES } from "@/content/modules";
 import { STRATES } from "@/content/concepts";
 import { AUTORITES } from "@/content/autorites";
 import { WORKING_PAPERS, PIECES_OPERATOIRES } from "@/content/working-papers";
+import { RECUEILS, type BlocLecture, type Recueil } from "@/content/lectures";
 import { nomChamp, slugGlobal } from "./globals/contenu";
 import { AMORCE_LISTES } from "./globals/listes";
 
@@ -140,22 +141,41 @@ async function amorcerCollections(payload: Payload) {
   }
 }
 
+/**
+ * Textes des pages : chaque champ encore vide reçoit son texte d'origine,
+ * champ par champ (un champ déjà saisi n'est jamais écrasé). Les listes du
+ * registre vides reçoivent leurs données d'origine.
+ */
 async function amorcerPages(payload: Payload) {
   const origine = ORIGINE as Origine;
   for (const page of PAGES_BLOCS) {
     const slug = slugGlobal(page);
     const actuel = (await payload.findGlobal({ slug, depth: 0 })) as unknown as Record<string, unknown>;
-    const dejaSaisi = page.blocs.some((b) => actuel[nomChamp(b.cle)] != null);
-    if (dejaSaisi) continue;
 
     const data: Record<string, unknown> = {};
     for (const bloc of page.blocs) {
+      const champ = nomChamp(bloc.cle);
+      if (actuel[champ] != null && actuel[champ] !== "") continue;
       const o = origine[bloc.cle];
-      if (!o) continue;
-      data[nomChamp(bloc.cle)] = bloc.type === "riche" ? o.lexical : o.texte;
+      if (bloc.type === "riche") {
+        if (o?.lexical) data[champ] = o.lexical;
+      } else {
+        const texte = o?.texte ?? bloc.defaut;
+        if (texte) data[champ] = texte;
+      }
     }
-    await payload.updateGlobal({ slug, data });
-    payload.logger.info(`[amorçage] page ${page.chemin}`);
+    for (const liste of page.listes ?? []) {
+      const existant = actuel[liste.nom];
+      if (Array.isArray(existant) && existant.length > 0) continue;
+      data[liste.nom] = liste.origine.map((el) =>
+        Object.fromEntries(
+          Object.entries(el).map(([k, v]) => [k, Array.isArray(v) ? v.map((texte) => ({ texte })) : v]),
+        ),
+      );
+    }
+    if (Object.keys(data).length === 0) continue;
+    await payload.updateGlobal({ slug, data: data as never });
+    payload.logger.info(`[amorçage] ${page.chemin} (${page.page}) : ${Object.keys(data).length} champ(s)`);
   }
 }
 
@@ -177,10 +197,90 @@ async function amorcerListes(payload: Payload) {
   }
 }
 
+/** Bloc de lecture (content/lectures) → bloc de la collection « textes-lecture ». */
+function blocPayload(b: BlocLecture) {
+  switch (b.t) {
+    case "p":
+      return { blockType: "paragraphe" as const, texte: b.x };
+    case "h":
+      return { blockType: "intertitre" as const, texte: b.x, niveau: b.n === 4 ? ("4" as const) : ("3" as const), ancre: b.id };
+    case "f":
+      return { blockType: "formule" as const, texte: b.x };
+    case "ol":
+    case "ul":
+      return { blockType: "liste" as const, ordonnee: b.t === "ol", items: b.items.map((texte) => ({ texte })) };
+    case "cite":
+      return { blockType: "citation" as const, texte: b.x, source: b.source };
+    case "note":
+      return { blockType: "note" as const, texte: b.x };
+  }
+}
+
+/**
+ * Textes des tomes (Ouvrage › Textes des tomes) : collection vide → les textes
+ * de `content/lectures`, avec leur partie (1, 2…) et leur ordre de lecture.
+ */
+async function amorcerTextesLecture(payload: Payload) {
+  if (!(await estVide(payload, "textes-lecture"))) return;
+  let n = 0;
+  for (const recueil of RECUEILS) {
+    for (const [iPartie, partie] of recueil.parties.entries()) {
+      for (const [ordre, t] of partie.textes.entries()) {
+        await payload.create({
+          collection: "textes-lecture",
+          data: {
+            tome: recueil.tome,
+            partie: iPartie + 1,
+            ordre,
+            slug: t.slug,
+            titre: t.titre,
+            sous_titre: t.sous_titre ?? undefined,
+            exergue: t.exergue,
+            exergue_source: t.exergue_source,
+            blocs: t.blocs.map(blocPayload),
+          },
+        });
+        n++;
+      }
+    }
+  }
+  payload.logger.info(`[amorçage] ${n} textes des tomes`);
+}
+
+/** Métadonnées d'un tome pour le global « recueils ». */
+function groupeRecueil(r: Recueil) {
+  return {
+    etiquette: r.etiquette,
+    titre: r.titre,
+    sous_titre: r.sous_titre,
+    presentation: r.presentation.map((texte) => ({ texte })),
+    parties: r.parties.map((p) => ({ titre: p.titre, description: p.description })),
+    plan: (r.plan ?? []).map((l) => ({ titre: l.titre, libre: l.libre ?? "" })),
+  };
+}
+
+/** Les deux tomes (Ouvrage › Les deux tomes) : chaque tome sans titre reçoit ses données d'origine. */
+async function amorcerRecueils(payload: Payload) {
+  const actuel = (await payload.findGlobal({ slug: "recueils", depth: 0 })) as unknown as Record<
+    string,
+    { titre?: string | null } | undefined
+  >;
+  const data: Record<string, unknown> = {};
+  for (const r of RECUEILS) {
+    const groupe = r.tome === "tome-i" ? "tome_i" : "tome_ii";
+    if (!actuel[groupe]?.titre) data[groupe] = groupeRecueil(r);
+  }
+  if (Object.keys(data).length === 0) return;
+  await payload.updateGlobal({ slug: "recueils", data: data as never });
+  payload.logger.info(`[amorçage] les deux tomes : ${Object.keys(data).join(", ")}`);
+}
+
 export async function amorcer(payload: Payload): Promise<void> {
   try {
     await amorcerAdmin(payload);
     await amorcerCollections(payload);
+    await amorcerTextesLecture(payload);
+    await amorcerRecueils(payload);
     await amorcerPages(payload);
     await amorcerListes(payload);
   } catch (err) {

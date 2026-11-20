@@ -36,7 +36,7 @@ export const AUTORITES: Autorite[] = [
     nom: "Claude Bernard",
     pays: "France",
     apport:
-      "Exigence de l'idée directrice préalable et \"rationnelle interprétation mentale\".",
+      "Exigence de l'idée directrice préalable et « rationnelle interprétation mentale ».",
   },
   {
     id: "georges_duhamel",

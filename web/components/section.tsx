@@ -1,22 +1,23 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Section — bloc pleine largeur avec ton de fond (palette du document).
- * Gère automatiquement la couleur de texte lisible sur le fond choisi.
+ * Section — bloc pleine largeur. Design system de la refonte : la nuit pour
+ * les seuils, le papier pour la lecture.
  */
 type Tone =
-  | "clair" // Blanc Cassé — fond éditorial par défaut
-  | "gris" // Gris Clair — sections alternées
-  | "nuit" // Bleu Nuit — sections secondaires / encadrés
-  | "academique" // Bleu Académique — sections principales
-  | "profond"; // Bleu Nuit profond — sections solennelles
+  | "clair" // Papier — fond de lecture par défaut
+  | "gris" // Papier 2 — zones secondaires
+  | "nuit" // Nuit — seuils, ouvertures (à réserver)
+  | "academique" // (ancien ton) rendu comme la nuit
+  | "profond"; // Nuit profonde — seuils
 
+// `surface-claire` / `surface-sombre` : règle de contraste de l'Or (globals.css).
 const TONES: Record<Tone, string> = {
-  clair: "bg-blanc-casse text-bleu-nuit-profond",
-  gris: "bg-gris-clair text-bleu-nuit-profond",
-  nuit: "bg-bleu-nuit text-blanc-casse",
-  academique: "bg-bleu-academique text-blanc",
-  profond: "bg-bleu-nuit-profond text-blanc-casse",
+  clair: "surface-claire bg-papier text-encre",
+  gris: "surface-claire bg-papier-2 text-encre",
+  nuit: "surface-sombre bg-nuit-950 text-nuit-100",
+  academique: "surface-sombre bg-nuit-950 text-nuit-100",
+  profond: "surface-sombre bg-nuit-950 text-nuit-100",
 };
 
 export function Section({
@@ -26,37 +27,37 @@ export function Section({
   ...props
 }: React.ComponentProps<"section"> & { tone?: Tone }) {
   return (
-    <section className={cn("px-6 py-16 sm:py-20", TONES[tone], className)} {...props}>
+    <section
+      className={cn("px-5 py-14 md:py-24 lg:px-6 xl:px-10", TONES[tone], className)}
+      {...props}
+    >
       {children}
     </section>
   );
 }
 
-/** Conteneur centré à largeur maîtrisée. */
+/** Conteneur centré (grille de 1 200 px dans les marges du site). */
 export function Container({
   className,
   children,
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("mx-auto w-full max-w-5xl", className)} {...props}>
+    <div className={cn("mx-auto w-full max-w-[1280px]", className)} {...props}>
       {children}
     </div>
   );
 }
 
 /**
- * Colonne de lecture « revue » — extraite en constante pour que les blocs
- * éditables (`components/bloc.tsx`) rendent exactement la même typographie.
- * Alignée à gauche avec le même retrait que les titres (filet Or).
+ * Colonne de lecture — mesure 680 px (66 à 72 caractères), Lora 19/1,75
+ * (18/1,7 sur mobile). Extraite en constante pour que les blocs éditables
+ * (`components/bloc.tsx`) rendent exactement la même typographie.
  */
 export const PROSE_CLASS =
-  "max-w-[72ch] pl-4 font-sans text-base leading-relaxed [&_p]:mt-4 [&_p:first-child]:mt-0 [&_strong]:font-semibold";
+  "max-w-[680px] font-texte text-[1.125rem] leading-[1.7] md:text-[1.1875rem] md:leading-[1.75] [&_p]:mt-[1.1em] [&_p:first-child]:mt-0 [&_p]:text-pretty [&_strong]:font-semibold";
 
-/**
- * Prose — colonne de lecture « revue » : mesure limitée (~68 car.),
- * interlignage généreux, rythme vertical des paragraphes (corps Lora).
- */
+/** Prose — colonne de lecture. */
 export function Prose({
   className,
   children,
@@ -69,18 +70,22 @@ export function Prose({
   );
 }
 
-/** Titre de section (H2) — Playfair, avec filet Or optionnel à gauche. */
+/**
+ * Titre de section (H2) — Playfair 500, 28 px sur mobile, 34 px sur
+ * ordinateur. L'or est rare : le filet n'est posé que sur demande.
+ */
 export function TitreSection({
   className,
   children,
-  filet = true,
+  filet = false,
   ...props
 }: React.ComponentProps<"h2"> & { filet?: boolean }) {
   return (
     <h2
       className={cn(
-        "font-heading text-2xl font-semibold sm:text-3xl",
-        filet && "border-l-4 border-or pl-4",
+        "font-titre text-[1.75rem] leading-[1.18] font-medium text-balance md:text-[2.125rem]",
+        filet &&
+          "before:mb-5 before:block before:h-0.5 before:w-20 before:bg-or-500 before:content-['']",
         className,
       )}
       {...props}

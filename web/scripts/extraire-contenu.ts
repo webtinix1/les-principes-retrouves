@@ -29,7 +29,7 @@ type Brut = Record<string, { html: string; text: string }>;
 
 async function depuisServeur(base: string): Promise<Brut> {
   const brut: Brut = {};
-  for (const page of PAGES_BLOCS) {
+  for (const page of PAGES_BLOCS.filter((p) => p.blocs.some((b) => b.type === "riche" || !b.defaut))) {
     const html = await (await fetch(`${base}${page.chemin}`, { cache: "no-store" })).text();
     for (const n of parse(html).querySelectorAll("[data-bloc]")) {
       brut[n.getAttribute("data-bloc")!] = { html: n.innerHTML.trim(), text: n.textContent.trim() };
@@ -50,9 +50,22 @@ async function main() {
     editor: editeurProse,
   });
 
+  // Fusion : on part de l'origine existante, pour ne jamais remplacer le texte
+  // d'origine d'un bloc par une version déjà modifiée dans le back-office.
+  const fichier = path.resolve(process.cwd(), "content/blocs/origine.json");
+  const existant = JSON.parse(await readFile(fichier, "utf8").catch(() => "{}")) as Record<string, unknown>;
+  const ecraser = process.env.CONTENU_ECRASER === "1";
   const sortie: Record<string, unknown> = {};
   const manquants: string[] = [];
   for (const [cle, def] of BLOC_PAR_CLE) {
+    if (def.type === "simple" && def.defaut !== undefined) {
+      sortie[cle] = { texte: def.defaut };
+      continue;
+    }
+    if (existant[cle] && !ecraser) {
+      sortie[cle] = existant[cle];
+      continue;
+    }
     const b = brut[cle];
     if (!b) {
       manquants.push(cle);
@@ -66,7 +79,6 @@ async function main() {
     }
   }
 
-  const fichier = path.resolve(process.cwd(), "content/blocs/origine.json");
   await writeFile(fichier, JSON.stringify(sortie, null, 1) + "\n");
   console.log(`${Object.keys(sortie).length} blocs écrits dans ${fichier}`);
   if (manquants.length) console.warn("Blocs absents du rendu :", manquants.join(", "));

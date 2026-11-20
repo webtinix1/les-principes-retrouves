@@ -23,6 +23,7 @@ import {
   type NiveauAcces,
   type EtapeProgression,
 } from "@/content/working-papers";
+import { RECUEILS as RECUEILS_CODE, type BlocLecture, type Recueil, type TexteLecture } from "@/content/lectures";
 
 /**
  * Lecture des listes éditoriales gérées dans Payload, exposées sous les mêmes
@@ -301,3 +302,159 @@ export const getListesLaboratoire = cache(
     );
   },
 );
+
+/* ── Vente des ouvrages (liens d'achat Chariow) ─────────────────────────── */
+
+export type OffreTome = { lien: string; prix?: string; format?: string };
+export type VenteOuvrages = Partial<Record<"tome-i" | "tome-ii", OffreTome>>;
+
+/** Offre d'un tome : présente seulement si un lien d'achat est renseigné. */
+function offre(v: unknown): OffreTome | undefined {
+  const g = (v ?? {}) as Ligne;
+  const lien = typeof g.lien_achat === "string" ? g.lien_achat.trim() : "";
+  if (!lien.startsWith("https://")) return undefined;
+  return { lien, prix: facultatif(g.prix), format: facultatif(g.format) };
+}
+
+/** Liens d'achat des tomes saisis dans le back-office (Boutique › Vente des ouvrages). */
+export const getVenteOuvrages = cache(
+  (): Promise<VenteOuvrages> =>
+    ouRepli<VenteOuvrages>(
+      async () => {
+        const payload = await payloadClient();
+        const g = (await payload.findGlobal({ slug: "vente-ouvrages", depth: 0 })) as unknown as Ligne;
+        return { "tome-i": offre(g.tome_i), "tome-ii": offre(g.tome_ii) };
+      },
+      {},
+      "vente des ouvrages",
+    ),
+);
+
+/* ── Les deux tomes : recueils et textes en lecture libre ───────────────── */
+
+type TomeId = Recueil["tome"];
+
+const CLE_GROUPE: Record<TomeId, "tome_i" | "tome_ii"> = { "tome-i": "tome_i", "tome-ii": "tome_ii" };
+
+/** Bloc de la collection « textes-lecture » → bloc de lecture (content/lectures/types.ts). */
+function blocLecture(b: Ligne): BlocLecture | null {
+  const x = chaine(b.texte);
+  switch (b.blockType) {
+    case "paragraphe":
+      return { t: "p", x };
+    case "intertitre":
+      return { t: "h", x, n: b.niveau === "4" ? 4 : 3, id: facultatif(b.ancre) };
+    case "formule":
+      return { t: "f", x };
+    case "liste":
+      return { t: b.ordonnee ? "ol" : "ul", items: sousTextes(b.items) };
+    case "citation":
+      return { t: "cite", x, source: chaine(b.source) };
+    case "note":
+      return { t: "note", x };
+    default:
+      return null;
+  }
+}
+
+function texteLecture(d: Ligne): TexteLecture {
+  return {
+    slug: chaine(d.slug),
+    titre: chaine(d.titre),
+    sous_titre: facultatif(d.sous_titre) ?? null,
+    exergue: facultatif(d.exergue),
+    exergue_source: facultatif(d.exergue_source),
+    blocs: Array.isArray(d.blocs)
+      ? (d.blocs as Ligne[]).map(blocLecture).filter((b): b is BlocLecture => b !== null)
+      : [],
+  };
+}
+
+/**
+ * Un recueil depuis Payload. Métadonnées : le global « recueils » (si le titre
+ * du tome est renseigné), sinon le code. Textes : la collection, rangés par
+ * partie puis par ordre ; un tome sans aucun texte en base garde ceux du code.
+ * Les parties sans texte ne sont pas affichées.
+ */
+function recueilCms(code: Recueil, g: Ligne | undefined, docs: Ligne[]): Recueil {
+  const meta = g && facultatif(g.titre) ? g : undefined;
+  const titresParties =
+    meta && Array.isArray(meta.parties) && meta.parties.length > 0
+      ? (meta.parties as Ligne[]).map((p) => ({ titre: chaine(p.titre), description: chaine(p.description) }))
+      : code.parties.map((p) => ({ titre: p.titre, description: p.description }));
+
+  let parties: Recueil["parties"];
+  if (docs.length === 0) {
+    parties = code.parties.map((p, i) => ({ ...p, ...(titresParties[i] ?? {}) }));
+  } else {
+    const ranges = titresParties.map((p) => ({ ...p, textes: [] as TexteLecture[] }));
+    const tries = [...docs].sort(
+      (a, b) => Number(a.partie ?? 1) - Number(b.partie ?? 1) || Number(a.ordre ?? 0) - Number(b.ordre ?? 0),
+    );
+    for (const d of tries) {
+      // Numéro de partie hors limites : dernière partie.
+      const i = Math.min(Math.max(1, Math.trunc(Number(d.partie) || 1)), ranges.length) - 1;
+      ranges[i].textes.push(texteLecture(d));
+    }
+    parties = ranges;
+  }
+  parties = parties.filter((p) => p.textes.length > 0);
+
+  if (!meta) return { ...code, parties };
+  const plan = Array.isArray(meta.plan)
+    ? (meta.plan as Ligne[]).map((l) => ({ titre: chaine(l.titre), libre: facultatif(l.libre) }))
+    : [];
+  const presentation = sousTextes(meta.presentation).filter((p) => p.trim());
+  return {
+    tome: code.tome,
+    etiquette: facultatif(meta.etiquette) ?? code.etiquette,
+    titre: chaine(meta.titre),
+    sous_titre: chaine(meta.sous_titre),
+    presentation,
+    parties,
+    plan: plan.length > 0 ? plan : undefined,
+  };
+}
+
+/**
+ * Les deux tomes en lecture libre (Ouvrage › Les deux tomes et Textes des
+ * tomes), sous la forme de `content/lectures` — qui sert de repli sans base.
+ */
+export const getRecueils = cache(
+  (): Promise<Recueil[]> =>
+    ouRepli(
+      async () => {
+        const payload = await payloadClient();
+        const [g, { docs }] = await Promise.all([
+          payload.findGlobal({ slug: "recueils", depth: 0 }),
+          payload.find({
+            collection: "textes-lecture",
+            sort: "ordre",
+            pagination: false,
+            depth: 0,
+          }),
+        ]);
+        const global = g as unknown as Ligne;
+        const lignes = docs as unknown as Ligne[];
+        return RECUEILS_CODE.map((code) =>
+          recueilCms(
+            code,
+            global[CLE_GROUPE[code.tome]] as Ligne | undefined,
+            lignes.filter((d) => d.tome === code.tome),
+          ),
+        );
+      },
+      RECUEILS_CODE,
+      "recueils des tomes",
+    ),
+);
+
+export async function getRecueil(tome: string): Promise<Recueil | undefined> {
+  return (await getRecueils()).find((r) => r.tome === tome);
+}
+
+/** Textes d'un tome dans l'ordre de lecture (toutes parties confondues). */
+export async function getTextesDe(tome: string): Promise<TexteLecture[]> {
+  const recueil = await getRecueil(tome);
+  return recueil ? recueil.parties.flatMap((p) => p.textes) : [];
+}
