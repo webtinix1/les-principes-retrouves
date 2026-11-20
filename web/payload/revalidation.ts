@@ -1,4 +1,6 @@
 import { revalidatePath } from "next/cache";
+import { cheminsOuvrage } from "@/content/lectures";
+import { FOOTER_LINKS, NAV_PAGES } from "@/lib/navigation";
 
 /**
  * Invalide le cache ISR des pages publiques après une modification dans le
@@ -13,4 +15,20 @@ export function revaliderChemins(chemins: string[]): void {
       /* hors requête Next : rien à invalider */
     }
   }
+}
+
+/** Textes communs (navigation, interface) : tout le site est revalidé. */
+export function revaliderSite(): void {
+  try {
+    revalidatePath("/", "layout");
+  } catch {
+    /* hors requête Next : rien à invalider */
+  }
+  // Les pages prérendues par generateStaticParams ne suivent pas toujours la
+  // revalidation de layout : on les nomme une à une.
+  revaliderChemins([
+    ...NAV_PAGES.map((p) => p.href),
+    ...FOOTER_LINKS.map((l) => l.href.split("#")[0]),
+    ...cheminsOuvrage(),
+  ]);
 }

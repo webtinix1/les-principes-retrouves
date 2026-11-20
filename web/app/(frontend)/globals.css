@@ -11,16 +11,50 @@
   /* Palette de marque — École de Brazzaville (DOCUMENT DE SYNTHÈSE FINAL) */
   --color-bleu-nuit-profond: #111827; /* Hero Sections, fonds solennels */
   --color-bleu-academique: #1e3a8a;   /* Sections principales, fonds institutionnels */
-  --color-bleu-nuit: #1a252f;         /* Sections secondaires, encadrés */
+  --color-bleu-nuit: #1b2742;         /* Surfaces sur nuit (= nuit 900) */
   --color-or: #d4af37;                /* Or Maât — titres, équations, bordures, boutons */
-  --color-or-texte: #806417;          /* Or Maât assombri — texte sur fond clair (5,1:1, WCAG AA) */
-  --color-blanc: #ffffff;             /* Textes sur fonds sombres */
-  --color-blanc-casse: #f9fafb;       /* Fonds clairs, corps de texte */
-  --color-gris-clair: #f4f4f5;        /* Sections alternées, encadrés */
+  --color-or-texte: #7a5d10;          /* Or Maât assombri — seul or autorisé en texte sur fond clair (5,7:1) */
+  --color-blanc: #ffffff;             /* Cartes, champs */
+  --color-blanc-casse: #f7f5f0;       /* = papier : fond de lecture, texte clair sur nuit */
+  --color-gris-clair: #eeeae1;        /* = papier 2 : zones secondaires */
+
+  /* Design system de la refonte (design-tokens.css). Le Fronton n'utilise
+     aucune de ces classes : il garde ses propres variables (fronton.css). */
+  --color-nuit-950: #111827;   /* seuils, en-tête ; encre du texte courant */
+  --color-nuit-900: #1b2742;   /* surfaces sur nuit, tranches de la Pyramide */
+  --color-nuit-850: #243150;   /* tranche « Charnière ontologique » */
+  --color-nuit-800: #2a3654;   /* filets sur nuit */
+  --color-nuit-pied: #0c1220;  /* fond du pied de page */
+  --color-nuit-300: #a7adb8;   /* texte secondaire sur nuit (7,9:1) */
+  --color-nuit-200: #c9ced6;   /* libellés inactifs sur nuit */
+  --color-nuit-100: #e9e4d8;   /* texte courant sur nuit (14:1) */
+  --color-nuit-num: #8a93a3;   /* numéros du menu sur nuit (5,7:1) */
+  --color-or-500: #d4af37;     /* Or Maât : sur nuit uniquement, fond du bouton principal */
+  --color-or-300: #e6cf85;     /* or clair sur nuit, survol */
+  --color-or-filet: #8a7330;   /* axes de la Pyramide (décor) */
+  --color-or-700: #7a5d10;     /* or texte sur clair (5,7:1) */
+  --color-papier: #f7f5f0;     /* fond de lecture */
+  --color-papier-2: #eeeae1;   /* formules, zones secondaires */
+  --color-encre: #111827;      /* texte courant */
+  --color-encre-2: #374151;    /* interface secondaire (9,5:1) */
+  --color-encre-3: #5a616d;    /* légendes, métadonnées (5,7:1) */
+  --color-filet: #d8d2c4;      /* séparateurs */
+  --color-filet-doux: #e4dfd3; /* séparateurs internes */
+  --color-filet-fort: #8c8576; /* bordure des champs (3,4:1) */
+  --color-lien: #1e3a8a;       /* liens sur clair (9,5:1) */
+  --color-erreur: #a3261c;     /* 6,8:1 sur papier */
+  --color-succes: #2e6b3b;     /* 5,9:1 sur papier */
+
+  --font-titre: var(--font-playfair-site), Georgia, serif;
+  --font-texte: var(--font-lora-site), Georgia, serif;
+  --font-code: var(--font-fira), ui-monospace, monospace;
+
+  --ease-sortie: cubic-bezier(.16, 1, .3, 1);
+  --ease-trace: cubic-bezier(.65, 0, .35, 1);
 
   /* Polices — auto-hébergées via next/font (zéro requête CDN) */
-  --font-sans: var(--font-lora);        /* corps de texte */
-  --font-heading: var(--font-playfair); /* titres H1-H3, dédicace */
+  --font-sans: var(--font-lora-site), Georgia, serif;          /* corps de texte (site) */
+  --font-heading: var(--font-playfair-site), Georgia, serif;   /* titres (site) */
   --font-ui: var(--font-inter);         /* interface, boutons, légendes */
   --font-mono: var(--font-fira);        /* équations Σ = M(F(V(Σ))) */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -143,65 +177,146 @@
 }
 
 /* ==========================================================================
-   Animations de marque — reprises du DOCUMENT DE SYNTHÈSE FINAL.
-   Respecte prefers-reduced-motion (accessibilité).
+   Pages de contenu — design system de la refonte (Claude Design, étape 1).
+   Portée : `.site` (layout des pages de contenu). Le Fronton n'est pas
+   concerné : ses animations et ses polices vivent dans fronton.css, et les
+   images clés ci-dessous sont préfixées `pr-` pour ne jamais entrer en
+   collision avec les siennes.
    ========================================================================== */
 
-/* Respiration d'ENTRÉE du sommet Σ : un souffle unique qui se pose, plutôt
-   qu'une pulsation perpétuelle — sobriété d'une page « Read » solennelle
-   (audit design : les boucles infinies ont été calmées). */
-@keyframes sigma-entree {
-  0%   { opacity: 0.85; transform: scale(0.985); }
-  60%  { opacity: 1;    transform: scale(1.02); }
-  100% { opacity: 1;    transform: scale(1); }
+.site {
+  background: var(--color-papier);
+  color: var(--color-encre);
+  font-family: var(--font-texte);
+  font-feature-settings: "kern";
 }
 
-/* Apparition progressive des sections */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.pyramid-sigma { animation: sigma-entree 1.8s ease-out both; transform-origin: center; }
-/* Axes de la double respiration : dessin statique (plus de flux perpétuel). */
-
-.anim-fade-in-up { animation: fade-in-up 0.6s ease-out both; }
-
-/* Logo Plume de Maât — déploiement léger au survol (Méthode M) */
-.site-logo__mark { transition: transform 0.4s ease; }
+/* Logo Plume de Maât — léger déploiement au survol */
+.site-logo__mark { transition: transform .4s ease; }
 .site-logo:hover .site-logo__mark { transform: scale(1.05) rotate(-1deg); }
 
-/* ==========================================================================
-   Règles des design systems (Webtinix · Codewave) appliquées aux pages de
-   contenu, dans la charte du site. Portée : `.site` (layout des pages de
-   contenu) — le Fronton n'est pas concerné.
-   ========================================================================== */
+/* Contraste AA : sur une surface claire, l'or de texte passe à l'or 700 ;
+   une surface sombre imbriquée rétablit l'Or Maât. */
+.site .surface-claire .text-or { color: var(--color-or-700); }
+.site .surface-claire .surface-sombre .text-or { color: var(--color-or-500); }
 
-/* Contraste AA : sur une surface claire, l'Or Maât de texte passe à sa
-   variante assombrie ; une surface sombre imbriquée rétablit l'Or d'origine. */
-.site .surface-claire .text-or { color: var(--color-or-texte); }
-.site .surface-claire .surface-sombre .text-or { color: var(--color-or); }
-
-/* Focus visible : anneau Or 3px, décalé, identique sur toutes les cibles. */
+/* Focus visible : contour 3 px décalé de 2 px, nuit sur clair, or sur nuit. */
 .site :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 3px solid color-mix(in oklch, var(--color-or) 70%, transparent);
+  outline: 3px solid var(--color-nuit-950);
   outline-offset: 2px;
 }
+.site :where(.surface-sombre) :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible,
+.site :where(.surface-sombre):where(a, button):focus-visible {
+  outline-color: var(--color-or-500);
+}
 
-/* Pression : léger enfoncement (scale .97) ; désactivé : opacité .42. */
+/* Pression : 97 % ; désactivé : opacité .42. */
+.site :where(a, button)[data-slot="button"],
+.site .btn { transition: background-color .18s ease-out, color .18s ease-out, border-color .18s ease-out, transform .18s ease-out; }
 .site :where(a, button)[data-slot="button"]:active,
 .site .presse:active { transform: scale(0.97); }
 .site :where(button, [data-slot="button"]):disabled { opacity: 0.42; }
 
-/* Ancres : les intertitres ciblés ne passent pas sous l'en-tête. */
-.site main [id] { scroll-margin-top: 6rem; }
+/* Ancres : les intertitres ciblés ne passent pas sous l'en-tête collant (mobile). */
+.site main [id] { scroll-margin-top: 8rem; }
+@media (min-width: 1024px) { .site main [id] { scroll-margin-top: 2rem; } }
 
+/* Formules : jamais de ligatures (Σ = M(F(V(Σ))) doit se lire tel quel). */
+.site .font-code, .site .font-mono { font-variant-ligatures: none; }
+
+/* Liens dans le texte : bleu académique souligné. */
+.site .lien {
+  color: var(--color-lien);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.site .lien:hover { color: var(--color-encre); text-decoration-thickness: 2px; }
+
+/* Colonne de lecture (Lora 19/1,75, 18/1,7 sur mobile). */
+.site .prose-lecture { font-family: var(--font-texte); font-size: 1.125rem; line-height: 1.7; color: var(--color-encre); }
+@media (min-width: 768px) { .site .prose-lecture { font-size: 1.1875rem; line-height: 1.75; } }
+.site .prose-lecture p { margin: 0 0 1.1em; text-wrap: pretty; hyphens: auto; }
+.site .prose-lecture p:last-child { margin-bottom: 0; }
+
+/* ---------- Mouvement ---------- */
+@keyframes pr-rise    { from { opacity: 0; transform: translateY(28px) } to { opacity: 1; transform: none } }
+@keyframes pr-soft    { from { opacity: .15; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes pr-fade    { from { opacity: 0 } to { opacity: 1 } }
+@keyframes pr-draw    { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+@keyframes pr-track   { from { opacity: 0; letter-spacing: .42em } to { opacity: 1; letter-spacing: .14em } }
+@keyframes pr-type    { from { width: 0 } }
+@keyframes pr-caret   { 0%, 100% { border-right-color: #d4af37 } 50% { border-right-color: transparent } }
+@keyframes pr-slice   { from { opacity: 0; transform: translateY(-26px) scale(.9) } to { opacity: 1; transform: none } }
+@keyframes pr-swap    { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+@keyframes pr-panel   { from { opacity: 0; transform: translateY(-8px) } to { opacity: 1; transform: none } }
+@keyframes pr-twinkle { 0%, 100% { opacity: .12 } 50% { opacity: .9 } }
+@keyframes pr-halo    { 0%, 100% { opacity: 0; transform: scale(.9) } 50% { opacity: .55; transform: scale(1.25) } }
+@keyframes pr-descend { 0% { top: 0; opacity: 0 } 15%, 85% { opacity: 1 } 100% { top: calc(100% - 7px); opacity: 0 } }
+@keyframes pr-ascend  { 0% { top: calc(100% - 7px); opacity: 0 } 15%, 85% { opacity: 1 } 100% { top: 0; opacity: 0 } }
+@keyframes pr-travel  { 0% { left: 0 } 100% { left: calc(100% - 9px) } }
+@keyframes pr-breathe { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+
+/* Décalage : style={{ "--dl": "300ms" }} */
+.site .m-rise  { animation: pr-rise 900ms var(--ease-sortie) both; animation-delay: var(--dl, 0ms); }
+.site .m-fade  { animation: pr-fade 1600ms var(--ease-sortie) both; animation-delay: var(--dl, 0ms); }
+.site .m-draw  { transform-origin: left center; animation: pr-draw 1600ms var(--ease-trace) both; animation-delay: var(--dl, 0ms); }
+.site .m-track { animation: pr-track 2s var(--ease-sortie) both; animation-delay: var(--dl, 0ms); }
+.site .m-slice { animation: pr-slice 900ms var(--ease-sortie) both; animation-delay: var(--dl, 0ms); }
+.site .m-swap  { animation: pr-swap 420ms var(--ease-sortie) both; }
+.site .m-panel { animation: pr-panel 420ms var(--ease-sortie) both; }
+.site .mot     { display: inline-block; animation: pr-rise 1s var(--ease-sortie) both; animation-delay: var(--dl, 0ms); }
+
+/* Machine à écrire : width en ch = nombre de caractères. */
+.site .typ { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom;
+  font-variant-ligatures: none; border-right: 2px solid transparent; padding-right: 2px; }
+
+/* Révélation au défilement : sans support du navigateur, tout reste visible. */
+@supports (animation-timeline: view()) {
+  .site .rv      { animation: pr-rise linear both; animation-timeline: view(); animation-range: entry 0% entry 75%; }
+  .site .rv2     { animation-range: entry 12% entry 88%; }
+  .site .rv3     { animation-range: entry 24% cover 30%; }
+  .site .rv-draw { transform-origin: left center; animation: pr-draw linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
+  .site .prose-lecture > p { animation: pr-soft linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+}
+
+/* Micro-interactions */
+.site .arr { display: inline-block; transition: transform 420ms var(--ease-sortie); }
+.site a:hover .arr, .site button:hover .arr { transform: translateX(6px); }
+
+.site .souleve { transition: transform .45s var(--ease-sortie), border-color .3s ease-out, background-color .3s ease-out; }
+.site .souleve:hover { transform: translateY(-6px); }
+.site .souleve .trait-or { display: block; height: 2px; background: var(--color-or-500); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-sortie); }
+.site .souleve:hover .trait-or { transform: scaleX(1); }
+
+.site .glisse { transition: transform 420ms var(--ease-sortie); }
+.site .glisse:hover { transform: translateX(4px); }
+
+/* Menu ordinateur : soulignement qui se trace au survol. */
+.site .nav-lien { position: relative; }
+.site .nav-lien::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: -2px; height: 2px;
+  background: var(--color-or-300); transform: scaleX(0); transform-origin: left; transition: transform 420ms var(--ease-sortie); }
+.site .nav-lien:hover::after { transform: scaleX(1); }
+.site .nav-lien[aria-current="page"]::after { display: none; }
+
+/* Ciel de l'accueil (continuité avec le Fronton). */
+.site .etoile { position: absolute; border-radius: 50%; background: #f3e6b8; opacity: .4;
+  animation: pr-twinkle var(--du, 4s) ease-in-out infinite; animation-delay: var(--dl, 0ms); }
+.site .halo { position: absolute; left: 50%; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
+  border: 1px solid var(--color-or-500); animation: pr-halo 3.2s var(--ease-trace) infinite; animation-delay: 2.2s; pointer-events: none; }
+.site .point-flux { position: absolute; left: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--color-or-500); }
+.site .flux-desc { animation: pr-descend 3.6s var(--ease-trace) infinite; }
+.site .flux-asc  { animation: pr-ascend 3.6s var(--ease-trace) infinite; animation-delay: 1.8s; }
+.site .vivant { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--color-or-700);
+  margin-right: 6px; animation: pr-breathe 2.4s ease-in-out infinite; }
+.site .voyageur { position: absolute; top: -5px; width: 9px; height: 9px; border-radius: 50%; background: var(--color-or-500);
+  box-shadow: 0 0 0 4px rgb(212 175 55 / .18); animation: pr-travel 6s var(--ease-trace) infinite; }
+
+/* Accessibilité : avec « réduire les animations », tout s'affiche à son état final. */
 @media (prefers-reduced-motion: reduce) {
-  .site .presse:active,
-  .site [data-slot="button"]:active { transform: none; }
-  .pyramid-sigma,
-  .flow-ontologique,
-  .flow-epistemologique,
-  .anim-fade-in-up,
-  .site-logo__mark { animation: none; transition: none; }
+  .site *, .site *::before, .site *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .site .typ { width: auto !important; }
 }

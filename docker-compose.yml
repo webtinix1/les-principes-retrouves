@@ -10,6 +10,9 @@ services:
     build:
       context: ./web
       dockerfile: Dockerfile
+      args:
+        # Adresse publique figée au build (canonical, sitemap, robots).
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://lesprincipesretrouves.com}
     image: ${COMPOSE_PROJECT_NAME:-principes-retrouves}-web
     restart: unless-stopped
     depends_on:

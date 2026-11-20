@@ -1,0 +1,252 @@
+import { NAV_PAGES } from "@/lib/navigation";
+import type { BlocDef, PageBlocs } from "./types";
+
+/**
+ * Libellés du menu et titres des dix pages : la structure (adresses, numéros,
+ * identifiants) reste dans `lib/navigation.ts` ; seuls les textes sont ici.
+ * Les textes d'origine sont repris de `NAV_PAGES` (une seule source).
+ */
+const MENU: BlocDef[] = NAV_PAGES.map((p) => ({
+  cle: `site_navigation.menu.${p.page_id}`,
+  label: `Menu — ${numeroLibelle(p.numero)} ${p.label}`,
+  type: "simple",
+  aide: "Menu principal — libellés courts (en-tête, pied de page, ligne de position mobile)",
+  defaut: p.label,
+}));
+
+const TITRES: BlocDef[] = NAV_PAGES.map((p) => ({
+  cle: `site_navigation.titre.${p.page_id}`,
+  label: `Titre de la page ${numeroLibelle(p.numero)} (${p.label})`,
+  type: "simple",
+  aide: "Titres des pages — pagination de fin de page et plan de la page 404",
+  defaut: p.titre,
+}));
+
+function numeroLibelle(n: number) {
+  return String(n).padStart(2, "0");
+}
+
+/** Textes communs : marque, menu, pied de page, pagination, métadonnées du site. */
+export const SITE_NAVIGATION_BLOCS: PageBlocs = {
+  page: "site_navigation",
+  chemin: "/",
+  titre: "Site — Navigation et pied de page",
+  portee: "site",
+  groupe: "Site",
+  blocs: [
+    {
+      cle: "site_navigation.acces.aller_au_contenu",
+      label: "Lien d’évitement « Aller au contenu »",
+      type: "simple",
+      aide: "Accessibilité — lien visible au clavier en haut de chaque page",
+      defaut: "Aller au contenu",
+    },
+    {
+      cle: "site_navigation.marque.nom",
+      label: "Nom du site (en-tête et pied de page)",
+      type: "simple",
+      aide: "En-tête — marque",
+      defaut: "Les Principes Retrouvés",
+    },
+    {
+      cle: "site_navigation.marque.devise",
+      label: "Mention sous le nom (en-tête, ordinateur)",
+      type: "simple",
+      aide: "En-tête — marque",
+      defaut: "École de Brazzaville",
+    },
+    {
+      cle: "site_navigation.marque.logo_aria",
+      label: "Lien du logo — texte lu par les lecteurs d’écran",
+      type: "simple",
+      aide: "En-tête — marque",
+      defaut: "Les Principes Retrouvés — retour au Fronton",
+    },
+    {
+      cle: "site_navigation.entete.contact",
+      label: "Lien « Contact » (en-tête et menu mobile)",
+      type: "simple",
+      aide: "En-tête — liens et bouton du menu",
+      defaut: "Contact",
+    },
+    {
+      cle: "site_navigation.entete.menu_ouvrir",
+      label: "Bouton du menu mobile (fermé)",
+      type: "simple",
+      aide: "En-tête — liens et bouton du menu",
+      defaut: "Menu",
+    },
+    {
+      cle: "site_navigation.entete.menu_fermer",
+      label: "Bouton du menu mobile (ouvert)",
+      type: "simple",
+      aide: "En-tête — liens et bouton du menu",
+      defaut: "Fermer",
+    },
+    {
+      cle: "site_navigation.entete.nav_aria",
+      label: "Menu — texte lu par les lecteurs d’écran",
+      type: "simple",
+      aide: "En-tête — liens et bouton du menu",
+      defaut: "Navigation principale",
+    },
+    ...MENU,
+    {
+      cle: "site_navigation.position.sur_total",
+      label: "Position dans le parcours — après le numéro (« 04 / 10 »)",
+      type: "simple",
+      aide: "Ligne de position mobile et surtitre des pages (« 04 / 10 · Fondements »)",
+      defaut: "/ 10",
+    },
+    {
+      cle: "site_navigation.position.precedente_aria",
+      label: "Flèche « page précédente » — texte lu par les lecteurs d’écran",
+      type: "simple",
+      aide: "Ligne de position mobile et surtitre des pages (« 04 / 10 · Fondements »)",
+      defaut: "Page précédente : {page}",
+    },
+    {
+      cle: "site_navigation.position.suivante_aria",
+      label: "Flèche « page suivante » — texte lu par les lecteurs d’écran",
+      type: "simple",
+      aide: "Ligne de position mobile et surtitre des pages (« 04 / 10 · Fondements »)",
+      defaut: "Page suivante : {page}",
+    },
+    {
+      cle: "site_navigation.familles.seuil",
+      label: "Famille 1 (page 01)",
+      type: "simple",
+      aide: "Familles de pages — surtitre des pages et colonnes du pied de page",
+      defaut: "Le Seuil",
+    },
+    {
+      cle: "site_navigation.familles.fondements",
+      label: "Famille 2 (pages 02 à 04)",
+      type: "simple",
+      aide: "Familles de pages — surtitre des pages et colonnes du pied de page",
+      defaut: "Fondements",
+    },
+    {
+      cle: "site_navigation.familles.savoir",
+      label: "Famille 3 (pages 05 à 08)",
+      type: "simple",
+      aide: "Familles de pages — surtitre des pages et colonnes du pied de page",
+      defaut: "Savoir",
+    },
+    {
+      cle: "site_navigation.familles.parcours",
+      label: "Famille 4 (pages 09 et 10)",
+      type: "simple",
+      aide: "Familles de pages — surtitre des pages et colonnes du pied de page",
+      defaut: "Parcours",
+    },
+    ...TITRES,
+    {
+      cle: "site_navigation.pagination.nav_aria",
+      label: "Pagination — texte lu par les lecteurs d’écran",
+      type: "simple",
+      aide: "Pagination de fin de page (pages précédente et suivante)",
+      defaut: "Pages voisines",
+    },
+    {
+      cle: "site_navigation.pagination.precedente",
+      label: "Mention « Page précédente »",
+      type: "simple",
+      aide: "Pagination de fin de page (pages précédente et suivante)",
+      defaut: "Page précédente",
+    },
+    {
+      cle: "site_navigation.pagination.suivante",
+      label: "Mention « Page suivante »",
+      type: "simple",
+      aide: "Pagination de fin de page (pages précédente et suivante)",
+      defaut: "Page suivante",
+    },
+    {
+      cle: "site_navigation.pagination.retour_debut",
+      label: "Mention de retour au début (dernière page)",
+      type: "simple",
+      aide: "Pagination de fin de page (pages précédente et suivante)",
+      defaut: "Revenir au début",
+    },
+    {
+      cle: "site_navigation.pied.adresse",
+      label: "Adresse",
+      type: "simple",
+      aide: "Pied de page — marque et coordonnées",
+      defaut: "Institut de Brazzaville, République du Congo",
+    },
+    {
+      cle: "site_navigation.pied.email",
+      label: "Adresse e-mail de contact",
+      type: "simple",
+      aide: "Pied de page — marque et coordonnées",
+      defaut: "contact@lesprincipesretrouves.cg",
+    },
+    {
+      cle: "site_navigation.pied.colonne_seuil",
+      label: "Titre de la première colonne (famille « Le Seuil »)",
+      type: "simple",
+      aide: "Pied de page — plan du site",
+      defaut: "Seuil",
+    },
+    {
+      cle: "site_navigation.pied.fronton",
+      label: "Lien vers le Fronton",
+      type: "simple",
+      aide: "Pied de page — plan du site",
+      defaut: "Le Fronton",
+    },
+    {
+      cle: "site_navigation.pied.mentions",
+      label: "Mention de droits",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut:
+        "© 2026 Gaudéric MAMBOU, recherche indépendante. Les contenus théoriques sont diffusés à titre de référence académique. Toute citation doit respecter les normes universitaires en vigueur.",
+    },
+    {
+      cle: "site_navigation.pied.lien_mentions_legales",
+      label: "Lien « Mentions légales »",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut: "Mentions légales",
+    },
+    {
+      cle: "site_navigation.pied.lien_confidentialite",
+      label: "Lien « Politique de confidentialité »",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut: "Politique de confidentialité",
+    },
+    {
+      cle: "site_navigation.pied.lien_cgv",
+      label: "Lien « Conditions de vente »",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut: "Conditions de vente",
+    },
+    {
+      cle: "site_navigation.seo.titre_defaut",
+      label: "Titre par défaut (pages sans titre propre)",
+      type: "simple",
+      aide: "Référencement (Google)",
+      defaut: "Les Principes Retrouvés | École de Brazzaville | Science Métamoderne",
+    },
+    {
+      cle: "site_navigation.seo.modele_titre",
+      label: "Modèle du titre des pages — « %s » = titre de la page (à conserver)",
+      type: "simple",
+      aide: "Référencement (Google)",
+      defaut: "%s | Les Principes Retrouvés",
+    },
+    {
+      cle: "site_navigation.seo.description",
+      label: "Description par défaut",
+      type: "simple",
+      aide: "Référencement (Google)",
+      defaut:
+        "Portail de l'École de Brazzaville — Science Métamoderne : théorie générale de l'intelligibilité, épistémologie et droit constitutionnel.",
+    },
+  ],
+};

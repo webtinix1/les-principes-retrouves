@@ -1,4 +1,4 @@
-import type { BlocDef, PageBlocs } from "./types";
+import type { BlocDef, ListeDef, PageBlocs } from "./types";
 import { MANIFESTE_BLOCS } from "./manifeste";
 import { CONSTITUTION_BLOCS } from "./constitution";
 import { DECLARATION_BLOCS } from "./declaration";
@@ -11,8 +11,13 @@ import { CONCEPTS_BLOCS } from "./concepts";
 import { CGV_BLOCS } from "./cgv";
 import { MENTIONS_LEGALES_BLOCS } from "./mentions_legales";
 import { CONFIDENTIALITE_BLOCS } from "./confidentialite";
+import { ACCUEIL_BLOCS } from "./accueil";
+import { SITE_NAVIGATION_BLOCS } from "./site_navigation";
+import { SITE_INTERFACE_BLOCS } from "./site_interface";
+import { SITE_FORMULAIRES_BLOCS } from "./site_formulaires";
+import { SITE_LECTURE_BLOCS } from "./site_lecture";
 
-export type { BlocDef, PageBlocs, TypeBloc } from "./types";
+export type { BlocDef, ChampListe, ListeDef, PageBlocs, TypeBloc } from "./types";
 
 /**
  * Registre complet des pages éditables, dans l'ordre de lecture du site
@@ -20,6 +25,7 @@ export type { BlocDef, PageBlocs, TypeBloc } from "./types";
  * Ajouter une page = créer son fichier de blocs et l'ajouter ici.
  */
 export const PAGES_BLOCS: PageBlocs[] = [
+  ACCUEIL_BLOCS,
   MANIFESTE_BLOCS,
   DECLARATION_BLOCS,
   CONSTITUTION_BLOCS,
@@ -33,6 +39,11 @@ export const PAGES_BLOCS: PageBlocs[] = [
   MENTIONS_LEGALES_BLOCS,
   CONFIDENTIALITE_BLOCS,
   CGV_BLOCS,
+  // Textes communs à tout le site
+  SITE_NAVIGATION_BLOCS,
+  SITE_INTERFACE_BLOCS,
+  SITE_FORMULAIRES_BLOCS,
+  SITE_LECTURE_BLOCS,
 ];
 
 /** Index clé → définition (validation des enregistrements, rendu de l'éditeur). */
@@ -50,5 +61,12 @@ export const CHEMIN_PAR_CLE: Map<string, string> = new Map(
   PAGES_BLOCS.flatMap((p) => p.blocs.map((b) => [b.cle, p.chemin] as const)),
 );
 
+/** Index "<page>.<liste>" → { page, liste }. */
+export const LISTE_PAR_CLE: Map<string, { page: PageBlocs; liste: ListeDef }> = new Map(
+  PAGES_BLOCS.flatMap((p) => (p.listes ?? []).map((l) => [`${p.page}.${l.nom}`, { page: p, liste: l }] as const)),
+);
+
 /** Toutes les pages à revalider (démarrage du conteneur, revalidation globale). */
-export const CHEMINS_EDITABLES: string[] = PAGES_BLOCS.map((p) => p.chemin);
+export const CHEMINS_EDITABLES: string[] = [
+  ...new Set(PAGES_BLOCS.filter((p) => p.portee !== "site").map((p) => p.chemin)),
+];

@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { CHEMINS_EDITABLES } from "@/content/blocs";
 import { payloadClient } from "@/lib/payload";
+import { cheminsOuvrage } from "@/content/lectures";
 
 /** Pages qui lisent Payload et sont prérendues au build (sans base). */
 const CHEMINS = [...new Set([...CHEMINS_EDITABLES, "/transmission", "/concepts", "/ouvrage"])];
@@ -40,6 +41,10 @@ export async function POST(request: Request) {
   }
 
   for (const chemin of CHEMINS) {
+    revalidatePath(chemin);
+  }
+  // Sommaires et textes des tomes (liens d'achat saisis dans le back-office).
+  for (const chemin of cheminsOuvrage()) {
     revalidatePath(chemin);
   }
 

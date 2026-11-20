@@ -33,6 +33,36 @@ export type BlocDef = {
   type: TypeBloc;
   /** Repère de localisation dans la page ("Section 1 — Le diagnostic"). */
   aide?: string;
+  /**
+   * Texte d'origine d'un bloc « simple » lu par `getTexte` (titres passés en
+   * propriété, libellés d'interface, métadonnées SEO). Sert de repli quand le
+   * champ est vide et d'amorce pour le back-office. Les marqueurs entre
+   * accolades ({n}, {tome}…) sont remplacés au rendu.
+   */
+  defaut?: string;
+};
+
+/** Champ d'un élément de liste : texte court, zone de texte, ou liste de lignes. */
+export type ChampListe = {
+  nom: string;
+  label: string;
+  type?: "texte" | "zone" | "lignes";
+};
+
+/**
+ * Liste structurée éditable (articles, cartes, étapes…). Une liste vidée dans
+ * le back-office revient aux données d'origine.
+ */
+export type ListeDef = {
+  /** Nom stable du champ (snake_case, jamais « id »). NE JAMAIS renommer. */
+  nom: string;
+  label: string;
+  /** Libellé d'un élément (« Article »). */
+  element?: string;
+  aide?: string;
+  champs: ChampListe[];
+  /** Données d'origine (amorce et repli). */
+  origine: Record<string, string | string[]>[];
 };
 
 export type PageBlocs = {
@@ -43,4 +73,13 @@ export type PageBlocs = {
   /** Titre affiché dans le back-office. */
   titre: string;
   blocs: BlocDef[];
+  /** Listes structurées de la page. */
+  listes?: ListeDef[];
+  /**
+   * « site » : textes communs à toutes les pages (navigation, interface…) —
+   * un enregistrement revalide tout le site. Défaut : la page seule.
+   */
+  portee?: "page" | "site";
+  /** Groupe du back-office (défaut « Pages »). */
+  groupe?: string;
 };

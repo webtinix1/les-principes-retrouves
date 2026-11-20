@@ -1,17 +1,24 @@
 import Link from "next/link";
-import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse, BlocTexte } from "@/components/bloc";
-import { Carte } from "@/components/primitives";
+import {
+  ArticleNumerote,
+  BlocSection,
+  Cloture,
+  Exergue,
+  OuverturePage,
+} from "@/components/editorial";
+import { Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
+import { getListe, getTexte, getTextes } from "@/lib/contenu";
 
-export const metadata = pageMetadata({
-  title: "Le Manifeste de Brazzaville",
-  description:
-    "L'Horizon de l'Effectivité Normative : diagnostic de la crise de l'intelligibilité et les sept articles du Manifeste.",
-  path: "/manifeste",
-});
+export async function generateMetadata() {
+  return pageMetadata({
+    title: await getTexte("manifeste.seo.titre"),
+    description: await getTexte("manifeste.seo.description"),
+    path: "/manifeste",
+  });
+}
 
 /**
  * Filet de sécurité pour les blocs éditables : la page est prérendue au build
@@ -21,94 +28,58 @@ export const metadata = pageMetadata({
  */
 export const revalidate = 3600;
 
-/** Les sept articles du Manifeste de Brazzaville. */
-const ARTICLES = [
-  {
-    id: "article-i",
-    numero: "Article I",
-    titre: "Primauté de l'Intelligibilité sur l'Opératoire",
-    texte:
-      "La recherche scientifique dépend d'abord du cerveau avant de dépendre du laboratoire. Le laboratoire vérifie, mesure, contrôle ou réfute ; mais c'est l'intelligence qui formule les problèmes, identifie les anomalies, construit les hypothèses et découvre les principes.",
-  },
-  {
-    id: "article-ii",
-    numero: "Article II",
-    titre: "Le Théorème de la Genèse Scientifique",
-    texte:
-      "La connaissance ne naît pas de l'induction mécanique, ni de la déduction formelle. Elle naît de la rencontre entre une intelligibilité déjà présente et une difficulté qui en révèle l'incomplétude. La genèse réelle de la découverte obéit à la séquence : Architecture Préalable → Paradoxe/Anomalie → Hypothèse → Thésis → Expérantia → Connaissance.",
-  },
-  {
-    id: "article-iii",
-    numero: "Article III",
-    titre: "Le Principe de Nécessité Heuristique",
-    texte:
-      "L'ascension vers les principes ne s'effectue pas par spéculation arbitraire. Chaque élévation vers un niveau supérieur d'intelligibilité doit apparaître comme la conséquence nécessaire des insuffisances constatées au niveau inférieur. Le chercheur ne monte pas parce qu'il le veut ; il monte parce que le niveau inférieur ne suffit plus à rendre compte de la cohérence du réel.",
-  },
-  {
-    id: "article-iv",
-    numero: "Article IV",
-    titre: "La Reconstruction Synthétique",
-    texte:
-      "L'analyse est nécessaire, mais elle fragmente. Elle dissèque le réel en disciplines, en objets et en variables. La synthèse reconstructive est la forme supérieure de l'analyse : elle consiste à remonter des éléments dissociés vers les fondements implicites qui les unissent. Là où l'analyse voit des disciplines séparées, la méthode reconstructive cherche le Substratum Commun qui les rend simultanément possibles.",
-  },
-  {
-    id: "article-v",
-    numero: "Article V",
-    titre: "La Double Respiration du Réel et de la Connaissance",
-    texte:
-      "La méthode reconnaît deux mouvements symétriques et inverses. Le mouvement descendant (Ontologique) : le Substratum Commun (Σ, π₁ ↔ π₂) se convertit progressivement en manifestations observables à travers la Charnière Ontologique et le Voile Ontologique. Le mouvement ascendant (Épistémologique) : l'intelligence remonte du monde observable, franchit le Voile, traverse la Charnière, et reconstruit l'architecture préalable pour retrouver le Substratum Commun.",
-  },
-  {
-    id: "article-vi",
-    numero: "Article VI",
-    titre: "Le Principe de Non-Imposition",
-    texte:
-      "Nul principe ne peut être introduit avant que le raisonnement n'en ait progressivement établi la nécessité. La recherche ne consiste pas à imposer des conclusions, mais à reconstruire les conditions qui conduisent nécessairement jusqu'à elles.",
-  },
-  {
-    id: "article-vii",
-    numero: "Article VII",
-    titre: "Le Principe de Démonstration Catégorique",
-    texte:
-      "Aucune affirmation ne peut être tenue pour acquise tant qu'elle n'a pas fait l'objet d'une démonstration suffisante au regard de son domaine. L'ambition d'une théorie ne dispense jamais de l'exigence de sa démonstration.",
-  },
-];
+type ElementListe = { numero: string; titre: string; texte: string };
 
 /** PAGE 4 — LE MANIFESTE DE BRAZZAVILLE. */
-export default function ManifestePage() {
+export default async function ManifestePage() {
+  const textes = await getTextes("manifeste");
+  /** Texte simple de la page (clé sans le préfixe « manifeste. »). */
+  const t = (cle: string, valeurs?: Record<string, string | number>) => {
+    const v = textes[cle];
+    if (v === undefined) throw new Error(`Bloc inconnu du registre : manifeste.${cle}`);
+    // Marqueurs {nom} remplacés par leur valeur.
+    return Object.entries(valeurs ?? {}).reduce((acc, [k, x]) => acc.split(`{${k}}`).join(String(x)), v);
+  };
+  /** Les sept articles du Manifeste et les trois propriétés de la Matrice de la Maât. */
+  const [ARTICLES, MATRICE] = await Promise.all([
+    getListe<ElementListe>("manifeste.articles"),
+    getListe<ElementListe>("manifeste.matrice"),
+  ]);
+  const SOMMAIRE = [
+    { id: "diagnostic", label: t("diagnostic.titre") },
+    { id: "illusion-quantitative", label: t("illusion_quantitative.titre") },
+    { id: "piege-postmoderne", label: t("piege_postmoderne.titre") },
+    { id: "matrice-maat", label: t("matrice_maat.titre") },
+    { id: "decolonisation", label: t("decolonisation.titre") },
+    { id: "articles", label: t("articles.titre") },
+    { id: "pacte", label: t("pacte.titre") },
+  ];
   return (
     <>
-      {/* Hero */}
-      <Section tone="profond" className="text-center">
-        <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
-            Le Manifeste de Brazzaville
-          </h1>
-          <BlocTexte
-            cle="manifeste.hero.sous_titre"
-            className="mt-4 font-sans text-lg italic text-blanc-casse/80"
-          >
+      <OuverturePage
+        page_id="manifeste"
+        titre={t("hero.titre")}
+        sousTitre={
+          <BlocTexte cle="manifeste.hero.sous_titre" as="span">
             L’Horizon de l’Effectivité Normative
           </BlocTexte>
-          <BlocTexte
-            cle="manifeste.hero.exergue"
-            as="blockquote"
-            className="mt-6 font-heading text-lg italic text-blanc-casse"
-          >
+        }
+        sommaire={SOMMAIRE}
+      >
+        <Exergue>
+          <BlocTexte cle="manifeste.hero.exergue" as="span">
             « Ce qui structure le Réel ne peut disparaître : l’Univers ne
             s’anéantit pas, il s’occulte. »
           </BlocTexte>
-        </Container>
-      </Section>
+        </Exergue>
+      </OuverturePage>
 
       {/* Section 1 — Le diagnostic */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Le diagnostic — une crise de l’intelligibilité contemporaine
-            </TitreSection>
-          </header>
+      <BlocSection
+        id="diagnostic"
+        titre={t("diagnostic.titre")}
+        bordure={false}
+      >
           <BlocProse cle="manifeste.diagnostic.corps">
             <p>
               La science contemporaine traverse une anomalie structurelle
@@ -148,17 +119,13 @@ export default function ManifestePage() {
               les conditions de possibilité de toute production de connaissance.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 2 — L'illusion quantitative moderniste */}
-      <Section tone="gris">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              L’illusion quantitative moderniste et le principe de technicité
-            </TitreSection>
-          </header>
+      <BlocSection
+        id="illusion-quantitative"
+        titre={t("illusion_quantitative.titre")}
+      >
           <BlocProse cle="manifeste.illusion_quantitative.corps">
             <p>
               Le tournant épistémologique initié par Francis Bacon, théorisé par
@@ -219,17 +186,13 @@ export default function ManifestePage() {
               comme la matrice originelle de la rationalité universelle.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 3 — Le piège post-moderne */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Le piège post-moderne — du scepticisme au nihilisme du réel
-            </TitreSection>
-          </header>
+      <BlocSection
+        id="piege-postmoderne"
+        titre={t("piege_postmoderne.titre")}
+      >
           <BlocProse cle="manifeste.piege_postmoderne.corps">
             <p>
               Face aux rigidités du positivisme dogmatique, la critique
@@ -256,18 +219,15 @@ export default function ManifestePage() {
               critique post-moderne ; elle les réorganise.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
-      {/* Section 4 — La Matrice de la Maât */}
-      <Section tone="nuit">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              La Matrice de la Maât — opérateur suprême de non-contradiction
-            </TitreSection>
-          </header>
-          <BlocProse cle="manifeste.matrice_maat.intro" className="text-blanc-casse [&_strong]:text-or">
+      {/* Section 4 — La Matrice de la Maât (l'encadré fort de la page) */}
+      <BlocSection
+        id="matrice-maat"
+        titre={t("matrice_maat.titre")}
+      >
+        <div className="flex flex-col gap-10">
+          <BlocProse cle="manifeste.matrice_maat.intro">
             <p>
               La Science Métamoderne réhabilite la matrice de la Maât — non comme
               un folklore mémoriel, mais comme le modèle cybernétique d’harmonie
@@ -277,44 +237,39 @@ export default function ManifestePage() {
               trois propriétés cumulatives :
             </p>
           </BlocProse>
-          <div className="mt-10 grid gap-8 md:grid-cols-3">
-            <div className="border-t-2 border-or pt-4">
-              <p className="font-heading text-xl font-semibold text-or">
-                1. Totalité
-              </p>
-              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
-                Rien n’existe hors du système. Chaque fragment n’a de sens que
-                rattaché à l’architecture globale qui le rend possible.
-              </p>
-            </div>
-            <div className="border-t-2 border-or pt-4">
-              <p className="font-heading text-xl font-semibold text-or">
-                2. Indivisibilité
-              </p>
-              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
-                La fragmentation apparente n’est qu’une illusion transitoire
-                provoquée par les limites de l’observateur. L’unité précède la
-                multiplicité.
-              </p>
-            </div>
-            <div className="border-t-2 border-or pt-4">
-              <p className="font-heading text-xl font-semibold text-or">
-                3. Cohérence Interne
-              </p>
-              <p className="mt-2 font-sans leading-relaxed text-blanc-casse">
-                Absence absolue de contradiction fonctionnelle. Le système
-                maintient activement sa propre unité face aux agressions du
-                milieu extérieur.
-              </p>
-            </div>
-          </div>
-          <BlocProse cle="manifeste.matrice_maat.conclusion" className="mt-8 text-blanc-casse">
+          <Encadre className="rv">
+            <ol className="relative grid md:grid-cols-3">
+              <span
+                aria-hidden="true"
+                className="rv-draw absolute inset-x-0 top-[11px] hidden h-px bg-or-500 md:block"
+              />
+              {MATRICE.map((p, i) => (
+                <li
+                  key={i}
+                  className="relative flex flex-col gap-3 border-t border-nuit-300/25 py-6 first:border-t-0 first:pt-0 last:pb-0 md:border-t-0 md:py-0 md:pr-8 md:not-first:border-l md:not-first:pl-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="relative z-10 hidden size-[23px] rounded-full border border-or-500 bg-nuit-950 md:block"
+                  />
+                  <p className="flex items-baseline gap-3 md:mt-2">
+                    <span className="font-code text-base text-or-500">{p.numero}</span>{" "}
+                    <span className="font-titre text-2xl leading-tight font-medium text-or-500">
+                      {p.titre}
+                    </span>
+                  </p>
+                  <p className="font-texte text-[1.0625rem] leading-[1.65] text-nuit-100">{p.texte}</p>
+                </li>
+              ))}
+            </ol>
+          </Encadre>
+          <BlocProse cle="manifeste.matrice_maat.conclusion">
             <p>
               La Maât transpose, dans le champ normatif du droit, de la justice
               et de l’équité procédurale, les principes universels de
               l’intelligibilité, sans les exposer comme tels. Elle est la
               contre-partie exacte de la Pyramide de{" "}
-              <span className="font-mono text-or">Σ</span> : là où le Tome I
+              <span className="font-code text-or-700">Σ</span> : là où le Tome I
               modélise la structure ontologique du réel, le Tome II déploie la
               Balance de la Maât comme instrument de rectification des pathologies
               systémiques.
@@ -326,17 +281,11 @@ export default function ManifestePage() {
               l’équilibre du système.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+        </div>
+      </BlocSection>
 
       {/* Section 5 — La décolonisation méthodologique de l'universel */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              La décolonisation méthodologique de l’universel
-            </TitreSection>
-          </header>
+      <BlocSection id="decolonisation" titre={t("decolonisation.titre")}>
           <BlocProse cle="manifeste.decolonisation.corps">
             <p>
               Adosser cette exigence d’harmonie systémique et d’effectivité
@@ -379,46 +328,40 @@ export default function ManifestePage() {
               la puissance explicative de sa méthode.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 6 — Les sept articles du Manifeste */}
-      <Section tone="gris">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>Les sept articles du Manifeste</TitreSection>
-            <BlocTexte
-              cle="manifeste.articles.chapeau"
-              className="mt-4 max-w-[68ch] pl-4 font-sans text-base leading-relaxed text-bleu-nuit-profond/80"
-            >
-              Le Manifeste de Brazzaville ne se contente pas de diagnostiquer la
-              crise. Il formule les sept principes qui gouvernent la remontée
-              reconstructive vers l’Intelligibilité.
-            </BlocTexte>
-          </header>
-          <div className="grid gap-6 lg:grid-cols-2">
-            {ARTICLES.map((article) => (
-              <Carte key={article.id}>
-                <p className="font-mono text-sm text-or">{article.numero}</p>
-                <h3 className="mt-1 font-heading text-xl font-semibold">
-                  {article.titre}
-                </h3>
-                <p className="mt-3 font-sans text-base leading-relaxed">
+      <BlocSection id="articles" titre={t("articles.titre")}>
+        <div className="flex flex-col gap-12">
+          <BlocTexte
+            cle="manifeste.articles.chapeau"
+            className="max-w-[680px] font-texte text-[1.125rem] leading-[1.7] text-encre-2 italic md:text-[1.1875rem]"
+          >
+            Le Manifeste de Brazzaville ne se contente pas de diagnostiquer la
+            crise. Il formule les sept principes qui gouvernent la remontée
+            reconstructive vers l’Intelligibilité.
+          </BlocTexte>
+          <div className="flex flex-col gap-10">
+            {ARTICLES.map((article, i) => (
+              <ArticleNumerote
+                key={i}
+                id={`article-${article.numero.toLowerCase()}`}
+                romain={article.numero}
+                etiquette={t("articles.etiquette", { romain: article.numero })}
+                titre={article.titre}
+              >
+                <p className="max-w-[680px] font-texte text-[1.0625rem] leading-[1.7] text-encre md:text-lg">
                   {article.texte}
                 </p>
-              </Carte>
+              </ArticleNumerote>
             ))}
           </div>
-        </Container>
-      </Section>
+        </div>
+      </BlocSection>
 
       {/* Section 7 — Le pacte éthique avec le lecteur */}
-      <Section tone="nuit">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>Le pacte éthique avec le lecteur</TitreSection>
-          </header>
-          <BlocProse cle="manifeste.pacte.corps" className="text-center text-blanc-casse">
+      <BlocSection id="pacte" titre={t("pacte.titre")}>
+          <BlocProse cle="manifeste.pacte.corps">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n’invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -434,41 +377,36 @@ export default function ManifestePage() {
               nouvelles dans les différents champs de la connaissance.
             </p>
           </BlocProse>
-          <div className="mx-auto mt-8 max-w-[68ch]">
-            <div className="border-y border-or/50 py-6 text-center">
-              <BlocTexte
-                cle="manifeste.pacte.exergue"
-                className="font-heading text-lg italic text-blanc-casse"
-              >
-                Ce travail ne demande pas à être accepté sur autorité. Il demande
-                à être éprouvé.
-              </BlocTexte>
-            </div>
-          </div>
-        </Container>
-      </Section>
+      </BlocSection>
 
-      {/* Appel à l'épreuve — CTA */}
-      <Section tone="profond" className="text-center">
-        <Container className="max-w-2xl">
-          <p className="font-heading text-xl italic text-blanc-casse">
-            L’appel à l’épreuve.
-          </p>
-          <BlocTexte
-            cle="manifeste.appel.corps"
-            className="mt-4 font-sans text-base leading-relaxed text-blanc-casse/80"
-          >
-            La formalisation de ces invariants et leur soumission à l’examen
-            critique se poursuivent dans la Note Épistémologique.
-          </BlocTexte>
-          <Link
-            href="/note-epistemologique"
-            className={cn(buttonVariants({ variant: "or", size: "cta" }), "mt-8")}
-          >
-            Découvrir la Note Épistémologique
-          </Link>
-        </Container>
-      </Section>
+      {/* Formule du pacte, puis l'appel à l'épreuve */}
+      <Cloture
+        suite={
+          <div className="mt-4 flex flex-col items-center gap-3">
+            <p className="font-titre text-xl leading-snug font-medium text-encre italic">
+              {t("appel.titre")}
+            </p>
+            <BlocTexte
+              cle="manifeste.appel.corps"
+              className="max-w-[560px] font-ui text-[15px] leading-[1.55] text-encre-2"
+            >
+              La formalisation de ces invariants et leur soumission à l’examen
+              critique se poursuivent dans la Note Épistémologique.
+            </BlocTexte>
+            <Link
+              href="/note-epistemologique"
+              className={buttonVariants({ variant: "or-plein", size: "cta", className: "mt-3" })}
+            >
+              {t("appel.bouton")}
+            </Link>
+          </div>
+        }
+      >
+        <BlocTexte cle="manifeste.pacte.exergue">
+          Ce travail ne demande pas à être accepté sur autorité. Il demande
+          à être éprouvé.
+        </BlocTexte>
+      </Cloture>
     </>
   );
 }

@@ -1,9 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Carte — bloc de contenu (concepts, autorités, modules, articles).
- * Règles des design systems : surface blanche, filet 1px, rayon 12px, sans
- * ombre ni barre d'accent latérale. Le rang « Or » se porte par l'étiquette.
+ * Carte — fond blanc, filet 1 px, rayon 4 px, sans ombre ni barre latérale.
  */
 export function Carte({
   className,
@@ -13,7 +11,7 @@ export function Carte({
   return (
     <div
       className={cn(
-        "surface-claire rounded-xl border border-bleu-nuit-profond/10 bg-blanc p-6 text-bleu-nuit-profond",
+        "surface-claire rounded-[4px] border border-filet bg-blanc p-6 text-encre md:p-8",
         className,
       )}
       {...props}
@@ -24,8 +22,8 @@ export function Carte({
 }
 
 /**
- * Encadré — cadre Or Maât (2px) sur fond Bleu Nuit, réservé aux formulations
- * canoniques (Axiome de Non-Perte, maximes, articles scellés).
+ * Encadré fort — fond nuit, titre or. Un seul par page : l'axiome ou la
+ * maxime de la page. Pas de bordure dorée.
  */
 export function Encadre({
   className,
@@ -35,7 +33,7 @@ export function Encadre({
   return (
     <div
       className={cn(
-        "surface-sombre rounded-xl border-2 border-or bg-bleu-nuit p-8 text-blanc-casse",
+        "surface-sombre rounded-[4px] bg-nuit-950 px-6 py-8 text-nuit-100 md:px-12 md:py-11",
         className,
       )}
       {...props}
@@ -46,8 +44,8 @@ export function Encadre({
 }
 
 /**
- * Étiquette — surtitre en capitales espacées (police mono), coins carrés.
- * Remplace les surtitres ad hoc (« Tome I », « Module II », numéros).
+ * Étiquette — Fira Code 12 px, capitales espacées 0,14 em. Or 700 sur clair,
+ * Or Maât sur nuit (règle `.surface-claire .text-or` de globals.css).
  */
 export function Etiquette({
   className,
@@ -57,7 +55,7 @@ export function Etiquette({
   return (
     <p
       className={cn(
-        "font-mono text-xs font-medium uppercase tracking-[0.14em] text-or",
+        "font-code text-xs font-normal uppercase tracking-[0.14em] text-or",
         className,
       )}
       {...props}
@@ -69,7 +67,7 @@ export function Etiquette({
 
 /**
  * Avis — encadré d'information sur fond clair (mentions, confirmations).
- * Filet complet plutôt qu'une barre latérale.
+ * Fond papier 2 et filets, sans or.
  */
 export function Avis({
   className,
@@ -79,7 +77,7 @@ export function Avis({
   return (
     <div
       className={cn(
-        "surface-claire rounded-xl border border-or/50 bg-gris-clair p-6 text-bleu-nuit-profond",
+        "surface-claire rounded-[4px] border border-filet bg-papier-2 p-6 text-encre",
         className,
       )}
       {...props}

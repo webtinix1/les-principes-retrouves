@@ -1,177 +1,227 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Pyramide de Σ — SVG animé (pulsation du sommet + double respiration).
- * Reprise du code SVG et des animations du DOCUMENT DE SYNTHÈSE FINAL.
- * Chaque niveau est survolable / focusable au clavier : sa définition
- * s'affiche dans la légende accessible sous la figure.
+ * Pyramide de Σ — un vrai triangle à bords droits, en tranches empilées
+ * (forme validée par le client), redessiné selon la maquette de la refonte :
+ * chaque tranche est un vrai <button> découpé en clip-path ; la tranche
+ * active passe en Or Maât ; sa définition s'affiche dessous (aria-live).
+ * Axes « Mouvement descendant / ascendant » de part et d'autre, avec un
+ * point d'or qui les parcourt.
+ *
+ * Les niveaux et leurs définitions sont ceux du composant validé (6 niveaux),
+ * éditables depuis le back-office (page Accueil) : la page les passe en props.
  */
 
-type Niveau = { id: string; label: string; definition: string };
-
-const NIVEAUX: Record<string, Niveau> = {
-  sigma: {
-    id: "sigma",
-    label: "Σ — Substratum Commun",
-    definition:
-      "Σ — Substratum Commun : l'Unité Structurelle Absolue, antérieure à toute manifestation et à toute connaissance.",
-  },
-  polarites: {
-    id: "polarites",
-    label: "π₁ ↔ π₂ — Polarités",
-    definition:
-      "π₁ ↔ π₂ — Polarités complémentaires : distinction (π₁) et relation (π₂), en tension simultanée.",
-  },
-  charniere: {
-    id: "charniere",
-    label: "Charnière Ontologique",
-    definition:
-      "Charnière Ontologique : seuil critique de conversion du principiel en phénoménal.",
-  },
-  voile: {
-    id: "voile",
-    label: "[V] — Voile Ontologique",
-    definition:
-      "[V] Voile Ontologique : condition universelle et nécessaire de toute manifestation.",
-  },
-  filtrage: {
-    id: "filtrage",
-    label: "[F] — Filtrage Sélectif",
-    definition:
-      "[F] Filtrage Sélectif : tri institutionnel qui sédimente le savoir ordinaire.",
-  },
-  monde: {
-    id: "monde",
-    label: "Monde Observable (S)",
-    definition:
-      "Monde Observable (S) : fragmentation phénoménale, base de la remontée épistémologique.",
-  },
+/** Niveau de la pyramide — textes éditables (registre « accueil.niveaux_pyramide »). */
+export type NiveauPyramide = {
+  /** Symbole affiché dans la tranche (vide : symbole de repli). */
+  symbole: string;
+  /** Libellé de la tranche (retour à la ligne pour couper la ligne). */
+  libelle: string;
+  nom: string;
+  formule: string;
+  definition: string;
+  /** Entrée complète (page Concepts). */
+  source_libelle: string;
+  source_lien: string;
 };
 
-/**
- * Géométrie : un vrai triangle à bords droits, découpé en tranches empilées.
- * Chaque tranche suit exactement les deux côtés de la pyramide (pas de
- * marches) ; un interstice de 3 unités les sépare visuellement.
- */
-const CX = 300;
-const SOMMET = 40;
-const BASE = 510;
-const DEMI_BASE = 290;
-/** Limites verticales des 7 tranches (Σ, π, charnière, manifestation, V, F, S). */
-const LIMITES = [SOMMET, 125, 185, 250, 310, 375, 440, BASE];
-const INTERSTICE = 1.5;
+/** Libellés d'interface de la pyramide (registre « accueil.pyramide.* »). */
+export type TextesPyramide = {
+  titre: string;
+  consigne: string;
+  axe_descendant: string;
+  axe_descendant_legende: string;
+  axe_ascendant: string;
+  axe_ascendant_legende: string;
+  groupe_lecture: string;
+  /** Marqueurs {n} et {total}. */
+  position: string;
+  symbole_vide: string;
+  lien_entree: string;
+};
 
-const demiLargeur = (y: number) => (DEMI_BASE * (y - SOMMET)) / (BASE - SOMMET);
+/** Hauteur de chaque tranche (px) sur ordinateur / mobile, du sommet à la base. */
+const HAUTEURS: [number, number][] = [
+  [120, 104],
+  [64, 56],
+  [48, 44],
+  [64, 56],
+  [64, 56],
+  [64, 56],
+];
+const hauteur = (i: number): [number, number] => HAUTEURS[i] ?? [64, 56];
 
-/** Points du polygone de la tranche i (triangle pour le sommet, trapèze ensuite). */
-function tranche(i: number) {
-  const haut = i === 0 ? SOMMET : LIMITES[i] + INTERSTICE;
-  const bas = LIMITES[i + 1] - INTERSTICE;
-  const h = demiLargeur(haut);
-  const b = demiLargeur(bas);
-  return i === 0
-    ? `${CX},${haut} ${CX + b},${bas} ${CX - b},${bas}`
-    : `${CX - h},${haut} ${CX + h},${haut} ${CX + b},${bas} ${CX - b},${bas}`;
+const ECART = 3;
+
+/** Découpe trapézoïdale de chaque tranche, en %, sur un triangle parfait. */
+function decoupes(hauteurs: number[]) {
+  const total = hauteurs.reduce((a, b) => a + b, 0) + ECART * (hauteurs.length - 1);
+  let y = 0;
+  return hauteurs.map((h) => {
+    const haut = y / total;
+    const bas = (y + h) / total;
+    y += h + ECART;
+    const g = (f: number) => (50 - 50 * f).toFixed(2);
+    const d = (f: number) => (50 + 50 * f).toFixed(2);
+    return `polygon(${g(haut)}% 0, ${d(haut)}% 0, ${d(bas)}% 100%, ${g(bas)}% 100%)`;
+  });
 }
 
-const milieu = (i: number) => (LIMITES[i] + LIMITES[i + 1]) / 2;
+const dl = (ms: number) => ({ "--dl": `${ms}ms` }) as React.CSSProperties;
 
-export function PyramideSigma({ className }: { className?: string }) {
-  const [actif, setActif] = useState<Niveau | null>(null);
-
-  // Survol (souris) + focus (clavier) + clic/tap (tactile) : au doigt, ni survol
-  // ni focus n'existent, d'où le onClick qui bascule le niveau actif.
-  const interactif = (n: Niveau) => ({
-    tabIndex: 0,
-    role: "button",
-    "aria-label": n.label,
-    "aria-pressed": actif?.id === n.id,
-    className: "cursor-pointer outline-none [&:focus-visible_polygon]:stroke-blanc [&:focus-visible_polygon]:stroke-2",
-    onMouseEnter: () => setActif(n),
-    onFocus: () => setActif(n),
-    onMouseLeave: () => setActif((c) => (c?.id === n.id ? null : c)),
-    onBlur: () => setActif((c) => (c?.id === n.id ? null : c)),
-    onClick: () => setActif((c) => (c?.id === n.id ? null : n)),
-  });
+export function PyramideSigma({
+  className,
+  niveaux,
+  textes,
+}: {
+  className?: string;
+  niveaux: NiveauPyramide[];
+  textes: TextesPyramide;
+}) {
+  const [actif, setActif] = useState(0);
+  const NIVEAUX = niveaux;
+  const n = NIVEAUX[Math.min(actif, NIVEAUX.length - 1)];
+  const CLIP_ORDI = decoupes(NIVEAUX.map((_, i) => hauteur(i)[0]));
+  const CLIP_MOBILE = decoupes(NIVEAUX.map((_, i) => hauteur(i)[1]));
+  if (!n) return null;
 
   return (
-    <figure className={cn("flex w-full flex-col items-center gap-4", className)}>
-      <svg
-        viewBox="0 0 600 570"
-        className="h-auto w-full max-w-[600px]"
-        role="img"
-        aria-label="Pyramide de Σ : de l'Unité Structurelle (sommet) au Monde Observable (base), traversée par la double respiration ontologique et épistémologique."
-      >
-        {/* Double flèche verticale — descendante (ontologique) et ascendante (épistémologique) */}
-        <line
-          x1={CX} y1={SOMMET + 12} x2={CX} y2={BASE + 22}
-          stroke="#D4AF37" strokeWidth="1.5" strokeDasharray="8,4" opacity="0.45"
-          className="flow-epistemologique"
-        />
-        <polygon points={`${CX},${BASE + 30} ${CX - 5},${BASE + 20} ${CX + 5},${BASE + 20}`} fill="#D4AF37" opacity="0.7" />
-
-        {/* Sommet : Σ (Substratum Commun) */}
-        <g {...interactif(NIVEAUX.sigma)}>
-          <polygon points={tranche(0)} fill="#D4AF37" className="pyramid-sigma" />
-          <text x={CX} y={milieu(0) + 24} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="34" fontWeight="bold">Σ</text>
-        </g>
-
-        {/* Polarités π₁ ↔ π₂ */}
-        <g {...interactif(NIVEAUX.polarites)}>
-          <polygon points={tranche(1)} fill="#D4AF37" opacity="0.92" />
-          <text x={CX - 42} y={milieu(1) + 8} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="22" fontWeight="bold">π₁</text>
-          <line x1={CX - 24} y1={milieu(1)} x2={CX + 24} y2={milieu(1)} stroke="#1E3A8A" strokeWidth="2" />
-          <polygon points={`${CX - 24},${milieu(1)} ${CX - 18},${milieu(1) - 4} ${CX - 18},${milieu(1) + 4}`} fill="#1E3A8A" />
-          <polygon points={`${CX + 24},${milieu(1)} ${CX + 18},${milieu(1) - 4} ${CX + 18},${milieu(1) + 4}`} fill="#1E3A8A" />
-          <text x={CX + 42} y={milieu(1) + 8} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="22" fontWeight="bold">π₂</text>
-        </g>
-
-        {/* Charnière Ontologique */}
-        <g {...interactif(NIVEAUX.charniere)}>
-          <polygon points={tranche(2)} fill="#D4AF37" opacity="0.86" />
-          <text x={CX} y={milieu(2) + 6} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="14" fontWeight="700">CHARNIÈRE ONTOLOGIQUE</text>
-        </g>
-
-        {/* Manifestation (transition, non interactive) */}
-        <polygon points={tranche(3)} fill="#D4AF37" opacity="0.8" />
-        <text x={CX} y={milieu(3) + 6} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="17" fontWeight="600">MANIFESTATION</text>
-
-        {/* Voile [V] */}
-        <g {...interactif(NIVEAUX.voile)}>
-          <polygon points={tranche(4)} fill="#D4AF37" opacity="0.75" />
-          <text x={CX} y={milieu(4) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="20" fontWeight="bold">[V]</text>
-          <text x={CX} y={milieu(4) + 18} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="15" fontWeight="500">Voile Ontologique</text>
-        </g>
-
-        {/* Filtrage [F] */}
-        <g {...interactif(NIVEAUX.filtrage)}>
-          <polygon points={tranche(5)} fill="#D4AF37" opacity="0.7" />
-          <text x={CX} y={milieu(5) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-fira)" fontSize="20" fontWeight="bold">[F]</text>
-          <text x={CX} y={milieu(5) + 18} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="15" fontWeight="500">Filtrage Sélectif</text>
-        </g>
-
-        {/* Monde Observable (S) */}
-        <g {...interactif(NIVEAUX.monde)}>
-          <polygon points={tranche(6)} fill="#D4AF37" opacity="0.65" />
-          <text x={CX} y={milieu(6) - 2} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="20" fontWeight="700">MONDE OBSERVABLE (S)</text>
-          <text x={CX} y={milieu(6) + 20} textAnchor="middle" fill="#1E3A8A" fontFamily="var(--font-inter)" fontSize="16" fontWeight="500">Fragmentation phénoménale</text>
-        </g>
-
-        {/* Sens de la double respiration : discrètes, aux extrémités de l'axe */}
-        <text x={CX} y={SOMMET - 14} textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="12" opacity="0.8">↑ épistémologique</text>
-        <text x={CX} y={BASE + 50} textAnchor="middle" fill="#D4AF37" fontFamily="var(--font-inter)" fontSize="12" opacity="0.8">↓ ontologique</text>
-      </svg>
-
-      {/* Légende accessible : définition du niveau survolé / focalisé */}
-      <figcaption
-        aria-live="polite"
-        className="min-h-[3rem] max-w-md text-center font-ui text-sm text-blanc-casse/80"
-      >
-        {actif ? actif.definition : "Touchez, survolez ou parcourez au clavier chaque niveau de la Pyramide pour en révéler la définition."}
+    <figure aria-labelledby="pyr-titre" className={cn("m-0 flex flex-col gap-7", className)}>
+      <figcaption className="m-fade flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between" style={dl(400)}>
+        <span id="pyr-titre" className="font-titre text-[22px] text-white">
+          {textes.titre}
+        </span>
+        <span className="font-ui text-[13.5px] text-nuit-300">
+          {textes.consigne}
+        </span>
       </figcaption>
+
+      <div className="grid grid-cols-[minmax(0,1fr)] justify-center gap-3 sm:grid-cols-[96px_minmax(0,440px)_96px] md:grid-cols-[110px_440px_110px]">
+        {/* Axe descendant */}
+        <div aria-hidden="true" className="m-fade hidden flex-col items-end gap-2.5 text-right sm:flex" style={dl(1400)}>
+          <span className="font-code text-[10.5px] leading-normal tracking-[0.1em] text-or-300 uppercase">
+            {textes.axe_descendant}
+          </span>
+          <span className="font-ui text-xs text-nuit-300">{textes.axe_descendant_legende}</span>
+          <span className="relative mr-1.5 w-px flex-1 bg-or-filet">
+            <span className="point-flux flux-desc" />
+          </span>
+          <svg width="13" height="9" viewBox="0 0 13 9">
+            <path d="M0 0h13L6.5 9z" fill="#D4AF37" />
+          </svg>
+        </div>
+
+        {/* Tranches */}
+        <div role="group" aria-label={textes.groupe_lecture} className="relative flex flex-col gap-[3px]">
+          <span aria-hidden="true" className="halo top-[70px]" />
+          {NIVEAUX.map((niv, i) => {
+            const on = i === actif;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-pressed={on}
+                aria-controls="pyr-def"
+                onClick={() => setActif(i)}
+                onMouseEnter={() => setActif(i)}
+                onFocus={() => setActif(i)}
+                className="group m-slice relative block w-full cursor-pointer border-0 bg-transparent p-0 focus-visible:outline-or-500 [--h:var(--hm)] sm:[--h:var(--ho)]"
+                style={
+                  {
+                    "--dl": `${(NIVEAUX.length - 1 - i) * 140 + 500}ms`,
+                    "--ho": `${hauteur(i)[0]}px`,
+                    "--hm": `${hauteur(i)[1]}px`,
+                    height: "var(--h)",
+                  } as React.CSSProperties
+                }
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    "absolute inset-0 transition-[background-color,filter] duration-[450ms] ease-[var(--ease-sortie)] group-hover:brightness-[1.18] [clip-path:var(--cm)] sm:[clip-path:var(--co)]",
+                    on ? "bg-or-500" : i === 2 ? "bg-nuit-850" : "bg-nuit-900",
+                  )}
+                  style={{ "--co": CLIP_ORDI[i], "--cm": CLIP_MOBILE[i] } as React.CSSProperties}
+                />
+                <span
+                  className={cn(
+                    "relative flex h-full flex-col items-center gap-[3px] transition-transform duration-[450ms] ease-[var(--ease-sortie)]",
+                    i === 0 ? "justify-end pb-3" : "justify-center",
+                    on && "scale-[1.08]",
+                  )}
+                >
+                  {niv.symbole && (
+                    <span
+                      className={cn(
+                        "leading-none",
+                        i === 0 ? "font-titre text-[34px]" : i === 1 ? "font-code text-[13px]" : "font-titre text-2xl",
+                        on ? "text-nuit-950" : "text-or-300",
+                      )}
+                    >
+                      {niv.symbole}
+                    </span>
+                  )}
+                  <span
+                    className={cn(
+                      "text-center font-ui text-[10.5px] leading-tight tracking-[0.08em] whitespace-pre-line uppercase",
+                      i === 0 && "sr-only",
+                      on ? "text-nuit-950" : "text-nuit-200",
+                    )}
+                  >
+                    {niv.libelle}
+                  </span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Axe ascendant */}
+        <div aria-hidden="true" className="m-fade hidden flex-col items-start gap-2.5 sm:flex" style={dl(1400)}>
+          <svg width="13" height="9" viewBox="0 0 13 9">
+            <path d="M0 9h13L6.5 0z" fill="#D4AF37" />
+          </svg>
+          <span className="relative ml-1.5 w-px flex-1 bg-or-filet">
+            <span className="point-flux flux-asc" />
+          </span>
+          <span className="font-code text-[10.5px] leading-normal tracking-[0.1em] text-or-300 uppercase">
+            {textes.axe_ascendant}
+          </span>
+          <span className="font-ui text-xs text-nuit-300">{textes.axe_ascendant_legende}</span>
+        </div>
+      </div>
+
+      {/* Définition du niveau actif */}
+      <div id="pyr-def" aria-live="polite" className="relative min-h-[230px] pt-6">
+        <span aria-hidden="true" className="m-draw absolute inset-x-0 top-0 h-px bg-or-500" style={dl(1600)} />
+        <div key={actif} className="m-swap grid gap-4 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-7">
+          <div className="flex flex-row items-baseline gap-4 sm:flex-col sm:gap-2.5">
+            <span className="font-code text-[11.5px] tracking-[0.12em] text-or-500 uppercase">
+              {textes.position
+                .split("{n}").join(String(actif + 1))
+                .split("{total}").join(String(NIVEAUX.length))}
+            </span>
+            <span aria-hidden="true" className="font-titre text-[44px] leading-none text-white">
+              {n.symbole || textes.symbole_vide}
+            </span>
+            <span className="font-code text-sm text-or-300">{n.formule}</span>
+          </div>
+          <div className="flex flex-col gap-3">
+            <h2 className="font-titre text-[26px] font-medium text-white">{n.nom}</h2>
+            <p className="font-texte text-[17px] leading-[1.65] text-nuit-100">
+              {n.definition.charAt(0).toUpperCase() + n.definition.slice(1)}
+            </p>
+            <Link href={n.source_lien} className="inline-flex min-h-11 items-center gap-1 self-start font-ui text-sm font-medium text-or-300 underline underline-offset-[3px]">
+              {n.source_libelle} · {textes.lien_entree} <span className="arr" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </figure>
   );
 }

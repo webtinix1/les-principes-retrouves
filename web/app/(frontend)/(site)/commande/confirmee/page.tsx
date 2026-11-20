@@ -1,8 +1,12 @@
 import Link from "next/link";
-import { Section, Container } from "@/components/section";
+import { CircleAlert, CircleCheck, Clock, Send } from "lucide-react";
+import { FilAriane } from "@/components/editorial";
+import { BoucleAcces } from "@/components/pages/commande-boucle";
+import { CodeAcces } from "@/components/pages/commande-code";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { payloadClient } from "@/lib/payload";
+import { getTextes, remplir } from "@/lib/contenu";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -21,10 +25,30 @@ async function lireCommande(id: string) {
   return { ...commande, code_acces: docs[0] ?? null };
 }
 
-export const metadata = {
-  title: "Confirmation",
-  robots: { index: false },
-};
+export async function generateMetadata() {
+  const textes = await getTextes("site_interface");
+  return {
+    title: textes["confirmation.seo.titre"],
+    robots: { index: false },
+  };
+}
+
+const TITRE = "font-titre text-[2rem] leading-[1.12] font-medium text-balance text-encre md:text-[2.75rem]";
+const TEXTE = "font-texte text-[1.0625rem] leading-[1.7] text-encre-2 md:text-[1.125rem]";
+
+/** En-tête d'un état : icône (jamais la couleur seule) + titre H1. */
+function EnTete({ icone, children }: { icone: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <span aria-hidden="true" className="flex size-11 items-center justify-center rounded-full border border-current">
+        {icone}
+      </span>
+      <h1 className={TITRE}>{children}</h1>
+    </div>
+  );
+}
+
+const ICONE = "size-[22px]";
 
 export default async function ConfirmationPage({
   searchParams,
@@ -34,67 +58,94 @@ export default async function ConfirmationPage({
   const { c } = await searchParams;
   const commande = c && UUID.test(c) ? await lireCommande(c) : null;
 
+  // Étape de la boucle d'accès où se trouve l'inscrit.
+  const courante = !commande ? undefined : commande.code_acces && commande.statut !== "devis_demande" ? 2 : 0;
+
+  // Textes d'interface : back-office, global « Site — Interface ».
+  const textes = await getTextes("site_interface");
+  const t = (cle: string) => textes[`confirmation.${cle}`];
+  const valeurs: Record<string, string> = commande
+    ? { module: commande.module_titre, email: commande.buyer_email }
+    : {};
+
   return (
-    <Section tone="clair">
-      <Container className="max-w-2xl">
-        {!commande ? (
-          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
-            <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
-              Commande introuvable
-            </h1>
-            <p className="mt-2 font-sans text-sm text-bleu-nuit-profond/75">
-              Le lien de confirmation est invalide ou a expiré.
-            </p>
+    <section className="surface-claire bg-papier px-5 pt-8 pb-14 md:pt-12 md:pb-24 lg:px-6 xl:px-10">
+      <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:gap-14">
+        <FilAriane items={[{ label: t("fil_transmission"), href: "/transmission" }, { label: t("fil_confirmation") }]} />
+
+        <div className="grid gap-x-6 gap-y-12 lg:grid-cols-12">
+          <div className="min-w-0 lg:col-span-7">
+            {!commande ? (
+              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8">
+                <div className="text-erreur">
+                  <EnTete icone={<CircleAlert className={ICONE} strokeWidth={1.75} />}>
+                    {t("introuvable_titre")}
+                  </EnTete>
+                </div>
+                <p className={TEXTE}>
+                  {t("introuvable_texte")}
+                </p>
+              </div>
+            ) : commande.statut === "devis_demande" ? (
+              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8">
+                <div className="text-encre">
+                  <EnTete icone={<Send className={ICONE} strokeWidth={1.75} />}>
+                    {t("devis_titre")}
+                  </EnTete>
+                </div>
+                <p className={TEXTE}>
+                  {remplir(t("devis_texte"), valeurs)}
+                </p>
+              </div>
+            ) : commande.code_acces ? (
+              <div className="m-swap flex flex-col gap-7 border-t-2 border-succes pt-8">
+                <div className="text-succes">
+                  <EnTete icone={<CircleCheck className={ICONE} strokeWidth={1.75} />}>
+                    {t("confirmee_titre")}
+                  </EnTete>
+                </div>
+                <p className={TEXTE}>
+                  {remplir(t("confirmee_texte"), valeurs)}
+                </p>
+                <div className="flex flex-col gap-3 rounded-[4px] border border-succes bg-blanc p-6 md:p-8">
+                  <p className="font-code text-xs tracking-[0.14em] text-encre-3 uppercase">
+                    {t("votre_code")}
+                  </p>
+                  <CodeAcces
+                    code={commande.code_acces.code}
+                    libelles={{ copier: textes["code.copier"], copie: textes["code.copie"] }}
+                  />
+                </div>
+                <div>
+                  <Link
+                    href="/laboratoire"
+                    className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "w-full sm:w-auto")}
+                  >
+                    {t("acceder_laboratoire")} <span className="arr" aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8" aria-live="polite">
+                <div className="text-or-700">
+                  <EnTete icone={<Clock className={ICONE} strokeWidth={1.75} />}>
+                    {t("attente_titre")}
+                  </EnTete>
+                </div>
+                <p className={TEXTE}>
+                  {remplir(t("attente_texte"), valeurs)}
+                </p>
+              </div>
+            )}
           </div>
-        ) : commande.statut === "devis_demande" ? (
-          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
-            <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
-              Demande de devis transmise
-            </h1>
-            <p className="mt-3 font-sans text-sm text-bleu-nuit-profond/80">
-              Votre demande concernant « {commande.module_titre} » a été
-              enregistrée. Le Secrétariat International vous recontactera à
-              l&apos;adresse {commande.buyer_email}.
-            </p>
-          </div>
-        ) : commande.code_acces ? (
-          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
-            <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
-              Inscription confirmée
-            </h1>
-            <p className="mt-3 font-sans text-sm text-bleu-nuit-profond/80">
-              Votre inscription à « {commande.module_titre} » est confirmée. Votre
-              code d&apos;accès, également envoyé à {commande.buyer_email}, débloque
-              les ressources associées sur le Laboratoire Doctrinal.
-            </p>
-            <p className="mt-6 font-ui text-xs font-semibold uppercase tracking-wide text-bleu-nuit-profond/60">
-              Votre code d&apos;accès
-            </p>
-            <p className="mt-1 font-mono text-2xl font-semibold text-or">
-              {commande.code_acces.code}
-            </p>
-            <div className="mt-8">
-              <Link
-                href="/laboratoire"
-                className={cn(buttonVariants({ variant: "or", size: "cta" }))}
-              >
-                Accéder au Laboratoire Doctrinal
-              </Link>
+
+          <aside className="lg:col-span-4 lg:col-start-9">
+            <div className="rounded-[4px] border border-filet bg-papier-2 p-6">
+              <BoucleAcces courante={courante} />
             </div>
-          </div>
-        ) : (
-          <div className="surface-claire rounded-xl border border-or/50 bg-gris-clair p-6">
-            <h1 className="font-heading text-2xl font-semibold text-bleu-nuit-profond">
-              Paiement en cours
-            </h1>
-            <p className="mt-3 font-sans text-sm text-bleu-nuit-profond/80">
-              Votre commande « {commande.module_titre} » est en attente de
-              confirmation de paiement. Votre code d&apos;accès vous sera envoyé à{" "}
-              {commande.buyer_email} dès validation.
-            </p>
-          </div>
-        )}
-      </Container>
-    </Section>
+          </aside>
+        </div>
+      </div>
+    </section>
   );
 }

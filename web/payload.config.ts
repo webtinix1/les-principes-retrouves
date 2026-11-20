@@ -15,6 +15,9 @@ import { Documents } from "./payload/collections/Documents";
 import { Strates, Concepts } from "./payload/collections/Concepts";
 import { Autorites } from "./payload/collections/Autorites";
 import { GLOBALS_CONTENU } from "./payload/globals/contenu";
+import { VenteOuvrages } from "./payload/globals/ouvrages";
+import { Recueils } from "./payload/globals/recueils";
+import { TextesLecture } from "./payload/collections/TextesLecture";
 import { editeurProse } from "./payload/editeur";
 import { amorcer } from "./payload/seed";
 import { emailResend } from "./payload/email";
@@ -48,9 +51,10 @@ export default buildConfig({
     Strates,
     Concepts,
     Autorites,
+    TextesLecture,
     Users,
   ],
-  globals: GLOBALS_CONTENU,
+  globals: [...GLOBALS_CONTENU, VenteOuvrages, Recueils],
   editor: editeurProse,
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || "" },

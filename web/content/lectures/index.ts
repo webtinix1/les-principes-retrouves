@@ -97,3 +97,11 @@ export function dureeLecture(texte: TexteLecture): number {
     .split(/\s+/).length;
   return Math.max(1, Math.round(mots / 230));
 }
+
+/** Adresses de L'Ouvrage, des sommaires et de chaque texte (revalidation du cache). */
+export function cheminsOuvrage(): string[] {
+  return [
+    "/ouvrage",
+    ...RECUEILS.flatMap((r) => [`/ouvrage/${r.tome}`, ...textesDe(r).map((t) => `/ouvrage/${r.tome}/${t.slug}`)]),
+  ];
+}

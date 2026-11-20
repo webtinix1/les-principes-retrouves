@@ -1,17 +1,21 @@
 import Link from "next/link";
-import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse } from "@/components/bloc";
+import { Cloture, Exergue, Formule, OuverturePage } from "@/components/editorial";
+import { SommaireActes, type EntreeActe } from "@/components/pages/declaration-sommaire";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
+import { getTextes, remplir } from "@/lib/contenu";
 
-export const metadata = pageMetadata({
-  title: "La Déclaration de Brazzaville",
-  description:
-    "Manifeste public de l'École de Brazzaville : préambule et huit actes inauguraux, scellés à Brazzaville en juillet 2026.",
-  path: "/declaration",
-});
+export async function generateMetadata() {
+  const t = await getTextes("declaration");
+  return pageMetadata({
+    title: t["seo.titre"],
+    description: t["seo.description"],
+    path: "/declaration",
+  });
+}
 
 /**
  * Filet de sécurité pour les blocs éditables : la page est prérendue au build
@@ -21,50 +25,124 @@ export const metadata = pageMetadata({
  */
 export const revalidate = 3600;
 
+/**
+ * Paragraphes des cartes de l'Acte IV, rendus via BlocProse : les classes
+ * d'origine sont reportées sur `[&_p]` (même typographie pour le texte saisi
+ * dans le back-office) et la prose par défaut est neutralisée.
+ */
+const NIVEAU_TEXTE =
+  "mt-3 max-w-none [&_p]:mt-3 [&_p]:font-ui [&_p]:text-[15.5px] [&_p]:leading-[1.6] [&_p]:text-encre-2 [&_p]:text-wrap";
+
+/** Actes de la Déclaration : ancre, numéro romain (« — » hors actes), clé du titre. */
+const ACTES_DEF: [id: string, numero: string, cleTitre: string][] = [
+  ["preambule", "—", "sommaire.preambule"],
+  ["acte-i", "I", "acte_i.titre"],
+  ["acte-ii", "II", "acte_ii.titre"],
+  ["acte-iii", "III", "acte_iii.titre"],
+  ["acte-iv", "IV", "acte_iv.titre"],
+  ["acte-v", "V", "acte_v.titre"],
+  ["acte-vi", "VI", "acte_vi.titre"],
+  ["acte-vii", "VII", "acte_vii.titre"],
+  ["acte-viii", "VIII", "acte_viii.titre"],
+  ["appel", "—", "appel.titre"],
+];
+
+/**
+ * Acte de la Déclaration : numéro romain en marge (or texte), puis l'intitulé
+ * « Acte N » et son titre, réunis dans un H2.
+ */
+function Acte({
+  id,
+  romain,
+  intitule,
+  titre,
+  children,
+}: {
+  id: string;
+  romain: string;
+  /** « Acte N » (declaration.sommaire.acte). */
+  intitule: string;
+  titre: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <article
+      id={id}
+      aria-labelledby={`${id}-titre`}
+      className="grid grid-cols-1 gap-x-4 border-t border-filet pt-8 md:grid-cols-[64px_minmax(0,1fr)] md:pt-10"
+    >
+      {/* Numéro en marge (tablette et ordinateur) ; sur mobile, l'intitulé « Acte N » suffit. */}
+      <span aria-hidden="true" className="hidden font-titre text-4xl leading-none text-or-700 md:block">
+        {romain}
+      </span>
+      <div className="flex min-w-0 flex-col gap-6">
+        <h2 id={`${id}-titre`} className="flex flex-col gap-2">
+          <span className="font-code text-xs tracking-[0.14em] text-or-700 md:text-encre-3">{intitule}</span>
+          <span className="font-titre text-[1.5rem] leading-[1.22] font-medium text-balance text-encre md:text-[1.875rem]">
+            {titre}
+          </span>
+        </h2>
+        {children}
+      </div>
+    </article>
+  );
+}
+
 /** PAGE 10 — LA DÉCLARATION DE BRAZZAVILLE (Manifeste Public de l'École de Brazzaville). */
-export default function DeclarationDeBrazzaville() {
+export default async function DeclarationDeBrazzaville() {
+  const t = await getTextes("declaration");
+  const intitule = (numero: string) => remplir(t["sommaire.acte"], { numero });
+
+  /** Sommaire des actes (sommaire d'ouverture et liste latérale collante). */
+  const ACTES: EntreeActe[] = ACTES_DEF.map(([id, numero, cle]) => ({ id, numero, label: t[cle] }));
+  const SOMMAIRE = ACTES.map((a) => ({
+    id: a.id,
+    label: a.numero === "—" ? a.label : `${intitule(a.numero)} · ${a.label}`,
+  }));
+
+  /** Propriétés communes d'un acte : ancre, numéro, intitulé et titre éditables. */
+  const acte = (id: string, romain: string, cle: string) => ({
+    id,
+    romain,
+    intitule: intitule(romain),
+    titre: t[`${cle}.titre`],
+  });
+
   return (
     <>
-      {/* ——— HERO — plein écran, solennel ——— */}
-      <Section
-        tone="profond"
-        className="flex min-h-[80vh] items-center py-24 sm:py-32"
+      <OuverturePage
+        page_id="declaration"
+        titre={t["hero.titre"]}
+        sousTitre={t["hero.sous_titre"]}
+        sommaire={SOMMAIRE}
+        actions={
+          <Link href="#preambule" className={buttonVariants({ variant: "or-plein", size: "cta" })}>
+            {t["hero.bouton"]}
+          </Link>
+        }
       >
-        <Container>
-          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-            <h1 className="font-heading text-3xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
-              La Déclaration de Brazzaville
-            </h1>
-            <p className="mt-6 font-sans text-lg italic text-blanc-casse sm:text-xl">
-              Manifeste Public de l’École de Brazzaville
-            </p>
+        <Exergue>{t["hero.exergue"]}</Exergue>
+      </OuverturePage>
 
-            <blockquote className="mt-12 max-w-[800px] font-heading text-xl italic text-or sm:text-2xl">
-              « La Science Métamoderne n’est pas d’abord un ensemble de
-              connaissances ; elle est une méthode d’institution durable de
-              l’intelligibilité. »
-            </blockquote>
+      <section className="surface-claire bg-papier px-5 pt-14 pb-14 md:pt-24 md:pb-24 lg:px-6 xl:px-10">
+        <div className="mx-auto grid max-w-[1280px] gap-x-6 lg:grid-cols-12">
+          {/* Liste des actes, collante (ordinateur) */}
+          <aside className="hidden lg:col-span-3 lg:block">
+            <div className="sticky top-6">
+              <SommaireActes entrees={ACTES} titre={t["sommaire.titre"]} ariaLabel={t["sommaire.aria"]} />
+            </div>
+          </aside>
 
-            <p className="mt-12 max-w-2xl font-sans italic text-blanc-casse/90">
-              « Ce travail ne demande pas à être accepté sur autorité. Il demande
-              à être éprouvé. »
-            </p>
-
-            <Link
-              href="#preambule"
-              className={cn(buttonVariants({ variant: "or", size: "cta" }), "mt-12")}
-            >
-              Lire la déclaration intégrale ↓
-            </Link>
-          </div>
-        </Container>
-      </Section>
-
+          <div className="flex min-w-0 flex-col gap-16 md:gap-24 lg:col-span-8 lg:col-start-5">
       {/* ——— SECTION 1 — PRÉAMBULE : LE CONSTAT HISTORIQUE ——— */}
-      <Section tone="clair" id="preambule">
-        <Container>
-          <TitreSection>Préambule — le constat historique</TitreSection>
-          <BlocProse cle="declaration.preambule.corps" className="mt-8">
+      <section id="preambule" aria-labelledby="preambule-titre" className="flex flex-col gap-6">
+          <h2
+            id="preambule-titre"
+            className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre md:text-[2.125rem]"
+          >
+            {t["preambule.titre"]}
+          </h2>
+          <BlocProse cle="declaration.preambule.corps">
             <p>
               L’époque contemporaine dispose d’une puissance descriptive et
               technique sans précédent. Les instruments d’observation se
@@ -104,17 +182,11 @@ export default function DeclarationDeBrazzaville() {
               d’intelligibilité.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </section>
 
       {/* ——— ACTE I — LA PROCLAMATION DE L'ÉCOLE ——— */}
-      <Section tone="academique">
-        <Container>
-          <TitreSection>Acte I</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
-            La proclamation de l’École
-          </h3>
-          <BlocProse cle="declaration.acte_i.corps" className="mt-8 text-blanc">
+      <Acte {...acte("acte-i", "I", "acte_i")}>
+          <BlocProse cle="declaration.acte_i.corps">
             <p>
               Par la présente Déclaration, est instituée l’
               <strong>École de Brazzaville</strong>, communauté scientifique
@@ -147,17 +219,11 @@ export default function DeclarationDeBrazzaville() {
               constitutionnelle de 2026.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE II — L'OBJET UNIQUE : L'INTELLIGIBILITÉ ——— */}
-      <Section tone="clair">
-        <Container>
-          <TitreSection>Acte II</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
-            L’objet unique : l’intelligibilité
-          </h3>
-          <BlocProse cle="declaration.acte_ii.corps" className="mt-8">
+      <Acte {...acte("acte-ii", "II", "acte_ii")}>
+          <BlocProse cle="declaration.acte_ii.corps">
             <p>
               L’École de Brazzaville a pour objet unique et souverain{" "}
               <strong>l’Intelligibilité elle-même</strong>.
@@ -194,17 +260,11 @@ export default function DeclarationDeBrazzaville() {
               possibles.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE III — LA SCIENCE MÉTAMODERNE ——— */}
-      <Section tone="nuit">
-        <Container>
-          <TitreSection>Acte III</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
-            La Science Métamoderne
-          </h3>
-          <BlocProse cle="declaration.acte_iii.intro" className="mt-8">
+      <Acte {...acte("acte-iii", "III", "acte_iii")}>
+          <BlocProse cle="declaration.acte_iii.intro">
             <p>
               La présente recherche institue la{" "}
               <strong>Science Métamoderne</strong>, définie comme la science des
@@ -213,10 +273,10 @@ export default function DeclarationDeBrazzaville() {
               prenons.
             </p>
 
-            <p className="font-heading font-semibold text-or">
+            <p className="mt-8 font-code text-[13px] text-or-700">
               Formule canonique de démarcation
             </p>
-            <blockquote className="border-y border-or/40 py-4 font-heading italic text-blanc-casse">
+            <blockquote className="mt-3 pl-6 italic text-encre-2">
               « Le métamodernisme culturel cherche à dépasser le conflit entre
               l’unité et la multiplicité ; la Science Métamoderne cherche à
               comprendre ce qui rend possible leur intelligibilité commune. »
@@ -241,11 +301,9 @@ export default function DeclarationDeBrazzaville() {
             <p>Elle applique l’équation systémique :</p>
           </BlocProse>
 
-          <p className="mt-6 text-center font-mono text-xl text-or sm:text-2xl">
-            Σ = M(F(V(Σ)))
-          </p>
+          <Formule className="max-w-[680px]">{t["acte_iii.formule_sigma"]}</Formule>
 
-          <BlocProse cle="declaration.acte_iii.equation" className="mt-6">
+          <BlocProse cle="declaration.acte_iii.equation">
             <p>
               Elle démontre comment le Substratum Commun (Σ), altéré par le Voile
               Ontologique (V) et le Filtrage institutionnel (F), peut être
@@ -259,11 +317,9 @@ export default function DeclarationDeBrazzaville() {
             </p>
           </BlocProse>
 
-          <p className="mt-6 text-center font-mono text-xl text-or sm:text-2xl">
-            Maât = M(F(V(Maât)))
-          </p>
+          <Formule className="max-w-[680px]">{t["acte_iii.formule_maat"]}</Formule>
 
-          <BlocProse cle="declaration.acte_iii.transposition" className="mt-6">
+          <BlocProse cle="declaration.acte_iii.transposition">
             <p>
               Cette transposition n’est pas une analogie poétique. Elle est la
               démonstration que les principes qui gouvernent l’intelligibilité du
@@ -273,17 +329,11 @@ export default function DeclarationDeBrazzaville() {
               l’opérateur universel de non-contradiction structurelle.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE IV — L'ARCHITECTURE INSTITUTIONNELLE ——— */}
-      <Section tone="clair">
-        <Container>
-          <TitreSection>Acte IV</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
-            L’architecture institutionnelle
-          </h3>
-          <BlocProse cle="declaration.acte_iv.corps" className="mt-8">
+      <Acte {...acte("acte-iv", "IV", "acte_iv")}>
+          <BlocProse cle="declaration.acte_iv.corps">
             <p>
               L’École de Brazzaville s’organise selon une architecture
               constitutive à quatre niveaux, chacun répondant à une fonction
@@ -292,58 +342,63 @@ export default function DeclarationDeBrazzaville() {
             </p>
           </BlocProse>
 
-          <div className="mx-auto mt-8 grid max-w-4xl gap-6 sm:grid-cols-2">
+          <div className="grid gap-4 xl:grid-cols-2">
             <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-[0.15em] text-or">
-                Niveau I
+              <p className="font-code text-xs tracking-[0.14em] text-or-700">
+                {t["acte_iv.niveau_i_etiquette"]}
               </p>
-              <h4 className="mt-1 font-heading text-lg font-semibold">
-                Le Programme de Recherche (Le Principe)
-              </h4>
-              <p className="mt-3 font-sans leading-relaxed">
+              <h3 className="mt-2 font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
+                {t["acte_iv.niveau_i_titre"]}
+              </h3>
+              <BlocProse cle="declaration.acte_iv.niveau_i_corps" className={NIVEAU_TEXTE}>
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 Le Programme de Recherche constitue le cœur intellectuel de la
                 Science Métamoderne. Il définit son objet, ses questions
                 fondamentales, ses hypothèses directrices, ses principes
                 méthodologiques et ses axes de développement. Il répond à la
                 question fondamentale : <em>Que cherchons-nous à comprendre ?</em>
               </p>
-              <p className="mt-3 font-sans leading-relaxed">
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 Son objet est l’intelligibilité. Sa vocation est de rendre
                 progressivement intelligibles les conditions générales de
                 production de la connaissance.
               </p>
+              </BlocProse>
             </Carte>
 
             <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-[0.15em] text-or">
-                Niveau II
+              <p className="font-code text-xs tracking-[0.14em] text-or-700">
+                {t["acte_iv.niveau_ii_etiquette"]}
               </p>
-              <h4 className="mt-1 font-heading text-lg font-semibold">
-                L’Institut de Brazzaville (L’Institution)
-              </h4>
-              <p className="mt-3 font-sans leading-relaxed">
+              <h3 className="mt-2 font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
+                {t["acte_iv.niveau_ii_titre"]}
+              </h3>
+              <BlocProse cle="declaration.acte_iv.niveau_ii_corps" className={NIVEAU_TEXTE}>
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 L’Institut constitue l’infrastructure scientifique du Programme.
                 Il organise les recherches, les publications, les archives, les
                 formations, les colloques, les partenariats scientifiques et les
                 laboratoires. Il répond à la question :{" "}
                 <em>Comment cette recherche est-elle organisée ?</em>
               </p>
-              <p className="mt-3 font-sans leading-relaxed">
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 L’Institut exerce un monopole de contrôle et de certification sur
                 le Noyau Démontré de la Science Métamoderne. Il est le seul
                 habilité à sceller les concepts structurels stabilisés et à
                 valider les protocoles de remontée reconstructive.
               </p>
+              </BlocProse>
             </Carte>
 
             <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-[0.15em] text-or">
-                Niveau III
+              <p className="font-code text-xs tracking-[0.14em] text-or-700">
+                {t["acte_iv.niveau_iii_etiquette"]}
               </p>
-              <h4 className="mt-1 font-heading text-lg font-semibold">
-                L’École de Brazzaville (La Communauté)
-              </h4>
-              <p className="mt-3 font-sans leading-relaxed">
+              <h3 className="mt-2 font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
+                {t["acte_iv.niveau_iii_titre"]}
+              </h3>
+              <BlocProse cle="declaration.acte_iv.niveau_iii_corps" className={NIVEAU_TEXTE}>
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 L’École désigne la communauté des chercheurs qui participent
                 librement au Programme de Recherche. Elle ne repose sur aucune
                 adhésion personnelle. Elle repose uniquement sur l’acceptation
@@ -352,21 +407,23 @@ export default function DeclarationDeBrazzaville() {
                 vocabulaire, distinction entre hypothèse, démonstration et
                 programme, révision continue des concepts.
               </p>
-              <p className="mt-3 font-sans leading-relaxed">
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 L’École n’est donc pas une doctrine. Elle est une communauté de
                 recherche. Elle répond à la question :{" "}
                 <em>Qui fait vivre cette recherche ?</em>
               </p>
+              </BlocProse>
             </Carte>
 
             <Carte>
-              <p className="font-ui text-sm font-semibold uppercase tracking-[0.15em] text-or">
-                Niveau IV
+              <p className="font-code text-xs tracking-[0.14em] text-or-700">
+                {t["acte_iv.niveau_iv_etiquette"]}
               </p>
-              <h4 className="mt-1 font-heading text-lg font-semibold">
-                Le Corpus Scientifique (La Mémoire Génétique)
-              </h4>
-              <p className="mt-3 font-sans leading-relaxed">
+              <h3 className="mt-2 font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
+                {t["acte_iv.niveau_iv_titre"]}
+              </h3>
+              <BlocProse cle="declaration.acte_iv.niveau_iv_corps" className={NIVEAU_TEXTE}>
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 Le Corpus scientifique rassemble de manière étanche les travaux
                 validés issus du programme de recherche. Il comprend les ouvrages
                 fondateurs (<em>Les Principes Retrouvés</em>, Tome I et Tome II),
@@ -374,7 +431,7 @@ export default function DeclarationDeBrazzaville() {
                 structurels stabilisés, les applications disciplinaires et les
                 actes de colloques.
               </p>
-              <p className="mt-3 font-sans leading-relaxed">
+              <p className="mt-3 font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 Dans cette architecture globale,{" "}
                 <em>Les Principes Retrouvés</em> constituent le premier traité
                 systématique de la Science Métamoderne. Ils établissent le Noyau
@@ -385,30 +442,20 @@ export default function DeclarationDeBrazzaville() {
                 progressivement de nouvelles démonstrations dans les différents
                 domaines de la connaissance.
               </p>
+              </BlocProse>
             </Carte>
           </div>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE V — LE PRINCIPE DE FÉCONDITÉ SCIENTIFIQUE ——— */}
-      <Section tone="gris">
-        <Container>
-          <TitreSection>Acte V</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
-            Le principe de fécondité scientifique
-          </h3>
-
-          <Encadre className="mx-auto mt-8 max-w-[68ch]">
-            <p className="font-sans leading-relaxed">
-              Une théorie ne devient véritablement scientifique que lorsqu’elle
-              est capable de produire davantage qu’elle-même. Sa valeur ne réside
-              pas seulement dans les démonstrations qu’elle contient, mais dans sa
-              capacité à rendre possibles de nouvelles démonstrations, de nouveaux
-              concepts, de nouvelles théories et de nouvelles applications.
+      <Acte {...acte("acte-v", "V", "acte_v")}>
+          <div className="max-w-[680px] border-y border-filet bg-papier-2 px-5 py-6 md:px-7">
+            <p className="font-texte text-[1.125rem] leading-[1.7] text-encre italic md:text-[1.1875rem]">
+              {t["acte_v.encadre"]}
             </p>
-          </Encadre>
+          </div>
 
-          <BlocProse cle="declaration.acte_v.corps" className="mt-8">
+          <BlocProse cle="declaration.acte_v.corps">
             <p>
               <em>Les Principes Retrouvés</em> constituent, à cet égard, le
               premier Organon de la Science Métamoderne. Ils n’ont pas pour
@@ -455,17 +502,11 @@ export default function DeclarationDeBrazzaville() {
               </li>
             </ul>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE VI — LE PRIVILÈGE OPTIQUE DE BRAZZAVILLE ——— */}
-      <Section tone="academique">
-        <Container>
-          <TitreSection>Acte VI</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
-            Le privilège optique de Brazzaville
-          </h3>
-          <BlocProse cle="declaration.acte_vi.corps" className="mt-8 text-blanc">
+      <Acte {...acte("acte-vi", "VI", "acte_vi")}>
+          <BlocProse cle="declaration.acte_vi.corps">
             <p>
               Penser la refondation de l’intelligibilité depuis Brazzaville et
               l’Afrique subsaharienne ne constitue pas un repli identitaire, mais
@@ -505,17 +546,11 @@ export default function DeclarationDeBrazzaville() {
               la puissance explicative de sa méthode.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE VII — LE PACTE ÉTHIQUE AVEC LA COMMUNAUTÉ SCIENTIFIQUE ——— */}
-      <Section tone="clair">
-        <Container>
-          <TitreSection>Acte VII</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold sm:text-2xl">
-            Le pacte éthique avec la communauté scientifique
-          </h3>
-          <BlocProse cle="declaration.acte_vii.corps" className="mt-8">
+      <Acte {...acte("acte-vii", "VII", "acte_vii")}>
+          <BlocProse cle="declaration.acte_vii.corps">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n’invite pas à une croyance. Elle propose une méthode. Elle ne
@@ -548,17 +583,11 @@ export default function DeclarationDeBrazzaville() {
               intégrer la discussion sans perdre sa cohérence.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— ACTE VIII — LA FORMULE DE CLÔTURE ÉTHIQUE ——— */}
-      <Section tone="profond">
-        <Container>
-          <TitreSection>Acte VIII</TitreSection>
-          <h3 className="mt-3 font-heading text-xl font-semibold text-or sm:text-2xl">
-            La formule de clôture éthique
-          </h3>
-          <BlocProse cle="declaration.acte_viii.corps" className="mt-8">
+      <Acte {...acte("acte-viii", "VIII", "acte_viii")}>
+          <BlocProse cle="declaration.acte_viii.corps">
             <p>
               Nous avons longtemps cherché à savoir ce qu’était la Science
               Métamoderne. Aujourd’hui, nous pouvons répondre en une seule
@@ -566,13 +595,14 @@ export default function DeclarationDeBrazzaville() {
             </p>
           </BlocProse>
 
-          <blockquote className="mx-auto mt-8 max-w-[700px] text-center font-heading text-xl italic text-or sm:text-2xl">
-            « La Science Métamoderne n’est pas d’abord un ensemble de
-            connaissances ; elle est une méthode d’institution durable de
-            l’intelligibilité. »
-          </blockquote>
+          {/* L'encadré fort de la page : la maxime de la Déclaration. */}
+          <Encadre className="rv">
+            <blockquote className="font-titre text-[1.375rem] leading-[1.4] text-or-500 italic md:text-[1.75rem]">
+              {t["hero.exergue"]}
+            </blockquote>
+          </Encadre>
 
-          <BlocProse cle="declaration.acte_viii.synthese" className="mt-8">
+          <BlocProse cle="declaration.acte_viii.synthese">
             <p>Cette formulation rassemble tout ce qui a été établi :</p>
             <ul className="mt-4 list-disc space-y-2 pl-6">
               <li>Elle n’est pas une discipline concurrente ;</li>
@@ -594,37 +624,48 @@ export default function DeclarationDeBrazzaville() {
               exigence qui peut faire d’un premier Organon non la fin d’une œuvre,
               mais le commencement d’une tradition scientifique.
             </p>
-            <p className="font-heading text-lg font-semibold text-or">
+            <p className="font-titre text-[1.25rem] leading-[1.4] font-medium text-encre">
               Ce travail ne demande pas à être accepté sur autorité. Il demande à
               être éprouvé.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </Acte>
 
       {/* ——— DISPOSITION FINALE ET APPEL À L'ÉPREUVE ——— */}
-      <Section tone="nuit">
-        <Container>
-          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <TitreSection filet={false} className="text-or">
-              Disposition finale et appel à l’épreuve
-            </TitreSection>
-            <p className="mt-6 font-ui text-sm uppercase tracking-[0.15em] text-blanc-casse/80">
-              Locus : Brazzaville — Juillet 2026
-            </p>
-            <p className="mt-4 font-ui text-sm uppercase tracking-[0.12em] text-blanc-casse/70">
-              [ Scellé et proclamé pour la communauté scientifique
-              internationale ]
-            </p>
-            <Link
-              href="/institution"
-              className={cn(buttonVariants({ variant: "or", size: "cta" }), "mt-10")}
-            >
-              Accéder à l’Institut de Brazzaville →
-            </Link>
+      <section
+        id="appel"
+        aria-labelledby="appel-titre"
+        className="flex flex-col gap-4 border-t border-filet pt-8 md:pt-10"
+      >
+        <h2
+          id="appel-titre"
+          className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre md:text-[2.125rem]"
+        >
+          {t["appel.titre"]}
+        </h2>
+        <p className="font-code text-[13px] tracking-[0.06em] text-or-700">
+          {t["appel.locus"]}
+        </p>
+        <p className="font-code text-[13px] tracking-[0.06em] text-encre-3">
+          {t["appel.sceau"]}
+        </p>
+      </section>
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
+
+      <Cloture
+        suite={
+          <Link
+            href="/institution"
+            className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-2")}
+          >
+            {t["cloture.bouton"]}
+          </Link>
+        }
+      >
+        {t["cloture.texte"]}
+      </Cloture>
     </>
   );
 }

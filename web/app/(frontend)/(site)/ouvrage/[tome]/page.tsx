@@ -1,29 +1,54 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AcquerirTome } from "@/components/acquerir-tome";
+import { getRecueil, getRecueils, getVenteOuvrages } from "@/lib/cms";
 
-import { RECUEILS, dureeLecture, getRecueil } from "@/content/lectures";
-import { intertitres } from "@/components/lecture";
-import { Etiquette } from "@/components/primitives";
-import { Section, Container, TitreSection } from "@/components/section";
+import { dureeLecture } from "@/content/lectures";
+import { BadgeAcces, FilAriane, SurCettePage } from "@/components/editorial";
+import { LigneTexte } from "@/components/pages/ouvrage-textes";
+import { buttonVariants } from "@/components/ui/button";
+import { libellesLecture, remplacer } from "@/lib/lecture";
 import { pageMetadata } from "@/lib/seo";
+import { cn } from "@/lib/utils";
 
 /** Sommaire d'un tome : les textes ouverts à la lecture, un lien par texte. */
 
-export const dynamicParams = false;
+// Les tomes viennent du back-office (Ouvrage › Les deux tomes) ; une adresse
+// inconnue aboutit à notFound().
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return RECUEILS.map((r) => ({ tome: r.tome }));
+/** Filet de sécurité : revalidation périodique des textes du back-office. */
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  return (await getRecueils()).map((r) => ({ tome: r.tome }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ tome: string }> }) {
   const { tome } = await params;
-  const recueil = getRecueil(tome);
+  const recueil = await getRecueil(tome);
   if (!recueil) return {};
+  const l = await libellesLecture();
   return pageMetadata({
-    title: `${recueil.etiquette} — ${recueil.titre} : textes en accès libre`,
-    description: recueil.presentation[0],
+    title: remplacer(l["seo.tome_titre"], { tome: recueil.etiquette, titre: recueil.titre }),
+    description: remplacer(l["seo.tome_description"], { presentation: recueil.presentation[0] ?? "" }),
     path: `/ouvrage/${recueil.tome}`,
   });
+}
+
+const dl = (ms: number) => ({ "--dl": `${ms}ms` }) as React.CSSProperties;
+
+type LignePlan = { titre: string; libre?: string };
+
+/** Regroupe le plan sous ses parties (lignes commençant par « Partie »). */
+function grouperPlan(plan: LignePlan[]) {
+  const groupes: { partie: string | null; lignes: LignePlan[] }[] = [];
+  for (const ligne of plan) {
+    if (ligne.titre.startsWith("Partie")) groupes.push({ partie: ligne.titre, lignes: [] });
+    else if (groupes.length === 0) groupes.push({ partie: null, lignes: [ligne] });
+    else groupes[groupes.length - 1].lignes.push(ligne);
+  }
+  return groupes;
 }
 
 export default async function SommaireTomePage({
@@ -32,134 +57,164 @@ export default async function SommaireTomePage({
   params: Promise<{ tome: string }>;
 }) {
   const { tome } = await params;
-  const recueil = getRecueil(tome);
+  const recueil = await getRecueil(tome);
   if (!recueil) notFound();
 
+  const base = `/ouvrage/${recueil.tome}`;
+  const [vente, l] = await Promise.all([getVenteOuvrages(), libellesLecture()]);
+  const t = (cle: string, valeurs?: Record<string, string | number>) => remplacer(l[cle], valeurs);
+  const textes = recueil.parties.flatMap((p) => p.textes);
+  const minutes = textes.reduce((n, t) => n + dureeLecture(t), 0);
   // Numérotation continue des textes d'une partie à l'autre.
   const debuts = recueil.parties.map((_, i) =>
     recueil.parties.slice(0, i).reduce((n, p) => n + p.textes.length, 0),
   );
+  const sommaire = [
+    ...recueil.parties.map((p, i) => ({ id: `partie-${i + 1}`, label: p.titre })),
+    ...(recueil.plan ? [{ id: "plan", label: t("sommaire.plan_titre", { tome: recueil.etiquette }) }] : []),
+  ];
+
   return (
     <>
-      <Section tone="profond">
-        <Container className="max-w-3xl">
-          <nav aria-label="Fil d'Ariane" className="font-ui text-sm text-blanc-casse/75">
-            <Link href="/ouvrage" className="hover:text-or hover:underline">
-              L&apos;Ouvrage
-            </Link>
-            <span aria-hidden="true"> / </span>
-            <span aria-current="page">{recueil.etiquette}</span>
-          </nav>
-          <Etiquette className="mt-8">{recueil.etiquette} · Accès libre</Etiquette>
-          <h1 className="mt-3 font-heading text-4xl font-bold tracking-[-0.02em] text-blanc sm:text-5xl">
-            {recueil.titre}
-          </h1>
-          <p className="mt-4 font-sans text-lg italic text-or">{recueil.sous_titre}</p>
-          <div className="mt-6 space-y-3 font-sans text-base leading-relaxed text-blanc-casse/90">
-            {recueil.presentation.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {recueil.parties.map((partie, iPartie) => (
-        <Section key={partie.titre} tone={iPartie % 2 === 0 ? "clair" : "gris"}>
-          <Container className="max-w-4xl">
-            <TitreSection>{partie.titre}</TitreSection>
-            <p className="mt-3 font-sans text-base text-bleu-nuit-profond/80">
-              {partie.description}
+      {/* Ouverture, sur papier */}
+      <section className="surface-claire border-b border-filet bg-papier px-5 pt-8 pb-14 md:pt-14 md:pb-24 lg:px-6 xl:px-10">
+        <div className="mx-auto grid max-w-[1280px] gap-x-6 gap-y-10 lg:grid-cols-12">
+          <div className="flex flex-col gap-5 lg:col-span-8">
+            <div className="m-rise" style={dl(100)}>
+              <FilAriane items={[{ label: t("fil_ariane.ouvrage"), href: "/ouvrage" }, { label: recueil.etiquette }]} />
+            </div>
+            <span className="m-rise mt-4 font-code text-xs tracking-[0.14em] text-or-700 uppercase" style={dl(200)}>
+              {t("sommaire.surtitre", { tome: recueil.etiquette })}
+            </span>
+            <h1
+              className="m-rise font-titre text-[2.25rem] leading-[1.08] font-medium text-balance text-encre md:text-[3.5rem] md:leading-[1.06]"
+              style={dl(300)}
+            >
+              {recueil.titre}
+            </h1>
+            <p
+              className="m-rise font-texte text-[1.1875rem] leading-[1.45] text-encre-2 italic md:text-[1.4375rem]"
+              style={dl(450)}
+            >
+              {recueil.sous_titre}
             </p>
-            <ol className="mt-8 grid gap-4">
-              {partie.textes.map((texte, iTexte) => {
-                const rang = debuts[iPartie] + iTexte + 1;
-                const sections = intertitres(texte).length;
-                return (
-                  <li key={texte.slug}>
-                    <Link
-                      href={`/ouvrage/${recueil.tome}/${texte.slug}`}
-                      className="presse group grid gap-4 rounded-xl border border-bleu-nuit-profond/10 bg-blanc p-6 transition-colors hover:border-or sm:grid-cols-[3rem_1fr_auto] sm:items-baseline"
-                    >
-                      <span className="font-mono text-sm text-or" aria-hidden="true">
-                        {String(rang).padStart(2, "0")}
-                      </span>
-                      <span>
-                        <span className="block font-heading text-xl font-semibold text-bleu-nuit-profond group-hover:text-bleu-academique">
-                          {texte.titre}
-                        </span>
-                        {texte.sous_titre && (
-                          <span className="mt-1 block font-sans text-sm italic text-bleu-nuit-profond/75">
-                            {texte.sous_titre}
-                          </span>
-                        )}
-                      </span>
-                      <span className="font-ui text-sm text-bleu-nuit-profond/75">
-                        {dureeLecture(texte)}&nbsp;min de lecture
-                        {sections > 1 && <> · {sections}&nbsp;sections</>}
-                        <span className="ml-2 text-or" aria-hidden="true">
-                          →
-                        </span>
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
+            <div
+              className="m-rise mt-2 flex max-w-[680px] flex-col gap-4 font-texte text-[1.0625rem] leading-[1.7] text-encre md:text-lg"
+              style={dl(550)}
+            >
+              {recueil.presentation.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+            <div className="m-rise mt-3 flex flex-wrap items-center gap-x-6 gap-y-4" style={dl(650)}>
+              {textes[0] && (
+                <Link
+                  href={`${base}/${textes[0].slug}`}
+                  className={buttonVariants({ variant: "or-plein", size: "cta" })}
+                >
+                  {t("sommaire.commencer")} <span className="arr" aria-hidden="true">→</span>
+                </Link>
+              )}
+              <span className="flex flex-wrap items-center gap-3">
+                <BadgeAcces libre />
+                <span className="font-code text-[12px] text-encre-3">
+                  {t("sommaire.compteur", { n: textes.length, min: minutes })}
+                </span>
+              </span>
+            </div>
+            <AcquerirTome offre={vente[recueil.tome]} etiquette={recueil.etiquette} variante="or" className="mt-1" />
+          </div>
+          {sommaire.length >= 2 && (
+            <div className="m-rise lg:col-span-3 lg:col-start-10 lg:self-end" style={dl(750)}>
+              <SurCettePage entrees={sommaire} />
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Les textes ouverts, par partie */}
+      {recueil.parties.map((partie, iPartie) => (
+        <section
+          key={partie.titre}
+          id={`partie-${iPartie + 1}`}
+          className="surface-claire bg-papier px-5 pb-14 md:pb-24 lg:px-6 xl:px-10"
+        >
+          <div
+            className={cn(
+              "mx-auto grid max-w-[1280px] gap-x-6 gap-y-6 pt-14 md:pt-24 lg:grid-cols-12",
+              iPartie > 0 && "border-t border-filet",
+            )}
+          >
+            <div className="flex flex-col gap-3 lg:col-span-3">
+              <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:text-[1.875rem]">
+                {partie.titre}
+              </h2>
+              <p className="font-ui text-[15px] leading-[1.55] text-encre-2">{partie.description}</p>
+              <span className="font-code text-[11.5px] text-encre-3">
+                {t(partie.textes.length > 1 ? "sommaire.partie_plusieurs" : "sommaire.partie_un", { n: partie.textes.length })}
+              </span>
+            </div>
+            <ol className="min-w-0 border-b border-filet lg:col-span-8 lg:col-start-4">
+              {partie.textes.map((texte, iTexte) => (
+                <LigneTexte
+                  key={texte.slug}
+                  href={`${base}/${texte.slug}`}
+                  rang={debuts[iPartie] + iTexte + 1}
+                  texte={texte}
+                />
+              ))}
             </ol>
-          </Container>
-        </Section>
+          </div>
+        </section>
       ))}
 
+      {/* Plan complet (Tome II) */}
       {recueil.plan && (
-        <Section tone="clair">
-          <Container className="max-w-4xl">
-            <TitreSection>Plan du {recueil.etiquette}</TitreSection>
-            <p className="mt-3 max-w-[70ch] font-sans text-base text-bleu-nuit-profond/80">
-              Les chapitres marqués «&nbsp;Accès libre&nbsp;» se lisent en ligne. Les autres
-              chapitres, les démonstrations successives et les annexes restent réservés à
-              l&apos;ouvrage.
-            </p>
-            <ol className="mt-8 divide-y divide-bleu-nuit-profond/10 border-y border-bleu-nuit-profond/10">
-              {recueil.plan.map((ligne) => {
-                const partie = ligne.titre.startsWith("Partie");
-                return (
-                  <li
-                    key={ligne.titre}
-                    className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between"
-                  >
-                    {partie ? (
-                      <span className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-bleu-nuit-profond/75">
-                        {ligne.titre}
-                      </span>
-                    ) : ligne.libre ? (
-                      <Link
-                        href={`/ouvrage/${recueil.tome}/${ligne.libre}`}
-                        className="font-sans text-base text-bleu-academique underline-offset-4 hover:underline"
+        <section id="plan" className="surface-claire bg-papier-2 px-5 py-14 md:py-24 lg:px-6 xl:px-10">
+          <div className="mx-auto grid max-w-[1280px] gap-x-6 gap-y-8 lg:grid-cols-12">
+            <div className="flex flex-col gap-4 lg:col-span-3">
+              <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:text-[1.875rem]">
+                {t("sommaire.plan_titre", { tome: recueil.etiquette })}
+              </h2>
+              <p className="font-ui text-[15px] leading-[1.55] text-encre-2">
+                {t("sommaire.plan_note")}
+              </p>
+            </div>
+            <div className="flex min-w-0 flex-col gap-8 lg:col-span-8 lg:col-start-4">
+              {grouperPlan(recueil.plan).map((groupe, iGroupe) => (
+                <div key={groupe.partie ?? `groupe-${iGroupe}`} className="flex flex-col">
+                  {groupe.partie && (
+                    <h3 className="border-b-2 border-encre pb-2.5 font-titre text-[1.25rem] leading-[1.3] font-medium text-encre md:text-[1.375rem]">
+                      {groupe.partie}
+                    </h3>
+                  )}
+                  <ol className={cn("flex flex-col", !groupe.partie && "border-t-2 border-encre")}>
+                    {groupe.lignes.map((ligne) => (
+                      <li
+                        key={ligne.titre}
+                        className="flex min-h-14 flex-col gap-2 border-b border-filet py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6"
                       >
-                        {ligne.titre}
-                      </Link>
-                    ) : (
-                      <span className="font-sans text-base text-bleu-nuit-profond/80">
-                        {ligne.titre}
-                      </span>
-                    )}
-                    {!partie && (
-                      <span
-                        className={
-                          ligne.libre
-                            ? "inline-flex w-fit shrink-0 items-center gap-1.5 border border-or bg-or/15 px-2 py-0.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-bleu-nuit-profond"
-                            : "inline-flex w-fit shrink-0 items-center gap-1.5 border border-bleu-nuit-profond/20 px-2 py-0.5 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-bleu-nuit-profond/75"
-                        }
-                      >
-                        <span aria-hidden="true">{ligne.libre ? "✓" : "§"}</span>
-                        {ligne.libre ? "Accès libre" : "Dans l’ouvrage"}
-                      </span>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </Container>
-        </Section>
+                        {ligne.libre ? (
+                          <Link
+                            href={`${base}/${ligne.libre}`}
+                            className="font-ui text-[15.5px] leading-snug font-semibold text-lien underline underline-offset-[3px] hover:decoration-2"
+                          >
+                            {ligne.titre}
+                          </Link>
+                        ) : (
+                          <span className="font-ui text-[15.5px] leading-snug text-encre-2">{ligne.titre}</span>
+                        )}
+                        <span className="shrink-0">
+                          <BadgeAcces libre={!!ligne.libre} />
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
     </>
   );

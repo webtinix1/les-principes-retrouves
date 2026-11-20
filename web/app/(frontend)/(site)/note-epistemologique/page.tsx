@@ -1,17 +1,21 @@
 import Link from "next/link";
-import { Section, Container, TitreSection } from "@/components/section";
 import { BlocProse } from "@/components/bloc";
+import { BlocSection, Cloture, Exergue, OuverturePage } from "@/components/editorial";
+import { FriseCanon } from "@/components/pages/savoir-note-frise";
 import { Carte, Encadre } from "@/components/primitives";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/lib/seo";
+import { getListe, getTextes } from "@/lib/contenu";
 
-export const metadata = pageMetadata({
-  title: "Note Épistémologique",
-  description:
-    "Restituer les conditions de l'intelligibilité : primauté du cerveau sur le laboratoire, Canon de la Découverte en sept principes, sextuor de la structuration intime.",
-  path: "/note-epistemologique",
-});
+export async function generateMetadata() {
+  const t = await getTextes("note_epistemologique");
+  return pageMetadata({
+    title: t["seo.titre"],
+    description: t["seo.description"],
+    path: "/note-epistemologique",
+  });
+}
 
 /**
  * Filet de sécurité pour les blocs éditables : la page est prérendue au build
@@ -21,131 +25,54 @@ export const metadata = pageMetadata({
  */
 export const revalidate = 3600;
 
-/** Les sept étapes du Canon de la Découverte, dans l'ordre de la remontée. */
-const ETAPES_CANON = [
-  { terme: "Architecture préalable", role: "L’infrastructure implicite" },
-  { terme: "Anomalie / Paradoxe", role: "Le point d’impact entropique" },
-  { terme: "Question", role: "La circonscription du vide sémantique" },
-  { terme: "Hypothèse", role: "La Majeure rationnelle (hyppo, en deçà)" },
-  { terme: "Thésis", role: "L’action de poser et de démontrer" },
-  { terme: "Expérantia", role: "Le banc d’essai phénoménal (mineure subordonnée)" },
-  { terme: "Connaissance", role: "La réintégration néguentropique" },
-];
+/** Ancres des sept principes du Canon (#principe-i … #principe-vii). */
+const ROMAINS = ["i", "ii", "iii", "iv", "v", "vi", "vii"];
 
-/** Le Canon de la Découverte — sept principes (Section 4). */
-const CANON = [
-  {
-    id: "principe-i",
-    titre: "Principe I — Le primat de l'intelligibilité sur l'opératoire",
-    texte:
-      "La recherche scientifique dépend d'abord du cerveau avant de dépendre du laboratoire.",
-  },
-  {
-    id: "principe-ii",
-    titre: "Principe II — Le Théorème de la Genèse Scientifique",
-    texte:
-      "La connaissance ne naît pas de l'induction mécanique, ni de la déduction formelle. Elle naît de la rencontre entre une intelligibilité déjà présente et une difficulté qui en révèle l'incomplétude.",
-  },
-  {
-    id: "principe-iii",
-    titre: "Principe III — Le principe de nécessité heuristique",
-    texte:
-      "Chaque élévation vers un niveau supérieur d'intelligibilité doit apparaître comme la conséquence nécessaire des insuffisances constatées au niveau inférieur.",
-  },
-  {
-    id: "principe-iv",
-    titre: "Principe IV — La reconstruction synthétique",
-    texte:
-      "La synthèse reconstructive consiste à remonter des éléments dissociés vers les fondements implicites qui les unissent.",
-  },
-  {
-    id: "principe-v",
-    titre: "Principe V — La double respiration du réel et de la connaissance",
-    texte:
-      "Le mouvement descendant (ontologique) et le mouvement ascendant (épistémologique) sont les deux battements d'un même cœur rationnel.",
-  },
-  {
-    id: "principe-vi",
-    titre: "Principe VI — Le principe de non-imposition",
-    texte:
-      "Nul principe ne peut être introduit avant que le raisonnement n'en ait progressivement établi la nécessité.",
-  },
-  {
-    id: "principe-vii",
-    titre: "Principe VII — Le principe de démonstration catégorique",
-    texte:
-      "Aucune affirmation ne peut être tenue pour acquise tant qu'elle n'a pas fait l'objet d'une démonstration suffisante au regard de son domaine. L'ambition d'une théorie ne dispense jamais de l'exigence de sa démonstration.",
-  },
-];
-
-/** Le sextuor de la structuration intime — six cas d'étude (Section 6). */
-const SEXTUOR = [
-  {
-    id: "le-verrier",
-    titre: "1. Urbain Le Verrier (L'Invisible Mathématique)",
-    texte:
-      "Il n'est pas convoqué pour ses mérites d'astronome, mais parce qu'il démontre magistralement comment la détection d'une Anomalie (les perturbations d'Uranus) force une reconstruction théorique pure avant toute observation télescopique. En 1846, Le Verrier calcule la position de Neptune à la pointe de sa plume, forçant le visible à s'aligner sur l'invisible mathématique.",
-  },
-  {
-    id: "galois",
-    titre: "2. Évariste Galois (L'Architecture de la Symétrie)",
-    texte:
-      "Il met à nu la structure intime du calcul non pas en résolvant des équations isolées, mais en prouvant qu'une Architecture Abstraite (la théorie des groupes) devance et gouverne sa propre démonstration. La veille de sa mort, en 1832, Galois scelle l'algèbre moderne en identifiant les invariants de symétrie qui rendent les équations résolubles ou non.",
-  },
-  {
-    id: "chadwick",
-    titre: "3. James Chadwick (La Confirmation Expérimentale)",
-    texte:
-      "Il illustre avec une précision clinique le passage chirurgical d'une Hypothèse Structurée (le besoin de neutralité pour maintenir la cohésion atomique) à sa validation factuelle. En 1932, Chadwick ne découvre pas le neutron par hasard ; il le déduit de la nécessité structurelle de combler l'anomalie de masse constatée au sein du noyau atomique.",
-  },
-  {
-    id: "colomb",
-    titre: "4. Christophe Colomb (La Complétude de la Sphère)",
-    texte:
-      "Il brise la fiction de clôture géographique de son époque non par un hasard empirique, mais en subordonnant l'appareil technique de son expédition à une Majeure Rationnelle Préalable : l'isomorphisme et l'unité de la sphère (Σ). Le voyage de 1492 n'est pas une errance ; c'est l'Expérantia subordonnée à l'Hypothèse de la rotondité terrestre.",
-  },
-  {
-    id: "claude-bernard",
-    titre: "5. Claude Bernard (L'Invisible Biologique)",
-    texte:
-      "Il applique le Canon au vivant en posant a priori l'existence du « Milieu Intérieur » comme thermostat supérieur de non-contradiction. Il démontre que l'idée directrice interne gouverne impérativement l'expérience. L'organisme n'est pas un système passif soumis aux caprices de l'environnement extérieur ; il maintient activement sa propre unité (Σ).",
-  },
-  {
-    id: "huxley",
-    titre: "6. Thomas Henry Huxley (La Continuité Structurale)",
-    texte:
-      "Il traverse le voile du temps géologique en démontrant que la paléontologie n'est pas un catalogue fortuit de débris, mais une reconstruction morphologique intégrale régie par des lois d'anatomie comparée. En identifiant le lien intime entre les dinosaures et les oiseaux, Huxley prouve que la continuité structurelle traverse les époques et les espèces.",
-  },
-];
+/**
+ * Textes des cartes « principes suprêmes » rendus via BlocProse : les classes
+ * d'origine des paragraphes sont reportées sur `[&_p]` pour que le texte du
+ * back-office garde la même typographie (et neutraliser la prose par défaut).
+ */
+const CARTE_TEXTE =
+  "max-w-none [&_p]:font-ui [&_p]:text-[15.5px] [&_p]:leading-[1.6] [&_p]:text-encre-2 [&_p]:text-wrap";
+const CARTE_MAXIME =
+  "max-w-none [&_p]:font-texte [&_p]:text-[1.125rem] [&_p]:leading-[1.55] [&_p]:text-encre [&_p]:italic [&_p]:text-wrap";
 
 /** PAGE 5 — NOTE ÉPISTÉMOLOGIQUE (Restituer les conditions de l'intelligibilité). */
-export default function NoteEpistemologiquePage() {
+export default async function NoteEpistemologiquePage() {
+  const [t, ETAPES_CANON, CANON, SEXTUOR] = await Promise.all([
+    getTextes("note_epistemologique"),
+    getListe<{ terme: string; role: string }>("note_epistemologique.etapes_canon"),
+    getListe<{ titre: string; texte: string }>("note_epistemologique.canon"),
+    getListe<{ titre: string; texte: string }>("note_epistemologique.sextuor"),
+  ]);
+
+  const SOMMAIRE = [
+    { id: "posture", label: t["sommaire.posture"] },
+    { id: "axiome", label: t["sommaire.axiome"] },
+    { id: "principes", label: t["principes.titre"] },
+    { id: "canon", label: t["sommaire.canon"] },
+    { id: "triade", label: t["triade.titre"] },
+    { id: "sextuor", label: t["sextuor.titre"] },
+  ];
+
   return (
     <>
-      {/* Hero */}
-      <Section tone="profond" className="text-center">
-        <Container className="max-w-3xl">
-          <h1 className="font-heading text-4xl font-bold tracking-[-0.02em] text-balance text-or sm:text-5xl">
-            Note épistémologique
-          </h1>
-          <p className="mt-4 font-sans text-lg italic text-blanc-casse/80">
-            Restituer les conditions de l’intelligibilité
-          </p>
-          <blockquote className="mt-6 font-heading text-lg italic text-blanc-casse">
-            « Le réel est voilé pour tous, filtré pour certains, et
-            reconstructible par la méthode. »
-          </blockquote>
-        </Container>
-      </Section>
+      <OuverturePage
+        page_id="note_epistemologique"
+        titre={t["hero.titre"]}
+        sousTitre={t["hero.sous_titre"]}
+        sommaire={SOMMAIRE}
+      >
+        <Exergue>{t["hero.exergue"]}</Exergue>
+      </OuverturePage>
 
       {/* Section 1 — Posture métascientifique */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Posture métascientifique — l’intelligibilité de l’intelligibilité
-            </TitreSection>
-          </header>
+      <BlocSection
+        id="posture"
+        bordure={false}
+        titre={t["posture.titre"]}
+      >
           <BlocProse cle="note_epistemologique.posture.corps">
             <p>
               L’École de Brazzaville n’a pas pour vocation de se substituer, de
@@ -172,17 +99,13 @@ export default function NoteEpistemologiquePage() {
               en formalise les médiations et en guide la remontée.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 2 — Axiome central */}
-      <Section tone="gris">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Axiome central — la primauté du cerveau sur le laboratoire
-            </TitreSection>
-          </header>
+      <BlocSection
+        id="axiome"
+        titre={t["axiome.titre"]}
+      >
           <BlocProse cle="note_epistemologique.axiome.corps">
             <p>
               L’École de Brazzaville affirme un principe fondateur que l’illusion
@@ -202,15 +125,13 @@ export default function NoteEpistemologiquePage() {
               description phénoménale privée de profondeur ontologique.
             </p>
           </BlocProse>
-          <div className="mx-auto mt-8 max-w-[68ch]">
-            <Encadre>
-              <p className="font-heading text-lg italic">
-                Le laboratoire ne crée pas l’ordre ; il juge l’ordre que
-                l’intelligence a d’abord reconnu sous le Voile.
-              </p>
-            </Encadre>
-          </div>
-          <BlocProse cle="note_epistemologique.axiome.thom" className="mt-8">
+          {/* L'encadré fort de la page : l'axiome central. */}
+          <Encadre className="rv my-10 md:my-12">
+            <p className="font-titre text-[1.375rem] leading-[1.4] text-or-500 italic md:text-[1.75rem]">
+              {t["axiome.encadre"]}
+            </p>
+          </Encadre>
+          <BlocProse cle="note_epistemologique.axiome.thom">
             <p>
               Comme le soulignait René Thom, le progrès scientifique est avant
               tout une affaire de représentation mentale partielle des phénomènes,
@@ -229,47 +150,45 @@ export default function NoteEpistemologiquePage() {
               primauté de l’intelligibilité sur l’opératoire.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 3 — Les deux principes suprêmes d'organisation */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Les deux principes suprêmes d’organisation
-            </TitreSection>
-          </header>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Principe d’Unité Structurelle (Généralisation)
+      <BlocSection id="principes" titre={t["principes.titre"]}>
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
+            <Carte className="rv flex flex-col">
+              <h3 className="font-titre text-[1.375rem] leading-[1.3] font-medium text-encre">
+                {t["principes.unite_titre"]}
               </h3>
-              <p className="mt-3 font-heading text-lg italic">
-                « Toutes les échelles du réel obéissent à une même loi organique. »
+              <p className="mt-3 font-texte text-[1.125rem] leading-[1.55] text-encre italic">
+                {t["principes.unite_maxime"]}
               </p>
-              <p className="mt-4 font-sans leading-relaxed">
+              <BlocProse cle="note_epistemologique.principes.unite_corps" className={cn("mt-4", CARTE_TEXTE)}>
+              <p className="font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 Le fragment isolé n’a pas de sens intelligible hors de sa relation
-                avec la totalité (<span className="font-mono text-or">Σ</span>).
+                avec la totalité (<span className="font-code text-or-700">Σ</span>).
                 Cette loi traverse la physique, la biologie, le droit et les
                 sciences sociales. L’isomorphisme des découvertes à travers les
                 disciplines n’est pas un hasard ; il est le signe que l’Unité
-                Structurelle Absolue (<span className="font-mono text-or">Σ</span>)
+                Structurelle Absolue (<span className="font-code text-or-700">Σ</span>)
                 préexiste à la fragmentation du Voile et du Filtrage.
               </p>
+              </BlocProse>
             </Carte>
-            <Carte>
-              <h3 className="font-heading text-xl font-semibold">
-                Principe de Polarité Complémentaire (Dualité)
+            <Carte className="rv rv2 flex flex-col">
+              <h3 className="font-titre text-[1.375rem] leading-[1.3] font-medium text-encre">
+                {t["principes.polarite_titre"]}
               </h3>
-              <p className="mt-3 font-heading text-lg italic">
+              <BlocProse cle="note_epistemologique.principes.polarite_maxime" className={cn("mt-3", CARTE_MAXIME)}>
+              <p className="font-texte text-[1.125rem] leading-[1.55] text-encre italic">
                 « Toute réalité intelligible comporte deux pôles corrélatifs et
-                oscillants (<span className="font-mono text-or">π₁ ↔ π₂</span>). »
+                oscillants (<span className="font-code not-italic text-or-700">π₁ ↔ π₂</span>). »
               </p>
-              <p className="mt-4 font-sans leading-relaxed">
+              </BlocProse>
+              <BlocProse cle="note_epistemologique.principes.polarite_corps" className={cn("mt-4", CARTE_TEXTE)}>
+              <p className="font-ui text-[15.5px] leading-[1.6] text-encre-2">
                 L’analyse procède par distinction (
-                <span className="font-mono text-or">π₁</span>) et la synthèse opère
-                par relation (<span className="font-mono text-or">π₂</span>). Ces
+                <span className="font-code text-or-700">π₁</span>) et la synthèse opère
+                par relation (<span className="font-code text-or-700">π₂</span>). Ces
                 deux polarités ne s’opposent pas ; elles sont les deux battements
                 d’un même cœur rationnel. L’erreur fondamentale des cadres de
                 pensée classiques est de croire que la relation naît de la
@@ -277,86 +196,55 @@ export default function NoteEpistemologiquePage() {
                 l’inverse : l’unité produit la relation, et la relation définit les
                 termes.
               </p>
+              </BlocProse>
             </Carte>
           </div>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 4 — Le Théorème de la Genèse Scientifique : le Canon en 7 principes */}
-      <Section tone="nuit">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Le Théorème de la Genèse Scientifique — le Canon en 7 principes
-            </TitreSection>
-          </header>
-          <BlocProse cle="note_epistemologique.theoreme.corps" className="text-blanc-casse">
+      <section id="canon" className="surface-claire bg-papier px-5 pb-14 md:pb-24 lg:px-6 xl:px-10">
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-12 border-t border-filet pt-14 md:gap-16 md:pt-24">
+          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
+            <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:col-span-3 lg:text-[1.875rem]">
+              {t["canon.titre"]}
+            </h2>
+          <BlocProse cle="note_epistemologique.theoreme.corps" className="min-w-0 lg:col-span-8 lg:col-start-4">
             <p>
               Toute authentique découverte s’élabore selon un parcours
               inductif-rationnel vertical indéfectible. Ce processus algorithmique
               est modélisé par le Canon de la Découverte en 7 principes :
             </p>
           </BlocProse>
-          {/* Frise verticale du Canon : une étape par ligne, reliées par un filet Or. */}
-          <ol
-            aria-label="Les sept étapes du Canon de la Découverte"
-            className="mx-auto mt-10 max-w-[68ch]"
-          >
-            {ETAPES_CANON.map((etape, i) => {
-              const derniere = i === ETAPES_CANON.length - 1;
-              return (
-                <li key={etape.terme} className="relative grid grid-cols-[2.75rem_1fr] gap-x-5">
-                  {!derniere && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-11 bottom-0 left-[1.375rem] w-px -translate-x-1/2 bg-or/50"
-                    />
-                  )}
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "relative z-10 grid size-11 place-items-center rounded-full border font-mono text-sm",
-                      derniere
-                        ? "border-or bg-or font-semibold text-bleu-nuit-profond"
-                        : "border-or/60 bg-bleu-nuit text-or",
-                    )}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className={cn("pt-1.5", !derniere && "pb-8")}>
-                    <p className="font-heading text-xl font-semibold text-blanc">{etape.terme}</p>
-                    <p className="mt-1 font-sans leading-relaxed text-blanc-casse/85">
-                      {etape.role}
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            {CANON.map((principe) => (
-              <Carte key={principe.id}>
-                <h3 className="font-heading text-lg font-semibold">
-                  {principe.titre}
-                </h3>
-                <p className="mt-3 font-sans leading-relaxed">{principe.texte}</p>
-              </Carte>
-            ))}
           </div>
-        </Container>
-      </Section>
+          {/* Frise du Canon : horizontale sur ordinateur, verticale sur mobile. */}
+          <FriseCanon etapes={ETAPES_CANON} ariaLabel={t["canon.frise_aria"]} />
+
+          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
+            <ol className="grid gap-x-10 md:grid-cols-2 lg:col-span-8 lg:col-start-4">
+              {CANON.map((principe, i) => (
+                <li
+                  key={i}
+                  id={`principe-${ROMAINS[i] ?? i + 1}`}
+                  className="rv flex flex-col gap-2 border-t border-filet py-6"
+                >
+                  <h3 className="font-titre text-[1.1875rem] leading-[1.3] font-medium text-encre">
+                    {principe.titre}
+                  </h3>
+                  <p className="font-texte text-[1.0625rem] leading-[1.65] text-encre-2">
+                    {principe.texte}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
 
       {/* Section 5 — Rectification de la triade dialectique */}
-      <Section tone="clair">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Rectification de la triade dialectique
-            </TitreSection>
-            <h3 className="mt-3 pl-4 font-heading text-xl font-semibold text-bleu-academique">
-              Invalidation du modèle hégélien
+      <BlocSection id="triade" titre={t["triade.titre"]}>
+            <h3 className="mb-6 font-texte text-[1.25rem] leading-[1.4] text-encre-2 italic">
+              {t["triade.sous_titre"]}
             </h3>
-          </header>
           <BlocProse cle="note_epistemologique.triade.corps">
             <p>
               Le sens commun moderne, pollué par la dialectique hégélienne (Thèse →
@@ -389,43 +277,42 @@ export default function NoteEpistemologiquePage() {
               sans comprendre les causes.
             </p>
           </BlocProse>
-        </Container>
-      </Section>
+      </BlocSection>
 
       {/* Section 6 — Le sextuor de la structuration intime */}
-      <Section tone="gris">
-        <Container>
-          <header className="mb-8">
-            <TitreSection>
-              Le sextuor de la structuration intime
-            </TitreSection>
-          </header>
-          <BlocProse cle="note_epistemologique.sextuor.corps">
+      <section id="sextuor" className="surface-claire bg-papier-2 px-5 py-14 md:py-24 lg:px-6 xl:px-10">
+        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:gap-12">
+          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
+            <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:col-span-3 lg:text-[1.875rem]">
+              {t["sextuor.titre"]}
+            </h2>
+          <BlocProse cle="note_epistemologique.sextuor.corps" className="min-w-0 lg:col-span-8 lg:col-start-4">
             <p>
               Les trajectoires des grands découvreurs ne sont pas invoquées ici
               comme des preuves d’autorité, mais comme des cas d’étude cliniques
               modélisés par l’Équation Cyclique Universelle{" "}
-              <span className="font-mono text-or">Σ = M(F(V(Σ)))</span> et le Canon
+              <span className="font-code whitespace-nowrap text-or-700 [font-variant-ligatures:none]">Σ = M(F(V(Σ)))</span> et le Canon
               de la Découverte en 7 principes.
             </p>
           </BlocProse>
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            {SEXTUOR.map((cas) => (
-              <Carte key={cas.id}>
-                <h3 className="font-heading text-lg font-semibold">
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
+            {SEXTUOR.map((cas, i) => (
+              <Carte key={i} className={cn("rv flex flex-col", i % 3 === 1 && "rv2", i % 3 === 2 && "rv3")}>
+                <h3 className="font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
                   {cas.titre}
                 </h3>
-                <p className="mt-3 font-sans leading-relaxed">{cas.texte}</p>
+                <p className="mt-3 font-texte text-[1rem] leading-[1.65] text-encre-2">{cas.texte}</p>
               </Carte>
             ))}
           </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
 
       {/* Appel à l'épreuve */}
-      <Section tone="profond" className="text-center">
-        <Container className="max-w-2xl">
-          <BlocProse cle="note_epistemologique.pacte.corps" className="text-blanc-casse">
+      <section className="surface-claire bg-papier px-5 pt-14 md:pt-24 lg:px-6 xl:px-10">
+        <div className="mx-auto flex max-w-[760px] justify-center">
+          <BlocProse cle="note_epistemologique.pacte.corps" className="text-center text-encre-2">
             <p>
               La Science Métamoderne ne demande aucune adhésion préalable. Elle
               n’invite pas à une croyance. Elle propose une méthode. Elle ne prétend
@@ -434,20 +321,21 @@ export default function NoteEpistemologiquePage() {
               perfectibles.
             </p>
           </BlocProse>
-          <p className="mt-8 font-heading text-lg italic text-blanc-casse">
-            Ce travail ne demande pas à être accepté sur autorité. Il demande à
-            être éprouvé.
-          </p>
-          <div className="mt-10">
-            <Link
-              href="/ouvrage"
-              className={cn(buttonVariants({ variant: "or", size: "cta" }))}
-            >
-              Découvrir l’Ouvrage
-            </Link>
-          </div>
-        </Container>
-      </Section>
+        </div>
+      </section>
+
+      <Cloture
+        suite={
+          <Link
+            href="/ouvrage"
+            className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-2")}
+          >
+            {t["cloture.bouton"]}
+          </Link>
+        }
+      >
+        {t["cloture.texte"]}
+      </Cloture>
     </>
   );
 }
