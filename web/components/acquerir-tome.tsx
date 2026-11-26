@@ -1,5 +1,8 @@
 import type { OffreTome } from "@/lib/cms";
+import Link from "next/link";
 import { libelle } from "@/lib/lecture";
+import { getTexte } from "@/lib/contenu";
+import { TOMES } from "@/lib/librairie/statuts";
 
 /**
  * Bouton « Acquérir le Tome … » (allure `.btn` du prototype V16) : ouvre la
@@ -19,7 +22,14 @@ export async function AcquerirTome({
   /** Ligne « Paiement sécurisé via Chariow » sous le bouton. */
   mention?: boolean;
 }) {
-  if (!offre) return null;
+  // Fiche de l’ouvrage (librairie) : toujours proposée, y compris sans lien Chariow.
+  const slug = (Object.keys(TOMES) as (keyof typeof TOMES)[]).find((k) => TOMES[k] === etiquette);
+  const lienFiche = slug ? (
+    <p className="note">
+      <Link href={`/librairie/${slug}`}>{await getTexte("librairie.fiche.lien_fiche", { tome: etiquette })}</Link>
+    </p>
+  ) : null;
+  if (!offre) return lienFiche;
   const [bouton, nouvelOnglet, paiement] = await Promise.all([
     libelle("acquerir.bouton", { tome: etiquette }),
     libelle("acquerir.nouvel_onglet"),
@@ -38,6 +48,7 @@ export async function AcquerirTome({
           {paiement}
         </p>
       )}
+      {lienFiche}
     </div>
   );
 }

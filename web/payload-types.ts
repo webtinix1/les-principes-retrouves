@@ -67,6 +67,12 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    ouvrages: OuvrageProduit;
+    'commandes-ouvrages': CommandeOuvrage;
+    'paiements-ouvrages': PaiementOuvrage;
+    'ventes-numeriques': VenteNumerique;
+    acheteurs: AcheteurLibrairie;
+    reclamations: ReclamationLibrairie;
     commandes: Commande;
     'codes-acces': CodeAcces;
     modules: Module;
@@ -92,6 +98,12 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    ouvrages: OuvragesSelect<false> | OuvragesSelect<true>;
+    'commandes-ouvrages': CommandesOuvragesSelect<false> | CommandesOuvragesSelect<true>;
+    'paiements-ouvrages': PaiementsOuvragesSelect<false> | PaiementsOuvragesSelect<true>;
+    'ventes-numeriques': VentesNumeriquesSelect<false> | VentesNumeriquesSelect<true>;
+    acheteurs: AcheteursSelect<false> | AcheteursSelect<true>;
+    reclamations: ReclamationsSelect<false> | ReclamationsSelect<true>;
     commandes: CommandesSelect<false> | CommandesSelect<true>;
     'codes-acces': CodesAccesSelect<false> | CodesAccesSelect<true>;
     modules: ModulesSelect<false> | ModulesSelect<true>;
@@ -122,6 +134,7 @@ export interface Config {
     'contenu-note-epistemologique': ContenuNoteEpistemologique;
     'contenu-concepts': ContenuConcept;
     'contenu-ouvrage': ContenuOuvrage;
+    'contenu-librairie': ContenuLibrairie;
     'contenu-laboratoire': ContenuLaboratoire;
     'contenu-transmission': ContenuTransmission;
     'contenu-mentions-legales': ContenuMentionsLegale;
@@ -132,6 +145,7 @@ export interface Config {
     'contenu-site-formulaires': ContenuSiteFormulaire;
     'contenu-site-lecture': ContenuSiteLecture;
     'vente-ouvrages': VenteOuvrage;
+    'librairie-reglages': LibrairieReglage;
     recueils: Recueil;
   };
   globalsSelect: {
@@ -144,6 +158,7 @@ export interface Config {
     'contenu-note-epistemologique': ContenuNoteEpistemologiqueSelect<false> | ContenuNoteEpistemologiqueSelect<true>;
     'contenu-concepts': ContenuConceptsSelect<false> | ContenuConceptsSelect<true>;
     'contenu-ouvrage': ContenuOuvrageSelect<false> | ContenuOuvrageSelect<true>;
+    'contenu-librairie': ContenuLibrairieSelect<false> | ContenuLibrairieSelect<true>;
     'contenu-laboratoire': ContenuLaboratoireSelect<false> | ContenuLaboratoireSelect<true>;
     'contenu-transmission': ContenuTransmissionSelect<false> | ContenuTransmissionSelect<true>;
     'contenu-mentions-legales': ContenuMentionsLegalesSelect<false> | ContenuMentionsLegalesSelect<true>;
@@ -154,6 +169,7 @@ export interface Config {
     'contenu-site-formulaires': ContenuSiteFormulairesSelect<false> | ContenuSiteFormulairesSelect<true>;
     'contenu-site-lecture': ContenuSiteLectureSelect<false> | ContenuSiteLectureSelect<true>;
     'vente-ouvrages': VenteOuvragesSelect<false> | VenteOuvragesSelect<true>;
+    'librairie-reglages': LibrairieReglagesSelect<false> | LibrairieReglagesSelect<true>;
     recueils: RecueilsSelect<false> | RecueilsSelect<true>;
   };
   locale: null;
@@ -183,6 +199,174 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * Fiche commerciale de chaque tome : titre, prix des deux formats, liens et conditions. La présentation et l’apport doctrinal se modifient dans Pages › Les ouvrages.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ouvrages".
+ */
+export interface OuvrageProduit {
+  id: string;
+  tome: 'tome-i' | 'tome-ii';
+  reference_editoriale?: string | null;
+  titre_complet: string;
+  sous_titre?: string | null;
+  auteur: string;
+  /**
+   * Chemin dans le site, ex. /v16/couverture-tome-i.webp
+   */
+  couverture_url?: string | null;
+  couverture_largeur?: number | null;
+  couverture_hauteur?: number | null;
+  /**
+   * Ex. Éditeur, date, pagination, ISBN — uniquement ce qui est établi.
+   */
+  bibliographie?:
+    | {
+        libelle: string;
+        valeur: string;
+        id?: string | null;
+      }[]
+    | null;
+  numerique?: {
+    /**
+     * Doit être identique au prix du produit dans Chariow.
+     */
+    prix?: number | null;
+    /**
+     * Ex. prd_xxxx. Rattache les ventes reçues de Chariow à ce tome.
+     */
+    produit_chariow?: string | null;
+    /**
+     * Laisser vide tant que le produit n’est pas en vente. À défaut, le lien saisi dans Boutique › Vente des ouvrages est utilisé.
+     */
+    lien_chariow?: string | null;
+    note_interne?: string | null;
+  };
+  imprime?: {
+    actif?: boolean | null;
+    /**
+     * Vide = « Prix non encore déterminé » : aucune commande possible.
+     */
+    prix?: number | null;
+    poids_g?: number | null;
+    delai_production?: string | null;
+  };
+  conditions_numerique?: string | null;
+  conditions_imprime?: string | null;
+  conditions_livraison?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Ordre des statuts : Payée › En impression › Expédiée › Livrée. Renseigner le suivi à l’expédition.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commandes-ouvrages".
+ */
+export interface CommandeOuvrage {
+  id: string;
+  statut: 'en_attente_paiement' | 'payee' | 'en_impression' | 'expediee' | 'livree' | 'annulee' | 'remboursee';
+  numero?: string | null;
+  tome: 'tome-i' | 'tome-ii';
+  titre: string;
+  quantite: number;
+  prix_unitaire: number;
+  frais_livraison: number;
+  total: number;
+  buyer_nom: string;
+  buyer_email: string;
+  buyer_telephone: string;
+  adresse_ligne1: string;
+  adresse_ligne2?: string | null;
+  code_postal?: string | null;
+  ville: string;
+  pays: string;
+  zone_livraison?: string | null;
+  payment_provider?: string | null;
+  payment_ref?: string | null;
+  date_paiement?: string | null;
+  transporteur?: string | null;
+  numero_suivi?: string | null;
+  date_expedition?: string | null;
+  note_interne?: string | null;
+  courriel_acheteur?: string | null;
+  courriel_auteur?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "paiements-ouvrages".
+ */
+export interface PaiementOuvrage {
+  id: string;
+  statut: 'initie' | 'accepte' | 'refuse' | 'rembourse';
+  reference: string;
+  commande: string | CommandeOuvrage;
+  prestataire: string;
+  montant: number;
+  devise: string;
+  moyen?: string | null;
+  detail?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Ventes reçues automatiquement de Chariow (notifications Pulses). La référence reste le tableau de bord Chariow.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ventes-numeriques".
+ */
+export interface VenteNumerique {
+  id: string;
+  statut: 'payee' | 'echouee' | 'abandonnee';
+  vente_id: string;
+  livraison_id?: string | null;
+  tome?: ('tome-i' | 'tome-ii') | null;
+  produit?: string | null;
+  date_vente?: string | null;
+  montant?: number | null;
+  devise?: string | null;
+  frais?: number | null;
+  net?: number | null;
+  buyer_nom?: string | null;
+  buyer_email?: string | null;
+  buyer_pays?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "acheteurs".
+ */
+export interface AcheteurLibrairie {
+  id: string;
+  email: string;
+  nom?: string | null;
+  telephone?: string | null;
+  pays?: string | null;
+  origine?: ('imprime' | 'numerique') | null;
+  nombre_achats?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reclamations".
+ */
+export interface ReclamationLibrairie {
+  id: string;
+  statut: 'nouvelle' | 'en_cours' | 'resolue';
+  nom: string;
+  email: string;
+  reference?: string | null;
+  objet: string;
+  message: string;
+  reponse_interne?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -550,6 +734,30 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'ouvrages';
+        value: string | OuvrageProduit;
+      } | null)
+    | ({
+        relationTo: 'commandes-ouvrages';
+        value: string | CommandeOuvrage;
+      } | null)
+    | ({
+        relationTo: 'paiements-ouvrages';
+        value: string | PaiementOuvrage;
+      } | null)
+    | ({
+        relationTo: 'ventes-numeriques';
+        value: string | VenteNumerique;
+      } | null)
+    | ({
+        relationTo: 'acheteurs';
+        value: string | AcheteurLibrairie;
+      } | null)
+    | ({
+        relationTo: 'reclamations';
+        value: string | ReclamationLibrairie;
+      } | null)
+    | ({
         relationTo: 'commandes';
         value: string | Commande;
       } | null)
@@ -634,6 +842,148 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ouvrages_select".
+ */
+export interface OuvragesSelect<T extends boolean = true> {
+  tome?: T;
+  reference_editoriale?: T;
+  titre_complet?: T;
+  sous_titre?: T;
+  auteur?: T;
+  couverture_url?: T;
+  couverture_largeur?: T;
+  couverture_hauteur?: T;
+  bibliographie?:
+    | T
+    | {
+        libelle?: T;
+        valeur?: T;
+        id?: T;
+      };
+  numerique?:
+    | T
+    | {
+        prix?: T;
+        produit_chariow?: T;
+        lien_chariow?: T;
+        note_interne?: T;
+      };
+  imprime?:
+    | T
+    | {
+        actif?: T;
+        prix?: T;
+        poids_g?: T;
+        delai_production?: T;
+      };
+  conditions_numerique?: T;
+  conditions_imprime?: T;
+  conditions_livraison?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "commandes-ouvrages_select".
+ */
+export interface CommandesOuvragesSelect<T extends boolean = true> {
+  statut?: T;
+  numero?: T;
+  tome?: T;
+  titre?: T;
+  quantite?: T;
+  prix_unitaire?: T;
+  frais_livraison?: T;
+  total?: T;
+  buyer_nom?: T;
+  buyer_email?: T;
+  buyer_telephone?: T;
+  adresse_ligne1?: T;
+  adresse_ligne2?: T;
+  code_postal?: T;
+  ville?: T;
+  pays?: T;
+  zone_livraison?: T;
+  payment_provider?: T;
+  payment_ref?: T;
+  date_paiement?: T;
+  transporteur?: T;
+  numero_suivi?: T;
+  date_expedition?: T;
+  note_interne?: T;
+  courriel_acheteur?: T;
+  courriel_auteur?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "paiements-ouvrages_select".
+ */
+export interface PaiementsOuvragesSelect<T extends boolean = true> {
+  statut?: T;
+  reference?: T;
+  commande?: T;
+  prestataire?: T;
+  montant?: T;
+  devise?: T;
+  moyen?: T;
+  detail?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ventes-numeriques_select".
+ */
+export interface VentesNumeriquesSelect<T extends boolean = true> {
+  statut?: T;
+  vente_id?: T;
+  livraison_id?: T;
+  tome?: T;
+  produit?: T;
+  date_vente?: T;
+  montant?: T;
+  devise?: T;
+  frais?: T;
+  net?: T;
+  buyer_nom?: T;
+  buyer_email?: T;
+  buyer_pays?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "acheteurs_select".
+ */
+export interface AcheteursSelect<T extends boolean = true> {
+  email?: T;
+  nom?: T;
+  telephone?: T;
+  pays?: T;
+  origine?: T;
+  nombre_achats?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reclamations_select".
+ */
+export interface ReclamationsSelect<T extends boolean = true> {
+  statut?: T;
+  nom?: T;
+  email?: T;
+  reference?: T;
+  objet?: T;
+  message?: T;
+  reponse_interne?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2330,6 +2680,146 @@ export interface ContenuOuvrage {
   createdAt?: string | null;
 }
 /**
+ * Textes de la page /librairie. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-librairie".
+ */
+export interface ContenuLibrairie {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  index_surtitre?: string | null;
+  index_titre?: string | null;
+  index_texte?: string | null;
+  index_voir_fiche?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  fiche_surtitre?: string | null;
+  fiche_retour?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  fiche_lien_lecture?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  fiche_lien_fiche?: string | null;
+  fiche_presentation?: string | null;
+  fiche_apport?: string | null;
+  fiche_biblio?: string | null;
+  fiche_biblio_reference?: string | null;
+  fiche_formats?: string | null;
+  fiche_num_titre?: string | null;
+  fiche_num_texte?: string | null;
+  fiche_num_prix?: string | null;
+  fiche_num_bouton?: string | null;
+  fiche_num_indisponible?: string | null;
+  fiche_imp_titre?: string | null;
+  fiche_imp_texte?: string | null;
+  fiche_imp_prix?: string | null;
+  fiche_imp_bouton?: string | null;
+  fiche_imp_indisponible?: string | null;
+  fiche_frais_titre?: string | null;
+  fiche_frais_texte?: string | null;
+  fiche_conditions?: string | null;
+  fiche_cond_numerique?: string | null;
+  fiche_cond_imprime?: string | null;
+  fiche_cond_livraison?: string | null;
+  fiche_reclamation?: string | null;
+  conditions_numerique?: string | null;
+  conditions_imprime?: string | null;
+  conditions_livraison?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  commande_seo_titre?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  commande_surtitre?: string | null;
+  commande_titre?: string | null;
+  commande_intro?: string | null;
+  commande_retour?: string | null;
+  commande_ouvrage?: string | null;
+  commande_quantite?: string | null;
+  commande_coordonnees?: string | null;
+  commande_nom?: string | null;
+  commande_email?: string | null;
+  commande_telephone?: string | null;
+  commande_adresse_titre?: string | null;
+  commande_adresse1?: string | null;
+  commande_adresse2?: string | null;
+  commande_code_postal?: string | null;
+  commande_ville?: string | null;
+  commande_pays?: string | null;
+  commande_recap?: string | null;
+  commande_recap_exemplaires?: string | null;
+  commande_recap_livraison?: string | null;
+  commande_recap_total?: string | null;
+  commande_recap_delai?: string | null;
+  commande_livraison_indisponible?: string | null;
+  commande_consentement?: string | null;
+  commande_bouton?: string | null;
+  commande_traitement?: string | null;
+  commande_erreur?: string | null;
+  commande_ferme?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  suivi_titre?: string | null;
+  suivi_surtitre?: string | null;
+  suivi_statut?: string | null;
+  suivi_attente?: string | null;
+  suivi_payee?: string | null;
+  suivi_en_impression?: string | null;
+  suivi_expediee?: string | null;
+  suivi_livree?: string | null;
+  suivi_annulee?: string | null;
+  suivi_remboursee?: string | null;
+  suivi_transporteur?: string | null;
+  suivi_numero_suivi?: string | null;
+  suivi_reclamation?: string | null;
+  reclamation_seo_titre?: string | null;
+  reclamation_titre?: string | null;
+  reclamation_intro?: string | null;
+  reclamation_nom?: string | null;
+  reclamation_email?: string | null;
+  reclamation_reference?: string | null;
+  reclamation_objet?: string | null;
+  reclamation_message?: string | null;
+  reclamation_bouton?: string | null;
+  reclamation_succes?: string | null;
+  reclamation_erreur?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_acheteur_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_acheteur_corps?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_expedition_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_expedition_corps?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_auteur_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_auteur_corps?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Textes de la page /laboratoire. Un champ vidé fait revenir le texte d'origine.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2669,13 +3159,10 @@ export interface ContenuSiteNavigation {
   v16_menu?: string | null;
   v16_contact_titre?: string | null;
   v16_contact_intro?: string | null;
-  v16_contact_note?: string | null;
   v16_signature_nom?: string | null;
   v16_signature_devise?: string | null;
   v16_auteur?: string | null;
   v16_lieu?: string | null;
-  v16_mention_1?: string | null;
-  v16_mention_2?: string | null;
   acces_aller_au_contenu?: string | null;
   marque_nom?: string | null;
   marque_devise?: string | null;
@@ -2723,6 +3210,7 @@ export interface ContenuSiteNavigation {
   pagination_precedente?: string | null;
   pagination_suivante?: string | null;
   pagination_retour_debut?: string | null;
+  sommaire_titre?: string | null;
   pied_adresse?: string | null;
   pied_email?: string | null;
   pied_colonne_seuil?: string | null;
@@ -3001,10 +3489,6 @@ export interface ContenuSiteLecture {
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
   rail_sommaire?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  texte_mention?: string | null;
   navigation_aria?: string | null;
   navigation_ouvrages?: string | null;
   /**
@@ -3052,6 +3536,38 @@ export interface VenteOuvrage {
     prix?: string | null;
     format?: string | null;
   };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Frais de livraison par zone. Une zone sans frais renseignés n’est pas proposée à la commande.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "librairie-reglages".
+ */
+export interface LibrairieReglage {
+  id: string;
+  zones?:
+    | {
+        nom: string;
+        /**
+         * Ex. CG ou FR,BE,CH. Le code * désigne tous les autres pays (à placer en dernière zone).
+         */
+        pays: string;
+        frais_premier?: number | null;
+        frais_supplementaire?: number | null;
+        delai?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Parité fixe du franc CFA (BEAC) : 655,957.
+   */
+  taux_xaf: number;
+  /**
+   * Vide = adresse du formulaire de contact.
+   */
+  email_notification?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3610,6 +4126,108 @@ export interface ContenuOuvrageSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-librairie_select".
+ */
+export interface ContenuLibrairieSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  index_surtitre?: T;
+  index_titre?: T;
+  index_texte?: T;
+  index_voir_fiche?: T;
+  fiche_surtitre?: T;
+  fiche_retour?: T;
+  fiche_lien_lecture?: T;
+  fiche_lien_fiche?: T;
+  fiche_presentation?: T;
+  fiche_apport?: T;
+  fiche_biblio?: T;
+  fiche_biblio_reference?: T;
+  fiche_formats?: T;
+  fiche_num_titre?: T;
+  fiche_num_texte?: T;
+  fiche_num_prix?: T;
+  fiche_num_bouton?: T;
+  fiche_num_indisponible?: T;
+  fiche_imp_titre?: T;
+  fiche_imp_texte?: T;
+  fiche_imp_prix?: T;
+  fiche_imp_bouton?: T;
+  fiche_imp_indisponible?: T;
+  fiche_frais_titre?: T;
+  fiche_frais_texte?: T;
+  fiche_conditions?: T;
+  fiche_cond_numerique?: T;
+  fiche_cond_imprime?: T;
+  fiche_cond_livraison?: T;
+  fiche_reclamation?: T;
+  conditions_numerique?: T;
+  conditions_imprime?: T;
+  conditions_livraison?: T;
+  commande_seo_titre?: T;
+  commande_surtitre?: T;
+  commande_titre?: T;
+  commande_intro?: T;
+  commande_retour?: T;
+  commande_ouvrage?: T;
+  commande_quantite?: T;
+  commande_coordonnees?: T;
+  commande_nom?: T;
+  commande_email?: T;
+  commande_telephone?: T;
+  commande_adresse_titre?: T;
+  commande_adresse1?: T;
+  commande_adresse2?: T;
+  commande_code_postal?: T;
+  commande_ville?: T;
+  commande_pays?: T;
+  commande_recap?: T;
+  commande_recap_exemplaires?: T;
+  commande_recap_livraison?: T;
+  commande_recap_total?: T;
+  commande_recap_delai?: T;
+  commande_livraison_indisponible?: T;
+  commande_consentement?: T;
+  commande_bouton?: T;
+  commande_traitement?: T;
+  commande_erreur?: T;
+  commande_ferme?: T;
+  suivi_titre?: T;
+  suivi_surtitre?: T;
+  suivi_statut?: T;
+  suivi_attente?: T;
+  suivi_payee?: T;
+  suivi_en_impression?: T;
+  suivi_expediee?: T;
+  suivi_livree?: T;
+  suivi_annulee?: T;
+  suivi_remboursee?: T;
+  suivi_transporteur?: T;
+  suivi_numero_suivi?: T;
+  suivi_reclamation?: T;
+  reclamation_seo_titre?: T;
+  reclamation_titre?: T;
+  reclamation_intro?: T;
+  reclamation_nom?: T;
+  reclamation_email?: T;
+  reclamation_reference?: T;
+  reclamation_objet?: T;
+  reclamation_message?: T;
+  reclamation_bouton?: T;
+  reclamation_succes?: T;
+  reclamation_erreur?: T;
+  mail_acheteur_objet?: T;
+  mail_acheteur_corps?: T;
+  mail_expedition_objet?: T;
+  mail_expedition_corps?: T;
+  mail_auteur_objet?: T;
+  mail_auteur_corps?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contenu-laboratoire_select".
  */
 export interface ContenuLaboratoireSelect<T extends boolean = true> {
@@ -3830,13 +4448,10 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   v16_menu?: T;
   v16_contact_titre?: T;
   v16_contact_intro?: T;
-  v16_contact_note?: T;
   v16_signature_nom?: T;
   v16_signature_devise?: T;
   v16_auteur?: T;
   v16_lieu?: T;
-  v16_mention_1?: T;
-  v16_mention_2?: T;
   acces_aller_au_contenu?: T;
   marque_nom?: T;
   marque_devise?: T;
@@ -3878,6 +4493,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   pagination_precedente?: T;
   pagination_suivante?: T;
   pagination_retour_debut?: T;
+  sommaire_titre?: T;
   pied_adresse?: T;
   pied_email?: T;
   pied_colonne_seuil?: T;
@@ -4084,7 +4700,6 @@ export interface ContenuSiteLectureSelect<T extends boolean = true> {
   texte_position?: T;
   texte_duree?: T;
   rail_sommaire?: T;
-  texte_mention?: T;
   navigation_aria?: T;
   navigation_ouvrages?: T;
   navigation_suivant_titre?: T;
@@ -4119,6 +4734,27 @@ export interface VenteOuvragesSelect<T extends boolean = true> {
         prix?: T;
         format?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "librairie-reglages_select".
+ */
+export interface LibrairieReglagesSelect<T extends boolean = true> {
+  zones?:
+    | T
+    | {
+        nom?: T;
+        pays?: T;
+        frais_premier?: T;
+        frais_supplementaire?: T;
+        delai?: T;
+        id?: T;
+      };
+  taux_xaf?: T;
+  email_notification?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

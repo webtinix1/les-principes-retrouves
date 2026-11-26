@@ -16,6 +16,8 @@ import { Strates, Concepts } from "./payload/collections/Concepts";
 import { Autorites } from "./payload/collections/Autorites";
 import { GLOBALS_CONTENU } from "./payload/globals/contenu";
 import { VenteOuvrages } from "./payload/globals/ouvrages";
+import { LibrairieReglages } from "./payload/globals/librairie";
+import { Ouvrages, Acheteurs, CommandesOuvrages, PaiementsOuvrages, VentesNumeriques, Reclamations } from "./payload/collections/Librairie";
 import { Recueils } from "./payload/globals/recueils";
 import { TextesLecture } from "./payload/collections/TextesLecture";
 import { editeurProse } from "./payload/editeur";
@@ -42,6 +44,12 @@ export default buildConfig({
   },
   i18n: { supportedLanguages: { fr }, fallbackLanguage: "fr" },
   collections: [
+    Ouvrages,
+    CommandesOuvrages,
+    PaiementsOuvrages,
+    VentesNumeriques,
+    Acheteurs,
+    Reclamations,
     Commandes,
     CodesAcces,
     Modules,
@@ -54,7 +62,7 @@ export default buildConfig({
     TextesLecture,
     Users,
   ],
-  globals: [...GLOBALS_CONTENU, VenteOuvrages, Recueils],
+  globals: [...GLOBALS_CONTENU, VenteOuvrages, LibrairieReglages, Recueils],
   editor: editeurProse,
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || "" },
