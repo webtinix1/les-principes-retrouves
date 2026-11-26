@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type APIRequestContext, type Page } from "@playwright/test";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -52,6 +52,14 @@ async function seConnecter(page: Page, email: string, mdp: string) {
   await page.getByLabel("Mot de passe *").fill(mdp);
   await page.locator("#user-login").getByRole("button", { name: "Se connecter" }).click();
 }
+
+/** Jeton d'administration (en-tête JWT : pas de cookie, donc pas de contrôle CSRF). */
+async function jetonAdmin(request: APIRequestContext, email = ADMIN_EMAIL, mdp = ADMIN_PASSWORD) {
+  const r = await request.post(`${BASE}/api/users/login`, { data: { email, password: mdp } });
+  expect(r.ok()).toBe(true);
+  return (await r.json()).token as string;
+}
+const entete = (jeton: string) => ({ Authorization: `JWT ${jeton}` });
 
 test.describe.configure({ mode: "serial" });
 
@@ -176,7 +184,7 @@ test("demande de service et proposition de collaboration (visiteur sans compte),
   await expect(page.locator("p[role=status]")).toContainText(/COL-\d{4}-[A-Z0-9]{6}/);
 });
 
-test("compte connecté : demande rattachée, espace lecteur, modification puis suppression du compte", async ({ page }) => {
+test("compte connecté : demande rattachée, espace lecteur, modification puis suppression du compte", async ({ page, request }) => {
   await seConnecter(page, EMAIL, NOUVEAU_MOT_DE_PASSE);
   await expect(page.locator("#user-reader")).toBeVisible();
   await expect(page.locator("#user-reader")).toContainText("Aucune demande enregistrée.");
@@ -218,6 +226,16 @@ test("compte connecté : demande rattachée, espace lecteur, modification puis s
   // Le compte n'existe plus.
   await seConnecter(page, EMAIL, NOUVEAU_MOT_DE_PASSE);
   await expect(page.locator("p[role=alert]")).toContainText("incorrect");
+
+  // Les demandes déjà reçues sont conservées, anonymisées.
+  const jeton = await jetonAdmin(request);
+  const res = await request.get(`${BASE}/api/demandes-service?where[reference][equals]=${reference}`, { headers: entete(jeton) });
+  const doc = (await res.json()).docs[0];
+  expect(doc.message).toContain("Demande rattachée au compte");
+  expect(doc.nom ?? null).toBeNull();
+  expect(doc.email ?? null).toBeNull();
+  expect(doc.lecteur ?? null).toBeNull();
+  expect(doc.anonymise).toBe(true);
 });
 
 test("administration : la demande est visible, le compte lecteur n'ouvre pas /admin", async ({ page, request }) => {
@@ -246,4 +264,82 @@ test("administration : la demande est visible, le compte lecteur n'ouvre pas /ad
   });
   expect(statut).toBe(200);
   expect(type).toContain("text/csv");
+});
+
+test("rôles : le secrétariat suit les demandes sans exporter ni voir le journal ; le gestionnaire exporte sans supprimer", async ({ request }) => {
+  const admin = entete(await jetonAdmin(request));
+  const mdp = "Role-Test-2026-xyz";
+  const creer = async (role: string) => {
+    const email = `${role}.${unique}@example.com`;
+    const r = await request.post(`${BASE}/api/users`, { headers: admin, data: { email, password: mdp, role, nom: role } });
+    expect(r.ok()).toBe(true);
+    return { email, id: (await r.json()).doc.id as string };
+  };
+  const secretariat = await creer("secretariat");
+  const gestionnaire = await creer("gestionnaire");
+
+  // Une demande à traiter, et un compte lecteur vérifié (créé par un administrateur).
+  const lecteur = await request.post(`${BASE}/api/lecteurs`, {
+    headers: admin,
+    data: { email: `roles.${unique}@example.com`, password: mdp, nom: "Role", prenoms: "Test", pays: "Pays-Roles", ville: "Ville-Roles", _verified: true },
+  });
+  expect(lecteur.status()).toBe(404); // la route de création publique est fermée, même avec un jeton d'administrateur
+  const demandes = (await (await request.get(`${BASE}/api/demandes-service?limit=1`, { headers: admin })).json()).docs;
+  expect(demandes.length).toBeGreaterThan(0);
+  const idDemande = demandes[0].id as string;
+
+  const sec = entete(await jetonAdmin(request, secretariat.email, mdp));
+  expect((await request.get(`${BASE}/api/demandes-service`, { headers: sec })).status()).toBe(200);
+  expect((await request.get(`${BASE}/api/lecteurs`, { headers: sec })).status()).toBe(200);
+  expect((await request.get(`${BASE}/api/lecteurs/export`, { headers: sec })).status()).toBe(403);
+  expect((await request.get(`${BASE}/api/journal-securite`, { headers: sec })).status()).toBe(403);
+  const maj = await request.patch(`${BASE}/api/demandes-service/${idDemande}`, { headers: sec, data: { statut: "en_cours", note_interne: "Note de recette" } });
+  expect(maj.status()).toBe(200);
+  expect((await request.delete(`${BASE}/api/demandes-service/${idDemande}`, { headers: sec })).status()).toBe(403);
+  // Le contenu de la demande ne peut pas être réécrit.
+  await request.patch(`${BASE}/api/demandes-service/${idDemande}`, { headers: sec, data: { message: "falsifié" } });
+  const relue = await (await request.get(`${BASE}/api/demandes-service/${idDemande}`, { headers: sec })).json();
+  expect(relue.message).not.toBe("falsifié");
+  expect(relue.statut).toBe("en_cours");
+  // Le secrétariat ne gère pas les comptes du back-office.
+  const users = await (await request.get(`${BASE}/api/users`, { headers: sec })).json();
+  expect(users.docs.length).toBe(1);
+  expect((await request.post(`${BASE}/api/users`, { headers: sec, data: { email: `x.${unique}@example.com`, password: mdp } })).status()).toBe(403);
+
+  const ges = entete(await jetonAdmin(request, gestionnaire.email, mdp));
+  const csv = await request.get(`${BASE}/api/lecteurs/export`, { headers: ges });
+  expect(csv.status()).toBe(200);
+  expect(csv.headers()["content-type"]).toContain("text/csv");
+  expect((await request.get(`${BASE}/api/journal-securite`, { headers: ges })).status()).toBe(200);
+  expect((await request.delete(`${BASE}/api/journal-securite/x`, { headers: ges })).status()).toBeGreaterThanOrEqual(400);
+
+  // Ménage.
+  for (const u of [secretariat, gestionnaire]) {
+    await request.delete(`${BASE}/api/users/${u.id}`, { headers: admin });
+  }
+});
+
+test("statistiques : comptes vérifiés regroupés par pays et par ville, exports journalisés", async ({ request }) => {
+  const admin = entete(await jetonAdmin(request));
+  const journalAvant = (await (await request.get(`${BASE}/api/journal-securite?where[evenement][equals]=export_comptes&limit=1`, { headers: admin })).json()).totalDocs as number;
+  const csv = await request.get(`${BASE}/api/lecteurs/export`, { headers: admin });
+  expect(csv.status()).toBe(200);
+  const lignes = (await csv.text()).trim().split(/\r?\n/);
+  const verifies = lignes.slice(1).filter((l) => l.includes(`"oui"`)).length;
+  const journalApres = (await (await request.get(`${BASE}/api/journal-securite?where[evenement][equals]=export_comptes&limit=1`, { headers: admin })).json()).totalDocs as number;
+  expect(journalApres).toBe(journalAvant + 1);
+  const tous = await (await request.get(`${BASE}/api/lecteurs?limit=0&pagination=false`, { headers: admin })).json();
+  const docs = tous.docs as { _verified?: boolean; pays: string }[];
+  expect(docs.length).toBe(lignes.length - 1);
+  expect(docs.filter((d) => d._verified).length).toBe(verifies);
+});
+
+test("limitation de débit : la route de réinitialisation renvoie 429 au-delà du plafond", async ({ request }) => {
+  let limite = 0;
+  for (let i = 0; i < 700 && !limite; i++) {
+    const r = await request.post(`${BASE}/api/espace/reinitialisation`, { data: { token: "x" } });
+    if (r.status() === 429) limite = i + 1;
+  }
+  expect(limite).toBeGreaterThan(1);
+  expect(limite).toBeLessThanOrEqual(700);
 });

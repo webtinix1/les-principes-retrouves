@@ -17,27 +17,29 @@ Lancement : serveur démarré avec `EMAIL_TRANSPORT=fichier ESPACE_LIMITE_MULT=5
 | 5 | Anti-robots : champ piège et envoi trop rapide refusés (400) | réussi |
 | 6 | Demande de service et proposition de collaboration sans compte ; identifiant `SRV-…` / `COL-…` ; accusé de réception reçu | réussi |
 | 7 | Compte connecté : demande rattachée, visible dans l'Espace lecteur avec son statut ; modification de la ville ; suppression refusée avec un mauvais mot de passe puis acceptée ; le compte n'existe plus | réussi |
-| 8 | Administration : demandes visibles, statistiques par pays et ville, export CSV ; un compte lecteur ne peut pas ouvrir de session d'administration | réussi |
+| 8 | Administration : demandes visibles, page de statistiques, export CSV ; un compte lecteur ne peut pas ouvrir de session d'administration | réussi |
+| 9 | Rôles : le secrétariat lit et fait avancer les demandes (statut, note) mais ne peut ni réécrire leur contenu, ni supprimer, ni exporter, ni lire le journal, ni gérer les comptes du back-office ; le gestionnaire exporte et lit le journal mais ne peut pas supprimer ; la création publique de compte reste fermée même avec un jeton d'administrateur | réussi |
+| 10 | Export CSV : nombre de lignes et de comptes vérifiés cohérents avec la base ; chaque export ajoute une entrée au journal | réussi |
+| 11 | Limitation de débit : la route renvoie 429 au-delà du plafond | réussi |
 
-Résultat final : **8 / 8**. Les parcours 1 à 7 ont été validés dans un même passage ; le parcours 8 a été rejoué seul après correction du test (l'export doit être appelé depuis la page d'administration, avec les en-têtes de navigateur).
+Résultat final : **11 / 11**, dans un même passage. Le test existant `contenu-editable.spec.ts` (édition de contenu depuis le back-office) passe aussi : pas de régression sur les pages existantes.
 
 ## 2. Vérifications manuelles
 
-- **Limitation de débit** : au-delà de 5 demandes en 10 minutes depuis la même adresse, la route renvoie 429 et la page affiche « Trop de tentatives… » (observé lors d'un passage de la suite sans multiplicateur).
 - **Affichage** : ordinateur 1280 px (menu sur deux lignes avec 11 entrées, comme le prototype) et mobile 390 px (formulaires en une colonne).
 - **Journal de sécurité** : inscriptions, vérifications, connexions et échecs, déconnexions, demandes, exports sont inscrits sans mot de passe ni adresse IP en clair.
-- **Types, lint, build** : `npx tsc --noEmit`, `eslint` et `next build` passent (voir le résultat du build dans la pull request).
+- **Types, lint, build** : `npx tsc --noEmit`, `eslint` et `next build` passent. Le build local doit être lancé avec une base injoignable (`DATABASE_URL` factice), comme le build Docker : avec la base de recette, Payload pose une question interactive à cause de l'historique de mode développement.
 
 ## 3. Critères du cahier (§ 11) non couverts ou à valider
 
 | Critère | État |
 |---|---|
 | Sauvegarde et restauration | hors forfait, non traité |
-| Permissions administrateur par rôle (gestionnaire, secrétariat) | règles d'accès codées ; seule la session `administrateur` a été rejouée en test automatisé |
-| Exactitude des statistiques | calcul vérifié sur la base de recette (comptes vérifiés uniquement) ; pas de test automatisé |
+| Permissions par rôle | testées pour secrétariat et gestionnaire (test 9) |
+| Exactitude des statistiques | export et décompte des comptes vérifiés vérifiés par test (10) ; l'affichage du tableau par pays/ville n'a été contrôlé que par la présence de la page |
 | Envoi réel des e-mails (Resend) | non testé, nécessite les clés du client |
 | Turnstile | actif seulement si les clés sont renseignées ; non testé |
-| Rectification / suppression par l'administration | disponibles dans Payload ; non rejoué |
+| Rectification / suppression par l'administration | suppression d'un compte par l'administrateur et rectification non rejouées ; suppression par la personne testée (7) |
 | Politique de confidentialité, durées de conservation, responsable du traitement | à fournir par le client avant ouverture |
 | Formulaire « Soutenir le projet » du prototype | non repris (hors des quatre rubriques du cahier) |
 
@@ -45,4 +47,4 @@ Résultat final : **8 / 8**. Les parcours 1 à 7 ont été validés dans un mêm
 
 - Le texte « Son activation interviendra après la mise en place du système de comptes… » de l'Espace lecteur du prototype n'est pas repris : il serait faux maintenant que l'espace est actif.
 - Cartes et panneaux du prototype conservés mot pour mot, mentions « prototype » et « démonstration » retirées, ainsi que la note sur l'authentification « à raccorder ».
-- L'anonymisation des demandes à la suppression d'un compte est codée mais pas vérifiée par un test automatisé (choix à valider, voir l'architecture, § 8).
+- L'anonymisation des demandes à la suppression d'un compte est vérifiée par le test 7 (choix à valider, voir l'architecture, § 8).
