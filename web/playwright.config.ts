@@ -4,5 +4,9 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "tests",
   reporter: process.env.CI ? [["list"], ["github"]] : "list",
-  use: { trace: "retain-on-failure" },
+  use: {
+    trace: "retain-on-failure",
+    // Navigateur local déjà installé (PW_CHROMIUM_PATH), sinon celui de Playwright.
+    ...(process.env.PW_CHROMIUM_PATH ? { launchOptions: { executablePath: process.env.PW_CHROMIUM_PATH } } : {}),
+  },
 });

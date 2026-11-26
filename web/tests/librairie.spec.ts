@@ -15,7 +15,7 @@ const PASSWORD = process.env.ADMIN_PASSWORD ?? "admin-dev-123";
 const LIEN_CHARIOW = "https://chariow.example/produit-test-tome-i";
 const AUTEUR = "Gaudéric MAMBOU — Juriste, Chercheur indépendant en épistémologie juridique";
 
-test.describe.configure({ mode: "serial" });
+test.describe.configure({ mode: "serial", timeout: 300_000 });
 
 type Doc = Record<string, unknown> & { id: string };
 let jeton = "";
@@ -32,6 +32,7 @@ async function api(request: APIRequestContext, methode: "get" | "post" | "patch"
 }
 
 test.beforeAll(async ({ request }) => {
+  test.setTimeout(240_000); // première compilation à froid du serveur de développement
   const login = await request.post(`${BASE}/api/users/login`, { data: { email: EMAIL, password: PASSWORD } });
   expect(login.ok(), "connexion administrateur").toBe(true);
   jeton = (await login.json()).token;
@@ -52,6 +53,8 @@ test.beforeAll(async ({ request }) => {
 });
 
 test.afterAll(async ({ request }) => {
+  test.setTimeout(180_000);
+  if (!ouvrageAvant) return;
   // Remise de l'état d'origine : édition imprimée fermée, sans lien d'essai.
   await api(request, "patch", `/ouvrages/${ouvrageId}`, {
     numerique: ouvrageAvant.numerique,
@@ -131,7 +134,7 @@ test("circuit imprimé : commande, paiement, suivi jusqu'à l'expédition", asyn
   const email = `acheteur-${Date.now()}@example.com`;
   await page.goto(`${BASE}/librairie/tome-i`);
   await page.getByRole("link", { name: "Commander l’édition imprimée" }).click();
-  await expect(page).toHaveURL(/\/librairie\/tome-i\/commande$/);
+  await page.waitForURL(/\/librairie\/tome-i\/commande$/, { timeout: 90_000 }); // compilation à froid en dev
 
   await page.getByLabel("Nombre d’exemplaires").fill("2");
   await page.getByLabel("Nom complet").fill("Acheteuse de Recette");
@@ -155,8 +158,8 @@ test("circuit imprimé : commande, paiement, suivi jusqu'à l'expédition", asyn
   await page.getByRole("button", { name: "Payer la commande" }).click();
 
   // Paiement simulé : retour sur la page de suivi, commande payée.
-  await page.waitForURL(/\/librairie\/commande\/[0-9a-f-]{36}$/);
-  await expect(page.getByTestId("statut")).toContainText("Payée");
+  await page.waitForURL(/\/librairie\/commande\/[0-9a-f-]{36}$/, { timeout: 180_000, waitUntil: "commit" });
+  await expect(page.getByTestId("statut")).toContainText("Payée", { timeout: 120_000 });
   const id = page.url().split("/").pop()!;
 
   const commande = await api(request, "get", `/commandes-ouvrages/${id}?depth=0`);
@@ -174,10 +177,10 @@ test("circuit imprimé : commande, paiement, suivi jusqu'à l'expédition", asyn
   // Suivi administratif : impression puis expédition avec numéro de suivi.
   await api(request, "patch", `/commandes-ouvrages/${id}`, { statut: "en_impression" });
   await page.reload();
-  await expect(page.getByTestId("statut")).toContainText("En impression");
+  await expect(page.getByTestId("statut")).toContainText("En impression", { timeout: 120_000 });
   await api(request, "patch", `/commandes-ouvrages/${id}`, { statut: "expediee", transporteur: "Transporteur Test", numero_suivi: "TRK123" });
   await page.reload();
-  await expect(page.getByTestId("statut")).toContainText("Expédiée");
+  await expect(page.getByTestId("statut")).toContainText("Expédiée", { timeout: 120_000 });
   await expect(page.getByText("TRK123")).toBeVisible();
 });
 
@@ -199,7 +202,7 @@ test("réclamation : le message est enregistré", async ({ page, request }) => {
   await page.getByLabel("Objet").fill("Question de recette");
   await page.getByLabel("Message").fill("Message de test de la recette automatisée.");
   await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByTestId("reclamation-ok")).toBeVisible();
+  await expect(page.getByTestId("reclamation-ok")).toBeVisible({ timeout: 90_000 });
   const r = await api(request, "get", "/reclamations?where[objet][equals]=Question de recette&depth=0");
   expect(r.totalDocs).toBeGreaterThan(0);
 });
