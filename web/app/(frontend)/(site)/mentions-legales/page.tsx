@@ -90,7 +90,6 @@ export default async function MentionsLegales() {
       avertissement={
         <BlocProse
           cle="mentions_legales.avertissement.corps"
-          className="max-w-none font-ui text-sm leading-[1.6] md:text-sm md:leading-[1.6] [&_p]:text-wrap [&_strong]:font-bold"
         >
           <p>
             Document en cours de finalisation. Les éléments entre crochets{" "}

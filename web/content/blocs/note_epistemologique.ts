@@ -1,335 +1,223 @@
-import type { PageBlocs } from "./types";
+import type { BlocDef, PageBlocs } from "./types";
 
-/** Blocs éditables de la page La Note Épistémologique. */
+/** Texte court (titre, formule, libellé) avec son texte d'origine. */
+const s = (cle: string, label: string, aide: string, defaut: string): BlocDef => ({
+  cle: `note_epistemologique.${cle}`,
+  label,
+  type: "simple",
+  aide,
+  defaut,
+});
+
+/** Paragraphes (gras, italique, liens) : le texte d'origine est le JSX de la page. */
+const r = (cle: string, label: string, aide: string): BlocDef => ({
+  cle: `note_epistemologique.${cle}`,
+  label,
+  type: "riche",
+  aide,
+});
+
+const S1 = "Section 1 — L’Architecture Préalable";
+const S2 = "Section 2 — L’ordre ontologique";
+const S3 = "Section 3 — Le CRGI";
+const S4 = "Section 4 — Méthode M et Non-Perte";
+const S5 = "Section 5 — La rupture métrologique";
+const S6 = "Section 6 — R, K, Δ(R,K) et M";
+const S7 = "Section 7 — Organon de réintégration";
+const S10 = "Section 10 — La cascade entropique";
+const S11 = "Section 11 — L’ellipse méthodologique";
+const S12 = "Section 12 — De la crise à la reconstruction";
+const SU = "Section « Science de l’unité »";
+const SA = "Encadré « L’acte de décès du monopole »";
+const SG = "Section « Une grandeur n’est pas nécessairement une quantité »";
+const SC = "Grande section — 8. Le Canon de la découverte";
+const SL = "Grande section — 9. Le Livre encyclopédique universel";
+
+/** Blocs éditables de la page « Note épistémologique » (prototype maître V16). */
 export const NOTE_EPISTEMOLOGIQUE_BLOCS: PageBlocs = {
   page: "note_epistemologique",
   chemin: "/note-epistemologique",
-  titre: "La Note Épistémologique",
+  titre: "Note épistémologique",
   blocs: [
-    {
-      cle: "note_epistemologique.seo.titre",
-      label: "Titre de la page (onglet et Google)",
-      type: "simple",
-      aide: "Référencement (Google)",
-      defaut: "Note Épistémologique",
-    },
-    {
-      cle: "note_epistemologique.seo.description",
-      label: "Description (résultats Google)",
-      type: "simple",
-      aide: "Référencement (Google)",
-      defaut:
-        "Restituer les conditions de l'intelligibilité : primauté du cerveau sur le laboratoire, Canon de la Découverte en sept principes, sextuor de la structuration intime.",
-    },
-    {
-      cle: "note_epistemologique.hero.titre",
-      label: "Titre principal (H1)",
-      type: "simple",
-      aide: "En-tête de page",
-      defaut: "Note épistémologique",
-    },
-    {
-      cle: "note_epistemologique.hero.sous_titre",
-      label: "Sous-titre",
-      type: "simple",
-      aide: "En-tête de page — sous le titre principal",
-      defaut: "Restituer les conditions de l’intelligibilité",
-    },
-    {
-      cle: "note_epistemologique.hero.exergue",
-      label: "Exergue",
-      type: "simple",
-      aide: "En-tête de page — citation en ouverture",
-      defaut:
-        "« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »",
-    },
-    {
-      cle: "note_epistemologique.sommaire.posture",
-      label: "Sommaire — entrée « Posture »",
-      type: "simple",
-      aide: "En-tête de page — « Sur cette page » (libellé court de la section 1)",
-      defaut: "Posture métascientifique",
-    },
-    {
-      cle: "note_epistemologique.sommaire.axiome",
-      label: "Sommaire — entrée « Axiome »",
-      type: "simple",
-      aide: "En-tête de page — « Sur cette page » (libellé court de la section 2)",
-      defaut: "Axiome central",
-    },
-    {
-      cle: "note_epistemologique.sommaire.canon",
-      label: "Sommaire — entrée « Canon »",
-      type: "simple",
-      aide: "En-tête de page — « Sur cette page » (libellé court de la section 4)",
-      defaut: "Le Canon en 7 principes",
-    },
-    {
-      cle: "note_epistemologique.posture.titre",
-      label: "Posture métascientifique — titre (H2)",
-      type: "simple",
-      aide: "Section 1 — Posture métascientifique",
-      defaut: "Posture métascientifique — l’intelligibilité de l’intelligibilité",
-    },
-    {
-      cle: "note_epistemologique.posture.corps",
-      label: "Posture métascientifique",
-      type: "riche",
-      aide: "Intelligibilité de l'intelligibilité",
-    },
-    {
-      cle: "note_epistemologique.axiome.titre",
-      label: "Axiome central — titre (H2)",
-      type: "simple",
-      aide: "Section 2 — Axiome central",
-      defaut: "Axiome central — la primauté du cerveau sur le laboratoire",
-    },
-    {
-      cle: "note_epistemologique.axiome.corps",
-      label: "Axiome central — corps de texte",
-      type: "riche",
-      aide: "Primauté du cerveau sur le laboratoire",
-    },
-    {
-      cle: "note_epistemologique.axiome.encadre",
-      label: "Axiome central — encadré",
-      type: "simple",
-      aide: "Section 2 — Axiome central (encadré doré)",
-      defaut:
-        "Le laboratoire ne crée pas l’ordre ; il juge l’ordre que l’intelligence a d’abord reconnu sous le Voile.",
-    },
-    {
-      cle: "note_epistemologique.axiome.thom",
-      label: "Axiome central — l'appui sur René Thom",
-      type: "riche",
-      aide: "Primauté du cerveau sur le laboratoire",
-    },
-    {
-      cle: "note_epistemologique.principes.titre",
-      label: "Les deux principes suprêmes — titre (H2)",
-      type: "simple",
-      aide: "Section 3 — Les deux principes suprêmes d’organisation (aussi utilisé dans le sommaire)",
-      defaut: "Les deux principes suprêmes d’organisation",
-    },
-    {
-      cle: "note_epistemologique.principes.unite_titre",
-      label: "Principe d’Unité Structurelle — titre (H3)",
-      type: "simple",
-      aide: "Section 3 — carte de gauche",
-      defaut: "Principe d’Unité Structurelle (Généralisation)",
-    },
-    {
-      cle: "note_epistemologique.principes.unite_maxime",
-      label: "Principe d’Unité Structurelle — maxime",
-      type: "simple",
-      aide: "Section 3 — carte de gauche (citation en italique)",
-      defaut: "« Toutes les échelles du réel obéissent à une même loi organique. »",
-    },
-    {
-      cle: "note_epistemologique.principes.unite_corps",
-      label: "Principe d’Unité Structurelle — texte",
-      type: "riche",
-      aide: "Section 3 — carte de gauche",
-    },
-    {
-      cle: "note_epistemologique.principes.polarite_titre",
-      label: "Principe de Polarité Complémentaire — titre (H3)",
-      type: "simple",
-      aide: "Section 3 — carte de droite",
-      defaut: "Principe de Polarité Complémentaire (Dualité)",
-    },
-    {
-      cle: "note_epistemologique.principes.polarite_maxime",
-      label: "Principe de Polarité Complémentaire — maxime",
-      type: "riche",
-      aide: "Section 3 — carte de droite (citation en italique)",
-    },
-    {
-      cle: "note_epistemologique.principes.polarite_corps",
-      label: "Principe de Polarité Complémentaire — texte",
-      type: "riche",
-      aide: "Section 3 — carte de droite",
-    },
-    {
-      cle: "note_epistemologique.canon.titre",
-      label: "Le Canon en 7 principes — titre (H2)",
-      type: "simple",
-      aide: "Section 4 — Le Théorème de la Genèse Scientifique",
-      defaut: "Le Théorème de la Genèse Scientifique — le Canon en 7 principes",
-    },
-    {
-      cle: "note_epistemologique.theoreme.corps",
-      label: "Le Théorème de la Genèse Scientifique",
-      type: "riche",
-      aide: "Le Canon en six temps",
-    },
-    {
-      cle: "note_epistemologique.canon.frise_aria",
-      label: "Frise du Canon — libellé d'accessibilité",
-      type: "simple",
-      aide: "Section 4 — lu par les lecteurs d'écran (invisible à l'écran)",
-      defaut: "Les sept étapes du Canon de la Découverte",
-    },
-    {
-      cle: "note_epistemologique.triade.titre",
-      label: "Rectification de la triade dialectique — titre (H2)",
-      type: "simple",
-      aide: "Section 5 — Triade dialectique (aussi utilisé dans le sommaire)",
-      defaut: "Rectification de la triade dialectique",
-    },
-    {
-      cle: "note_epistemologique.triade.sous_titre",
-      label: "Rectification de la triade dialectique — intertitre (H3)",
-      type: "simple",
-      aide: "Section 5 — Triade dialectique",
-      defaut: "Invalidation du modèle hégélien",
-    },
-    {
-      cle: "note_epistemologique.triade.corps",
-      label: "Rectification de la triade dialectique",
-      type: "riche",
-      aide: "Triade dialectique",
-    },
-    {
-      cle: "note_epistemologique.sextuor.titre",
-      label: "Le sextuor — titre (H2)",
-      type: "simple",
-      aide: "Section 6 — Sextuor (aussi utilisé dans le sommaire)",
-      defaut: "Le sextuor de la structuration intime",
-    },
-    {
-      cle: "note_epistemologique.sextuor.corps",
-      label: "Le sextuor de la structuration intime",
-      type: "riche",
-      aide: "Sextuor",
-    },
-    {
-      cle: "note_epistemologique.pacte.corps",
-      label: "Le pacte éthique",
-      type: "riche",
-      aide: "Fin de page",
-    },
-    {
-      cle: "note_epistemologique.cloture.texte",
-      label: "Phrase de clôture",
-      type: "simple",
-      aide: "Fin de page — phrase en italique",
-      defaut: "Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé.",
-    },
-    {
-      cle: "note_epistemologique.cloture.bouton",
-      label: "Bouton de fin de page",
-      type: "simple",
-      aide: "Fin de page — bouton vers l’Ouvrage",
-      defaut: "Découvrir l’Ouvrage",
-    },
+    s(
+      "seo.titre",
+      "Titre (onglet et Google)",
+      "Référencement (Google)",
+      "Note épistémologique — Architecture et rupture métrologique",
+    ),
+    s(
+      "seo.description",
+      "Description (Google)",
+      "Référencement (Google)",
+      "Note épistémologique : de l’Architecture Préalable d’Intelligibilité à la Science Métamoderne — genèse, mesure structurelle et reconstruction.",
+    ),
+    s("entete.surtitre", "Surtitre", "En-tête de page", "Architecture et rupture métrologique"),
+    s("entete.titre", "Titre principal (H1)", "En-tête de page", "Note épistémologique"),
+    s(
+      "entete.chapo",
+      "Phrase sous le titre",
+      "En-tête de page",
+      "De l’Architecture Préalable d’Intelligibilité à la Science Métamoderne : genèse, mesure structurelle et reconstruction.",
+    ),
+    s(
+      "embleme_alt",
+      "Emblème de Maât — description de l’image",
+      "Image (description pour lecteurs d’écran et Google)",
+      "Emblème graphique de Maât : plume centrale dorée et ailes déployées sur fond bleu nuit.",
+    ),
+    r("introduction", "Paragraphe d’introduction (en grand)", "Début de la page"),
+    s("architecture.titre", "Intertitre", S1, "1. L’Architecture Préalable d’Intelligibilité"),
+    r("architecture.corps", "Texte", S1),
+    s(
+      "architecture.encadre",
+      "Encadré",
+      S1,
+      "La pyramide Maât–Σ n’est ni un ornement ni une illustration ajoutée après coup : elle exprime visuellement cette Architecture Préalable. Maât désigne le niveau principiel issu de Kemet ; Σ en constitue la formalisation théorique contemporaine. La pyramide canonique doit être conservée sans redessin.",
+    ),
+    s("ordre.titre", "Intertitre", S2, "2. L’ordre ontologique : l’architecture de la manifestation"),
+    s("ordre.formule", "Formule", S2, "Σ → (π₁ ↔ π₂) → (V ↔ F) → S → K"),
+    r("ordre.corps", "Texte après la formule", S2),
+    s("crgi.titre", "Intertitre", S3, "3. Le CRGI : la genèse des opérations de connaissance"),
+    r("crgi.intro", "Texte avant la formule", S3),
+    s(
+      "crgi.formule",
+      "Formule",
+      S3,
+      "Phénomène → Saisie de la relation → Interprétation → Détermination → Symbolisation → Formalisation",
+    ),
+    r("crgi.suite", "Texte après la formule", S3),
+    s("reconstruction.titre", "Intertitre", S4, "4. La reconstruction : Méthode M et principe de Non-Perte"),
+    s("reconstruction.these", "Thèse", S4, "« Aucun principe n’est jamais perdu. »"),
+    r("reconstruction.corps", "Texte avant la formule", S4),
+    s("reconstruction.formule", "Formule", S4, "K → M → K′ → Σ"),
+    r("reconstruction.suite", "Texte après la formule", S4),
+    s("metrologie.titre", "Intertitre", S5, "5. SCIENCE MÉTAMODERNE : LA RUPTURE MÉTROLOGIQUE"),
+    s(
+      "metrologie.bandeau_titre",
+      "Bandeau — titre",
+      S5,
+      "L’acte de décès du monopole de la mesure instrumentale",
+    ),
+    s(
+      "metrologie.bandeau_ligne",
+      "Bandeau — phrase",
+      S5,
+      "« Une grandeur n’est pas nécessairement une quantité. »",
+    ),
+    r("metrologie.corps", "Texte avant la formule", S5),
+    s(
+      "metrologie.formule",
+      "Formule",
+      S5,
+      "Manifestation → Référentiel → Mesure de cohérence → Structure génératrice",
+    ),
+    r("metrologie.suite", "Texte après la formule", S5),
+    s("mecanisme.titre", "Intertitre", S6, "6. R, K, Δ(R,K) et M : le mécanisme opératoire"),
+    s("mecanisme.formule", "Formule", S6, "A → R → K → Δ(R,K) → M → K′"),
+    r("mecanisme.corps", "Texte après la formule", S6),
+    s(
+      "mecanisme.citation",
+      "Citation encadrée",
+      S6,
+      "La mesure instrumentale produit ordinairement une valeur quantitative. La mesure structurelle porte sur une relation de cohérence. Elle doit exposer ses critères, ses opérations et les limites de ses conclusions.",
+    ),
+    s("organon.titre", "Intertitre", S7, "7. Science Métamoderne et Organon de réintégration"),
+    r("organon.corps", "Texte", S7),
+    s(
+      "organon.encadre",
+      "Encadré (en gras)",
+      S7,
+      "La confrontation scientifique porte sur l’architecture de cette reconstruction, le fonctionnement du Référentiel, la portée de la mesure structurelle, la distinction entre grandeur et quantité, la justification des critères de l’universel et la coordination des sciences.",
+    ),
+    s(
+      "organon.note",
+      "Note (petits caractères)",
+      S7,
+      "Cette note expose les articulations générales. Les démonstrations développées, les références et les analyses détaillées sont exposées dans le Tome I et dans la note métrologique de présentation.",
+    ),
+    s("cascade.titre", "Intertitre", S10, "10. La cascade entropique : le risque de désarticulation"),
+    r("cascade.intro", "Texte avant la formule", S10),
+    s(
+      "cascade.formule",
+      "Formule",
+      S10,
+      "Spécialisation → Segmentation → Fragmentation → Désarticulation → Désorientation → Risque de décomposition",
+    ),
+    r("cascade.suite", "Texte après la formule", S10),
+    s("ellipse.titre", "Intertitre", S11, "11. L’ellipse méthodologique : restituer les médiations omises"),
+    r("ellipse.corps", "Texte", S11),
+    s("crise.titre", "Intertitre", S12, "12. De la crise diagnostiquée à la reconstruction"),
+    r("crise.corps", "Texte", S12),
+    s(
+      "unite.titre",
+      "Intertitre",
+      SU,
+      "La Science Métamoderne : science de l’unité et réintégration des savoirs",
+    ),
+    r("unite.corps", "Texte avant la 1re formule", SU),
+    s(
+      "unite.formule",
+      "1re formule",
+      SU,
+      "Manifestation → Référentiel → Mesure de cohérence → Structure génératrice",
+    ),
+    r("unite.suite", "Texte entre les deux formules", SU),
+    s("unite.formule_2", "2e formule", SU, "K → M → K′ → Σ"),
+    s(
+      "acte_deces.titre",
+      "Titre de l’encadré",
+      SA,
+      "Science Métamoderne : l’acte de décès du monopole de la mesure instrumentale",
+    ),
+    r("acte_deces.corps", "Texte de l’encadré", SA),
+    s(
+      "grandeur.titre",
+      "Intertitre",
+      SG,
+      "La rupture métrologique : une grandeur n’est pas nécessairement une quantité",
+    ),
+    r("grandeur.corps", "Texte", SG),
+    s("canon_sept.titre", "Titre", SC, "8. Le Canon de la découverte en sept principes"),
+    r("canon_sept.intro", "Texte avant la liste", SC),
+    r("canon_sept.conclusion", "Texte après la liste", SC),
+    s("livre.titre", "Titre", SL, "9. Le Livre encyclopédique universel et la Science Métamoderne"),
+    r("livre.corps", "Texte", SL),
   ],
   listes: [
     {
-      nom: "etapes_canon",
-      label: "Frise du Canon — les sept étapes",
-      element: "Étape",
-      aide: "Section 4 — frise numérotée (le dernier élément est mis en valeur)",
-      champs: [
-        { nom: "terme", label: "Terme" },
-        { nom: "role", label: "Rôle" },
-      ],
-      origine: [
-        { terme: "Architecture préalable", role: "L’infrastructure implicite" },
-        { terme: "Anomalie / Paradoxe", role: "Le point d’impact entropique" },
-        { terme: "Question", role: "La circonscription du vide sémantique" },
-        { terme: "Hypothèse", role: "La Majeure rationnelle (hyppo, en deçà)" },
-        { terme: "Thésis", role: "L’action de poser et de démontrer" },
-        { terme: "Expérantia", role: "Le banc d’essai phénoménal (mineure subordonnée)" },
-        { terme: "Connaissance", role: "La réintégration néguentropique" },
-      ],
-    },
-    {
-      nom: "canon",
-      label: "Le Canon de la Découverte — les sept principes",
+      nom: "canon_sept_principes",
+      label: "Les sept principes du Canon",
       element: "Principe",
-      aide: "Section 4 — sous la frise",
-      champs: [
-        { nom: "titre", label: "Titre" },
-        { nom: "texte", label: "Texte", type: "zone" },
-      ],
+      aide: SC,
+      champs: [{ nom: "texte", label: "Texte du principe", type: "zone" }],
       origine: [
         {
-          titre: "Principe I — Le primat de l'intelligibilité sur l'opératoire",
           texte:
-            "La recherche scientifique dépend d'abord du cerveau avant de dépendre du laboratoire.",
+            "Principe I — Le primat de l’intelligibilité sur l’opératoire : la recherche dépend d’abord de l’intelligence qui formule les problèmes, identifie les anomalies, construit les hypothèses et découvre les principes ; le laboratoire vérifie, mesure, contrôle ou réfute.",
         },
         {
-          titre: "Principe II — Le Théorème de la Genèse Scientifique",
           texte:
-            "La connaissance ne naît pas de l'induction mécanique, ni de la déduction formelle. Elle naît de la rencontre entre une intelligibilité déjà présente et une difficulté qui en révèle l'incomplétude.",
+            "Principe II — Le Théorème de la Genèse Scientifique : la connaissance naît de la rencontre entre une intelligibilité déjà présente et une difficulté qui en révèle l’incomplétude. Séquence : Architecture Préalable → Paradoxe/Anomalie → Hypothèse → Thésis → Expérantia → Connaissance.",
         },
         {
-          titre: "Principe III — Le principe de nécessité heuristique",
           texte:
-            "Chaque élévation vers un niveau supérieur d'intelligibilité doit apparaître comme la conséquence nécessaire des insuffisances constatées au niveau inférieur.",
+            "Principe III — Le principe de nécessité heuristique : chaque élévation vers un niveau supérieur doit apparaître comme la conséquence nécessaire des insuffisances constatées au niveau inférieur ; elle ne procède pas d’une spéculation arbitraire.",
         },
         {
-          titre: "Principe IV — La reconstruction synthétique",
           texte:
-            "La synthèse reconstructive consiste à remonter des éléments dissociés vers les fondements implicites qui les unissent.",
+            "Principe IV — La reconstruction synthétique : l’analyse distingue et fragmente ; la synthèse reconstructive remonte des éléments dissociés vers les fondements implicites qui les unissent et recherche le Substratum Commun sans abolir les différences disciplinaires.",
         },
         {
-          titre: "Principe V — La double respiration du réel et de la connaissance",
           texte:
-            "Le mouvement descendant (ontologique) et le mouvement ascendant (épistémologique) sont les deux battements d'un même cœur rationnel.",
+            "Principe V — La double respiration du réel et de la connaissance : le mouvement descendant ontologique décrit la manifestation du Substratum Commun ; le mouvement ascendant épistémologique reconstruit, à partir du savoir constitué, les conditions communes d’intelligibilité. Ces mouvements sont complémentaires, mais non mécaniquement inverses.",
         },
         {
-          titre: "Principe VI — Le principe de non-imposition",
           texte:
-            "Nul principe ne peut être introduit avant que le raisonnement n'en ait progressivement établi la nécessité.",
+            "Principe VI — Le principe de non-imposition : nul principe ne doit être introduit avant que le raisonnement n’en ait progressivement établi la nécessité. La recherche reconstruit les conditions qui conduisent aux conclusions au lieu de les imposer.",
         },
         {
-          titre: "Principe VII — Le principe de démonstration catégorique",
           texte:
-            "Aucune affirmation ne peut être tenue pour acquise tant qu'elle n'a pas fait l'objet d'une démonstration suffisante au regard de son domaine. L'ambition d'une théorie ne dispense jamais de l'exigence de sa démonstration.",
-        },
-      ],
-    },
-    {
-      nom: "sextuor",
-      label: "Le sextuor — les six cas d'étude",
-      element: "Cas d'étude",
-      aide: "Section 6 — cartes",
-      champs: [
-        { nom: "titre", label: "Titre" },
-        { nom: "texte", label: "Texte", type: "zone" },
-      ],
-      origine: [
-        {
-          titre: "1. Urbain Le Verrier (L'Invisible Mathématique)",
-          texte:
-            "Il n'est pas convoqué pour ses mérites d'astronome, mais parce qu'il démontre magistralement comment la détection d'une Anomalie (les perturbations d'Uranus) force une reconstruction théorique pure avant toute observation télescopique. En 1846, Le Verrier calcule la position de Neptune à la pointe de sa plume, forçant le visible à s'aligner sur l'invisible mathématique.",
-        },
-        {
-          titre: "2. Évariste Galois (L'Architecture de la Symétrie)",
-          texte:
-            "Il met à nu la structure intime du calcul non pas en résolvant des équations isolées, mais en prouvant qu'une Architecture Abstraite (la théorie des groupes) devance et gouverne sa propre démonstration. La veille de sa mort, en 1832, Galois scelle l'algèbre moderne en identifiant les invariants de symétrie qui rendent les équations résolubles ou non.",
-        },
-        {
-          titre: "3. James Chadwick (La Confirmation Expérimentale)",
-          texte:
-            "Il illustre avec une précision clinique le passage chirurgical d'une Hypothèse Structurée (le besoin de neutralité pour maintenir la cohésion atomique) à sa validation factuelle. En 1932, Chadwick ne découvre pas le neutron par hasard ; il le déduit de la nécessité structurelle de combler l'anomalie de masse constatée au sein du noyau atomique.",
-        },
-        {
-          titre: "4. Christophe Colomb (La Complétude de la Sphère)",
-          texte:
-            "Il brise la fiction de clôture géographique de son époque non par un hasard empirique, mais en subordonnant l'appareil technique de son expédition à une Majeure Rationnelle Préalable : l'isomorphisme et l'unité de la sphère (Σ). Le voyage de 1492 n'est pas une errance ; c'est l'Expérantia subordonnée à l'Hypothèse de la rotondité terrestre.",
-        },
-        {
-          titre: "5. Claude Bernard (L'Invisible Biologique)",
-          texte:
-            "Il applique le Canon au vivant en posant a priori l'existence du « Milieu Intérieur » comme thermostat supérieur de non-contradiction. Il démontre que l'idée directrice interne gouverne impérativement l'expérience. L'organisme n'est pas un système passif soumis aux caprices de l'environnement extérieur ; il maintient activement sa propre unité (Σ).",
-        },
-        {
-          titre: "6. Thomas Henry Huxley (La Continuité Structurale)",
-          texte:
-            "Il traverse le voile du temps géologique en démontrant que la paléontologie n'est pas un catalogue fortuit de débris, mais une reconstruction morphologique intégrale régie par des lois d'anatomie comparée. En identifiant le lien intime entre les dinosaures et les oiseaux, Huxley prouve que la continuité structurelle traverse les époques et les espèces.",
+            "Principe VII — Le principe de démonstration catégorique : aucune affirmation n’est tenue pour acquise sans démonstration suffisante au regard de son domaine. La mise au jour d’une architecture ne vaut pas, à elle seule, démonstration achevée de toutes les thèses qui peuvent en découler.",
         },
       ],
     },

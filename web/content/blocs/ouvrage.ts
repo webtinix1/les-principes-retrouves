@@ -2,218 +2,172 @@ import type { BlocDef, PageBlocs } from "./types";
 
 /** Bloc « simple » (texte court sans mise en forme) avec son texte d'origine. */
 const s = (cle: string, label: string, aide: string, defaut: string): BlocDef => ({
-  cle,
+  cle: `ouvrage.${cle}`,
   label,
   type: "simple",
   aide,
   defaut,
 });
 
-const ENTETE = "En-tête de page";
-const SOMMAIRE = "Sommaire « Sur cette page » (libellés plus courts que les titres de section)";
-const S1 = "Section 1 — Les textes liminaires du diptyque";
-const S2 = "Section 2 — Introduction au diptyque";
-const S3 = "Section 3 — Présentation symétrique du diptyque";
-const S3_I = "Section 3 — Présentation symétrique, carte « Tome I »";
-const S3_II = "Section 3 — Présentation symétrique, carte « Tome II »";
-const S4 = "Section 4 — Les 12 Autorités de Convergence";
-const S5 = "Section 5 — Le Programme de recherche";
-const S5_ENC = "Section 5 — Encadré « Noyau Démontré / Programme d’Expansion »";
-const CLOTURE = "Clôture de page";
 const SEO = "Référencement (Google)";
+const ENTETE = "En-tête de page";
+const INTRO = "Introduction, sous l’en-tête";
+const TOME_I = "Carte « Tome I »";
+const TOME_II = "Carte « Tome II »";
+const LECTEUR =
+  "Lecteur « Choisir un texte » — les textes eux-mêmes (extraits et lectures intégrales) se modifient dans Ouvrage › Textes des tomes";
+const DIPTYQUE = "Section finale « Le diptyque »";
 
-/** Blocs éditables de la page L'Ouvrage — le diptyque. */
+/**
+ * Textes de la page Les ouvrages (/ouvrage), prototype maître V16. Les textes
+ * des tomes (extraits et lectures intégrales) sont dans la collection
+ * « Textes des tomes » ; les liens d'achat dans Boutique › Vente des ouvrages.
+ */
 export const OUVRAGE_BLOCS: PageBlocs = {
   page: "ouvrage",
   chemin: "/ouvrage",
-  titre: "L'Ouvrage — le diptyque",
+  titre: "Les ouvrages",
   blocs: [
-    s("ouvrage.hero.titre", "Titre de la page (H1)", ENTETE, "L’Ouvrage"),
+    s("seo.titre", "Titre (onglet et Google)", SEO, "Les ouvrages — Le diptyque : lire avant d’acquérir"),
     s(
-      "ouvrage.hero.sous_titre",
-      "Sous-titre",
-      ENTETE,
-      "Les Principes Retrouvés — De l’axiomatique pure à l’application juridictionnelle",
-    ),
-    s("ouvrage.hero.bouton", "Bouton « Lire en accès libre »", ENTETE, "Lire en accès libre"),
-    s(
-      "ouvrage.hero.exergue",
-      "Exergue",
-      ENTETE,
-      "« Ce diptyque ne constitue pas une théorie supplémentaire parmi les théories existantes. Il inaugure un Programme de recherche consacré à l’étude de l’intelligibilité elle-même. »",
-    ),
-    s("ouvrage.sommaire.autorites", "Sommaire — Autorités de Convergence", SOMMAIRE, "Les 12 Autorités de Convergence"),
-    s("ouvrage.sommaire.programme", "Sommaire — Programme de recherche", SOMMAIRE, "Le Programme de recherche"),
-    s("ouvrage.textes_liminaires.titre", "Titre de section (H2)", S1, "Les textes liminaires du diptyque"),
-    {
-      cle: "ouvrage.textes_liminaires.corps",
-      label: "Les textes liminaires",
-      type: "riche",
-      aide: "Textes liminaires du diptyque",
-    },
-    s(
-      "ouvrage.acces_libre.bouton_lire",
-      "Bouton « Lire le … » d'une carte de tome",
-      `${S1} — cartes des tomes ({tome} = étiquette du tome, ex. « Tome I »)`,
-      "Lire le {tome}",
-    ),
-    s(
-      "ouvrage.acces_libre.compteur",
-      "Nombre de textes en accès libre",
-      `${S1} — cartes des tomes ({n} = nombre de textes)`,
-      "{n} textes en accès libre",
-    ),
-    s("ouvrage.introduction.titre", "Titre de section (H2)", S2, "Introduction au diptyque"),
-    {
-      cle: "ouvrage.introduction.corps",
-      label: "Introduction au diptyque",
-      type: "riche",
-      aide: "Ouverture",
-    },
-    s("ouvrage.presentation.titre", "Titre de section (H2)", S3, "Présentation symétrique du diptyque"),
-    s("ouvrage.presentation.tome_i.etiquette", "Tome I — étiquette", S3_I, "Tome I"),
-    s("ouvrage.presentation.tome_i.titre", "Tome I — titre", S3_I, "L’Organon"),
-    s(
-      "ouvrage.presentation.tome_i.sous_titre",
-      "Tome I — sous-titre",
-      S3_I,
-      "Science de l’Intelligibilité — Traité d’épistémologie fondamentale et de métaphysique logico-mathématique",
-    ),
-    s(
-      "ouvrage.presentation.tome_i.question",
-      "Tome I — question d'ouverture",
-      S3_I,
-      "Pourquoi le monde produit-il de plus en plus de données et de moins en moins de sens ?",
-    ),
-    {
-      cle: "ouvrage.presentation.tome_i.corps",
-      label: "Tome I — présentation",
-      type: "riche",
-      aide: S3_I,
-    },
-    s("ouvrage.presentation.tome_i.lien", "Tome I — lien", S3_I, "Lire les textes liminaires"),
-    s("ouvrage.presentation.tome_ii.etiquette", "Tome II — étiquette", S3_II, "Tome II · Le Laboratoire Juridique"),
-    s(
-      "ouvrage.presentation.tome_ii.titre",
-      "Tome II — titre",
-      S3_II,
-      "La saisine d'office, l'autosaisine et l'action positive du juge constitutionnel",
-    ),
-    s(
-      "ouvrage.presentation.tome_ii.sous_titre",
-      "Tome II — sous-titre",
-      S3_II,
-      "Théorie générale et formalisation d'un principe universel de proactivité judiciaire encadrée",
-    ),
-    s(
-      "ouvrage.presentation.tome_ii.question",
-      "Tome II — question d'ouverture",
-      S3_II,
-      "Le droit constitutionnel n’est plus capable de nous protéger. Comment le réparer ?",
-    ),
-    {
-      cle: "ouvrage.presentation.tome_ii.corps",
-      label: "Tome II — présentation",
-      type: "riche",
-      aide: S3_II,
-    },
-    s("ouvrage.presentation.tome_ii.lien", "Tome II — lien", S3_II, "Lire le liminaire et trois chapitres"),
-    s(
-      "ouvrage.autorites.titre",
-      "Titre de section (H2)",
-      S4,
-      "L’ancrage doctrinal — Les 12 Autorités de Convergence",
-    ),
-    {
-      cle: "ouvrage.autorites.corps",
-      label: "L'ancrage doctrinal — les 12 Autorités",
-      type: "riche",
-      aide: "Autorités de Convergence",
-    },
-    s("ouvrage.programme.titre", "Titre de section (H2)", S5, "Le Programme de recherche — Noyau et Expansion"),
-    {
-      cle: "ouvrage.programme.corps",
-      label: "Le Programme de recherche — corps de texte",
-      type: "riche",
-      aide: "Noyau et Expansion",
-    },
-    s("ouvrage.programme.noyau.titre", "Noyau — titre", S5_ENC, "Le Noyau Démontré"),
-    s("ouvrage.programme.noyau.sous_titre", "Noyau — sous-titre", S5_ENC, "Les Principes Retrouvés"),
-    s("ouvrage.programme.expansion.titre", "Expansion — titre", S5_ENC, "Le Programme d’Expansion"),
-    s("ouvrage.programme.expansion.sous_titre", "Expansion — sous-titre", S5_ENC, "Les chantiers émergents"),
-    {
-      cle: "ouvrage.programme.axes",
-      label: "Le Programme de recherche — les axes",
-      type: "riche",
-      aide: "Noyau et Expansion",
-    },
-    s(
-      "ouvrage.cloture.citation",
-      "Citation de clôture",
-      CLOTURE,
-      "« La Science Métamoderne ne demande aucune adhésion préalable. Elle invite à une enquête. Elle ne sollicite pas une croyance. Elle propose une méthode. »",
-    ),
-    s("ouvrage.cloture.lien", "Lien vers le Laboratoire", CLOTURE, "Accéder au Laboratoire Doctrinal"),
-    s("ouvrage.seo.titre", "Titre (référencement)", SEO, "L'Ouvrage"),
-    s(
-      "ouvrage.seo.description",
-      "Description (référencement)",
+      "seo.description",
+      "Description (Google)",
       SEO,
-      "Le Diptyque du Noyau Démontré : Tome I (l'Organon) et Tome II (le Laboratoire Juridique). Textes liminaires et chapitres I, II et VII du Tome II en accès libre, et les douze autorités de convergence.",
+      "Deux ouvrages autonomes et complémentaires : Maât, théorie de l’intelligibilité (Tome I) et sa portée en droit constitutionnel (Tome II). Extraits à lire.",
     ),
-  ],
-  listes: [
-    {
-      nom: "noyau",
-      label: "Le Noyau Démontré — éléments",
-      element: "Élément",
-      aide: `${S5_ENC} — colonne gauche. Le terme s'affiche en gras, suivi du texte.`,
-      champs: [
-        { nom: "terme", label: "Terme (en gras, avec ses deux-points)" },
-        { nom: "texte", label: "Texte", type: "zone" },
-      ],
-      origine: [
-        {
-          terme: "L’Axiomatique pure :",
-          texte: "la modélisation de la matrice Σ et de ses polarités simultanées (π₁ ↔ π₂).",
-        },
-        {
-          terme: "Le Canon de la Découverte :",
-          texte: "le protocole de la remontée inductive-rationnelle en sept principes.",
-        },
-        {
-          terme: "Le Laboratoire Juridique :",
-          texte: "le Théorème de la Validité Inversée et la codification de la Proactivité Judiciaire Encadrée.",
-        },
-      ],
-    },
-    {
-      nom: "expansion",
-      label: "Le Programme d’Expansion — éléments",
-      element: "Élément",
-      aide: `${S5_ENC} — colonne droite. Le terme s'affiche en gras, suivi du texte.`,
-      champs: [
-        { nom: "terme", label: "Terme (en gras, avec ses deux-points)" },
-        { nom: "texte", label: "Texte", type: "zone" },
-      ],
-      origine: [
-        {
-          terme: "Sciences du vivant :",
-          texte: "régulation cellulaire, réplication virale, loi organogénétique, lamarco-darwinisme.",
-        },
-        {
-          terme: "Physique fondamentale :",
-          texte: "phénomènes nucléaires, limites de l’univers matériel, théorie de la transposition d’échelle.",
-        },
-        {
-          terme: "Sciences de la complexité :",
-          texte: "transformations de la matière et répercussions sur le biotope.",
-        },
-        {
-          terme: "Théorie de l’information :",
-          texte: "modélisation des flux de connaissance.",
-        },
-      ],
-    },
+
+    s("entete.surtitre", "Surtitre", ENTETE, "Le diptyque · Lire avant d’acquérir"),
+    s("entete.titre", "Titre de la page (H1)", ENTETE, "Les ouvrages"),
+    s(
+      "entete.texte",
+      "Texte sous le titre",
+      ENTETE,
+      "Deux ouvrages autonomes et complémentaires. Des extraits substantiels permettent d’entrer dans leur démarche avant l’acquisition.",
+    ),
+
+    s(
+      "intro.chapeau",
+      "Chapeau",
+      INTRO,
+      "Le Tome I établit la théorie de l’intelligibilité. Le Tome II en confronte la portée dans le champ du droit constitutionnel. Le lecteur peut découvrir ci-dessous des passages liminaires et des extraits de chapitres avant d’accéder à la page d’achat.",
+    ),
+    s(
+      "intro.statuts",
+      "Statuts de lecture",
+      INTRO,
+      "Statuts de lecture : corpus établi · programme de recherche · recherche en cours · prospective.",
+    ),
+
+    s(
+      "tome_i.couverture_alt",
+      "Couverture — description de l’image",
+      `${TOME_I} — pour lecteurs d’écran et Google`,
+      "Première de couverture du Tome I — édition numérique stabilisée Pré-BAT, sans ISBN.",
+    ),
+    s("tome_i.rubrique", "Rubrique", TOME_I, "TOME I · OUVRAGE FONDATEUR"),
+    s("tome_i.titre", "Titre", TOME_I, "Maât : théorie de l’intelligibilité"),
+    s(
+      "tome_i.description",
+      "Description",
+      TOME_I,
+      "Le premier mouvement du diptyque : Architecture Préalable, pyramide Maât–Σ, genèse de la connaissance, principe de Non-Perte, Méthode M, Organon et Science Métamoderne.",
+    ),
+    s("tome_i.prix", "Prix", TOME_I, "69 €"),
+    s("tome_i.prix_format", "Format (à côté du prix)", TOME_I, "édition numérique PDF"),
+    s("tome_i.note", "Note sous le prix", TOME_I, "Prix de l’édition numérique PDF : 69 €. Prix papier non déterminé."),
+    s(
+      "tome_i.bouton",
+      "Bouton d’achat",
+      `${TOME_I} — ouvre le lien d’achat saisi dans Boutique › Vente des ouvrages (inactif tant qu’il est vide)`,
+      "Accéder à l’achat du Tome I",
+    ),
+
+    s(
+      "tome_ii.couverture_alt",
+      "Couverture — description de l’image",
+      `${TOME_II} — pour lecteurs d’écran et Google`,
+      "Première de couverture du Tome II — Les Principes Retrouvés, La saisine d’office, l’autosaisine et l’action positive du juge constitutionnel.",
+    ),
+    s("tome_ii.rubrique", "Rubrique", TOME_II, "TOME II · APPLICATION JURIDIQUE"),
+    s(
+      "tome_ii.auteur",
+      "Auteur",
+      TOME_II,
+      "Gaudéric MAMBOU, Juriste, Chercheur indépendant en épistémologie juridique",
+    ),
+    s(
+      "tome_ii.titre",
+      "Titre",
+      TOME_II,
+      "La saisine d’office, l’autosaisine et l’action positive du juge constitutionnel",
+    ),
+    s(
+      "tome_ii.sous_titre",
+      "Sous-titre (en italique)",
+      TOME_II,
+      "Théorie générale et formalisation d’un principe universel de proactivité judiciaire encadrée.",
+    ),
+    s(
+      "tome_ii.description",
+      "Description",
+      TOME_II,
+      "Le second mouvement : laboratoire congolais, théorie de la clôture procédurale, comparaisons juridictionnelles, Rivonia et arsenal opérationnel.",
+    ),
+    s("tome_ii.prix", "Prix", TOME_II, "59 €"),
+    s("tome_ii.prix_format", "Format (à côté du prix)", TOME_II, "édition numérique PDF"),
+    s("tome_ii.note", "Note sous le prix", TOME_II, "Prix de l’édition numérique PDF : 59 €. Prix papier non déterminé."),
+    s(
+      "tome_ii.bouton",
+      "Bouton d’achat",
+      `${TOME_II} — ouvre le lien d’achat saisi dans Boutique › Vente des ouvrages (inactif tant qu’il est vide)`,
+      "Accéder à l’achat du Tome II",
+    ),
+
+    s("lecteur.titre", "Titre", LECTEUR, "Choisir un texte"),
+    s(
+      "lecteur.chapeau",
+      "Chapeau",
+      LECTEUR,
+      "Choisissez un tome, puis le texte à consulter. Un seul texte est présenté à la fois.",
+    ),
+    s("lecteur.tome_i", "Onglet et intertitre « TOME I »", LECTEUR, "TOME I"),
+    s("lecteur.tome_ii", "Onglet et intertitre « TOME II »", LECTEUR, "TOME II"),
+    s("lecteur.tomes_aria", "Groupe des onglets — libellé pour lecteurs d’écran", LECTEUR, "Choisir un tome"),
+    s(
+      "lecteur.consigne",
+      "Consigne",
+      LECTEUR,
+      "Sélectionnez un texte dans la liste. Son contenu s’affichera seul dans l’espace de lecture.",
+    ),
+    s("lecteur.textes_aria", "Liste des textes — libellé pour lecteurs d’écran", LECTEUR, "Choisir un texte"),
+    s("lecteur.lire_integral", "Bouton « Lire le texte intégral »", LECTEUR, "Lire le texte intégral"),
+    s("lecteur.ouvrir_integral", "Mention « Ouvrir le texte intégral »", `${LECTEUR} — en tête de chaque lecture intégrale`, "Ouvrir le texte intégral"),
+    s("lecteur.retour", "Bouton de retour", `${LECTEUR} — barre au-dessus d’une lecture intégrale`, "← Retour à la sélection des textes"),
+    s(
+      "lecteur.note",
+      "Note sous le lecteur",
+      LECTEUR,
+      "Les textes liminaires, les chapitres sélectionnés et les conclusions sont accessibles dans leur intégralité. Chaque extrait ouvre directement le texte auquel il se rapporte.",
+    ),
+
+    s("diptyque.titre", "Titre", DIPTYQUE, "Le diptyque : premier corpus démonstratif du Livre des livres"),
+    s(
+      "diptyque.tome_i",
+      "Paragraphe « Tome I »",
+      DIPTYQUE,
+      "Le Tome I — Maât : théorie de l’intelligibilité établit l’architecture théorique, la genèse de la connaissance, le Canon de la découverte, le principe de Non-Perte, la Méthode M et la fonction de l’Organon.",
+    ),
+    s(
+      "diptyque.tome_ii",
+      "Paragraphe « Tome II »",
+      DIPTYQUE,
+      "Le Tome II — La saisine d’office, l’autosaisine et l’action positive du juge constitutionnel confronte cette architecture au champ du droit constitutionnel. Il part de l’expérience congolaise différenciée, construit la question scientifique, puis engage les comparaisons et la formalisation d’une proactivité judiciaire encadrée.",
+    ),
+    s(
+      "diptyque.corpus",
+      "Paragraphe final",
+      DIPTYQUE,
+      "Ces deux ouvrages forment le premier corpus public du programme encyclopédique. Ils ne prétendent pas épuiser les domaines auxquels la recherche pourra ultérieurement s’étendre.",
+    ),
   ],
 };

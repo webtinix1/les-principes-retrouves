@@ -108,7 +108,6 @@ export default async function CGV() {
       avertissement={
         <BlocProse
           cle="cgv.avertissement.corps"
-          className="max-w-none font-ui text-sm leading-[1.6] md:text-sm md:leading-[1.6] [&_p]:text-wrap [&_strong]:font-bold"
         >
           <p>
             <strong>Projet à valider juridiquement.</strong> Ce document est une

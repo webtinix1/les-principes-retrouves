@@ -7,280 +7,202 @@ const s = (cle: string, label: string, aide: string, defaut: string): BlocDef =>
   aide,
   defaut,
 });
+const r = (cle: string, label: string, aide: string): BlocDef => ({ cle, label, type: "riche", aide });
 
-const OUVERTURE = "Ouverture — ciel nocturne";
-const PYRAMIDE = "Ouverture — la Pyramide de Σ";
-const AXIOME = "Section — Axiome";
-const PORTES = "Section — Par où entrer";
-const PLAN = "Section — L’œuvre en dix pages";
-const CLOTURE = "Clôture de la page";
 const SEO = "Référencement (Google)";
+const ENTREE = "Ouverture (bandeau bleu)";
+const DIAG = "Le diagnostic central";
+const ELLIPSE = "Le point aveugle : l’ellipse méthodologique";
+const RUPTURE = "La rupture épistémologique";
+const SOCLE = "Carte « Maât : une matrice pour reconstruire l’ordre »";
+const SCIENCE = "Carte « La Science Métamoderne »";
+const DIPTYQUE = "Le diptyque fondateur";
+const TRANSMISSION = "Bandeau « Transmettre à l’Afrique et au monde »";
+const RENCONTRE = "Carte « Rencontre doctrinale et scientifique »";
+const LIVRE = "Section « Le Livre des livres »";
+const BRAZZA = "Section « Brazzaville : lieu d’énonciation »";
 
-/** Textes de la page 1 — L'Accueil (le Seuil). */
+/** Textes de l'Accueil (« /accueil »), prototype maître V16. */
 export const ACCUEIL_BLOCS: PageBlocs = {
   page: "accueil",
   chemin: "/accueil",
-  titre: "Accueil (le Seuil)",
+  titre: "Accueil",
   blocs: [
-    s("accueil.seo.titre", "Titre de la page (SEO)", SEO, "Le Seuil — Inauguration d'une Autre Ère de la Connaissance"),
+    s("accueil.seo.titre", "Titre (onglet et Google)", SEO, "Accueil — Les Principes Retrouvés : Maât et intelligibilité"),
     s(
       "accueil.seo.description",
-      "Description de la page (SEO)",
+      "Description (Google)",
       SEO,
-      "Le Fronton de la Science Métamoderne. Σ = M(F(V(Σ))) : le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode.",
+      "Le Tome I établit la théorie de l’intelligibilité ; le Tome II en confronte la portée dans le champ du droit constitutionnel. Depuis Brazzaville.",
     ),
 
-    // Ouverture
+    s("accueil.entree.eyebrow", "Surtitre", ENTREE, "Les Principes Retrouvés"),
     s(
-      "accueil.ouverture.dedicace",
-      "Dédicace",
-      OUVERTURE,
-      "À l’Esprit Humain Souverain, à la Conscience Retrouvée de Kemet, à l’Effectivité sans Faille de l’Ordre Juste.",
+      "accueil.entree.diptyque",
+      "Phrase de présentation du diptyque",
+      ENTREE,
+      "Le Tome I établit la théorie de l’intelligibilité ; le Tome II en confronte la portée dans le champ du droit constitutionnel, à travers la saisine d’office, l’autosaisine et l’action positive du juge constitutionnel.",
     ),
-    s("accueil.ouverture.surtitre", "Surtitre", OUVERTURE, "01 / 10 · Le Seuil"),
-    s(
-      "accueil.ouverture.titre",
-      "Titre principal (H1)",
-      `${OUVERTURE} — les mots apparaissent un à un (séparés par les espaces)`,
-      "Science Métamoderne : la science de l’intelligibilité",
-    ),
-    s(
-      "accueil.ouverture.citation",
-      "Citation sous le titre",
-      OUVERTURE,
-      "« Le réel est voilé pour tous, filtré pour certains, et reconstructible par la méthode. »",
-    ),
-    s(
-      "accueil.ouverture.formules_lecture",
-      "Formules — lecture pour lecteurs d’écran (aria-label)",
-      OUVERTURE,
-      "Formules : Σ = M(F(V(Σ))) et Maât = M(F(V(Maât)))",
-    ),
-    s("accueil.ouverture.formule_sigma", "Formule 1", OUVERTURE, "Σ = M(F(V(Σ)))"),
-    s("accueil.ouverture.formule_maat", "Formule 2", OUVERTURE, "Maât = M(F(V(Maât)))"),
-    s(
-      "accueil.ouverture.bouton_institut",
-      "Bouton « Entrer dans l’Institut » (ouverture et clôture)",
-      OUVERTURE,
-      "Entrer dans l’Institut de Brazzaville",
-    ),
-    s("accueil.ouverture.bouton_tomes", "Bouton « Lire les tomes »", OUVERTURE, "Lire les tomes"),
+    s("accueil.entree.bouton_tome_i", "Bouton 1 (vers les Ouvrages)", ENTREE, "Découvrir le Tome I"),
+    s("accueil.entree.bouton_tome_ii", "Bouton 2 (vers les Ouvrages)", ENTREE, "Découvrir le Tome II"),
+    s("accueil.entree.bouton_architecture", "Bouton 3 (vers l’Institution)", ENTREE, "Explorer l’architecture"),
+    s("accueil.entree.signature_auteur", "Signature — auteur", ENTREE, "Gaudéric MAMBOU"),
+    s("accueil.entree.signature_lieu", "Signature — lieu et date", ENTREE, "Brazzaville — Novembre 2026"),
 
-    // Pyramide de Σ (composant interactif)
-    s("accueil.pyramide.titre", "Titre de la Pyramide", PYRAMIDE, "La Pyramide de Σ"),
     s(
-      "accueil.pyramide.consigne",
-      "Consigne",
-      PYRAMIDE,
-      "Survolez, touchez ou parcourez au clavier chaque niveau.",
-    ),
-    s("accueil.pyramide.axe_descendant", "Axe gauche — titre", PYRAMIDE, "Mouvement descendant"),
-    s("accueil.pyramide.axe_descendant_legende", "Axe gauche — légende", PYRAMIDE, "Manifestation"),
-    s("accueil.pyramide.axe_ascendant", "Axe droit — titre", PYRAMIDE, "Mouvement ascendant"),
-    s(
-      "accueil.pyramide.axe_ascendant_legende",
-      "Axe droit — légende",
-      PYRAMIDE,
-      "Réintégration par la Méthode M",
-    ),
-    s(
-      "accueil.pyramide.groupe_lecture",
-      "Groupe des niveaux — lecture pour lecteurs d’écran (aria-label)",
-      PYRAMIDE,
-      "Niveaux de la Pyramide de Σ",
-    ),
-    s(
-      "accueil.pyramide.position",
-      "Position du niveau affiché",
-      `${PYRAMIDE} — {n} = numéro du niveau, {total} = nombre de niveaux`,
-      "Niveau {n} sur {total}",
-    ),
-    s(
-      "accueil.pyramide.symbole_vide",
-      "Symbole affiché pour un niveau sans symbole",
-      PYRAMIDE,
-      "⟷",
-    ),
-    s("accueil.pyramide.lien_entree", "Lien vers l’entrée complète", PYRAMIDE, "lire l’entrée complète"),
-
-    // Axiome
-    s(
-      "accueil.axiome.citation",
-      "Citation",
-      AXIOME,
-      "« Ce qui structure le Réel ne peut disparaître : l’Univers ne s’anéantit pas, il s’occulte. »",
-    ),
-    s("accueil.axiome.titre", "Titre de l’encadré (H2)", AXIOME, "Axiome Absolu de Non-Perte"),
-    s(
-      "accueil.axiome.texte",
-      "Texte de l’encadré",
-      AXIOME,
-      "L’Unité Structurelle (Σ / Maât) préexiste à l’expérience. Elle traverse la fragmentation du Voile (V), survit à l’opacité du Filtrage (F), et se réactive intégralement par la puissance correctrice de la Méthode M.",
+      "accueil.introduction.lead",
+      "Paragraphe d’introduction (grand corps)",
+      "Introduction",
+      "L’humanité contemporaine n’est pas menacée seulement par un manque de connaissances. Elle est confrontée à un risque plus profond : celui de voir la différenciation de ses savoirs, de ses compétences et de ses institutions cesser de reconstruire l’unité qui les rend intelligibles. Lorsque les parties se multiplient sans que leurs relations soient restaurées, la désarticulation peut gagner l’ensemble et conduire au déclin organique ou social, jusqu’au chaos.",
     ),
 
-    // Par où entrer
-    s("accueil.portes.titre", "Titre (H2)", PORTES, "Par où entrer"),
-    s("accueil.portes.sous_titre", "Sous-titre", PORTES, "Trois portes, selon ce que vous venez chercher"),
+    s("accueil.diagnostic.tag", "Étiquette", DIAG, "LE DIAGNOSTIC CENTRAL"),
+    s(
+      "accueil.diagnostic.titre",
+      "Titre",
+      DIAG,
+      "Quand la différenciation cesse de reconstruire l’unité et mène au déclin",
+    ),
+    r("accueil.diagnostic.corps", "Texte du bandeau", DIAG),
 
-    // L'œuvre en dix pages
-    s("accueil.plan.titre", "Titre (H2)", PLAN, "L’œuvre en dix pages"),
+    s("accueil.ellipse.titre", "Titre", ELLIPSE, "Le point aveugle : l’ellipse méthodologique"),
     s(
-      "accueil.plan.chapeau",
-      "Chapeau",
-      PLAN,
-      "L’ordre du menu est l’ordre de lecture. Chaque page renvoie à la suivante.",
+      "accueil.ellipse.texte",
+      "Paragraphe avant la formule",
+      ELLIPSE,
+      "La connaissance ne commence pas avec l’équation qui la formalise. Entre le phénomène et la forme achevée se déploient des opérations qui rendent la connaissance possible : observer, saisir une relation, interpréter, déterminer, symboliser, puis formaliser. Lorsque ces médiations disparaissent du récit de la connaissance, la formalisation est prise à tort pour son origine absolue.",
     ),
     s(
-      "accueil.plan.famille_seuil",
-      "Libellé de la première colonne (famille « Le Seuil »)",
-      PLAN,
-      "Seuil",
+      "accueil.ellipse.equation",
+      "Formule",
+      ELLIPSE,
+      "Phénomène → Saisie de la relation → Interprétation → Détermination → Symbolisation → Formalisation",
+    ),
+    s(
+      "accueil.ellipse.suite",
+      "Paragraphe après la formule",
+      ELLIPSE,
+      "L’enfant voit avant de nommer, saisit avant de décrire, distingue avant de définir, reconnaît avant de formaliser. Une équation exprime une relation ; elle ne crée pas l’ordre intelligible dont elle procède.",
     ),
 
-    // Clôture
     s(
-      "accueil.cloture.citation",
-      "Citation de clôture",
-      CLOTURE,
-      "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »",
+      "accueil.rupture.titre",
+      "Titre",
+      RUPTURE,
+      "La rupture épistémologique : sortir du monopole de l’universel",
     ),
-    s("accueil.cloture.locus", "Locus", CLOTURE, "LOCUS : BRAZZAVILLE — JUILLET 2026"),
-    s("accueil.cloture.page_suivante", "Page suivante — surtitre", CLOTURE, "Page suivante · 02"),
-    s("accueil.cloture.page_suivante_titre", "Page suivante — titre", CLOTURE, "L’Institution"),
+    r("accueil.rupture.corps", "Texte", RUPTURE),
+
+    s("accueil.socle.tag", "Étiquette", SOCLE, "LE SOCLE PRINCIPIEL · KEMET"),
+    s("accueil.socle.titre", "Titre", SOCLE, "Maât : une matrice pour reconstruire l’ordre"),
+    r("accueil.socle.corps", "Texte", SOCLE),
+    s("accueil.socle.bouton", "Bouton (vers la Déclaration)", SOCLE, "Entrer dans la Déclaration sur Maât"),
+
+    s("accueil.science.tag", "Étiquette", SCIENCE, "L’AMBITION SCIENTIFIQUE CENTRALE"),
+    s("accueil.science.titre", "Titre", SCIENCE, "La Science Métamoderne"),
+    r("accueil.science.corps", "Texte avant la première formule", SCIENCE),
+    s("accueil.science.equation_1", "Première formule", SCIENCE, "K → M → K′ → Σ"),
+    s(
+      "accueil.science.mesure",
+      "Paragraphe entre les deux formules",
+      SCIENCE,
+      "La mesure structurelle examine la cohérence des manifestations relativement à un référentiel explicite. Elle ne prétend pas mesurer directement le principe lui-même.",
+    ),
+    s(
+      "accueil.science.equation_2",
+      "Seconde formule",
+      SCIENCE,
+      "Manifestation → Référentiel → Mesure de cohérence → Structure génératrice",
+    ),
+    s(
+      "accueil.science.bouton",
+      "Bouton (vers la Note épistémologique)",
+      SCIENCE,
+      "Découvrir l’architecture de la Science Métamoderne",
+    ),
+
+    s(
+      "accueil.diptyque_fondateur.titre",
+      "Titre (les deux cartes des Tomes sont dans « Listes »)",
+      DIPTYQUE,
+      "Le diptyque fondateur : de Maât à la reconstruction du droit",
+    ),
+
+    s(
+      "accueil.transmission.titre",
+      "Titre",
+      TRANSMISSION,
+      "Transmettre à l’Afrique et au monde la capacité de reconstruire",
+    ),
+    r("accueil.transmission.corps", "Texte", TRANSMISSION),
+    s(
+      "accueil.transmission.bouton",
+      "Bouton (vers la Transmission)",
+      TRANSMISSION,
+      "Découvrir l’ambition de transmission",
+    ),
+
+    s("accueil.rencontre.tag", "Étiquette", RENCONTRE, "RENCONTRE DOCTRINALE ET SCIENTIFIQUE"),
+    s(
+      "accueil.rencontre.titre",
+      "Titre",
+      RENCONTRE,
+      "Première rencontre doctrinale et scientifique de Brazzaville",
+    ),
+    s(
+      "accueil.rencontre.texte",
+      "Texte",
+      RENCONTRE,
+      "La rencontre initialement envisagée à Brazzaville a été reportée faute de soutien financier. Sa préparation scientifique et institutionnelle se poursuit. Une nouvelle date sera annoncée lorsque les conditions de tenue seront réunies.",
+    ),
+
+    s("accueil.livre.titre", "Titre", LIVRE, "Le Livre des livres : une ambition encyclopédique universelle"),
+    r("accueil.livre.corps", "Texte", LIVRE),
+
+    s(
+      "accueil.brazzaville.titre",
+      "Titre",
+      BRAZZA,
+      "Brazzaville : lieu d’énonciation et de production théorique",
+    ),
+    r("accueil.brazzaville.corps", "Texte", BRAZZA),
   ],
   listes: [
     {
-      nom: "niveaux_pyramide",
-      label: "Pyramide de Σ — les six niveaux",
-      element: "Niveau",
-      aide: `${PYRAMIDE} — du sommet à la base. Le libellé peut tenir sur deux lignes (retour à la ligne).`,
-      champs: [
-        { nom: "symbole", label: "Symbole (dans la tranche)" },
-        { nom: "libelle", label: "Libellé de la tranche", type: "zone" },
-        { nom: "nom", label: "Nom (titre de la définition)" },
-        { nom: "formule", label: "Formule" },
-        { nom: "definition", label: "Définition", type: "zone" },
-        { nom: "source_libelle", label: "Source — libellé du lien" },
-        { nom: "source_lien", label: "Source — adresse du lien" },
-      ],
-      origine: [
-        {
-          symbole: "Σ",
-          libelle: "Substratum commun",
-          nom: "Substratum Commun",
-          formule: "Σ = M(F(V(Σ)))",
-          definition:
-            "L'Unité Structurelle Absolue, antérieure à toute manifestation et à toute connaissance.",
-          source_libelle: "Concepts stabilisés, 01",
-          source_lien: "/concepts#substratum_commun",
-        },
-        {
-          symbole: "π₁ ↔ π₂",
-          libelle: "Polarités",
-          nom: "Polarités complémentaires",
-          formule: "π₁ ↔ π₂",
-          definition: "Distinction (π₁) et relation (π₂), en tension simultanée.",
-          source_libelle: "Concepts stabilisés, 01",
-          source_lien: "/concepts#substratum_commun",
-        },
-        {
-          symbole: "",
-          libelle: "Charnière\nontologique",
-          nom: "Charnière Ontologique",
-          formule: "Principiel → Phénoménal",
-          definition: "Seuil critique de conversion du principiel en phénoménal.",
-          source_libelle: "Concepts stabilisés, 10",
-          source_lien: "/concepts#conversion_principiel_phenomenal",
-        },
-        {
-          symbole: "V",
-          libelle: "Voile ontologique",
-          nom: "Voile Ontologique",
-          formule: "S = V(Σ)",
-          definition: "Condition universelle et nécessaire de toute manifestation.",
-          source_libelle: "Concepts stabilisés, 03",
-          source_lien: "/concepts#voile_ontologique",
-        },
-        {
-          symbole: "F",
-          libelle: "Filtrage sélectif",
-          nom: "Filtrage Sélectif",
-          formule: "K = F(S) = F(V(Σ))",
-          definition: "Tri institutionnel qui sédimente le savoir ordinaire.",
-          source_libelle: "Concepts stabilisés, 04",
-          source_lien: "/concepts#filtrage_selectif",
-        },
-        {
-          symbole: "S",
-          libelle: "Monde observable",
-          nom: "Monde Observable (S)",
-          formule: "S",
-          definition: "Fragmentation phénoménale, base de la remontée épistémologique.",
-          source_libelle: "Note épistémologique",
-          source_lien: "/note-epistemologique",
-        },
-      ],
-    },
-    {
-      nom: "portes",
-      label: "Par où entrer — les trois portes",
-      element: "Porte",
-      aide: PORTES,
+      nom: "tomes",
+      label: "Le diptyque fondateur — cartes des Tomes",
+      element: "Tome",
+      aide: "Les deux cartes côte à côte (Tome I, Tome II). Champs facultatifs laissés vides : non affichés.",
       champs: [
         { nom: "etiquette", label: "Étiquette" },
+        { nom: "designation", label: "Désignation de l’auteur sous l’étiquette (facultatif)", type: "zone" },
         { nom: "titre", label: "Titre" },
         { nom: "texte", label: "Texte", type: "zone" },
-        { nom: "action", label: "Libellé de l’action" },
-        { nom: "lien", label: "Adresse du lien" },
+        { nom: "signature", label: "Signature en gras (facultatif)", type: "zone" },
+        { nom: "bouton", label: "Libellé du bouton" },
+        { nom: "lien", label: "Adresse du bouton (ex. /ouvrage)" },
       ],
       origine: [
         {
-          etiquette: "Lire · 06 L’Ouvrage",
-          titre: "Les Principes Retrouvés",
+          etiquette: "TOME I · FONDEMENT ÉPISTÉMOLOGIQUE",
+          designation: "",
+          titre: "Maât : théorie de l’intelligibilité",
           texte:
-            "Le diptyque, de l’axiomatique pure à l’application juridictionnelle. Les textes liminaires du Tome I, le liminaire et trois chapitres du Tome II sont en accès libre.",
-          action: "Ouvrir les tomes",
+            "Le Tome I expose l’Architecture Préalable, la formalisation Σ, la genèse de la connaissance, le principe de Non-Perte, la Méthode M, le Référentiel d’Intelligibilité et la possibilité d’une mesure structurelle.",
+          signature: "",
+          bouton: "Découvrir le Tome I",
           lien: "/ouvrage",
         },
         {
-          etiquette: "Comprendre · 02 Institution",
-          titre: "L’École de Brazzaville",
+          etiquette: "TOME II · APPLICATION JURIDIQUE",
+          designation: "Gaudéric MAMBOU, Juriste, Chercheur indépendant en épistémologie juridique",
+          titre: "La saisine d’office, l’autosaisine et l’action positive du juge constitutionnel",
           texte:
-            "Son objet unique, l’Intelligibilité, son architecture à sept niveaux, puis la Constitution, le Manifeste et la Note épistémologique qui la fondent.",
-          action: "Découvrir l’Institution",
-          lien: "/institution",
+            "Le Tome II part des difficultés du droit contemporain et montre comment la matrice de Maât permet de reconstruire les conditions d’intelligibilité de l’ordre juridique. Il examine la clôture procédurale, la chose jugée, la rectification et la proactivité judiciaire encadrée.",
+          signature: "Gaudéric MAMBOU, Juriste, Chercheur indépendant en épistémologie juridique.",
+          bouton: "Découvrir le Tome II",
+          lien: "/ouvrage",
         },
-        {
-          etiquette: "Se former · 09 Transmission",
-          titre: "Trois modules",
-          texte:
-            "Pour chercheurs, magistrats, avocats et institutions. Chaque module validé ouvre un niveau d’accès au Laboratoire Doctrinal.",
-          action: "Comparer les modules",
-          lien: "/transmission#grille",
-        },
-      ],
-    },
-    {
-      nom: "resumes",
-      label: "L’œuvre en dix pages — titres et résumés",
-      element: "Page",
-      aide: `${PLAN} — l’identifiant de page (page_id) relie le résumé à sa page : ne pas le modifier.`,
-      champs: [
-        { nom: "page_id", label: "Identifiant de page (ne pas modifier)" },
-        { nom: "titre", label: "Titre" },
-        { nom: "resume", label: "Résumé" },
-      ],
-      origine: [
-        { page_id: "seuil", titre: "Accueil", resume: "Pyramide de Σ, axiome" },
-        { page_id: "institution", titre: "L’Institution", resume: "Objet, architecture à 7 niveaux, démarche" },
-        { page_id: "constitution", titre: "Constitution", resume: "Préambule, 10 articles, disposition finale" },
-        { page_id: "manifeste", titre: "Manifeste", resume: "Matrice de la Maât, 7 articles" },
-        { page_id: "note_epistemologique", titre: "Note épistémologique", resume: "Canon en 7 étapes" },
-        { page_id: "ouvrage", titre: "L’Ouvrage", resume: "Diptyque, tomes en accès libre" },
-        { page_id: "laboratoire", titre: "Laboratoire", resume: "Working Papers, code d’accès" },
-        { page_id: "concepts", titre: "Concepts", resume: "20 concepts en 4 strates" },
-        { page_id: "transmission", titre: "Transmission", resume: "3 modules, inscription" },
-        { page_id: "declaration", titre: "Déclaration", resume: "Préambule, actes I à VIII" },
       ],
     },
   ],

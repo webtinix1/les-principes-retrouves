@@ -32,7 +32,7 @@ export function CodeAcces({
       <button
         type="button"
         onClick={copier}
-        className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-[2px] border border-encre px-4 font-ui text-sm font-semibold text-encre transition-colors hover:bg-encre hover:text-papier sm:self-auto"
+        className="btn secondary inline-flex! items-center justify-center gap-2 self-start sm:self-auto"
       >
         {copie ? (
           <Check aria-hidden="true" className="size-4" strokeWidth={2} />

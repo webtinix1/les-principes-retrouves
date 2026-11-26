@@ -117,7 +117,6 @@ export default async function Confidentialite() {
       avertissement={
         <BlocProse
           cle="confidentialite.avertissement.corps"
-          className="max-w-none font-ui text-sm leading-[1.6] md:text-sm md:leading-[1.6] [&_p]:text-wrap [&_strong]:font-bold"
         >
           <p>
             Les durées de conservation et la liste des prestataires{" "}

@@ -25,6 +25,14 @@ export type PageCanonique = NavPage & {
 
 export const NAV_PAGES: PageCanonique[] = [
   {
+    page_id: "fronton",
+    label: "Fronton",
+    href: "/",
+    numero: 0,
+    famille: "Le Seuil",
+    titre: "Le Fronton",
+  },
+  {
     page_id: "seuil",
     label: "Accueil",
     href: "/accueil",
@@ -58,7 +66,7 @@ export const NAV_PAGES: PageCanonique[] = [
   },
   {
     page_id: "note_epistemologique",
-    label: "Note Épistémo",
+    label: "Note épistémologique",
     href: "/note-epistemologique",
     numero: 5,
     famille: "Savoir",
@@ -66,7 +74,7 @@ export const NAV_PAGES: PageCanonique[] = [
   },
   {
     page_id: "ouvrage",
-    label: "Ouvrage",
+    label: "Ouvrages",
     href: "/ouvrage",
     numero: 6,
     famille: "Savoir",

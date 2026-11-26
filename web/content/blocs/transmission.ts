@@ -1,268 +1,221 @@
-import type { BlocDef, PageBlocs } from "./types";
+import type { PageBlocs } from "./types";
+import { listeCartes, simple as s } from "./fabrique-v16";
 
-/** Bloc « simple » (texte court sans mise en forme) avec son texte d'origine. */
-const s = (cle: string, label: string, aide: string, defaut: string): BlocDef => ({
-  cle,
-  label,
-  type: "simple",
-  aide,
-  defaut,
-});
-
-const ENTETE = "En-tête de page";
-const SOMMAIRE = "Sommaire « Sur cette page » (libellés plus courts que les titres de section)";
-const S1 = "Section 1 — L’argumentaire de la souveraineté";
-const S2 = "Section 2 — La Boucle Vertueuse";
-const S3 = "Section 3 — La grille des modules";
-const S4 = "Section 4 — Paiement";
-const S5 = "Section 5 — Secrétariat International (colonne de gauche)";
-const S5_FORM = "Section 5 — Secrétariat International (encadré du formulaire)";
-const CLOTURE = "Clôture de page";
 const SEO = "Référencement (Google)";
+const ENTETE = "En-tête de page (bandeau bleu nuit)";
+const OUV = "Ouverture";
+const SUP = "Les supports de transmission";
+const THEBES = "La Nouvelle Thèbes — Cité du Savoir";
+const BIB = "Deux bibliothèques distinctes";
+const REN = "La confrontation publique : une rencontre reportée";
+const RUP = "Une transmission qui ne neutralise pas la rupture";
+const BANDE = "Encadré — Transmettre à l’Afrique et au monde";
+const MAT = "La transmission de la matrice, pas seulement des résultats";
+const FIN1 = "Fin de page — La transmission : transmettre la capacité de reconstruire";
+const FIN2 = "Fin de page — De l’Organon à la Nouvelle Thèbes";
 
-/** Blocs éditables de la page La Transmission — formations. */
+/** Textes de la page « De l’Organon à la Nouvelle Thèbes » (prototype maître V16). */
 export const TRANSMISSION_BLOCS: PageBlocs = {
   page: "transmission",
   chemin: "/transmission",
-  titre: "La Transmission — formations",
+  titre: "Transmission — De l’Organon à la Nouvelle Thèbes",
   blocs: [
-    s("transmission.hero.titre", "Titre de la page (H1)", ENTETE, "Transmission & Inscriptions"),
-    s(
-      "transmission.hero.sous_titre",
-      "Sous-titre",
-      ENTETE,
-      "L’émancipation intellectuelle et l’arsenal de Rang A",
-    ),
-    s("transmission.hero.bouton_comparer", "Bouton « Comparer les trois modules »", ENTETE, "Comparer les trois modules"),
-    s("transmission.hero.bouton_secretariat", "Bouton « Écrire au Secrétariat »", ENTETE, "Écrire au Secrétariat"),
-    s(
-      "transmission.hero.exergue",
-      "Exergue",
-      ENTETE,
-      "« L’esprit humain, trop longtemps livré à son propre sort, abandonné à son propre dénuement face à l’émiettement du savoir et à la fiction de clôture des disciplines, trouve ici les conditions de sa souveraineté retrouvée. L’Institut de Brazzaville ne propose pas une adhésion à un dogme, mais la mise à disposition d’un Organon de réintégration. Acquérir cet arsenal, c’est cesser de subir la fragmentation pour commencer à calculer la cohérence. »",
-    ),
-    s("transmission.sommaire.boucle", "Sommaire — La Boucle Vertueuse", SOMMAIRE, "La Boucle Vertueuse"),
-    s("transmission.sommaire.grille", "Sommaire — La grille des modules", SOMMAIRE, "La grille des modules"),
-    s("transmission.sommaire.paiement", "Sommaire — Paiement", SOMMAIRE, "Paiement sécurisé"),
-    s("transmission.argumentaire.titre", "Titre de section (H2)", S1, "L’argumentaire de la souveraineté"),
-    {
-      cle: "transmission.argumentaire.corps",
-      label: "L'argumentaire de la souveraineté",
-      type: "riche",
-      aide: "Ouverture",
-    },
-    s(
-      "transmission.boucle.titre",
-      "Titre de section (H2)",
-      S2,
-      "La Boucle Vertueuse : Formation → Accès à l’Arsenal",
-    ),
-    {
-      cle: "transmission.boucle.corps",
-      label: "La Boucle Vertueuse — texte",
-      type: "riche",
-      aide: `${S2} — à droite du titre`,
-    },
-    s(
-      "transmission.boucle.schema_aria",
-      "Schéma — description pour les lecteurs d'écran",
-      `${S2} — texte invisible lu par les lecteurs d'écran`,
-      "Les trois niveaux d’accès à l’arsenal",
-    ),
-    s(
-      "transmission.boucle.legende",
-      "Légende du parcours",
-      `${S2} — sous les quatre étapes`,
-      "Le parcours de l’inscrit, de la Transmission au Laboratoire Doctrinal.",
-    ),
-    s(
-      "transmission.boucle.doctrine",
-      "Phrase de doctrine",
-      `${S2} — paragraphe sous le schéma`,
-      "Cette architecture respecte la doctrine scellée : l’universel n’a pas de centre géographique, mais il a une exigence de rigueur. L’accès aux outils opérationnels est subordonné à la maîtrise préalable des fondements épistémologiques.",
-    ),
-    s("transmission.grille.titre", "Titre de section (H2)", S3, "La grille des modules de formation"),
-    {
-      cle: "transmission.modules.corps",
-      label: "La grille des modules — chapeau",
-      type: "riche",
-      aide: "Modules de formation",
-    },
-    s(
-      "transmission.grille.note",
-      "Note sur le régime B2B / B2C",
-      `${S3} — sous le tableau des modules`,
-      "Le régime (B2B ou B2C) se choisit à l’étape suivante, sur le formulaire d’inscription.",
-    ),
-    s("transmission.paiement.titre", "Titre de section (H2)", S4, "Passerelle de paiement sécurisée et souveraine"),
-    {
-      cle: "transmission.paiement.corps",
-      label: "Passerelle de paiement — texte",
-      type: "riche",
-      aide: "Bas de page",
-    },
-    s(
-      "transmission.paiement.frais",
-      "Phrase sur les frais",
-      `${S4} — sous les moyens de paiement`,
-      "Aucun frais n’est indexé sur le principe de non-imposition de l’École. Les fonds collectés alimentent exclusivement le Programme de Recherche, les archives numériques et la formation des chercheurs indépendants du Sud global.",
-    ),
-    s("transmission.contact.titre", "Titre de section (H2)", S5, "Secrétariat International"),
-    s("transmission.contact.sous_titre", "Sous-titre", S5, "Coordonnées et Liaison Scientifique"),
-    s("transmission.contact.siege.titre", "Le Siège — titre", S5, "Le Siège — Institut de Brazzaville"),
-    s(
-      "transmission.contact.siege.ligne_1",
-      "Le Siège — ligne 1",
-      S5,
-      "Autorité Épistémique Suprême de la Science Métamoderne",
-    ),
-    s("transmission.contact.siege.ligne_2", "Le Siège — ligne 2 (ville)", S5, "Brazzaville, République du Congo"),
-    s(
-      "transmission.contact.siege.ligne_3",
-      "Le Siège — ligne 3 (petits caractères)",
-      S5,
-      "Siège de l’Autorité de Certification et du Corpus Fondateur",
-    ),
-    s(
-      "transmission.contact.antenne.titre",
-      "L'Antenne — titre",
-      S5,
-      "L’Antenne de Recherche — Liaison Scientifique et Académique",
-    ),
-    s("transmission.contact.antenne.ligne_1", "L'Antenne — ligne 1 (ville)", S5, "Dakar, Sénégal"),
-    s(
-      "transmission.contact.antenne.ligne_2",
-      "L'Antenne — ligne 2 (petits caractères)",
-      S5,
-      "Pôle de recherche interdisciplinaire et de dialogue avec les écoles de pensée africaines",
-    ),
-    s("transmission.contact.numerique.titre", "Contact numérique — intitulé", S5, "Contact numérique"),
-    s(
-      "transmission.contact.numerique.email",
-      "Contact numérique — adresse e-mail (aussi utilisée pour le lien)",
-      S5,
-      "contact@lesprincipesretrouves.cg",
-    ),
-    s("transmission.contact.numerique.site", "Contact numérique — site", S5, "www.lesprincipesretrouves.cg"),
-    s("transmission.demande.titre", "Titre de l'encadré", S5_FORM, "Adresser une demande"),
-    s(
-      "transmission.demande.texte",
-      "Texte de l'encadré",
-      S5_FORM,
-      "Toute correspondance scientifique, institutionnelle ou relative aux modules peut être adressée au Secrétariat International.",
-    ),
-    s(
-      "transmission.cloture.citation",
-      "Citation de clôture",
-      CLOTURE,
-      "« Ces concepts ne demandent pas à être acceptés sur autorité. Ils demandent à être éprouvés dans la rigueur de leur application. »",
-    ),
-    s("transmission.cloture.lien", "Lien vers la Déclaration", CLOTURE, "Déposer une déclaration d’épreuve"),
-    s("transmission.seo.titre", "Titre (référencement)", SEO, "Transmission & Inscriptions"),
+    s("transmission.seo.titre", "Titre (onglet et Google)", SEO, "Transmission — De l’Organon à la Nouvelle Thèbes"),
     s(
       "transmission.seo.description",
-      "Description (référencement)",
+      "Description (Google)",
       SEO,
-      "L'enseignement, l'arsenal opérationnel et le secrétariat international : trois modules de formation, la boucle vertueuse et les coordonnées de l'Institut.",
+      "Une trajectoire institutionnelle, documentaire et architecturale pour la conservation et la transmission des savoirs : de l’Organon à la Nouvelle Thèbes.",
+    ),
+    s("transmission.v16_tete.surtitre", "Surtitre doré", ENTETE, "Horizon de transmission"),
+    s("transmission.v16_tete.titre", "Titre de la page (H1)", ENTETE, "De l’Organon à la Nouvelle Thèbes"),
+    s(
+      "transmission.v16_tete.intro",
+      "Phrase d’introduction",
+      ENTETE,
+      "Une trajectoire institutionnelle, documentaire et architecturale pour la conservation et la transmission des savoirs.",
+    ),
+    s(
+      "transmission.v16_ouverture.chapeau",
+      "Chapeau (grand texte d’ouverture)",
+      OUV,
+      "La transmission des Principes Retrouvés s’appuie d’abord sur les deux ouvrages. Elle s’inscrit ensuite dans un horizon plus vaste : Organon → École de pensée de Brazzaville → Cité du Savoir → Nouvelle Thèbes.",
+    ),
+    s(
+      "transmission.v16_ouverture.sequence",
+      "Séquence",
+      OUV,
+      "Organon → École de pensée de Brazzaville → Cité du Savoir → Nouvelle Thèbes",
+    ),
+    s("transmission.v16_supports.titre", "Titre de section", SUP, "Les supports de transmission"),
+    s("transmission.v16_thebes.titre", "Titre de section", THEBES, "La Nouvelle Thèbes — Cité du Savoir"),
+    s(
+      "transmission.v16_thebes.texte",
+      "Paragraphe",
+      THEBES,
+      "La Nouvelle Thèbes est pensée comme une Cité du Savoir organisée autour d’un plan directeur, du Sanctuaire des Principes, de ses espaces institutionnels et scientifiques, ainsi que d’un Atlas de dix planches. Son architecture articule les lieux de recherche, de réflexion, de transmission et de conservation.",
+    ),
+    s("transmission.v16_bibliotheques.titre", "Titre de section", BIB, "Deux bibliothèques distinctes"),
+    s(
+      "transmission.v16_rencontre.titre",
+      "Titre de section",
+      REN,
+      "La confrontation publique : une rencontre reportée, non abandonnée",
+    ),
+    s(
+      "transmission.v16_rencontre.p1",
+      "Paragraphe 1",
+      REN,
+      "La Première rencontre doctrinale et scientifique de Brazzaville a été reportée faute de soutien financier suffisant. Le report est intégré à la stratégie de préparation : consolider le dossier scientifique, préciser les contributions, renforcer les relais institutionnels et réunir les moyens nécessaires avant l’annonce d’une nouvelle date.",
+    ),
+    s(
+      "transmission.v16_rencontre.p2",
+      "Paragraphe 2",
+      REN,
+      "La rencontre devra permettre une confrontation argumentée des apports du Tome I et du Tome II. Elle ne sera annoncée comme programmée qu’une fois les conditions matérielles et institutionnelles suffisamment établies. Aucune date ne doit être affichée par anticipation.",
+    ),
+    s("transmission.v16_rupture.titre", "Titre de section", RUP, "Une transmission qui ne neutralise pas la rupture"),
+    s(
+      "transmission.v16_rupture.p1",
+      "Paragraphe 1",
+      RUP,
+      "Transmettre Les Principes Retrouvés ne consiste pas à atténuer leur diagnostic pour les rendre immédiatement conformes aux catégories reçues. Il s’agit de présenter clairement la cascade entropique, l’ellipse méthodologique, la reconstruction de l’intelligibilité et le dépassement fonctionnel dans leur articulation propre, tout en donnant accès aux démonstrations et aux objections possibles.",
+    ),
+    s(
+      "transmission.v16_rupture.p2",
+      "Paragraphe 2",
+      RUP,
+      "La transmission doit conserver simultanément la force de la proposition et son ouverture à l’épreuve. Elle ne transforme ni les hypothèses en résultats acquis ni les perspectives en réalisations déjà opérationnelles.",
+    ),
+    s("transmission.v16_bande.titre", "Titre", BANDE, "Transmettre à l’Afrique et au monde la capacité de reconstruire"),
+    s(
+      "transmission.v16_bande.p1",
+      "Paragraphe 1",
+      BANDE,
+      "La transmission des Principes Retrouvés ne consiste pas à diffuser un ensemble de conclusions qu’il suffirait de reproduire. Elle vise à transmettre une capacité : reconnaître une anomalie, retrouver les relations qui ont été obscurcies, reconstruire les principes, éprouver les propositions et réintégrer les connaissances différenciées dans une intelligibilité commune.",
+    ),
+    s(
+      "transmission.v16_bande.sequence",
+      "Séquence",
+      BANDE,
+      "Reconnaître → Reconstruire → Éprouver → Transmettre → Reconstruire à nouveau",
+    ),
+    s(
+      "transmission.v16_bande.p2",
+      "Paragraphe 2",
+      BANDE,
+      "Depuis Brazzaville, cette ambition s’adresse à l’Afrique et au monde. Elle ne revendique aucun monopole géographique de l’universel ; elle affirme la possibilité de contribuer à sa reconstruction depuis un lieu longtemps tenu à la périphérie des généalogies dominantes du savoir.",
+    ),
+    s("transmission.v16_matrice.titre", "Titre de section", MAT, "La transmission de la matrice, pas seulement des résultats"),
+    s(
+      "transmission.v16_matrice.texte",
+      "Paragraphe",
+      MAT,
+      "Le diptyque constitue le premier corpus public de cette entreprise. Le Tome I expose la théorie de l’intelligibilité ; le Tome II montre comment la matrice de Maât permet de reconstruire des questions du droit contemporain. L’École de pensée de Brazzaville organise la discussion et la transmission de cette capacité reconstructive.",
+    ),
+    s("transmission.v16_capacite.titre", "Titre", FIN1, "La transmission : transmettre la capacité de reconstruire"),
+    s(
+      "transmission.v16_capacite.p1",
+      "Paragraphe 1",
+      FIN1,
+      "La transmission ne consiste pas à reproduire indéfiniment des résultats déjà acquis. Elle consiste à transmettre la capacité de reconstruire. La relation peut être formulée ainsi : résultat transmis ≠ capacité reconstructive transmise.",
+    ),
+    s(
+      "transmission.v16_capacite.p2",
+      "Paragraphe 2",
+      FIN1,
+      "Le mouvement général est : reconnaître → reconstruire → éprouver → transmettre → reconstruire à nouveau. La transmission ne clôt pas le cycle ; elle en garantit la continuité.",
+    ),
+    s(
+      "transmission.v16_capacite.p3",
+      "Paragraphe 3",
+      FIN1,
+      "L’École de pensée de Brazzaville constitue le lieu de transmission de cette architecture. Sa vocation première n’est pas l’enseignement au sens classique, mais la transmission de la capacité à reconnaître, relier et reconstruire les savoirs.",
+    ),
+    s("transmission.v16_horizon.titre", "Titre", FIN2, "De l’Organon à la Nouvelle Thèbes"),
+    s(
+      "transmission.v16_horizon.p1",
+      "Paragraphe 1",
+      FIN2,
+      "Organon → École de pensée de Brazzaville → Cité du Savoir → Nouvelle Thèbes. Cette relation décrit un prolongement intellectuel, institutionnel, documentaire et architectural ; elle ne doit pas être réduite à une simple succession décorative.",
+    ),
+    s(
+      "transmission.v16_horizon.p2",
+      "Paragraphe 2",
+      FIN2,
+      "L’Atlas de la Nouvelle Thèbes rassemble dix planches consacrées aux grandes composantes de la cité, du plan directeur aux espaces institutionnels, scientifiques et de transmission, jusqu’à la Bibliothèque générale des œuvres et archives.",
+    ),
+    s(
+      "transmission.v16_horizon.p3",
+      "Paragraphe 3",
+      FIN2,
+      "La Bibliothèque générale des œuvres et archives et la Bibliothèque des Civilisations sont deux composantes distinctes. Le Laboratoire n’est pas une bibliothèque. Aucun fonds, catalogue, bâtiment ou raccordement non vérifié ne doit être inventé.",
     ),
   ],
   listes: [
-    {
-      nom: "niveaux",
-      label: "La Boucle Vertueuse — les trois niveaux d’accès",
-      element: "Niveau",
-      aide: `${S2} — trois cartes, de gauche à droite (la mise en forme dépend du rang : claire, encadrée, sombre). Dans un accès, le texte avant « → » s'affiche en gras.`,
-      champs: [
-        { nom: "niveau", label: "Surtitre (« Niveau 1 »)" },
-        { nom: "titre", label: "Titre" },
-        { nom: "sous_titre", label: "Sous-titre" },
-        { nom: "acces", label: "Accès (une ligne par puce)", type: "lignes" },
+    listeCartes("v16_supports", "Les supports de transmission", `${SUP} — cartes`, [
+      {
+        tag: "01 · PUBLICATIONS",
+        titre: "Les deux tomes",
+        paragraphes: [
+          "Le Tome I établit la théorie de l’intelligibilité ; le Tome II en développe l’application dans le champ du droit constitutionnel. Ils constituent le premier support de transmission.",
+        ],
+      },
+      {
+        tag: "02 · CONFRONTATION",
+        titre: "Rencontres et publications scientifiques",
+        paragraphes: [
+          "Les rencontres, colloques, articles et échanges permettent d’exposer les constructions à la discussion et à la critique. La rencontre de Brazzaville est reportée ; sa nouvelle date reste à fixer.",
+        ],
+      },
+      {
+        tag: "03 · ARCHIVES",
+        titre: "Conservation documentaire",
+        paragraphes: [
+          "Les textes, versions, références, manuscrits et documents de travail doivent être conservés avec leur statut, leur provenance et leur chronologie.",
+        ],
+      },
+      {
+        tag: "04 · FORMATION",
+        titre: "Transmission des méthodes",
+        paragraphes: [
+          "Les ressources et formations pourront être développées progressivement et annoncées lorsqu’elles seront effectivement disponibles.",
+        ],
+      },
+    ]),
+    listeCartes("v16_atlas", "L’Atlas de la Nouvelle Thèbes (dix planches)", `${THEBES} — cartes`, [
+      { tag: "ATLAS · I", titre: "Plan directeur de la Nouvelle Thèbes", paragraphes: ["Matrice spatiale générale de la cité."] },
+      { tag: "ATLAS · II", titre: "Sanctuaire des Principes", paragraphes: ["Architecture intérieure et parcours du sanctuaire."] },
+      { tag: "ATLAS · III", titre: "Porte des Principes", paragraphes: ["Quartier institutionnel."] },
+      { tag: "ATLAS · IV", titre: "Quartiers scientifiques", paragraphes: ["Anneau des Sciences."] },
+      { tag: "ATLAS · V", titre: "Place de la Recherche", paragraphes: ["Cœur opérationnel."] },
+      { tag: "ATLAS · VI", titre: "Laboratoires", paragraphes: ["Les Ateliers de la Cité."] },
+      { tag: "ATLAS · VII", titre: "Jardins de la Réflexion", paragraphes: ["Espaces de réflexion."] },
+      { tag: "ATLAS · VIII", titre: "Amphithéâtres et Forums", paragraphes: ["Espaces de rencontre et de confrontation."] },
+      { tag: "ATLAS · IX", titre: "Cycle scientifique de la recherche", paragraphes: ["Représentation du cycle scientifique."] },
+      {
+        tag: "ATLAS · X",
+        titre: "Bibliothèque générale des œuvres et archives",
+        paragraphes: ["Conservation des œuvres et archives du projet."],
+      },
+    ]),
+    listeCartes(
+      "v16_bibliotheques",
+      "Les deux bibliothèques",
+      `${BIB} — cartes`,
+      [
         {
-          nom: "condition",
-          label: "Condition, affichée sur la flèche qui mène à ce niveau (une ligne par ligne ; vide pour le premier)",
-          type: "lignes",
-        },
-      ],
-      origine: [
-        {
-          niveau: "Niveau 1",
-          titre: "Accès libre",
-          sous_titre: "Diffusion doctrinale",
-          acces: [
-            "Résumés exécutifs des Working Papers",
-            "Présentation des Concepts Stabilisés",
-            "Extraits de l’Arrêt Pilote (considérants uniquement)",
+          titre: "Bibliothèque générale",
+          paragraphes: [
+            "Consacrée aux œuvres et archives du projet. Elle ne doit pas être confondue avec le Laboratoire.",
           ],
-          condition: [],
         },
         {
-          niveau: "Niveau 2",
-          titre: "Accès conditionné",
-          sous_titre: "Par l’inscription aux modules",
-          acces: [
-            "Module I validé → Accès aux Working Papers intégraux (WP-01, WP-02, WP-03)",
-            "Module II validé → Accès au Guide Technique d’Invocation intégral + Arrêt Pilote intégral commenté",
-          ],
-          condition: ["Module I", "ou II validé"],
-        },
-        {
-          niveau: "Niveau 3",
-          titre: "Accès premium",
-          sous_titre: "Module III",
-          acces: [
-            "Modèles d’actes juridictionnels personnalisés",
-            "Conseil stratégique sur mesure",
-            "Accès privilégié au Programme de Recherche",
-          ],
-          condition: ["Module III"],
+          titre: "Bibliothèque des Civilisations",
+          paragraphes: ["Composante architecturale distincte de la Bibliothèque générale des œuvres et archives."],
         },
       ],
-    },
-    {
-      nom: "etapes",
-      label: "La Boucle Vertueuse — les quatre étapes du parcours",
-      element: "Étape",
-      aide: `${S2} — frise sous les trois niveaux. Un code « EBZ-… » s'affiche en police à chasse fixe.`,
-      champs: [
-        { nom: "cap", label: "Repère (« 1 · Transmission »)" },
-        { nom: "texte", label: "Texte" },
-      ],
-      origine: [
-        { cap: "1 · Transmission", texte: "S’inscrire à un module" },
-        { cap: "2 · Formation", texte: "Valider le module" },
-        { cap: "3 · Confirmation", texte: "Recevoir le code EBZ-XXXX-XXXX" },
-        { cap: "4 · Laboratoire", texte: "Saisir le code, l’arsenal se débloque" },
-      ],
-    },
-    {
-      nom: "acces_modules",
-      label: "La grille des modules — accès débloqué par chaque module",
-      element: "Module",
-      aide: `${S3} — ligne « Accès » du tableau, dans l’ordre des modules (I, II, III)`,
-      champs: [{ nom: "texte", label: "Accès débloqué" }],
-      origine: [
-        { texte: "Working Papers intégraux (WP-01, WP-02, WP-03)" },
-        { texte: "Guide Technique d’Invocation intégral + Arrêt Pilote intégral commenté" },
-        { texte: "Modèles d’actes, conseil stratégique, Programme de Recherche" },
-      ],
-    },
-    {
-      nom: "moyens_paiement",
-      label: "Paiement — les moyens acceptés",
-      element: "Moyen de paiement",
-      aide: `${S4} — trois colonnes (icônes dans l'ordre : mobile, carte, devises)`,
-      champs: [
-        { nom: "titre", label: "Intitulé" },
-        { nom: "detail", label: "Détail", type: "zone" },
-      ],
-      origine: [
-        { titre: "Mobile Money (Zone CEMAC et Afrique)", detail: "MTN, Airtel, Orange, Moov." },
-        { titre: "Cartes Bancaires Internationales", detail: "Visa, Mastercard (Europe, Amériques, Asie, Afrique)." },
-        {
-          titre: "Devises",
-          detail: "Euro (EUR) et Franc CFA (XAF), avec conversion automatique au taux officiel.",
-        },
-      ],
-    },
+      { tags: false },
+    ),
   ],
 };

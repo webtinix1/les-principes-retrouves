@@ -1,0 +1,60 @@
+/*
+ * Les ouvrages — compléments au prototype V16 (v16.css) pour le site multipage.
+ *
+ * Le bouton d'achat d'une carte devient un lien quand l'adresse de la page
+ * produit est saisie (Boutique › Vente des ouvrages) : il garde l'allure du
+ * bouton natif du prototype (que le reset de Tailwind efface aussi sur <button>).
+ */
+#page-ouvrage .btn-primary {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  background: #efefef;
+  color: #000;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: normal;
+}
+#page-ouvrage .btn-primary:hover {
+  background: #e5e5e5;
+}
+
+/* Pages /ouvrage/<tome> et /ouvrage/<tome>/<texte> : liens et navigation. */
+#page-ouvrage .ouvrage-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.5rem 0;
+}
+#page-ouvrage .ouvrage-navigation a {
+  font: inherit;
+  border: 1px solid var(--gold);
+  border-radius: 5px;
+  padding: 0.65rem 0.9rem;
+  background: #fff;
+  color: var(--navy);
+  text-decoration: none;
+}
+#page-ouvrage .ouvrage-navigation a.suivant {
+  background: var(--navy);
+  color: #fff;
+}
+#page-ouvrage .ouvrage-sommaire .interactive-excerpt {
+  display: block;
+}
+#page-ouvrage .ouvrage-sommaire .interactive-excerpt h3 a {
+  color: inherit;
+}
+#page-ouvrage .full-reading-body.ouvrage-texte {
+  margin: 1rem 0 2rem;
+}
+#page-ouvrage .ouvrage-achat {
+  margin: 1.25rem 0;
+}
+#page-ouvrage .ouvrage-sommaire a,
+#page-ouvrage #plan a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

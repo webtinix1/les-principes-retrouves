@@ -1,7 +1,7 @@
 /**
- * Textes en lecture libre sur le site (cartes Trello « Modification Tome I »
- * et « Modification Tome II »). Un texte est une suite de blocs typés, rendue
- * par `components/lecture.tsx`.
+ * Textes en lecture libre sur le site (prototype maître V16, page « Les
+ * ouvrages ») : un extrait, puis la lecture intégrale, suite de blocs typés
+ * rendue par `components/lecture.tsx`.
  */
 export type BlocLecture =
   /** Paragraphe de prose. */
@@ -21,8 +21,13 @@ export type TexteLecture = {
   slug: string;
   titre: string;
   sous_titre: string | null;
+  /** Rubrique de l'extrait (« TEXTE LIMINAIRE · », « CHAPITRE INTÉGRAL · »…). */
+  etiquette?: string;
+  /** Extrait présenté dans le lecteur de la page Les ouvrages (sans les guillemets « », ajoutés au rendu). */
+  extrait?: string;
   exergue?: string;
   exergue_source?: string;
+  /** Lecture intégrale du texte. */
   blocs: BlocLecture[];
 };
 

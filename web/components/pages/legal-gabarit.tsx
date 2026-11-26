@@ -1,10 +1,14 @@
-import { FilAriane, SurCettePage, type EntreeSommaire } from "@/components/editorial";
+import Link from "next/link";
 import { getTexte } from "@/lib/contenu";
+import "@/app/(frontend)/(site)/pages-annexes.css";
+
+export type EntreeSommaire = { id: string; label: string };
 
 /**
- * Gabarit de lecture simple des pages légales (mentions, confidentialité, CGV) :
- * fil d'Ariane, titre sur papier, avertissement éventuel, sommaire collant à
- * gauche (ordinateur) et colonne de lecture de 680 px.
+ * Gabarit des pages légales (mentions, confidentialité, CGV) dans l'allure du
+ * prototype maître V16 : bandeau `.page-head` (fil d'Ariane en surtitre,
+ * titre, sous-titre éventuel), puis `.content > .wrap` avec le sommaire en
+ * carte à gauche (ordinateur) et la colonne de lecture.
  */
 export async function GabaritLegal({
   titre,
@@ -20,50 +24,60 @@ export async function GabaritLegal({
   sommaire: EntreeSommaire[];
   children: React.ReactNode;
 }) {
-  const accueil = await getTexte("site_interface.legal.fil_accueil");
+  const [accueil, aria, titreSommaire] = await Promise.all([
+    getTexte("site_interface.legal.fil_accueil"),
+    getTexte("site_interface.fil_ariane.aria"),
+    getTexte("site_interface.sommaire.titre"),
+  ]);
   return (
-    <>
-      <section className="surface-claire border-b border-filet bg-papier px-5 pt-8 pb-12 md:pt-12 md:pb-16 lg:px-6 xl:px-10">
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-8">
-          <FilAriane items={[{ label: accueil, href: "/accueil" }, { label: titre }]} />
-          <div className="flex flex-col gap-4 lg:ml-[calc(25%+6px)] lg:max-w-[760px]">
-            <h1 className="m-rise font-titre text-[2.125rem] leading-[1.1] font-medium text-balance text-encre md:text-[3.25rem] md:leading-[1.06]" style={{ "--dl": "100ms" } as React.CSSProperties}>
-              {titre}
-            </h1>
-            {sousTitre && (
-              <p className="m-rise font-texte text-[1.125rem] leading-[1.5] text-encre-2 italic md:text-[1.3125rem]" style={{ "--dl": "250ms" } as React.CSSProperties}>
-                {sousTitre}
-              </p>
+    <section className="page fade annexe-v16">
+      <div className="page-head">
+        <div className="wrap">
+          <nav aria-label={aria} className="eyebrow">
+            <Link href="/accueil">{accueil}</Link>
+            <span className="sep" aria-hidden="true">/</span>
+            <span aria-current="page">{titre}</span>
+          </nav>
+          <h1>{titre}</h1>
+          {sousTitre && <p>{sousTitre}</p>}
+        </div>
+      </div>
+      <div className="content">
+        <div className="wrap annexe-colonnes annexe-colonnes--sommaire">
+          <div>
+            {sommaire.length > 0 && (
+              <nav aria-label={titreSommaire} className="card annexe-sommaire">
+                <div className="tag">{titreSommaire}</div>
+                <ol>
+                  {sommaire.map((e) => (
+                    <li key={e.id}>
+                      <a href={`#${e.id}`}>{e.label}</a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             )}
           </div>
-        </div>
-      </section>
-
-      <section className="surface-claire bg-papier px-5 pt-10 pb-14 md:pt-16 md:pb-24 lg:px-6 xl:px-10">
-        <div className="mx-auto grid max-w-[1280px] gap-x-6 gap-y-10 lg:grid-cols-12">
-          <div className="lg:col-span-3">
-            <SurCettePage entrees={sommaire} className="lg:sticky lg:top-8" />
-          </div>
-          <div className="flex min-w-0 flex-col gap-10 lg:col-span-7 lg:col-start-4">
+          <div className="annexe-texte">
             {avertissement && (
-              <div
-                role="note"
-                className="max-w-[680px] rounded-[4px] border border-dashed border-filet-fort bg-papier-2 px-5 py-4 font-ui text-sm leading-[1.6] text-encre-2"
-              >
+              <div role="note" className="annexe-avertissement">
                 {avertissement}
               </div>
             )}
             {children}
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
-/** Classes des intertitres et listes du texte légal (alignées sur le HTML riche de `bloc.tsx`). */
-export const H2_LEGAL = "mt-12 font-titre text-2xl leading-[1.25] font-medium text-encre first:mt-0 md:text-[1.75rem]";
-export const LISTE_LEGALE = "mt-4 flex list-disc flex-col gap-2 pl-6 marker:text-encre-3";
-export const LIEN_LEGAL = "text-lien underline underline-offset-[3px] hover:text-encre";
-export const CODE_LEGAL = "font-code text-[0.9em] text-encre-2";
-
+/**
+ * Classes des intertitres, listes et liens du texte légal. La mise en forme
+ * vient de `pages-annexes.css` (`.annexe-texte`), commune au JSX d'origine et
+ * au HTML du back-office.
+ */
+export const H2_LEGAL = "";
+export const LISTE_LEGALE = "";
+export const LIEN_LEGAL = "";
+export const CODE_LEGAL = "annexe-code";

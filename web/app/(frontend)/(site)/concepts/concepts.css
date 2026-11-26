@@ -1,0 +1,4 @@
+/* Concepts : les ancres (/concepts#maat) ne passent pas sous l'en-tête collant. */
+#page-concepts [id] {
+  scroll-margin-top: 120px;
+}
