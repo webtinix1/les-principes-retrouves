@@ -116,3 +116,10 @@ Remplacement du fichier PDF : dans Chariow (produit › fichier), pas sur le sit
 3. CinetPay comme prestataire de l'imprimé, sous réserve des confirmations du §4.3.
 4. Création de la Pulse Chariow pour l'enregistrement automatique des ventes numériques.
 5. Prix numériques : 69 € (Tome I) et 59 € (Tome II) sont ceux déjà publiés ; ils doivent être identiques dans Chariow.
+
+## 10. Accès, pages existantes et conformité
+
+- **Accès** : lien « La librairie » dans le pied de page (libellé éditable dans Site › Navigation) et dans le sitemap ; lien « Fiche de l'ouvrage et édition imprimée » sous le bouton d'achat des pages de lecture. Le menu principal garde ses dix entrées (structure fixée par le document de synthèse) ; l'ajout d'une onzième entrée est une décision éditoriale à valider.
+- **Page « Les ouvrages »** : inchangée, textes compris (consigne client). Ses cartes mènent toujours à Chariow ; la fiche de chaque ouvrage est le point d'entrée complet des deux circuits.
+- **CGV** : la page existante concerne les modules de formation ; elle n'a pas été modifiée. Les conditions d'achat et de livraison des ouvrages sont portées par les fiches (champs éditables). Si le client souhaite un texte unique, la page CGV devra être rédigée par lui : aucun texte juridique n'a été inventé.
+- **Textes** : tous les libellés de la librairie, des courriels et du suivi de commande sont éditables (Pages › La librairie). Seuls les intitulés techniques de l'administration restent dans le code.

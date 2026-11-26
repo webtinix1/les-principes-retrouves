@@ -2780,6 +2780,14 @@ export interface ContenuLibrairie {
   suivi_remboursee?: string | null;
   suivi_transporteur?: string | null;
   suivi_numero_suivi?: string | null;
+  suivi_total?: string | null;
+  suivi_libelle_en_attente_paiement?: string | null;
+  suivi_libelle_payee?: string | null;
+  suivi_libelle_en_impression?: string | null;
+  suivi_libelle_expediee?: string | null;
+  suivi_libelle_livree?: string | null;
+  suivi_libelle_annulee?: string | null;
+  suivi_libelle_remboursee?: string | null;
   suivi_reclamation?: string | null;
   reclamation_seo_titre?: string | null;
   reclamation_titre?: string | null;
@@ -3218,6 +3226,7 @@ export interface ContenuSiteNavigation {
   pied_mentions?: string | null;
   pied_lien_mentions_legales?: string | null;
   pied_lien_confidentialite?: string | null;
+  pied_lien_librairie?: string | null;
   pied_lien_cgv?: string | null;
   seo_titre_defaut?: string | null;
   seo_modele_titre?: string | null;
@@ -4204,6 +4213,14 @@ export interface ContenuLibrairieSelect<T extends boolean = true> {
   suivi_remboursee?: T;
   suivi_transporteur?: T;
   suivi_numero_suivi?: T;
+  suivi_total?: T;
+  suivi_libelle_en_attente_paiement?: T;
+  suivi_libelle_payee?: T;
+  suivi_libelle_en_impression?: T;
+  suivi_libelle_expediee?: T;
+  suivi_libelle_livree?: T;
+  suivi_libelle_annulee?: T;
+  suivi_libelle_remboursee?: T;
   suivi_reclamation?: T;
   reclamation_seo_titre?: T;
   reclamation_titre?: T;
@@ -4501,6 +4518,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   pied_mentions?: T;
   pied_lien_mentions_legales?: T;
   pied_lien_confidentialite?: T;
+  pied_lien_librairie?: T;
   pied_lien_cgv?: T;
   seo_titre_defaut?: T;
   seo_modele_titre?: T;

@@ -29,7 +29,8 @@
   gap: 0.6rem 1.4rem;
   margin: 0 0 1.4rem;
 }
-#page-librairie a:not(.btn) {
+#page-librairie .content a:not(.btn) {
+  color: var(--navy);
   text-decoration: underline;
   text-underline-offset: 3px;
 }

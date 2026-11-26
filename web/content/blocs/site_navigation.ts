@@ -297,6 +297,13 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       defaut: "Politique de confidentialité",
     },
     {
+      cle: "site_navigation.pied.lien_librairie",
+      label: "Lien « La librairie »",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut: "La librairie",
+    },
+    {
       cle: "site_navigation.pied.lien_cgv",
       label: "Lien « Conditions de vente »",
       type: "simple",

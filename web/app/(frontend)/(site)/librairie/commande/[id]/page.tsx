@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getTextes, remplir } from "@/lib/contenu";
 import { actualiserPaiement } from "@/lib/librairie/commande";
 import { formaterEuro } from "@/lib/librairie/donnees";
-import { STATUT_COMMANDE_OUVRAGE } from "@/lib/librairie/statuts";
 import { payloadClient } from "@/lib/payload";
 import "../../librairie.css";
 
@@ -34,7 +33,7 @@ export default async function SuiviCommandePage({ params }: { params: Promise<{ 
           <div className="eyebrow">{t["suivi.surtitre"]}</div>
           <h1>{remplir(t["suivi.titre"], { numero: c.numero ?? "" })}</h1>
           <p data-testid="statut">
-            {t["suivi.statut"]} : {STATUT_COMMANDE_OUVRAGE[c.statut]}
+            {t["suivi.statut"]} : {t[`suivi.libelle_${c.statut}`]}
           </p>
         </div>
       </div>
@@ -46,7 +45,7 @@ export default async function SuiviCommandePage({ params }: { params: Promise<{ 
             <dd>
               {c.quantite} × {formaterEuro(c.prix_unitaire)}
             </dd>
-            <dt>Total</dt>
+            <dt>{t["suivi.total"]}</dt>
             <dd>{formaterEuro(c.total)}</dd>
             {(c.transporteur || c.numero_suivi) && (
               <>
