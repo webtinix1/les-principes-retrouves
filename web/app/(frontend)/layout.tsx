@@ -4,6 +4,8 @@ import { getTexte } from "@/lib/contenu";
 import "./globals.css";
 // Charte du prototype maître V16 (Georgia / Arial, polices système : aucun téléchargement).
 import "./v16.css";
+// Améliorations UI/UX (audit) : complète v16.css sans la modifier.
+import "./ux.css";
 
 // Métadonnées par défaut : éditables dans le back-office, global « Site —
 // Navigation et pied de page » (section « Référencement »).

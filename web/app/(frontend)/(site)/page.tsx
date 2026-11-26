@@ -35,14 +35,17 @@ export default async function Fronton() {
             fetchPriority="high"
           />
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="pyramid-image"
-          src="/v16/pyramide-maat-sigma.webp"
-          alt={t["pyramide_alt"]}
-          width={1800}
-          height={986}
-        />
+        {/* Lien vers l’image seule : agrandissable au doigt sur mobile, où son texte est petit. */}
+        <a className="pyramid-lien" href="/v16/pyramide-maat-sigma.webp" target="_blank" rel="noopener">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="pyramid-image"
+            src="/v16/pyramide-maat-sigma.webp"
+            alt={t["pyramide_alt"]}
+            width={1800}
+            height={986}
+          />
+        </a>
         <div aria-label={t["thebes_aria"]} className="thebes-river" role="img">
           <div className="thebes-river-title">{t["thebes_titre"]}</div>
         </div>
@@ -54,6 +57,7 @@ export default async function Fronton() {
             alt={t["balance_alt"]}
             width={375}
             height={310}
+            loading="lazy"
           />
         </div>
       </div>

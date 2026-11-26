@@ -32,7 +32,7 @@ export default async function Constitution() {
           <p className="lead">{t["introduction.lead"]}</p>
           {articles.map((a, i) => (
             <Fragment key={i}>
-              <h3>{a.titre}</h3>
+              <h2 className="titre-h3">{a.titre}</h2>
               <p>{a.texte}</p>
             </Fragment>
           ))}

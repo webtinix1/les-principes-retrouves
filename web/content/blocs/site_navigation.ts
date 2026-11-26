@@ -261,6 +261,13 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       defaut: "Revenir au début",
     },
     {
+      cle: "site_navigation.sommaire.titre",
+      label: "Sommaire de la page — intitulé du bouton",
+      type: "simple",
+      aide: "Sommaire des pages longues (barre affichée sous l’en-tête pendant la lecture)",
+      defaut: "Dans cette page",
+    },
+    {
       cle: "site_navigation.pied.adresse",
       label: "Adresse",
       type: "simple",

@@ -113,7 +113,7 @@ export default async function LecturePage({ params }: { params: Promise<{ tome: 
           <AcquerirTome offre={vente[recueil.tome]} etiquette={recueil.etiquette} />
 
           <div className="card">
-            <h3>{t("citer.titre")}</h3>
+            <h2 className="titre-h3">{t("citer.titre")}</h2>
             <p>
               {modeleReference.split("*").map((morceau, i) => (i % 2 === 1 ? <em key={i}>{morceau}</em> : morceau))}
             </p>

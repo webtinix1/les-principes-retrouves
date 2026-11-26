@@ -59,7 +59,7 @@ export default async function OuvragePage() {
                 height={1024}
               />
               <div className="tag">{t["tome_i.rubrique"]}</div>
-              <h3>{t["tome_i.titre"]}</h3>
+              <h2 className="titre-h3">{t["tome_i.titre"]}</h2>
               <p>{t["tome_i.description"]}</p>
               <div className="price">
                 {t["tome_i.prix"]} <small>{t["tome_i.prix_format"]}</small>
@@ -78,7 +78,7 @@ export default async function OuvragePage() {
               />
               <div className="tag">{t["tome_ii.rubrique"]}</div>
               <p className="author-designation">{t["tome_ii.auteur"]}</p>
-              <h3>{t["tome_ii.titre"]}</h3>
+              <h2 className="titre-h3">{t["tome_ii.titre"]}</h2>
               <p>
                 <em>{t["tome_ii.sous_titre"]}</em>
               </p>

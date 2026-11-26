@@ -46,7 +46,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["architecture.titre"]}</h3>
+          <h2 className="titre-h3">{t["architecture.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.architecture.corps">
             <p>
               L’Architecture Préalable ne se constitue pas au moment de la découverte. Elle est la structure profonde
@@ -57,7 +57,7 @@ export default async function NoteEpistemologiquePage() {
           </BlocProseV16>
           <div className="band">{t["architecture.encadre"]}</div>
 
-          <h3>{t["ordre.titre"]}</h3>
+          <h2 className="titre-h3">{t["ordre.titre"]}</h2>
           <div className="equation">{t["ordre.formule"]}</div>
           <BlocProseV16 cle="note_epistemologique.ordre.corps">
             <p>
@@ -68,7 +68,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["crgi.titre"]}</h3>
+          <h2 className="titre-h3">{t["crgi.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.crgi.intro">
             <p>
               La pyramide expose l’Architecture Préalable. Le Cycle de Reconstitution Génétique de l’Intelligibilité
@@ -85,7 +85,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["reconstruction.titre"]}</h3>
+          <h2 className="titre-h3">{t["reconstruction.titre"]}</h2>
           <div className="thesis">{t["reconstruction.these"]}</div>
           <BlocProseV16 cle="note_epistemologique.reconstruction.corps">
             <p>
@@ -103,7 +103,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["metrologie.titre"]}</h3>
+          <h2 className="titre-h3">{t["metrologie.titre"]}</h2>
           <div className="manifesto-banner">
             <h2 className="manifesto-title">{t["metrologie.bandeau_titre"]}</h2>
             <div className="manifesto-line">{t["metrologie.bandeau_ligne"]}</div>
@@ -127,7 +127,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["mecanisme.titre"]}</h3>
+          <h2 className="titre-h3">{t["mecanisme.titre"]}</h2>
           <div className="equation">{t["mecanisme.formule"]}</div>
           <BlocProseV16 cle="note_epistemologique.mecanisme.corps">
             <p>
@@ -145,7 +145,7 @@ export default async function NoteEpistemologiquePage() {
           </BlocProseV16>
           <div className="quote">{t["mecanisme.citation"]}</div>
 
-          <h3>{t["organon.titre"]}</h3>
+          <h2 className="titre-h3">{t["organon.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.organon.corps">
             <p>
               La Science Métamoderne ne désigne pas une discipline supplémentaire venant s’ajouter aux sciences
@@ -159,7 +159,7 @@ export default async function NoteEpistemologiquePage() {
           </div>
           <p className="note">{t["organon.note"]}</p>
 
-          <h3>{t["cascade.titre"]}</h3>
+          <h2 className="titre-h3">{t["cascade.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.cascade.intro">
             <p>
               La cascade entropique désigne la dynamique par laquelle la différenciation des parties, lorsqu’elle
@@ -178,7 +178,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["ellipse.titre"]}</h3>
+          <h2 className="titre-h3">{t["ellipse.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.ellipse.corps">
             <p>
               L’ellipse méthodologique apparaît lorsque le raisonnement passe du phénomène à la formalisation en
@@ -194,7 +194,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["crise.titre"]}</h3>
+          <h2 className="titre-h3">{t["crise.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.crise.corps">
             <p>
               La cascade entropique formule le risque de désarticulation ; l’ellipse méthodologique identifie l’une
@@ -204,7 +204,7 @@ export default async function NoteEpistemologiquePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["unite.titre"]}</h3>
+          <h2 className="titre-h3">{t["unite.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.unite.corps">
             <p>
               La Science Métamoderne ne désigne pas une discipline supplémentaire. Elle travaille sur le réel à un
@@ -245,7 +245,7 @@ export default async function NoteEpistemologiquePage() {
               </p>
             </BlocProseV16>
           </div>
-          <h3>{t["grandeur.titre"]}</h3>
+          <h2 className="titre-h3">{t["grandeur.titre"]}</h2>
           <BlocProseV16 cle="note_epistemologique.grandeur.corps">
             <p>
               La mesure instrumentale demeure pleinement opératoire dans son domaine. La rupture consiste à récuser la

@@ -27,11 +27,12 @@ function AvecDifferent({ x }: { x: string }) {
   );
 }
 
-function Bloc({ bloc }: { bloc: BlocLecture }) {
+function Bloc({ bloc, niveau }: { bloc: BlocLecture; niveau: number }) {
   switch (bloc.t) {
     case "h":
+      // Intertitre : élément <p> du prototype, annoncé comme titre aux lecteurs d'écran.
       return (
-        <p className="source-heading" id={bloc.id}>
+        <p className="source-heading" id={bloc.id} role="heading" aria-level={niveau}>
           {bloc.x}
         </p>
       );
@@ -72,7 +73,7 @@ function Bloc({ bloc }: { bloc: BlocLecture }) {
 }
 
 /** Lecture intégrale d'un texte (corps de `.full-reading-body`). */
-export function CorpsLecture({ texte }: { texte: TexteLecture }) {
+export function CorpsLecture({ texte, niveau = 2 }: { texte: TexteLecture; niveau?: number }) {
   return (
     <>
       {texte.exergue && (
@@ -81,7 +82,7 @@ export function CorpsLecture({ texte }: { texte: TexteLecture }) {
         </p>
       )}
       {texte.blocs.map((bloc, i) => (
-        <Bloc key={i} bloc={bloc} />
+        <Bloc key={i} bloc={bloc} niveau={niveau} />
       ))}
     </>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BlocV16 } from "@/components/v16/bloc-v16";
 import { getListe, getTextes } from "@/lib/contenu";
+import { getNavigation } from "@/lib/navigation-textes";
 import { pageMetadata } from "@/lib/seo";
 import "./accueil.css";
 
@@ -23,11 +24,13 @@ type Tome = {
 
 /** L'Accueil — conforme au prototype maître V16 (section « page-accueil »). */
 export default async function Accueil() {
-  const [t, tomes] = await Promise.all([getTextes("accueil"), getListe<Tome>("accueil.tomes")]);
+  const [t, tomes, nav] = await Promise.all([getTextes("accueil"), getListe<Tome>("accueil.tomes"), getNavigation()]);
   return (
     <section className="page fade" id="page-accueil">
       <div className="fronton-bottom">
         <div className="wrap">
+          {/* Titre de la page pour les lecteurs d’écran : le prototype n’en affiche pas. */}
+          <h1 className="sr-only">{nav.textes["titre.accueil"]}</h1>
           <div className="eyebrow">{t["entree.eyebrow"]}</div>
           <p className="diptyque">{t["entree.diptyque"]}</p>
           <div className="hero-actions">
@@ -54,7 +57,7 @@ export default async function Accueil() {
 
           <div className="band">
             <div className="tag">{t["diagnostic.tag"]}</div>
-            <h3>{t["diagnostic.titre"]}</h3>
+            <h2 className="titre-h3">{t["diagnostic.titre"]}</h2>
             <BlocV16 cle="accueil.diagnostic.corps">
               <p>
                 Les Principes Retrouvés diagnostiquent une dynamique de dégradation : spécialisation → segmentation →
@@ -73,12 +76,12 @@ export default async function Accueil() {
             </BlocV16>
           </div>
 
-          <h3>{t["ellipse.titre"]}</h3>
+          <h2 className="titre-h3">{t["ellipse.titre"]}</h2>
           <p>{t["ellipse.texte"]}</p>
           <div className="equation">{t["ellipse.equation"]}</div>
           <p>{t["ellipse.suite"]}</p>
 
-          <h3>{t["rupture.titre"]}</h3>
+          <h2 className="titre-h3">{t["rupture.titre"]}</h2>
           <BlocV16 cle="accueil.rupture.corps">
             <p>
               Ni l’Occident ni la science contemporaine ne constituent l’origine absolue de l’intelligibilité. Les
@@ -139,7 +142,7 @@ export default async function Accueil() {
             </Link>
           </div>
 
-          <h3>{t["diptyque_fondateur.titre"]}</h3>
+          <h2 className="titre-h3">{t["diptyque_fondateur.titre"]}</h2>
           <div className="grid">
             {tomes.map((tome, i) => (
               <article className="card" key={i}>

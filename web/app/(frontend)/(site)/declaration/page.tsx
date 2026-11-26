@@ -45,7 +45,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["kemet.titre"]}</h3>
+          <h2 className="titre-h3">{t["kemet.titre"]}</h2>
           <BlocProseV16 cle="declaration.kemet.corps">
             <p>
               La recherche prend Kemet comme point de départ intellectuel majeur. Elle examine les matériaux
@@ -59,7 +59,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["sigma.titre"]}</h3>
+          <h2 className="titre-h3">{t["sigma.titre"]}</h2>
           <BlocProseV16 cle="declaration.sigma.intro">
             <p>
               Maât désigne le principe d’intelligibilité au niveau principiel. Σ en constitue la formalisation
@@ -76,7 +76,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["restauration.titre"]}</h3>
+          <h2 className="titre-h3">{t["restauration.titre"]}</h2>
           <BlocProseV16 cle="declaration.restauration.corps">
             <p>
               La recherche examine les rapports entre l’ordre juste, la responsabilité attachée à une fonction et la
@@ -92,7 +92,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["decolonisation.titre"]}</h3>
+          <h2 className="titre-h3">{t["decolonisation.titre"]}</h2>
           <BlocProseV16 cle="declaration.decolonisation.corps">
             <p>
               Restituer à Maât sa portée principielle participe à la critique de l’européanisation exclusive de la
@@ -107,7 +107,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["examen.titre"]}</h3>
+          <h2 className="titre-h3">{t["examen.titre"]}</h2>
           <BlocProseV16 cle="declaration.examen.corps">
             <p>
               La place accordée à Maât dans Les Principes Retrouvés constitue une proposition théorique qui doit être
@@ -120,7 +120,7 @@ export default async function DeclarationPage() {
             <strong>{t["examen.encadre"]}</strong>
           </div>
 
-          <h3>{t["desarticulation.titre"]}</h3>
+          <h2 className="titre-h3">{t["desarticulation.titre"]}</h2>
           <BlocProseV16 cle="declaration.desarticulation.corps">
             <p>
               La recherche associe à la matrice de Maât un diagnostic contemporain : une organisation peut se
@@ -137,7 +137,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["demonstration.titre"]}</h3>
+          <h2 className="titre-h3">{t["demonstration.titre"]}</h2>
           <BlocProseV16 cle="declaration.demonstration.corps">
             <p>
               La portée universelle revendiquée par Les Principes Retrouvés ne procède ni de leur lieu d’énonciation
@@ -152,7 +152,7 @@ export default async function DeclarationPage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["droit.titre"]}</h3>
+          <h2 className="titre-h3">{t["droit.titre"]}</h2>
           <BlocProseV16 cle="declaration.droit.corps">
             <p>
               La recherche soutient que des questions aujourd’hui formulées par le droit contemporain — ordre juste,
@@ -168,7 +168,7 @@ export default async function DeclarationPage() {
               à partir de leurs contextes historiques propres.
             </p>
           </BlocProseV16>
-          <h3>{t["reintegration.titre"]}</h3>
+          <h2 className="titre-h3">{t["reintegration.titre"]}</h2>
           <BlocProseV16 cle="declaration.reintegration.corps">
             <p>
               La Science Métamoderne prend en charge la pluralité des sciences à un niveau supérieur d’intelligibilité.
@@ -177,7 +177,7 @@ export default async function DeclarationPage() {
               constituent les instruments de cette ambition reconstructive.
             </p>
           </BlocProseV16>
-          <h3>{t["transmission.titre"]}</h3>
+          <h2 className="titre-h3">{t["transmission.titre"]}</h2>
           <BlocProseV16 cle="declaration.transmission.corps">
             <p>
               La vocation de l’œuvre est de transmettre la capacité de reconstruire : retrouver les relations,

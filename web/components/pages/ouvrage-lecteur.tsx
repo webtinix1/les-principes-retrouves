@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { TexteLecture } from "@/content/lectures";
 import { CorpsLecture, ExtraitTexte } from "@/components/lecture";
 
@@ -40,6 +40,20 @@ export function OuvrageLecteur({ tomes, libelles }: { tomes: TomeLecteur[]; libe
   const [tomeCourant, setTomeCourant] = useState(premier?.tome ?? "");
   const [choix, setChoix] = useState(premier?.textes[0] ? cleDe(premier.tome, premier.textes[0].slug) : "");
   const [integral, setIntegral] = useState(false);
+  const racine = useRef<HTMLDivElement>(null);
+
+  /** Après un choix, amène le texte choisi à l’écran (utile sur mobile, où la liste est longue). */
+  function montrer(selecteur: string) {
+    requestAnimationFrame(() => {
+      const cible = racine.current?.querySelector<HTMLElement>(selecteur);
+      if (!cible) return;
+      const haut = cible.getBoundingClientRect().top;
+      if (haut < 90 || haut > window.innerHeight * 0.75) {
+        const reduit = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        cible.scrollIntoView({ behavior: reduit ? "auto" : "smooth", block: "start" });
+      }
+    });
+  }
 
   const visibles = tomes.find((t) => t.tome === tomeCourant)?.textes ?? [];
   const selection = tomes
@@ -55,9 +69,15 @@ export function OuvrageLecteur({ tomes, libelles }: { tomes: TomeLecteur[]; libe
   }
 
   return (
-    <div className={integral ? "reading-library is-full-reading" : "reading-library"}>
+    <div ref={racine} className={integral ? "reading-library is-full-reading" : "reading-library"}>
       <div className="ouvrage-full-reader-bar" style={{ display: integral ? "flex" : "none" }}>
-        <button type="button" onClick={() => setIntegral(false)}>
+        <button
+          type="button"
+          onClick={() => {
+            setIntegral(false);
+            montrer(".ouvrage-reader-controls");
+          }}
+        >
           {libelles.retour}
         </button>
         <strong>{integral ? selection?.texte.titre : ""}</strong>
@@ -89,6 +109,7 @@ export function OuvrageLecteur({ tomes, libelles }: { tomes: TomeLecteur[]; libe
                 onClick={() => {
                   setChoix(cle);
                   setIntegral(false);
+                  montrer(".ouvrage-selected-action");
                 }}
               >
                 {x.titre}
@@ -102,7 +123,11 @@ export function OuvrageLecteur({ tomes, libelles }: { tomes: TomeLecteur[]; libe
             type="button"
             className="ouvrage-read-full"
             style={{ display: aUnIntegral ? "inline-block" : "none" }}
-            onClick={() => aUnIntegral && setIntegral(true)}
+            onClick={() => {
+              if (!aUnIntegral) return;
+              setIntegral(true);
+              montrer(".ouvrage-full-reader-bar");
+            }}
           >
             {libelles.lireIntegral}
           </button>
@@ -135,7 +160,8 @@ function TomeTextes({
 }) {
   return (
     <>
-      <h2>{tome.libelle}</h2>
+      {/* Intertitre du tome masqué tant qu’aucun de ses textes n’est affiché. */}
+      <h2 hidden={!choix.startsWith(tome.tome + "/")}>{tome.libelle}</h2>
       {tome.textes.map((x) => (
         <ExtraitTexte
           key={x.slug}
@@ -158,7 +184,7 @@ function TomeTextes({
               <small>{ouvrirIntegral}</small>
             </summary>
             <div className="full-reading-body">
-              <CorpsLecture texte={x} />
+              <CorpsLecture texte={x} niveau={3} />
             </div>
           </details>
         );

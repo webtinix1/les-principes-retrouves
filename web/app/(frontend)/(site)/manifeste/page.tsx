@@ -32,7 +32,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["declin.titre"]}</h3>
+          <h2 className="titre-h3">{t["declin.titre"]}</h2>
           <BlocProseV16 cle="manifeste.declin.corps">
             <p>
               Lorsque la spécialisation ne s’accompagne plus d’une reconstruction des relations, la fragmentation peut
@@ -48,7 +48,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["formalisation.titre"]}</h3>
+          <h2 className="titre-h3">{t["formalisation.titre"]}</h2>
           <BlocProseV16 cle="manifeste.formalisation.intro">
             <p>
               La formalisation est le terme d’une genèse articulée, non son origine absolue. Sa possibilité présuppose
@@ -64,7 +64,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["ellipse.titre"]}</h3>
+          <h2 className="titre-h3">{t["ellipse.titre"]}</h2>
           <BlocProseV16 cle="manifeste.ellipse.corps">
             <p>
               L’ellipse méthodologique désigne l’effacement des médiations par lesquelles le phénomène est observé, la
@@ -79,7 +79,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["brazzaville.titre"]}</h3>
+          <h2 className="titre-h3">{t["brazzaville.titre"]}</h2>
           <BlocProseV16 cle="manifeste.brazzaville.corps">
             <p>
               Depuis Brazzaville, Les Principes Retrouvés entendent rechercher et formaliser les conditions communes
@@ -94,7 +94,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["maat.titre"]}</h3>
+          <h2 className="titre-h3">{t["maat.titre"]}</h2>
           <BlocProseV16 cle="manifeste.maat.corps">
             <p>
               Kemet constitue le point de départ intellectuel majeur de cette recherche. Maât désigne le principe
@@ -105,7 +105,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["metamoderne.titre"]}</h3>
+          <h2 className="titre-h3">{t["metamoderne.titre"]}</h2>
           <BlocProseV16 cle="manifeste.metamoderne.intro">
             <p>
               La Science Métamoderne ne désigne pas une discipline supplémentaire. Elle travaille sur le réel à un
@@ -126,7 +126,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["proactivite.titre"]}</h3>
+          <h2 className="titre-h3">{t["proactivite.titre"]}</h2>
           <BlocProseV16 cle="manifeste.proactivite.corps">
             <p>
               Le Tome II examine comment les questions du droit contemporain — clôture procédurale, effectivité
@@ -141,7 +141,7 @@ export default async function ManifestePage() {
             </p>
           </BlocProseV16>
 
-          <h3>{t["examen.titre"]}</h3>
+          <h2 className="titre-h3">{t["examen.titre"]}</h2>
           <BlocProseV16 cle="manifeste.examen.corps">
             <p>
               Les Principes Retrouvés ne demandent pas une adhésion préalable. Ils proposent une reconstruction de

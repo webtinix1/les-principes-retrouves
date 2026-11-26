@@ -32,23 +32,23 @@ export default async function LaboratoirePage() {
         <div className="wrap">
           <p className="lead">{t["v16_ouverture.chapeau"]}</p>
 
-          <h3>{t["v16_s1.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_s1.titre"]}</h2>
           <p>{t["v16_s1.texte"]}</p>
           <GrilleCartes cartes={requetes} />
           <div className="band">
             <strong>{t["v16_s1.constat_intitule"]}</strong> {t["v16_s1.constat_texte"]}
           </div>
 
-          <h3>{t["v16_s2.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_s2.titre"]}</h2>
           <p>{t["v16_s2.p1"]}</p>
           <p>{t["v16_s2.p2"]}</p>
 
-          <h3>{t["v16_s3.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_s3.titre"]}</h2>
           <p>{t["v16_s3.p1"]}</p>
           <p>{t["v16_s3.p2"]}</p>
           <GrilleCartes cartes={fondements} />
 
-          <h3>{t["v16_s4.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_s4.titre"]}</h2>
           <p>{t["v16_s4.p1"]}</p>
           <ul>
             {notions.map((n, i) => (
@@ -59,22 +59,22 @@ export default async function LaboratoirePage() {
           </ul>
           <p>{t["v16_s4.p2"]}</p>
 
-          <h3>{t["v16_s5.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_s5.titre"]}</h2>
           <p>{t["v16_s5.p1"]}</p>
           <div className="band">
             <strong>{t["v16_s5.encadre"]}</strong>
           </div>
 
-          <h3>{t["v16_operateurs.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_operateurs.titre"]}</h2>
           <p>{t["v16_operateurs.intro"]}</p>
           <GrilleCartes cartes={operateurs} />
           <p className="caption">{t["v16_operateurs.legende"]}</p>
 
-          <h3>{t["v16_cascade.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_cascade.titre"]}</h2>
           <div className="equation">{t["v16_cascade.sequence"]}</div>
           <p>{t["v16_cascade.texte"]}</p>
 
-          <h3>{t["v16_guide.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_guide.titre"]}</h2>
           <div className="equation">{t["v16_guide.sequence"]}</div>
           <p>{t["v16_guide.texte"]}</p>
         </div>

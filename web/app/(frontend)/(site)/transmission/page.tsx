@@ -32,21 +32,21 @@ export default async function TransmissionPage() {
           <p className="lead">{t["v16_ouverture.chapeau"]}</p>
           <div className="equation">{t["v16_ouverture.sequence"]}</div>
 
-          <h3>{t["v16_supports.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_supports.titre"]}</h2>
           <GrilleCartes cartes={supports} />
 
-          <h3>{t["v16_thebes.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_thebes.titre"]}</h2>
           <p>{t["v16_thebes.texte"]}</p>
           <GrilleCartes cartes={atlas} />
 
-          <h3>{t["v16_bibliotheques.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_bibliotheques.titre"]}</h2>
           <GrilleCartes cartes={bibliotheques} />
 
-          <h3>{t["v16_rencontre.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_rencontre.titre"]}</h2>
           <p>{t["v16_rencontre.p1"]}</p>
           <p>{t["v16_rencontre.p2"]}</p>
 
-          <h3>{t["v16_rupture.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_rupture.titre"]}</h2>
           <p>{t["v16_rupture.p1"]}</p>
           <p>{t["v16_rupture.p2"]}</p>
 
@@ -56,7 +56,7 @@ export default async function TransmissionPage() {
             <div className="equation">{t["v16_bande.sequence"]}</div>
             <p>{t["v16_bande.p2"]}</p>
           </div>
-          <h3>{t["v16_matrice.titre"]}</h3>
+          <h2 className="titre-h3">{t["v16_matrice.titre"]}</h2>
           <p>{t["v16_matrice.texte"]}</p>
         </div>
       </div>
