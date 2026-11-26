@@ -27,7 +27,7 @@ export default async function SiteLayout({
         {children}
       </main>
       <PagesVoisines
-        pages={pages.map((p) => ({ href: p.href, titre: p.titre }))}
+        pages={pages.map((p) => ({ href: p.href, titre: p.label }))}
         libelles={{
           aria: t["pagination.nav_aria"],
           precedente: t["pagination.precedente"],

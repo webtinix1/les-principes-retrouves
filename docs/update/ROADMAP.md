@@ -178,8 +178,9 @@ l'accueil « Le Seuil » passe sous `/accueil`.
 **Durcissement (audit global).**
 - [x] **En-têtes de sécurité** : CSP, X-Frame-Options DENY, X-Content-Type-Options,
       Referrer-Policy, Permissions-Policy ; `x-powered-by` retiré. (Seul HSTS existait.)
-- [x] **Sauvegarde quotidienne** de la base SQLite (`scripts/backup-db.sh` + cron 03h17,
-      snapshot cohérent VACUUM INTO, rétention 14 j). Restauration vérifiée.
+- [ ] ~~Sauvegarde quotidienne de la base~~ : retirée le 26/11/2026 (non comprise dans le
+      forfait du client). Script `scripts/backup-db.sh` supprimé ; le cron
+      `/etc/cron.d/principes-backup` du serveur est à retirer.
 - [x] Vérifié SANS faille : les Server Actions ne sont pas invocables hors `/admin`
       (Next 16 les lie à leurs routes ; Traefik renvoie 401 sur `/admin`).
 - [ ] `[⏸]` **Changer `ADMIN_BASIC_AUTH`** (toujours le défaut) — commande fournie au client.

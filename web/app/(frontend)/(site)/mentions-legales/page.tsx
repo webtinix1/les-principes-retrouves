@@ -31,10 +31,10 @@ const TEXTE = (
       <span className={CODE_LEGAL}>[adresse]</span>, Brazzaville,
       République du Congo. Contact :{" "}
       <a
-        href="mailto:contact@lesprincipesretrouves.cg"
+        href="mailto:contact@lesprincipesretrouves.com"
         className={LIEN_LEGAL}
       >
-        contact@lesprincipesretrouves.cg
+        contact@lesprincipesretrouves.com
       </a>
       .
     </p>

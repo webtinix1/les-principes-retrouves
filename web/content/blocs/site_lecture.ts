@@ -44,7 +44,6 @@ export const SITE_LECTURE_BLOCS: PageBlocs = {
     s("texte.position", "Surtitre « Texte n sur N »", `${LECTURE} — en-tête — {tome}, {n} = rang, {total} = nombre de textes`, "{tome} · Texte {n} sur {total}"),
     s("texte.duree", "Durée de lecture", `${LECTURE} — avant le texte — {min} = minutes`, "{min} min de lecture"),
     s("rail.sommaire", "Lien « Sommaire du … »", `${COMMUN} — liens de navigation${MARQUEUR_TOME}`, "Sommaire du {tome}"),
-    s("texte.mention", "Mention sous le texte", `${LECTURE} — sous le texte${MARQUEUR_TOME}`, "Extrait destiné à la présentation publique. La version intégrale du {tome} demeure réservée à l’acquisition de l’ouvrage. Toute citation doit respecter les normes universitaires en vigueur."),
     s("navigation.aria", "Libellé d’accessibilité de la navigation", `${COMMUN} — liens de navigation (lecteurs d’écran)`, "Textes voisins"),
     s("navigation.ouvrages", "Lien vers la page Les ouvrages", `${COMMUN} — en haut de page`, "← Les ouvrages"),
     s("navigation.suivant_titre", "Lien « Texte suivant »", `${LECTURE} — fin du texte — {titre} = titre du texte suivant`, "{titre} →"),

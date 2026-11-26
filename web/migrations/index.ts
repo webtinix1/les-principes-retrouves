@@ -4,6 +4,7 @@ import * as migration_20261116_191017_vente_ouvrages from './20261116_191017_ven
 import * as migration_20261116_235821_textes_editables from './20261116_235821_textes_editables';
 import * as migration_20261126_135434_refresh_prototype_v16 from './20261126_135434_refresh_prototype_v16';
 import * as migration_20261126_150755_ux_sommaire_page from './20261126_150755_ux_sommaire_page';
+import * as migration_20261126_171549_retrait_mentions from './20261126_171549_retrait_mentions';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20261126_150755_ux_sommaire_page.up,
     down: migration_20261126_150755_ux_sommaire_page.down,
-    name: '20261126_150755_ux_sommaire_page'
+    name: '20261126_150755_ux_sommaire_page',
+  },
+  {
+    up: migration_20261126_171549_retrait_mentions.up,
+    down: migration_20261126_171549_retrait_mentions.down,
+    name: '20261126_171549_retrait_mentions'
   },
 ];

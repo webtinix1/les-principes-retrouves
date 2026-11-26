@@ -21,8 +21,8 @@ const TEXTE = (
     <p>
       Le responsable du traitement est Gaudéric MAMBOU, Institut de
       Brazzaville, Brazzaville, République du Congo — contact :{" "}
-      <a href="mailto:contact@lesprincipesretrouves.cg" className={LIEN_LEGAL}>
-        contact@lesprincipesretrouves.cg
+      <a href="mailto:contact@lesprincipesretrouves.com" className={LIEN_LEGAL}>
+        contact@lesprincipesretrouves.com
       </a>
       .
     </p>
@@ -90,8 +90,8 @@ const TEXTE = (
       Vous disposez d&apos;un droit d&apos;accès, de rectification,
       d&apos;effacement, de limitation, d&apos;opposition et de
       portabilité sur vos données. Pour les exercer, écrivez à{" "}
-      <a href="mailto:contact@lesprincipesretrouves.cg" className={LIEN_LEGAL}>
-        contact@lesprincipesretrouves.cg
+      <a href="mailto:contact@lesprincipesretrouves.com" className={LIEN_LEGAL}>
+        contact@lesprincipesretrouves.com
       </a>
       .
     </p>

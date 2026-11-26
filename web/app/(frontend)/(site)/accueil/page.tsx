@@ -30,7 +30,7 @@ export default async function Accueil() {
       <div className="fronton-bottom">
         <div className="wrap">
           {/* Titre de la page pour les lecteurs d’écran : le prototype n’en affiche pas. */}
-          <h1 className="sr-only">{nav.textes["titre.accueil"]}</h1>
+          <h1 className="sr-only">{nav.pages.find((p) => p.href === "/accueil")?.label}</h1>
           <div className="eyebrow">{t["entree.eyebrow"]}</div>
           <p className="diptyque">{t["entree.diptyque"]}</p>
           <div className="hero-actions">

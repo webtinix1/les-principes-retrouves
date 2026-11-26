@@ -41,7 +41,7 @@ export default async function PageIntrouvable() {
                 <li key={p.page_id}>
                   <Link href={p.href}>
                     <span className="num">{numero2(p.numero)}</span>
-                    {p.titre}
+                    {p.label}
                   </Link>
                 </li>
               ))}

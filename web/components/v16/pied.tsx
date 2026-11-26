@@ -35,7 +35,6 @@ export async function PiedV16() {
             ),
           )}
         </div>
-        <small className="contact-note">{t["v16.contact_note"]}</small>
       </section>
       <div className="footer-inner">
         <div>
@@ -48,13 +47,6 @@ export async function PiedV16() {
             {t["v16.auteur"]}
             <br />
             {t["v16.lieu"]}
-          </small>
-        </div>
-        <div>
-          <small>
-            {t["v16.mention_1"]}
-            <br />
-            {t["v16.mention_2"]}
           </small>
         </div>
       </div>

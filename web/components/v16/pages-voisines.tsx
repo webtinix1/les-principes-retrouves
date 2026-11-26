@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+/** `titre` : libellé du menu V16 de la page (aucun texte hors prototype). */
 export type PageVoisine = { href: string; titre: string };
 
 /**

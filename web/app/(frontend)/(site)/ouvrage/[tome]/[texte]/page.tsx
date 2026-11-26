@@ -109,7 +109,6 @@ export default async function LecturePage({ params }: { params: Promise<{ tome: 
             <CorpsLecture texte={texte} />
           </div>
 
-          <p className="note">{t("texte.mention", { tome: recueil.etiquette })}</p>
           <AcquerirTome offre={vente[recueil.tome]} etiquette={recueil.etiquette} />
 
           <div className="card">
