@@ -160,7 +160,7 @@ async function amorcerPages(payload: Payload) {
       if (bloc.type === "riche") {
         if (o?.lexical) data[champ] = o.lexical;
       } else {
-        const texte = o?.texte ?? bloc.defaut;
+        const texte = bloc.defaut ?? o?.texte;
         if (texte) data[champ] = texte;
       }
     }
@@ -235,6 +235,8 @@ async function amorcerTextesLecture(payload: Payload) {
             slug: t.slug,
             titre: t.titre,
             sous_titre: t.sous_titre ?? undefined,
+            etiquette: t.etiquette,
+            extrait: t.extrait,
             exergue: t.exergue,
             exergue_source: t.exergue_source,
             blocs: t.blocs.map(blocPayload),

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { CircleAlert, ShieldCheck } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
 import { CASE, CHAMP, LIBELLE, LIGNE_CASE, MESSAGE_ERREUR, OBLIGATOIRE } from "@/components/champs";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +172,7 @@ export function CheckoutFormClient({
       </label>
 
       {props.purchasable && montant && (
-        <div key={regime} className="m-swap border-y border-filet bg-papier-2 px-5 py-4">
+        <div key={regime} className="m-swap border-l-[3px] border-[#D4AF37] bg-[#eee9dc] px-5 py-4">
           <p className="font-code text-xs tracking-[0.14em] text-encre-3 uppercase">
             {t.recapitulatif}
           </p>
@@ -211,10 +210,7 @@ export function CheckoutFormClient({
             type="submit"
             disabled={etat === "envoi"}
             aria-busy={etat === "envoi"}
-            className={cn(
-              buttonVariants({ variant: "or-plein", size: "cta" }),
-              "w-full disabled:opacity-60 sm:w-auto",
-            )}
+            className="btn w-full sm:w-auto"
           >
             {etat === "envoi"
               ? t.traitement

@@ -1,0 +1,241 @@
+/*
+ * Pages absentes du prototype maître V16 (pages légales, page introuvable,
+ * inscription à un module, confirmation de commande), mises dans son allure :
+ * bandeau `.page-head`, contenu `.content > .wrap`, cartes `.card`, boutons
+ * `.btn`. Compléments propres à ces pages uniquement (v16.css n'est pas modifié).
+ */
+
+/* Fil d'Ariane dans le surtitre doré */
+.annexe-v16 .eyebrow a:hover {
+  text-decoration: underline;
+}
+.annexe-v16 .eyebrow .sep {
+  margin: 0 8px;
+  opacity: 0.6;
+}
+
+/* Bouton secondaire sur fond clair (la variante du prototype vise le bleu nuit) */
+.annexe-v16 .content .btn.secondary {
+  color: var(--navy);
+  border-color: var(--navy);
+  background: transparent;
+}
+.annexe-v16 .btn[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+.annexe-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Deux colonnes : texte + colonne latérale (sommaire, réassurance) */
+.annexe-colonnes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 36px;
+  align-items: start;
+}
+.annexe-colonnes--sommaire {
+  grid-template-columns: 240px minmax(0, 1fr);
+}
+.annexe-colonnes > * {
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .annexe-colonnes,
+  .annexe-colonnes--sommaire {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Sommaire « Sur cette page » */
+.annexe-sommaire ol {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.annexe-sommaire li a {
+  display: block;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  color: var(--navy);
+  font-size: 14px;
+  line-height: 1.4;
+}
+.annexe-sommaire li a:hover {
+  text-decoration: underline;
+}
+@media (min-width: 901px) {
+  .annexe-sommaire {
+    position: sticky;
+    top: 130px;
+  }
+}
+
+/* Texte légal (blocs éditables) : typographie du prototype */
+.annexe-texte [data-bloc] {
+  max-width: 780px;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.annexe-texte [data-bloc] p {
+  margin: 0 0 16px;
+}
+.annexe-texte [data-bloc] h2 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: normal;
+  color: var(--navy);
+  margin: 34px 0 12px;
+  scroll-margin-top: 130px;
+}
+.annexe-texte [data-bloc] h2:first-child {
+  margin-top: 0;
+}
+.annexe-texte [data-bloc] h3 {
+  font-size: 21px;
+  margin: 26px 0 10px;
+}
+.annexe-texte [data-bloc] ul,
+.annexe-texte [data-bloc] ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.annexe-texte [data-bloc] li {
+  margin-bottom: 6px;
+}
+.annexe-texte [data-bloc] a {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.annexe-texte [data-bloc] strong {
+  font-weight: bold;
+}
+.annexe-code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  color: var(--muted);
+}
+
+/* Avertissement (document en cours de finalisation) */
+.annexe-avertissement {
+  border-left: 3px solid var(--gold);
+  background: #eee9dc;
+  padding: 16px 20px;
+  margin: 0 0 30px;
+  max-width: 780px;
+}
+.annexe-avertissement [data-bloc] {
+  max-width: none;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.annexe-avertissement [data-bloc] p {
+  margin: 0;
+}
+
+/* Listes et étiquettes des pages de commande */
+.annexe-liste {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.annexe-liste li {
+  margin-bottom: 6px;
+}
+.annexe-moyens {
+  margin: 0;
+}
+.annexe-moyens > div {
+  border-top: 1px solid var(--line);
+  padding: 12px 0;
+}
+.annexe-moyens dt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--navy);
+}
+.annexe-moyens dd {
+  margin: 4px 0 0 28px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.annexe-meta {
+  margin: 18px 0 0;
+  color: #d8e0e8;
+  font-size: 15px;
+}
+.annexe-meta dt {
+  display: inline;
+  font-weight: bold;
+  color: #fff;
+}
+.annexe-meta dd {
+  display: inline;
+  margin: 0 18px 0 6px;
+}
+.annexe-meta div {
+  display: inline;
+}
+.annexe-lateral > * + * {
+  margin-top: 18px;
+}
+.annexe-etat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.annexe-etat h2 {
+  margin: 0;
+}
+.annexe-etat .icone {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+/* Plan du site de la page introuvable */
+.annexe-plan ol {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+.annexe-plan li a {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  padding: 9px 0;
+  border-top: 1px solid var(--line);
+  color: var(--navy);
+  font-size: 15px;
+}
+.annexe-plan li a:hover {
+  text-decoration: underline;
+}
+.annexe-plan .num {
+  color: #94751d;
+  font-size: 12px;
+}
+
+.annexe-lien {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.annexe-v16 .card h2 {
+  font-size: 26px;
+  margin: 0 0 14px;
+}

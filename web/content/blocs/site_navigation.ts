@@ -35,6 +35,76 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
   groupe: "Site",
   blocs: [
     {
+      cle: "site_navigation.v16.marque_nom",
+      label: "Nom (en-tête)",
+      type: "simple",
+      aide: "En-tête",
+      defaut: "LES PRINCIPES RETROUVÉS",
+    },
+    {
+      cle: "site_navigation.v16.marque_devise",
+      label: "Devise sous le nom",
+      type: "simple",
+      aide: "En-tête",
+      defaut: "Maât · Théorie de l’intelligibilité",
+    },
+    {
+      cle: "site_navigation.v16.marque_symbole",
+      label: "Symbole du losange",
+      type: "simple",
+      aide: "En-tête",
+      defaut: "Σ",
+    },
+    {
+      cle: "site_navigation.v16.menu",
+      label: "Bouton du menu (mobile)",
+      type: "simple",
+      aide: "En-tête",
+      defaut: "Menu ☰",
+    },
+    {
+      cle: "site_navigation.v16.contact_titre",
+      label: "Titre du bloc contact",
+      type: "simple",
+      aide: "Pied de page — contacts",
+      defaut: "Suivez-nous — Restons en contact",
+    },
+    {
+      cle: "site_navigation.v16.contact_intro",
+      label: "Texte d’introduction",
+      type: "simple",
+      aide: "Pied de page — contacts",
+      defaut: "Retrouvez les espaces de communication des Principes Retrouvés et prenez contact pour toute demande scientifique, institutionnelle ou relative aux ouvrages.",
+    },
+    {
+      cle: "site_navigation.v16.signature_nom",
+      label: "Signature — nom",
+      type: "simple",
+      aide: "Pied de page — signature",
+      defaut: "LES PRINCIPES RETROUVÉS",
+    },
+    {
+      cle: "site_navigation.v16.signature_devise",
+      label: "Signature — devise",
+      type: "simple",
+      aide: "Pied de page — signature",
+      defaut: "Maât : théorie de l’intelligibilité",
+    },
+    {
+      cle: "site_navigation.v16.auteur",
+      label: "Auteur",
+      type: "simple",
+      aide: "Pied de page — signature",
+      defaut: "Gaudéric MAMBOU",
+    },
+    {
+      cle: "site_navigation.v16.lieu",
+      label: "Lieu",
+      type: "simple",
+      aide: "Pied de page — signature",
+      defaut: "Brazzaville — République du Congo",
+    },
+    {
       cle: "site_navigation.acces.aller_au_contenu",
       label: "Lien d’évitement « Aller au contenu »",
       type: "simple",
@@ -170,6 +240,13 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       defaut: "Revenir au début",
     },
     {
+      cle: "site_navigation.sommaire.titre",
+      label: "Sommaire de la page — intitulé du bouton",
+      type: "simple",
+      aide: "Sommaire des pages longues (barre affichée sous l’en-tête pendant la lecture)",
+      defaut: "Dans cette page",
+    },
+    {
       cle: "site_navigation.pied.adresse",
       label: "Adresse",
       type: "simple",
@@ -181,7 +258,7 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       label: "Adresse e-mail de contact",
       type: "simple",
       aide: "Pied de page — marque et coordonnées",
-      defaut: "contact@lesprincipesretrouves.cg",
+      defaut: "contact@lesprincipesretrouves.com",
     },
     {
       cle: "site_navigation.pied.colonne_seuil",
@@ -247,6 +324,26 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       aide: "Référencement (Google)",
       defaut:
         "Portail de l'École de Brazzaville — Science Métamoderne : théorie générale de l'intelligibilité, épistémologie et droit constitutionnel.",
+    },
+  ],
+  listes: [
+    {
+      nom: "contacts",
+      label: "Contacts du pied de page",
+      element: "Contact",
+      aide: "Un lien vide affiche le contact en attente (bordure pointillée, non cliquable).",
+      champs: [
+        { nom: "titre", label: "Titre (WhatsApp, Gmail…)" },
+        { nom: "texte", label: "Texte" },
+        { nom: "lien", label: "Lien (https://…, mailto:…) — vide = en attente" },
+        { nom: "aria", label: "Description pour lecteur d’écran" },
+      ],
+      origine: [
+        { titre: "WhatsApp", texte: "Contact direct · +242 06 662 15 68", lien: "https://wa.me/242066621568", aria: "Contacter par WhatsApp" },
+        { titre: "Gmail", texte: "gaudericmambou@gmail.com", lien: "mailto:gaudericmambou@gmail.com", aria: "Envoyer un courriel" },
+        { titre: "LinkedIn", texte: "Profil : Gauderic MAMBOU", lien: "", aria: "Profil LinkedIn Gauderic MAMBOU" },
+        { titre: "Facebook", texte: "Compte associé au +44 7974 905090", lien: "", aria: "Compte Facebook associé au numéro communiqué" },
+      ],
     },
   ],
 };

@@ -76,5 +76,5 @@ export const VenteOuvrages: GlobalConfig = {
     // L'Ouvrage, les sommaires et tous les textes des tomes.
     afterChange: [() => revaliderChemins(cheminsOuvrage())],
   },
-  fields: [tome("tome_i", "Tome I — L’Organon"), tome("tome_ii", "Tome II")],
+  fields: [tome("tome_i", "Tome I"), tome("tome_ii", "Tome II")],
 };

@@ -1,0 +1,21 @@
+/* Accueil V16 — les <button onclick="showPage()"> du prototype deviennent des
+   liens : on leur rend l'apparence du bouton natif du prototype. */
+#page-accueil .bouton-natif {
+  display: inline-block;
+  font: inherit;
+  color: ButtonText;
+  background: ButtonFace;
+  border: 1px solid #767676;
+  border-radius: 3px;
+  padding: 1px 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* Les blocs éditables (display: contents) ne sont jamais en fin de carte :
+   leur dernier paragraphe garde la marge que lui donne le prototype. */
+#page-accueil .card [data-bloc] > p:last-child {
+  margin-bottom: 16px;
+}
+#page-accueil .bouton-natif:hover {
+  background: #e5e5e5;
+}

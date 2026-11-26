@@ -49,7 +49,7 @@ export async function getSurcharge(cle: string): Promise<Surcharge | null> {
 
   if (typeof valeur !== "string" || !valeur.trim()) return null;
   const texte = valeur.trim();
-  return texte === (origine?.texte ?? def.defaut) ? null : { type: "texte", texte };
+  return texte === (def.defaut ?? origine?.texte) ? null : { type: "texte", texte };
 }
 
 /** Remplace les marqueurs {nom} d'un texte. Un marqueur supprimé à la saisie est sans effet. */

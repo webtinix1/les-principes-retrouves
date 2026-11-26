@@ -13,7 +13,7 @@ import { test, expect, type Page } from "@playwright/test";
 const BASE = process.env.BASE ?? "http://localhost:3000";
 const EMAIL = process.env.ADMIN_EMAIL ?? "admin@example.com";
 const PASSWORD = process.env.ADMIN_PASSWORD ?? "admin-dev-123";
-const CLE = "manifeste.diagnostic.corps";
+const CLE = "manifeste.introduction";
 const PAGE_ADMIN = `${BASE}/admin/globals/contenu-manifeste`;
 const PHRASE = "Phrase ajoutée par la recette automatisée.";
 
@@ -25,11 +25,11 @@ async function connexion(page: Page) {
   await page.waitForURL(/\/admin\/?$/);
 }
 
-/** Éditeur Lexical du champ « Le diagnostic — corps de texte ». */
+/** Éditeur Lexical du champ « Paragraphe d’introduction (en grand) ». */
 function editeur(page: Page) {
   return page
     .locator(".field-type.rich-text-lexical")
-    .filter({ hasText: "Le diagnostic — corps de texte" })
+    .filter({ hasText: "Paragraphe d’introduction (en grand)" })
     .locator("[contenteditable='true']");
 }
 
@@ -52,7 +52,7 @@ test("le back-office modifie un bloc, le publie, puis revient au texte d'origine
   // Texte d'origine, tel que servi au visiteur.
   await page.goto(`${BASE}/manifeste`);
   const htmlOrigine = await page.locator(`[data-bloc="${CLE}"]`).innerHTML();
-  expect(htmlOrigine).toContain("La science contemporaine");
+  expect(htmlOrigine).toContain("Les Principes Retrouvés constituent une rupture");
   expect(htmlOrigine).not.toContain(PHRASE);
 
   await connexion(page);
@@ -62,7 +62,7 @@ test("le back-office modifie un bloc, le publie, puis revient au texte d'origine
   await page.goto(PAGE_ADMIN);
   await expect(editeur(page)).toBeVisible();
   const amorce = (await editeur(page).innerText()).trim();
-  expect(amorce === "" || amorce.includes("La science contemporaine")).toBe(true);
+  expect(amorce === "" || amorce.includes("Les Principes Retrouvés constituent une rupture")).toBe(true);
 
   // Ajout d'une phrase en fin de bloc, puis enregistrement.
   await editeur(page).click();

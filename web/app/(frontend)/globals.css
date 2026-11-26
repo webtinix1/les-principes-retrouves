@@ -45,18 +45,19 @@
   --color-erreur: #a3261c;     /* 6,8:1 sur papier */
   --color-succes: #2e6b3b;     /* 5,9:1 sur papier */
 
-  --font-titre: var(--font-playfair-site), Georgia, serif;
-  --font-texte: var(--font-lora-site), Georgia, serif;
-  --font-code: var(--font-fira), ui-monospace, monospace;
+  /* Polices du prototype V16 : polices système, aucun téléchargement. */
+  --font-titre: Georgia, "Times New Roman", serif;
+  --font-texte: Georgia, "Times New Roman", serif;
+  --font-code: ui-monospace, "Cascadia Mono", Consolas, monospace;
 
   --ease-sortie: cubic-bezier(.16, 1, .3, 1);
   --ease-trace: cubic-bezier(.65, 0, .35, 1);
 
   /* Polices — auto-hébergées via next/font (zéro requête CDN) */
-  --font-sans: var(--font-lora-site), Georgia, serif;          /* corps de texte (site) */
-  --font-heading: var(--font-playfair-site), Georgia, serif;   /* titres (site) */
-  --font-ui: var(--font-inter);         /* interface, boutons, légendes */
-  --font-mono: var(--font-fira);        /* équations Σ = M(F(V(Σ))) */
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-ui: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -168,12 +169,7 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+  /* body / html : stylés par v16.css (prototype maître). */
 }
 
 /* ==========================================================================
@@ -184,12 +180,7 @@
    collision avec les siennes.
    ========================================================================== */
 
-.site {
-  background: var(--color-papier);
-  color: var(--color-encre);
-  font-family: var(--font-texte);
-  font-feature-settings: "kern";
-}
+/* La charte (fond, polices, couleurs de base) vient de v16.css (prototype maître). */
 
 /* Logo Plume de Maât — léger déploiement au survol */
 .site-logo__mark { transition: transform .4s ease; }

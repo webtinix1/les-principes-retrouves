@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { CircleAlert, CircleCheck, Clock, Send } from "lucide-react";
-import { FilAriane } from "@/components/editorial";
 import { BoucleAcces } from "@/components/pages/commande-boucle";
 import { CodeAcces } from "@/components/pages/commande-code";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { payloadClient } from "@/lib/payload";
 import { getTextes, remplir } from "@/lib/contenu";
+import "../../pages-annexes.css";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -33,23 +31,44 @@ export async function generateMetadata() {
   };
 }
 
-const TITRE = "font-titre text-[2rem] leading-[1.12] font-medium text-balance text-encre md:text-[2.75rem]";
-const TEXTE = "font-texte text-[1.0625rem] leading-[1.7] text-encre-2 md:text-[1.125rem]";
+const ICONE = { width: 22, height: 22, strokeWidth: 1.75 } as const;
 
-/** En-tête d'un état : icône (jamais la couleur seule) + titre H1. */
-function EnTete({ icone, children }: { icone: React.ReactNode; children: React.ReactNode }) {
+/** Couleur d’icône sur le bandeau bleu nuit (toujours doublée d'une icône et d'un titre, jamais seule). */
+const COULEURS = {
+  erreur: "#f2b8b5",
+  neutre: "#ffffff",
+  succes: "#b9e3c0",
+  attente: "#E7D49A",
+} as const;
+
+/** En-tête d'un état : icône + titre H1, dans le bandeau `.page-head`. */
+function EnTete({
+  icone,
+  couleur,
+  surtitre,
+  children,
+}: {
+  icone: React.ReactNode;
+  couleur: string;
+  surtitre: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="flex flex-col gap-4">
-      <span aria-hidden="true" className="flex size-11 items-center justify-center rounded-full border border-current">
-        {icone}
-      </span>
-      <h1 className={TITRE}>{children}</h1>
+    <div className="page-head">
+      <div className="wrap">
+        {surtitre}
+        <div className="annexe-etat" style={{ marginTop: 12 }}>
+          <span aria-hidden="true" className="icone" style={{ color: couleur }}>
+            {icone}
+          </span>
+          <h1 style={{ margin: 0 }}>{children}</h1>
+        </div>
+      </div>
     </div>
   );
 }
 
-const ICONE = "size-[22px]";
-
+/** Confirmation de commande, dans l'allure du prototype maître V16. */
 export default async function ConfirmationPage({
   searchParams,
 }: {
@@ -68,79 +87,72 @@ export default async function ConfirmationPage({
     ? { module: commande.module_titre, email: commande.buyer_email }
     : {};
 
+  const surtitre = (
+    <nav aria-label={textes["fil_ariane.aria"]} className="eyebrow">
+      <Link href="/transmission">{t("fil_transmission")}</Link>
+      <span className="sep" aria-hidden="true">/</span>
+      <span aria-current="page">{t("fil_confirmation")}</span>
+    </nav>
+  );
+
+  let entete: React.ReactNode;
+  let corps: React.ReactNode;
+  if (!commande) {
+    entete = (
+      <EnTete surtitre={surtitre} couleur={COULEURS.erreur} icone={<CircleAlert {...ICONE} />}>
+        {t("introuvable_titre")}
+      </EnTete>
+    );
+    corps = <p className="lead">{t("introuvable_texte")}</p>;
+  } else if (commande.statut === "devis_demande") {
+    entete = (
+      <EnTete surtitre={surtitre} couleur={COULEURS.neutre} icone={<Send {...ICONE} />}>
+        {t("devis_titre")}
+      </EnTete>
+    );
+    corps = <p className="lead">{remplir(t("devis_texte"), valeurs)}</p>;
+  } else if (commande.code_acces) {
+    entete = (
+      <EnTete surtitre={surtitre} couleur={COULEURS.succes} icone={<CircleCheck {...ICONE} />}>
+        {t("confirmee_titre")}
+      </EnTete>
+    );
+    corps = (
+      <>
+        <p className="lead">{remplir(t("confirmee_texte"), valeurs)}</p>
+        <div className="card" style={{ borderColor: "#2f6b3a", margin: "26px 0" }}>
+          <div className="tag">{t("votre_code")}</div>
+          <CodeAcces
+            code={commande.code_acces.code}
+            libelles={{ copier: textes["code.copier"], copie: textes["code.copie"] }}
+          />
+        </div>
+        <Link href="/laboratoire" className="btn">
+          {t("acceder_laboratoire")} <span aria-hidden="true">→</span>
+        </Link>
+      </>
+    );
+  } else {
+    entete = (
+      <EnTete surtitre={surtitre} couleur={COULEURS.attente} icone={<Clock {...ICONE} />}>
+        {t("attente_titre")}
+      </EnTete>
+    );
+    corps = (
+      <p className="lead" aria-live="polite">
+        {remplir(t("attente_texte"), valeurs)}
+      </p>
+    );
+  }
+
   return (
-    <section className="surface-claire bg-papier px-5 pt-8 pb-14 md:pt-12 md:pb-24 lg:px-6 xl:px-10">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:gap-14">
-        <FilAriane items={[{ label: t("fil_transmission"), href: "/transmission" }, { label: t("fil_confirmation") }]} />
-
-        <div className="grid gap-x-6 gap-y-12 lg:grid-cols-12">
-          <div className="min-w-0 lg:col-span-7">
-            {!commande ? (
-              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8">
-                <div className="text-erreur">
-                  <EnTete icone={<CircleAlert className={ICONE} strokeWidth={1.75} />}>
-                    {t("introuvable_titre")}
-                  </EnTete>
-                </div>
-                <p className={TEXTE}>
-                  {t("introuvable_texte")}
-                </p>
-              </div>
-            ) : commande.statut === "devis_demande" ? (
-              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8">
-                <div className="text-encre">
-                  <EnTete icone={<Send className={ICONE} strokeWidth={1.75} />}>
-                    {t("devis_titre")}
-                  </EnTete>
-                </div>
-                <p className={TEXTE}>
-                  {remplir(t("devis_texte"), valeurs)}
-                </p>
-              </div>
-            ) : commande.code_acces ? (
-              <div className="m-swap flex flex-col gap-7 border-t-2 border-succes pt-8">
-                <div className="text-succes">
-                  <EnTete icone={<CircleCheck className={ICONE} strokeWidth={1.75} />}>
-                    {t("confirmee_titre")}
-                  </EnTete>
-                </div>
-                <p className={TEXTE}>
-                  {remplir(t("confirmee_texte"), valeurs)}
-                </p>
-                <div className="flex flex-col gap-3 rounded-[4px] border border-succes bg-blanc p-6 md:p-8">
-                  <p className="font-code text-xs tracking-[0.14em] text-encre-3 uppercase">
-                    {t("votre_code")}
-                  </p>
-                  <CodeAcces
-                    code={commande.code_acces.code}
-                    libelles={{ copier: textes["code.copier"], copie: textes["code.copie"] }}
-                  />
-                </div>
-                <div>
-                  <Link
-                    href="/laboratoire"
-                    className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "w-full sm:w-auto")}
-                  >
-                    {t("acceder_laboratoire")} <span className="arr" aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className="m-swap flex flex-col gap-5 border-t-2 border-encre pt-8" aria-live="polite">
-                <div className="text-or-700">
-                  <EnTete icone={<Clock className={ICONE} strokeWidth={1.75} />}>
-                    {t("attente_titre")}
-                  </EnTete>
-                </div>
-                <p className={TEXTE}>
-                  {remplir(t("attente_texte"), valeurs)}
-                </p>
-              </div>
-            )}
-          </div>
-
-          <aside className="lg:col-span-4 lg:col-start-9">
-            <div className="rounded-[4px] border border-filet bg-papier-2 p-6">
+    <section className="page fade annexe-v16">
+      {entete}
+      <div className="content">
+        <div className="wrap annexe-colonnes">
+          <div>{corps}</div>
+          <aside>
+            <div className="card">
               <BoucleAcces courante={courante} />
             </div>
           </aside>

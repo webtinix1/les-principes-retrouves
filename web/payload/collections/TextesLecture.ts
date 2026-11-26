@@ -4,8 +4,9 @@ import { connecte } from "../access";
 import { revaliderChemins } from "../revalidation";
 
 /**
- * Textes des tomes en lecture libre (/ouvrage/<tome>/<texte>) : un document
- * par texte, découpé en blocs (paragraphes, intertitres, formules, listes,
+ * Textes des tomes en lecture libre (/ouvrage et /ouvrage/<tome>/<texte>) : un document
+ * par texte : rubrique et extrait (lecteur de la page Les ouvrages), puis la
+ * lecture intégrale découpée en blocs (paragraphes, intertitres, formules, listes,
  * citations, notes). Les métadonnées des tomes (titres, présentation, parties,
  * plan) sont dans le global « Les deux tomes » (payload/globals/recueils.ts).
  *
@@ -194,6 +195,29 @@ export const TextesLecture: CollectionConfig = {
     { name: "sous_titre", type: "text", label: "Sous-titre" },
     {
       type: "collapsible",
+      label: "Extrait (page Les ouvrages)",
+      fields: [
+        {
+          name: "etiquette",
+          type: "text",
+          label: "Rubrique",
+          admin: {
+            description: "Petite mention au-dessus du titre de l’extrait, ex. « TEXTE LIMINAIRE · » ou « CHAPITRE INTÉGRAL · ».",
+          },
+        },
+        {
+          name: "extrait",
+          type: "textarea",
+          label: "Extrait",
+          admin: {
+            description:
+              "Passage présenté dans le lecteur de la page Les ouvrages, avant le bouton « Lire le texte intégral ». Sans guillemets : ils sont ajoutés automatiquement. Le texte intégral est le « Corps du texte » ci-dessous.",
+          },
+        },
+      ],
+    },
+    {
+      type: "collapsible",
       label: "Exergue",
       admin: { initCollapsed: true },
       fields: [
@@ -209,7 +233,7 @@ export const TextesLecture: CollectionConfig = {
     {
       name: "blocs",
       type: "blocks",
-      label: "Corps du texte",
+      label: "Corps du texte (lecture intégrale)",
       labels: { singular: "Bloc", plural: "Blocs" },
       blocks: [paragraphe, intertitre, formule, liste, citation, note],
     },

@@ -1,0 +1,206 @@
+/*
+ * Feuille de styles du prototype maître V16 (« Ouverture Maât »), reprise telle
+ * quelle : couleurs, typographies (Georgia / Arial), proportions et composants.
+ * Adaptations pour le site multipage : les boutons de navigation deviennent des
+ * liens (nav a), la page active est marquée par aria-current, les images
+ * intégrées en base64 sont servies depuis /public/v16.
+ * Le prototype reste la référence : ne pas redessiner sans accord de l’auteur.
+ */
+:root{
+ --navy:#0B2A4A;--navy2:#123D61;--gold:#D4AF37;--gold2:#E7D49A;
+ --ink:#182431;--muted:#637181;--paper:#F7F5EF;--white:#fff;--line:#E5E0D4;
+ --serif:Georgia,"Times New Roman",serif;--sans:Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.65}
+a{color:inherit;text-decoration:none}button{font:inherit}
+.topline{height:5px;background:linear-gradient(90deg,var(--gold),#f1e5bd,var(--gold))}
+header{background:var(--navy);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 8px 28px #06182b35}
+.header-inner{max-width:1180px;margin:auto;padding:15px 26px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:13px;min-width:245px}
+.brand-mark{width:37px;height:37px;border:1px solid var(--gold);transform:rotate(45deg);display:grid;place-items:center;color:var(--gold);font-family:var(--serif);font-size:20px}
+.brand-mark span{transform:rotate(-45deg)}
+.brand-name{font:17px var(--serif);letter-spacing:.06em;line-height:1.2}
+.brand-sub{font-size:9px;letter-spacing:.2em;color:var(--gold2);text-transform:uppercase;margin-top:4px}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:5px}
+nav a{border:0;background:transparent;color:#e9eef3;padding:8px 10px;font-size:12px;cursor:pointer;border-radius:3px}
+nav a:hover,nav a.active,nav a[aria-current=page]{background:#ffffff16;color:var(--gold2)}
+.menu-toggle{display:none;background:transparent;color:white;border:1px solid #ffffff55;padding:7px 10px}
+main{min-height:75vh}.wrap{max-width:1100px;margin:auto;padding:0 26px}
+.hero{background:var(--navy);color:#fff;padding:76px 0 70px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:500px;height:500px;border:1px solid #d4af3738;border-radius:50%;right:-170px;top:-260px;box-shadow:0 0 0 45px #d4af3708,0 0 0 90px #d4af3706}
+.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:bold}
+h1,h2,h3{font-family:var(--serif);font-weight:normal;line-height:1.18}
+.hero h1{font-size:clamp(34px,5vw,58px);max-width:780px;margin:17px 0 10px;letter-spacing:.01em}
+.hero .subtitle{font:italic clamp(20px,2.5vw,28px) var(--serif);color:var(--gold2);margin:0 0 22px}
+.hero p{max-width:670px;color:#d8e0e8;font-size:16px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-block;padding:12px 19px;border:1px solid var(--gold);color:var(--navy);background:var(--gold);font-size:12px;letter-spacing:.04em;font-weight:bold;cursor:pointer}
+.btn.secondary{background:transparent;color:#fff;border-color:#ffffff65}
+.btn:hover{filter:brightness(1.06)}
+.fronton{background:radial-gradient(ellipse at 50% 0%,#17395a 0%,#0B2A4A 48%,#06182b 100%);color:#fff;text-align:center;padding:58px 0 0;position:relative;overflow:hidden}
+.fronton:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#ffffff36 .7px,transparent .7px);background-size:34px 34px;opacity:.2;pointer-events:none}
+.fronton-inner{position:relative;z-index:1}
+.fronton h1{font:clamp(32px,4vw,48px) var(--serif);letter-spacing:.24em;color:var(--gold2);margin:0 0 22px}
+.dedications{max-width:980px;margin:0 auto 30px;padding:0 18px;display:grid;gap:12px}
+.dedications p{font:italic clamp(16px,2vw,21px)/1.45 var(--serif);color:#f0dfb0;margin:0}
+.pyramid-image{display:block;width:min(100%,1050px);height:auto;margin:0 auto;box-shadow:0 18px 48px #0008}
+.thebes-river{position:relative;width:min(100%,1050px);height:clamp(76px,8.8vw,112px);margin:0 auto;display:flex;align-items:center;justify-content:center;background-image:linear-gradient(90deg,#06182b38,#06182b18 50%,#06182b38),url("/v16/nouvelle-thebes-bandeau.webp");background-size:cover;background-position:center 58%;overflow:hidden}
+.thebes-river-title{position:relative;z-index:1;margin:0;padding:5px 12px;color:#f4d98b;font:700 clamp(12px,2.2vw,25px)/1.2 var(--serif);letter-spacing:.055em;text-align:center;text-transform:uppercase;text-shadow:0 2px 5px #000,0 0 12px #000,1px 1px 1px #000}
+.balance-emblem-wrap{padding:26px 18px 18px;background:linear-gradient(180deg,#0B2A4A 0%,#102f4d 100%);display:flex;justify-content:center;align-items:center}
+.balance-emblem{display:block;width:min(100%,420px);height:auto;border:1px solid #D4AF37;box-shadow:0 14px 36px #0007}
+@media(max-width:650px){.balance-emblem-wrap{padding:20px 14px 14px}.balance-emblem{width:min(100%,390px)}}
+.fronton-bottom{padding:30px 0 54px;background:linear-gradient(180deg,#081d32 0%,#0B2A4A 100%)}
+.fronton-bottom .diptyque{font:20px/1.5 var(--serif);color:#f3ead5;max-width:900px;margin:0 auto 25px}
+.fronton-bottom .hero-actions{justify-content:center;margin-top:20px}
+.fronton-bottom .eyebrow{margin-bottom:10px}
+.fronton-date{font:italic 14px var(--serif);color:#d8c58f;margin-top:28px}
+@media(max-width:650px){.fronton{padding-top:42px}.dedications{gap:9px}.dedications p{font-size:15px}.fronton-bottom{padding:24px 0 40px}.fronton-bottom .diptyque{font-size:17px}}
+.page-head{background:var(--navy);color:#fff;padding:54px 0 46px}
+.page-head h1{font-size:clamp(32px,4vw,48px);margin:12px 0 10px}
+.page-head p{max-width:760px;color:#d8e0e8;margin:0;font-size:16px}
+.content{padding:50px 0 75px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#94751d;font-weight:bold}
+h2{font-size:30px;color:var(--navy);margin:8px 0 17px}
+h3{font-size:22px;color:var(--navy);margin:28px 0 10px}
+p{margin:0 0 16px}
+.lead{font:21px/1.55 var(--serif);color:#34495c;max-width:850px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:26px 0}
+.card{background:#fff;border:1px solid var(--line);padding:24px 25px;box-shadow:0 7px 24px #172a3a08}
+.card h3{margin:0 0 10px;font-size:21px}
+.card p:last-child{margin-bottom:0}
+.card .tag{color:#94751d;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:bold}
+.band{background:#eee9dc;border-left:3px solid var(--gold);padding:23px 27px;margin:26px 0;font:19px/1.55 var(--serif);color:var(--navy)}
+.formula{background:var(--navy);color:#f4e8bf;padding:24px 28px;text-align:center;font:clamp(20px,3vw,27px) var(--serif);letter-spacing:.02em;margin:25px 0}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}
+.pill{border:1px solid #d7cba8;padding:7px 12px;background:#fff;color:var(--navy);font:14px var(--serif)}
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:25px 0}
+.book{background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;min-height:100%}
+.book-top{background:var(--navy);color:white;padding:27px;min-height:180px;position:relative}
+.book-top:after{content:"Σ";position:absolute;right:22px;bottom:0;color:#ffffff18;font:100px var(--serif)}
+.book-top .vol{font-size:10px;letter-spacing:.2em;color:var(--gold2);text-transform:uppercase}
+.book-top h3{color:#fff;font-size:25px;max-width:330px;margin:14px 0}
+.book-body{padding:24px;display:flex;flex-direction:column;flex:1}
+.price{font:32px var(--serif);color:var(--navy);margin:10px 0}
+.price small{font:11px var(--sans);color:var(--muted)}
+.note{font-size:12px;color:var(--muted)}
+.disabled-action{margin-top:auto;display:inline-block;border:1px solid #c9c4b8;padding:10px 12px;color:#777;font-size:11px;background:#f6f4ef}
+.table{width:100%;border-collapse:collapse;margin:20px 0;background:white;font-size:14px}
+.table th,.table td{border-bottom:1px solid var(--line);padding:13px 15px;text-align:left;vertical-align:top}
+.table th{background:#eee9dc;color:var(--navy);font-weight:bold}
+.steps{counter-reset:step;list-style:none;padding:0;margin:24px 0}
+.steps li{counter-increment:step;padding:0 0 22px 54px;position:relative}
+.steps li:before{content:counter(step);position:absolute;left:0;top:0;width:34px;height:34px;border:1px solid var(--gold);color:var(--navy);display:grid;place-items:center;font:18px var(--serif)}
+.quote{font:italic 22px/1.5 var(--serif);color:var(--navy);border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);padding:25px 0;margin:28px 0}
+footer{background:#071d33;color:#dce4eb;padding:35px 0}
+.footer-inner{max-width:1100px;margin:auto;padding:0 26px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer strong{font:18px var(--serif);color:var(--gold2)}
+footer small{color:#aab7c4}
+
+.fade{animation:fade .25s ease}@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.rule{height:1px;background:var(--line);margin:34px 0}
+@media(max-width:850px){.header-inner{flex-wrap:wrap}.menu-toggle{display:block}nav{display:none;width:100%;justify-content:flex-start;padding-top:8px}nav.open{display:flex}nav a{font-size:13px}.brand{flex:1}}
+@media(max-width:650px){.wrap{padding:0 19px}.header-inner{padding:13px 19px}.hero{padding:55px 0}.grid,.book-grid{grid-template-columns:1fr}.content{padding:36px 0 55px}.page-head{padding:42px 0}.brand-name{font-size:15px}}
+
+/* Ouvrages — ajustement fonctionnel et proportionnel */
+#page-ouvrage .book-cover{display:block;width:auto!important;max-width:100%;height:clamp(260px,34vw,430px)!important;max-height:430px;object-fit:contain!important;margin:0 auto 1rem;}
+#page-ouvrage .book-card{display:flex;flex-direction:column;align-items:center;}
+#page-ouvrage .book-card>*{max-width:100%;}
+#page-ouvrage .chapter-selector{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.65rem;margin:1rem 0 1.25rem;}
+#page-ouvrage .chapter-selector button{width:100%;min-height:52px;text-align:center;white-space:normal;}
+#page-ouvrage .chapter-selector button[aria-pressed="true"]{outline:2px solid var(--gold,#d4af37);outline-offset:2px;}
+#page-ouvrage .interactive-excerpt{display:none;margin-top:1rem;}
+#page-ouvrage .interactive-excerpt.is-selected{display:block;}
+#page-ouvrage .chapter-back{margin:.5rem 0 1rem;}
+@media(max-width:600px){#page-ouvrage .book-cover{height:300px!important;}}
+
+
+/* Espace utilisateurs — extension fonctionnelle, sans refonte de l'identité visuelle */
+#page-utilisateurs .user-intro{max-width:900px;margin:0 auto 2rem;text-align:center}
+#page-utilisateurs .user-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}
+#page-utilisateurs .user-card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:1.25rem;box-shadow:0 5px 18px #06182b0b}
+#page-utilisateurs .user-card h3{color:var(--navy);margin:.1rem 0 .45rem}
+#page-utilisateurs .user-card p{margin:.35rem 0 .9rem}
+#page-utilisateurs .user-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1rem}
+#page-utilisateurs .user-actions button,#page-utilisateurs .user-form button{border:1px solid var(--gold);background:var(--navy);color:#fff;border-radius:7px;padding:.65rem 1rem;cursor:pointer}
+#page-utilisateurs .user-actions button.secondary{background:#fff;color:var(--navy)}
+#page-utilisateurs .user-panel{display:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.35rem;margin:1.25rem 0}
+#page-utilisateurs .user-panel.active{display:block}
+#page-utilisateurs .user-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.85rem}
+#page-utilisateurs .user-form label{display:block;font-weight:600;color:var(--navy);font-size:.92rem}
+#page-utilisateurs .user-form input,#page-utilisateurs .user-form select,#page-utilisateurs .user-form textarea{width:100%;margin-top:.25rem;padding:.7rem;border:1px solid #cbd3dc;border-radius:6px;background:#fff;font:inherit}
+#page-utilisateurs .user-form .full{grid-column:1/-1}
+#page-utilisateurs .privacy-note{background:#f6f3e9;border-left:3px solid var(--gold);padding:1rem;margin:1rem 0;font-size:.92rem}
+#page-utilisateurs .prototype-note{font-size:.85rem;color:var(--muted);margin-top:1rem}
+@media(max-width:700px){#page-utilisateurs .user-grid,#page-utilisateurs .user-form{grid-template-columns:1fr}}
+
+
+.contact-area{max-width:1180px;margin:0 auto;padding:30px 26px 10px}
+.contact-area h2{font:22px var(--serif);color:var(--gold2);margin:0 0 8px}
+.contact-intro{color:#dce4eb;font-size:13px;margin:0 0 18px;max-width:760px}
+.contact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.contact-item{display:block;border:1px solid #ffffff35;border-radius:4px;padding:14px 15px;min-height:92px;color:#fff;background:#ffffff08}
+.contact-item:hover{border-color:var(--gold);background:#ffffff12}
+.contact-item strong{display:block;color:var(--gold2);font:16px var(--serif);margin-bottom:5px}
+.contact-item small{display:block;color:#dce4eb;font-size:12px;line-height:1.45}
+.contact-item.pending{border-style:dashed;opacity:.82;cursor:default}
+.contact-note{display:block;color:#aab7c4;font-size:11px;margin-top:12px}
+@media(max-width:760px){.contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.contact-grid{grid-template-columns:1fr}.contact-area{padding-left:18px;padding-right:18px}}
+
+
+
+/* V11 — lecture sélective : un seul texte visible, sans défilement automatique */
+#page-ouvrage .reading-choice{margin:1rem 0 1.25rem;padding:1rem;border:1px solid var(--line);background:#fff}
+#page-ouvrage .reading-choice button{border:1px solid var(--gold);background:var(--navy);color:#fff;padding:.7rem 1rem;cursor:pointer;border-radius:4px}
+#page-ouvrage .reading-choice .chapter-selector{display:none}
+#page-ouvrage .reading-choice.list-open .chapter-selector{display:grid}
+#page-ouvrage .reading-choice .chapter-selector button{background:#fff;color:var(--navy);text-align:left}
+#page-ouvrage .reading-choice .chapter-selector button[aria-pressed="true"]{background:var(--navy);color:#fff}
+#page-ouvrage .reading-library .interactive-excerpt{display:none;margin-top:1rem}
+#page-ouvrage .reading-library .interactive-excerpt.is-selected{display:block}
+#page-ouvrage .reading-library details[open]{scroll-margin-top:1rem}
+#page-accueil .fronton-bottom{margin:0}
+
+/* V12 — parcours de lecture des ouvrages : sélection séparée du texte */
+#page-ouvrage .ouvrage-reader-controls{margin:1.25rem 0 1.6rem;padding:1.15rem;border:1px solid var(--line);border-radius:8px;background:#fff}
+#page-ouvrage .ouvrage-tome-tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+#page-ouvrage .ouvrage-tome-tabs button,#page-ouvrage .ouvrage-text-list button,#page-ouvrage .ouvrage-read-full,#page-ouvrage .ouvrage-full-reader-bar button{font:inherit;cursor:pointer;border:1px solid var(--gold);border-radius:5px;padding:.65rem .9rem}
+#page-ouvrage .ouvrage-tome-tabs button{background:#fff;color:var(--navy)}
+#page-ouvrage .ouvrage-tome-tabs button[aria-pressed="true"]{background:var(--navy);color:#fff}
+#page-ouvrage .ouvrage-text-list{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 1rem}
+#page-ouvrage .ouvrage-text-list button{background:#f8f6f0;color:var(--navy);text-align:left}
+#page-ouvrage .ouvrage-text-list button[aria-pressed="true"]{background:#e9dfc3;border-color:var(--navy)}
+#page-ouvrage .ouvrage-reader-instruction{margin:.2rem 0;color:var(--muted)}
+#page-ouvrage .ouvrage-selected-action{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:.9rem}
+#page-ouvrage .ouvrage-selected-label{font-weight:600;color:var(--navy)}
+#page-ouvrage .ouvrage-read-full{background:var(--navy);color:#fff}
+#page-ouvrage .interactive-excerpt{margin:1rem 0}
+#page-ouvrage details.full-reading{display:none}
+#page-ouvrage .ouvrage-full-reader-bar{display:none;align-items:center;gap:1rem;justify-content:space-between;flex-wrap:wrap;padding:1rem;margin:1rem 0;background:#f0eadb;border-left:3px solid var(--gold)}
+#page-ouvrage .ouvrage-full-reader-bar button{background:var(--navy);color:#fff}
+#page-ouvrage .ouvrage-full-reader-bar strong{color:var(--navy)}
+#page-ouvrage .reading-library.is-full-reading .ouvrage-reader-controls{display:none}
+
+/* V15 — mise en relief de la rupture métrologique */
+.manifesto-banner{margin:2.2rem 0 2.5rem;padding:clamp(1.5rem,4vw,3rem) clamp(1rem,3vw,2rem);background:linear-gradient(135deg,#0B2A4A 0%,#123D61 100%);border-top:4px solid var(--gold);border-bottom:1px solid #D4AF3780;text-align:center;box-shadow:0 12px 30px #06182b18}
+.manifesto-title{max-width:1050px;margin:0 auto 1.25rem;color:#E7D49A;font:normal clamp(2rem,4.6vw,3.65rem)/1.12 var(--serif);letter-spacing:.015em;text-wrap:balance}
+.manifesto-line{max-width:850px;margin:0 auto;color:#fff;font:italic clamp(1.15rem,2vw,1.55rem)/1.45 var(--serif)}
+@media(max-width:600px){.manifesto-banner{margin:1.5rem 0;padding:1.4rem 1rem}.manifesto-title{font-size:clamp(1.8rem,8vw,2.5rem)}}
+
+
+/* Emblème retrouvé de Maât — version statique de lancement */
+.maat-emblem-wrap{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;padding:8px 20px 28px}
+.maat-emblem{display:block;width:min( min(100%, 650px), 72vw);height:auto;max-height:360px;object-fit:contain;box-shadow:0 16px 42px #0006}
+.maat-emblem--compact{width:min(100%,360px);max-height:210px;margin:0 auto 24px;box-shadow:0 10px 28px #0003}
+@media(max-width:640px){.maat-emblem-wrap{padding:4px 14px 20px}.maat-emblem{width:min(100%,520px);max-height:250px}.maat-emblem--compact{max-height:160px}}
+
+/* Ajouts du site (hors prototype) : liens légaux sous la signature, lien d'évitement. */
+.footer-legal{margin-top:14px;padding-top:12px;border-top:1px solid #ffffff1f;justify-content:flex-start;gap:20px}
+.footer-legal a:hover small{color:var(--gold2);text-decoration:underline}
+.lien-evitement{position:absolute;left:-9999px;top:8px;z-index:60;background:var(--gold);color:var(--navy);padding:10px 14px;font-weight:bold}
+.lien-evitement:focus{left:16px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* Le prototype s'appuie sur les styles par défaut du navigateur pour les listes,
+   citations et figures ; la remise à zéro de Tailwind les supprime : on les rétablit. */
+.site :where(ul, ol){list-style:revert;padding-left:revert;margin:revert}
+.site :where(blockquote, figure, dl, dd){margin:revert}

@@ -60,6 +60,9 @@ export default buildConfig({
     pool: { connectionString: process.env.DATABASE_URL || "" },
     // Identifiants non devinables : l'id d'une commande figure dans l'URL de confirmation.
     idType: "uuid",
+    // Pas de synchronisation automatique du schéma en développement : le projet
+    // vit de migrations (yarn migrate:create), et le push interactif bloque le serveur.
+    push: false,
     // En production, le schéma n'est jamais « poussé » : les migrations versionnées
     // (dossier migrations/) sont appliquées au démarrage du serveur.
     prodMigrations: migrations,

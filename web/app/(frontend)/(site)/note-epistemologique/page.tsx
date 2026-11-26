@@ -1,341 +1,313 @@
-import Link from "next/link";
-import { BlocProse } from "@/components/bloc";
-import { BlocSection, Cloture, Exergue, OuverturePage } from "@/components/editorial";
-import { FriseCanon } from "@/components/pages/savoir-note-frise";
-import { Carte, Encadre } from "@/components/primitives";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { pageMetadata } from "@/lib/seo";
+import { BlocProseV16 } from "@/components/v16/bloc-prose-v16";
 import { getListe, getTextes } from "@/lib/contenu";
+import { pageMetadata } from "@/lib/seo";
+import "./note.css";
+
+export const revalidate = 3600;
 
 export async function generateMetadata() {
   const t = await getTextes("note_epistemologique");
-  return pageMetadata({
-    title: t["seo.titre"],
-    description: t["seo.description"],
-    path: "/note-epistemologique",
-  });
+  return pageMetadata({ title: t["seo.titre"], description: t["seo.description"], path: "/note-epistemologique" });
 }
 
-/**
- * Filet de sécurité pour les blocs éditables : la page est prérendue au build
- * (sans base), et l'entrypoint la revalide au démarrage du conteneur. Si cet
- * appel échouait, ce délai garantit que les textes du back-office reviennent
- * d'eux-mêmes. La page reste servie statiquement entre deux régénérations.
- */
-export const revalidate = 3600;
-
-/** Ancres des sept principes du Canon (#principe-i … #principe-vii). */
-const ROMAINS = ["i", "ii", "iii", "iv", "v", "vi", "vii"];
-
-/**
- * Textes des cartes « principes suprêmes » rendus via BlocProse : les classes
- * d'origine des paragraphes sont reportées sur `[&_p]` pour que le texte du
- * back-office garde la même typographie (et neutraliser la prose par défaut).
- */
-const CARTE_TEXTE =
-  "max-w-none [&_p]:font-ui [&_p]:text-[15.5px] [&_p]:leading-[1.6] [&_p]:text-encre-2 [&_p]:text-wrap";
-const CARTE_MAXIME =
-  "max-w-none [&_p]:font-texte [&_p]:text-[1.125rem] [&_p]:leading-[1.55] [&_p]:text-encre [&_p]:italic [&_p]:text-wrap";
-
-/** PAGE 5 — NOTE ÉPISTÉMOLOGIQUE (Restituer les conditions de l'intelligibilité). */
+/** Note épistémologique — conforme au prototype maître V16. */
 export default async function NoteEpistemologiquePage() {
-  const [t, ETAPES_CANON, CANON, SEXTUOR] = await Promise.all([
+  const [t, principes] = await Promise.all([
     getTextes("note_epistemologique"),
-    getListe<{ terme: string; role: string }>("note_epistemologique.etapes_canon"),
-    getListe<{ titre: string; texte: string }>("note_epistemologique.canon"),
-    getListe<{ titre: string; texte: string }>("note_epistemologique.sextuor"),
+    getListe<{ texte: string }>("note_epistemologique.canon_sept_principes"),
   ]);
-
-  const SOMMAIRE = [
-    { id: "posture", label: t["sommaire.posture"] },
-    { id: "axiome", label: t["sommaire.axiome"] },
-    { id: "principes", label: t["principes.titre"] },
-    { id: "canon", label: t["sommaire.canon"] },
-    { id: "triade", label: t["triade.titre"] },
-    { id: "sextuor", label: t["sextuor.titre"] },
-  ];
-
   return (
-    <>
-      <OuverturePage
-        page_id="note_epistemologique"
-        titre={t["hero.titre"]}
-        sousTitre={t["hero.sous_titre"]}
-        sommaire={SOMMAIRE}
-      >
-        <Exergue>{t["hero.exergue"]}</Exergue>
-      </OuverturePage>
-
-      {/* Section 1 — Posture métascientifique */}
-      <BlocSection
-        id="posture"
-        bordure={false}
-        titre={t["posture.titre"]}
-      >
-          <BlocProse cle="note_epistemologique.posture.corps">
-            <p>
-              L’École de Brazzaville n’a pas pour vocation de se substituer, de
-              juger ou de valider les disciplines scientifiques constituées. Elle
-              reconnaît pleinement leur autonomie, leurs méthodes propres et
-              l’exactitude de leurs résultats. Son objet est d’un autre ordre :
-              elle se déploie comme une science qui cherche à{" "}
-              <strong>rendre intelligible l’intelligibilité des sciences</strong>.
-            </p>
-            <p>
-              L’esprit humain, lorsqu’il est livré à son propre sort, abandonné à
-              son propre dénuement et laissé à sa propre merci, subit le chaos des
-              faits bruts et s’enferme dans des tautologies restrictives. Contre
-              cette entropie cognitive, la Science Métamoderne propose une
-              hypothèse structurale générale : les grandes découvertes de
-              l’histoire humaine, par-delà la diversité de leurs objets
-              particuliers, partagent des invariants structurels profonds dans
-              leur mécanisme de production de la connaissance.
-            </p>
-            <p>
-              Cette Note Épistémologique a pour objet de formaliser ces invariants
-              et de les soumettre à l’épreuve de l’examen critique. Elle ne décrit
-              pas la science depuis l’extérieur ; elle en restitue l’architecture,
-              en formalise les médiations et en guide la remontée.
-            </p>
-          </BlocProse>
-      </BlocSection>
-
-      {/* Section 2 — Axiome central */}
-      <BlocSection
-        id="axiome"
-        titre={t["axiome.titre"]}
-      >
-          <BlocProse cle="note_epistemologique.axiome.corps">
-            <p>
-              L’École de Brazzaville affirme un principe fondateur que l’illusion
-              empiriste moderne a progressivement occulté :{" "}
-              <strong>
-                l’accumulation brute de faits issus du hasard de l’instrumentation
-                technique ne produit jamais de sens
-              </strong>
-              .
-            </p>
-            <p>
-              L’expérience n’engendre pas le concept ; elle se contente d’en
-              valider ou d’en falsifier la portée. Le Monde Observable (S) reçoit
-              sa signification de l’Architecture Préalable d’Intelligibilité
-              forgée par l’activité rationnelle de l’esprit. Sans prémisse majeure
-              conçue a priori, la recherche scientifique s’abîme dans une pure
-              description phénoménale privée de profondeur ontologique.
-            </p>
-          </BlocProse>
-          {/* L'encadré fort de la page : l'axiome central. */}
-          <Encadre className="rv my-10 md:my-12">
-            <p className="font-titre text-[1.375rem] leading-[1.4] text-or-500 italic md:text-[1.75rem]">
-              {t["axiome.encadre"]}
-            </p>
-          </Encadre>
-          <BlocProse cle="note_epistemologique.axiome.thom">
-            <p>
-              Comme le soulignait René Thom, le progrès scientifique est avant
-              tout une affaire de représentation mentale partielle des phénomènes,
-              et non de simple manipulation technique. Comme le démontrait Pierre
-              Delattre, le « secret » des expériences cruciales ne réside pas
-              ailleurs que dans le choix judicieux des paramètres significatifs,
-              dicté par l’architecture conceptuelle préalable. Comme l’observait
-              Claude Bernard, la découverte scientifique procède d’une{" "}
-              <strong>rationnelle interprétation mentale</strong> qui précède et
-              gouverne l’expérience ; quand nous croyons induire, nous déduisons
-              réellement ; seulement l’expérimentateur se dirige d’après un
-              principe supposé ou provisoire.
-            </p>
-            <p>
-              Ces trois autorités de convergence verrouillent définitivement la
-              primauté de l’intelligibilité sur l’opératoire.
-            </p>
-          </BlocProse>
-      </BlocSection>
-
-      {/* Section 3 — Les deux principes suprêmes d'organisation */}
-      <BlocSection id="principes" titre={t["principes.titre"]}>
-          <div className="grid gap-4 md:grid-cols-2 md:gap-6">
-            <Carte className="rv flex flex-col">
-              <h3 className="font-titre text-[1.375rem] leading-[1.3] font-medium text-encre">
-                {t["principes.unite_titre"]}
-              </h3>
-              <p className="mt-3 font-texte text-[1.125rem] leading-[1.55] text-encre italic">
-                {t["principes.unite_maxime"]}
-              </p>
-              <BlocProse cle="note_epistemologique.principes.unite_corps" className={cn("mt-4", CARTE_TEXTE)}>
-              <p className="font-ui text-[15.5px] leading-[1.6] text-encre-2">
-                Le fragment isolé n’a pas de sens intelligible hors de sa relation
-                avec la totalité (<span className="font-code text-or-700">Σ</span>).
-                Cette loi traverse la physique, la biologie, le droit et les
-                sciences sociales. L’isomorphisme des découvertes à travers les
-                disciplines n’est pas un hasard ; il est le signe que l’Unité
-                Structurelle Absolue (<span className="font-code text-or-700">Σ</span>)
-                préexiste à la fragmentation du Voile et du Filtrage.
-              </p>
-              </BlocProse>
-            </Carte>
-            <Carte className="rv rv2 flex flex-col">
-              <h3 className="font-titre text-[1.375rem] leading-[1.3] font-medium text-encre">
-                {t["principes.polarite_titre"]}
-              </h3>
-              <BlocProse cle="note_epistemologique.principes.polarite_maxime" className={cn("mt-3", CARTE_MAXIME)}>
-              <p className="font-texte text-[1.125rem] leading-[1.55] text-encre italic">
-                « Toute réalité intelligible comporte deux pôles corrélatifs et
-                oscillants (<span className="font-code not-italic text-or-700">π₁ ↔ π₂</span>). »
-              </p>
-              </BlocProse>
-              <BlocProse cle="note_epistemologique.principes.polarite_corps" className={cn("mt-4", CARTE_TEXTE)}>
-              <p className="font-ui text-[15.5px] leading-[1.6] text-encre-2">
-                L’analyse procède par distinction (
-                <span className="font-code text-or-700">π₁</span>) et la synthèse opère
-                par relation (<span className="font-code text-or-700">π₂</span>). Ces
-                deux polarités ne s’opposent pas ; elles sont les deux battements
-                d’un même cœur rationnel. L’erreur fondamentale des cadres de
-                pensée classiques est de croire que la relation naît de la
-                rencontre d’éléments préexistants. Le paradigme métamoderne affirme
-                l’inverse : l’unité produit la relation, et la relation définit les
-                termes.
-              </p>
-              </BlocProse>
-            </Carte>
-          </div>
-      </BlocSection>
-
-      {/* Section 4 — Le Théorème de la Genèse Scientifique : le Canon en 7 principes */}
-      <section id="canon" className="surface-claire bg-papier px-5 pb-14 md:pb-24 lg:px-6 xl:px-10">
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-12 border-t border-filet pt-14 md:gap-16 md:pt-24">
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
-            <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:col-span-3 lg:text-[1.875rem]">
-              {t["canon.titre"]}
-            </h2>
-          <BlocProse cle="note_epistemologique.theoreme.corps" className="min-w-0 lg:col-span-8 lg:col-start-4">
-            <p>
-              Toute authentique découverte s’élabore selon un parcours
-              inductif-rationnel vertical indéfectible. Ce processus algorithmique
-              est modélisé par le Canon de la Découverte en 7 principes :
-            </p>
-          </BlocProse>
-          </div>
-          {/* Frise du Canon : horizontale sur ordinateur, verticale sur mobile. */}
-          <FriseCanon etapes={ETAPES_CANON} ariaLabel={t["canon.frise_aria"]} />
-
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
-            <ol className="grid gap-x-10 md:grid-cols-2 lg:col-span-8 lg:col-start-4">
-              {CANON.map((principe, i) => (
-                <li
-                  key={i}
-                  id={`principe-${ROMAINS[i] ?? i + 1}`}
-                  className="rv flex flex-col gap-2 border-t border-filet py-6"
-                >
-                  <h3 className="font-titre text-[1.1875rem] leading-[1.3] font-medium text-encre">
-                    {principe.titre}
-                  </h3>
-                  <p className="font-texte text-[1.0625rem] leading-[1.65] text-encre-2">
-                    {principe.texte}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
+    <section className="page fade" id="page-note">
+      <div className="page-head">
+        <div className="wrap">
+          <div className="eyebrow">{t["entete.surtitre"]}</div>
+          <h1>{t["entete.titre"]}</h1>
+          <p>{t["entete.chapo"]}</p>
         </div>
-      </section>
+      </div>
+      <div className="maat-emblem-wrap">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="maat-emblem maat-emblem--compact"
+          src="/v16/embleme-maat.webp"
+          alt={t["embleme_alt"]}
+          width={1600}
+          height={892}
+          loading="lazy"
+        />
+      </div>
+      <div className="content">
+        <div className="wrap">
+          <BlocProseV16 cle="note_epistemologique.introduction" classeSurcharge="lead">
+            <p className="lead">
+              Le point de départ n’est pas une formule isolée ni une méthode appliquée après coup. C’est l’
+              <strong>Architecture Préalable d’Intelligibilité</strong> : l’ordre principiel qui rend possibles la
+              manifestation, la différenciation, la relation et la connaissance.
+            </p>
+          </BlocProseV16>
 
-      {/* Section 5 — Rectification de la triade dialectique */}
-      <BlocSection id="triade" titre={t["triade.titre"]}>
-            <h3 className="mb-6 font-texte text-[1.25rem] leading-[1.4] text-encre-2 italic">
-              {t["triade.sous_titre"]}
-            </h3>
-          <BlocProse cle="note_epistemologique.triade.corps">
+          <h2 className="titre-h3">{t["architecture.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.architecture.corps">
             <p>
-              Le sens commun moderne, pollué par la dialectique hégélienne (Thèse →
-              Antithèse → Synthèse), croit que la « thèse » est le point de départ
-              d’un raisonnement. L’étude étymologique et historique rétablit la
-              vérité scientifique :
+              L’Architecture Préalable ne se constitue pas au moment de la découverte. Elle est la structure profonde
+              qui oriente le regard, rend certaines anomalies perceptibles et rend la question scientifique pensable.
+              L’hypothèse est ponctuelle ; l’Architecture Préalable est cumulative. L’hypothèse répond à une question ;
+              l’Architecture Préalable rend cette question possible.
             </p>
-            <ul className="mt-4 list-disc space-y-2 pl-6">
-              <li>
-                <strong>La Thèse (thésis)</strong> n’est pas le commencement. C’est
-                l’action de poser, de soutenir et d’établir. C’est le terme moyen
-                d’un processus.
-              </li>
-              <li>
-                <strong>Ce qui précède la thèse, c’est l’Hypothèse (hyppo, « en
-                deçà »).</strong>{" "}
-                L’hypothèse est l’interprétation mentale anticipée (Claude
-                Bernard).
-              </li>
-            </ul>
-            <p>
-              <strong>La séquence réelle de la découverte :</strong>{" "}
-              Intuition/Paradoxe → Hypothèse → Thésis (démonstration) → Expérantia
-              (vérification)
-            </p>
-            <p>
-              En confondant la thèse (le résultat soutenu) avec le point de départ,
-              la science moderne s’est interdite de penser les conditions de
-              possibilité des phénomènes. Elle s’est condamnée à décrire les effets
-              sans comprendre les causes.
-            </p>
-          </BlocProse>
-      </BlocSection>
+          </BlocProseV16>
+          <div className="band">{t["architecture.encadre"]}</div>
 
-      {/* Section 6 — Le sextuor de la structuration intime */}
-      <section id="sextuor" className="surface-claire bg-papier-2 px-5 py-14 md:py-24 lg:px-6 xl:px-10">
-        <div className="mx-auto flex max-w-[1280px] flex-col gap-10 md:gap-12">
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-x-6">
-            <h2 className="font-titre text-[1.75rem] leading-[1.18] font-medium text-balance text-encre lg:col-span-3 lg:text-[1.875rem]">
-              {t["sextuor.titre"]}
-            </h2>
-          <BlocProse cle="note_epistemologique.sextuor.corps" className="min-w-0 lg:col-span-8 lg:col-start-4">
+          <h2 className="titre-h3">{t["ordre.titre"]}</h2>
+          <div className="equation">{t["ordre.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.ordre.corps">
             <p>
-              Les trajectoires des grands découvreurs ne sont pas invoquées ici
-              comme des preuves d’autorité, mais comme des cas d’étude cliniques
-              modélisés par l’Équation Cyclique Universelle{" "}
-              <span className="font-code whitespace-nowrap text-or-700 [font-variant-ligatures:none]">Σ = M(F(V(Σ)))</span> et le Canon
-              de la Découverte en 7 principes.
+              Σ désigne l’unité structurelle principielle ; π₁, la différenciation ; π₂, la corrélation ; V, le Voile
+              comme condition de manifestation ; F, le Filtrage comme sélection ; S, les manifestations ; K, le savoir
+              constitué. Le Voile et le Filtrage ne sont pas interchangeables : le Voile conditionne la manifestation ;
+              le Filtrage sélectionne et organise les éléments manifestés.
             </p>
-          </BlocProse>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["crgi.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.crgi.intro">
+            <p>
+              La pyramide expose l’Architecture Préalable. Le Cycle de Reconstitution Génétique de l’Intelligibilité
+              (CRGI) remplit une autre fonction : il restitue les opérations par lesquelles une connaissance se
+              constitue.
+            </p>
+          </BlocProseV16>
+          <div className="equation">{t["crgi.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.crgi.suite">
+            <p>
+              La formalisation est un moment de cette genèse, non son point de départ. La symbolisation conserve sa
+              place propre. Le cycle génétique ne doit pas être confondu avec l’architecture ontologique de la
+              pyramide.
+            </p>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["reconstruction.titre"]}</h2>
+          <div className="thesis">{t["reconstruction.these"]}</div>
+          <BlocProseV16 cle="note_epistemologique.reconstruction.corps">
+            <p>
+              La Méthode M travaille à partir du savoir disponible et de ses fragments pour reconstruire les relations
+              et les principes devenus obscurcis. Le principe de Non-Perte n’est pas une promesse de récupération
+              immédiate ou infaillible : dispersion ne signifie pas annihilation ; inaccessibilité ne signifie pas
+              inexistence.
+            </p>
+          </BlocProseV16>
+          <div className="equation">{t["reconstruction.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.reconstruction.suite">
+            <p>
+              K est le savoir constitué ; M organise la reconstruction ; K′ désigne la connaissance réorganisée ; Σ
+              indique la direction de la remontée vers l’intelligibilité principielle.
+            </p>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["metrologie.titre"]}</h2>
+          <div className="manifesto-banner">
+            <h2 className="manifesto-title">{t["metrologie.bandeau_titre"]}</h2>
+            <div className="manifesto-line">{t["metrologie.bandeau_ligne"]}</div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            {SEXTUOR.map((cas, i) => (
-              <Carte key={i} className={cn("rv flex flex-col", i % 3 === 1 && "rv2", i % 3 === 2 && "rv3")}>
-                <h3 className="font-titre text-[1.25rem] leading-[1.3] font-medium text-encre">
-                  {cas.titre}
-                </h3>
-                <p className="mt-3 font-texte text-[1rem] leading-[1.65] text-encre-2">{cas.texte}</p>
-              </Carte>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Appel à l'épreuve */}
-      <section className="surface-claire bg-papier px-5 pt-14 md:pt-24 lg:px-6 xl:px-10">
-        <div className="mx-auto flex max-w-[760px] justify-center">
-          <BlocProse cle="note_epistemologique.pacte.corps" className="text-center text-encre-2">
+          <BlocProseV16 cle="note_epistemologique.metrologie.corps">
             <p>
-              La Science Métamoderne ne demande aucune adhésion préalable. Elle
-              n’invite pas à une croyance. Elle propose une méthode. Elle ne prétend
-              pas clore la recherche. Elle ouvre un espace où la recherche peut se
-              poursuivre selon des règles explicites, discutables et continuellement
-              perfectibles.
+              La rupture ne signifie ni la disparition des sciences expérimentales ni la négation de la puissance de
+              leurs instruments. La mesure instrumentale demeure pleinement opératoire dans son domaine ; elle cesse
+              d’être érigée en frontière universelle de la mesurabilité. La question n’est plus seulement : quelle
+              quantité l’instrument permet-il de relever ? Elle devient aussi : quelle grandeur structurelle peut être
+              déterminée relativement à un référentiel explicite ?
             </p>
-          </BlocProse>
-        </div>
-      </section>
+          </BlocProseV16>
+          <div className="equation">{t["metrologie.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.metrologie.suite">
+            <p>
+              La mesure structurelle porte sur la cohérence des manifestations relativement à un Référentiel
+              d’Intelligibilité explicite. Elle ne prétend pas mesurer directement le principe lui-même. Elle examine
+              la fidélité, les écarts et les insuffisances structurelles des manifestations par rapport aux conditions
+              d’intelligibilité définies par le référentiel.
+            </p>
+          </BlocProseV16>
 
-      <Cloture
-        suite={
-          <Link
-            href="/ouvrage"
-            className={cn(buttonVariants({ variant: "or-plein", size: "cta" }), "mt-2")}
-          >
-            {t["cloture.bouton"]}
-          </Link>
-        }
-      >
-        {t["cloture.texte"]}
-      </Cloture>
-    </>
+          <h2 className="titre-h3">{t["mecanisme.titre"]}</h2>
+          <div className="equation">{t["mecanisme.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.mecanisme.corps">
+            <p>
+              <strong>A</strong> désigne l’Architecture Préalable ; <strong>R</strong>, le Référentiel
+              d’Intelligibilité ; <strong>K</strong>, l’état du savoir disponible ; <strong>Δ(R,K)</strong>, l’écart
+              structurel entre ce savoir et les conditions d’intelligibilité formulées par le référentiel ;{" "}
+              <strong>M</strong>, la Méthode de reconstruction ; <strong>K′</strong>, le savoir reconstruit.
+            </p>
+            <p>
+              R ne se confond pas avec Σ et ne mesure pas directement le principe. Il constitue une projection
+              opératoire de l’Architecture dans l’exercice de la recherche. Ses critères, ses opérations et sa
+              prétention à l’universalité doivent eux-mêmes pouvoir être explicités, justifiés et discutés. Toute
+              réalité non observable n’est pas automatiquement mesurable.
+            </p>
+          </BlocProseV16>
+          <div className="quote">{t["mecanisme.citation"]}</div>
+
+          <h2 className="titre-h3">{t["organon.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.organon.corps">
+            <p>
+              La Science Métamoderne ne désigne pas une discipline supplémentaire venant s’ajouter aux sciences
+              constituées. Elle coordonne leurs connaissances à un niveau supérieur d’intelligibilité, sans fusionner
+              les disciplines, abolir leurs objets particuliers ni réduire leur autonomie. M reconstruit ; l’Organon
+              organise l’unité méthodologique ; la Science Métamoderne en déploie l’architecture générale.
+            </p>
+          </BlocProseV16>
+          <div className="band">
+            <strong>{t["organon.encadre"]}</strong>
+          </div>
+          <p className="note">{t["organon.note"]}</p>
+
+          <h2 className="titre-h3">{t["cascade.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.cascade.intro">
+            <p>
+              La cascade entropique désigne la dynamique par laquelle la différenciation des parties, lorsqu’elle
+              n’est plus accompagnée d’un travail de réintégration, peut produire une perte progressive
+              d’intelligibilité commune. Elle peut être décrite par la séquence :
+            </p>
+          </BlocProseV16>
+          <div className="equation">{t["cascade.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.cascade.suite">
+            <p>
+              Cette séquence ne transforme pas une analogie en loi physique et ne signifie pas que toute
+              spécialisation conduit nécessairement au chaos. Elle constitue un schème diagnostique : elle permet
+              d’identifier les médiations qui se défont et de rechercher les conditions d’une reconstruction. Dans le
+              domaine de la connaissance, elle attire l’attention sur l’écart entre multiplication des résultats et
+              capacité de les réintégrer dans une intelligibilité commune.
+            </p>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["ellipse.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.ellipse.corps">
+            <p>
+              L’ellipse méthodologique apparaît lorsque le raisonnement passe du phénomène à la formalisation en
+              comprimant ou en occultant les opérations qui rendent ce passage intelligible. Le CRGI répond à cette
+              difficulté en restituant la séquence des opérations : saisie de la relation, interprétation,
+              détermination et symbolisation précèdent la formalisation dans la genèse exposée.
+            </p>
+            <p>
+              La critique ne porte pas sur l’usage de l’équation ni sur la puissance des instruments. Elle porte sur
+              la prétention éventuelle à faire de la formalisation le point de départ absolu de toute connaissance. Le
+              résultat formalisé doit être rapporté à sa genèse, à son référentiel et aux opérations qui l’ont rendu
+              possible.
+            </p>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["crise.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.crise.corps">
+            <p>
+              La cascade entropique formule le risque de désarticulation ; l’ellipse méthodologique identifie l’une
+              des formes possibles de cette désarticulation dans la production du savoir ; l’Architecture Préalable,
+              le CRGI et la Méthode M constituent des registres distincts de la reconstruction proposée. Leur
+              articulation doit être démontrée et ne peut être présumée par la seule proximité des termes.
+            </p>
+          </BlocProseV16>
+
+          <h2 className="titre-h3">{t["unite.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.unite.corps">
+            <p>
+              La Science Métamoderne ne désigne pas une discipline supplémentaire. Elle travaille sur le réel à un
+              niveau supérieur d’intelligibilité et prend en charge la pluralité des sciences, leurs objets, leurs
+              méthodes, leurs résultats et leurs relations. Elle coordonne les connaissances différenciées et les
+              réintègre dans une unité structurelle, sans fusionner les disciplines.
+            </p>
+            <p>
+              Elle ne se substitue donc pas aux sciences constituées. Elle examine les conditions communes qui
+              permettent de rapporter leurs résultats à une intelligibilité structurelle et de comprendre leurs
+              relations.
+            </p>
+          </BlocProseV16>
+          <div className="equation">{t["unite.formule"]}</div>
+          <BlocProseV16 cle="note_epistemologique.unite.suite">
+            <p>
+              Le Référentiel d’Intelligibilité (R) examine la cohérence du savoir constitué (K). L’écart Δ(R,K) révèle
+              une insuffisance qui appelle examen et reconstruction. Le principe de Non-Perte commande de rechercher
+              les principes dont les traces subsistent dans les savoirs fragmentés. Le mouvement reconstructif
+              s’écrit :
+            </p>
+          </BlocProseV16>
+          <div className="equation">{t["unite.formule_2"]}</div>
+
+          <div className="band">
+            <h3>{t["acte_deces.titre"]}</h3>
+            <BlocProseV16 cle="note_epistemologique.acte_deces.corps">
+              <p>
+                Une grandeur doit-elle nécessairement être palpable, observable ou directement quantifiable par un
+                instrument pour relever de la science ?
+              </p>
+              <p>
+                Il ne s’agit pas d’abolir les sciences expérimentales, mais de récuser la prétention de leur régime de
+                mesure à épuiser toutes les possibilités de détermination rationnelle.
+              </p>
+              <p>
+                <strong>Une grandeur n’est pas nécessairement une quantité.</strong>
+              </p>
+            </BlocProseV16>
+          </div>
+          <h2 className="titre-h3">{t["grandeur.titre"]}</h2>
+          <BlocProseV16 cle="note_epistemologique.grandeur.corps">
+            <p>
+              La mesure instrumentale demeure pleinement opératoire dans son domaine. La rupture consiste à récuser la
+              prétention de son régime à épuiser toutes les possibilités de détermination rationnelle. Une grandeur
+              structurelle peut être examinée relativement à un référentiel explicite, sans prétendre mesurer
+              directement le principe lui-même.
+            </p>
+            <p>
+              Cette exigence s’applique également au Référentiel d’Intelligibilité : ses critères, ses opérations et
+              sa prétention à l’universalité doivent eux-mêmes être explicités, justifiés et discutés. Aucun cadre
+              théorique ne saurait s’exempter de l’examen qu’il applique aux autres.
+            </p>
+          </BlocProseV16>
+        </div>
+      </div>
+      <div className="major-section">
+        <h2>{t["canon_sept.titre"]}</h2>
+        <BlocProseV16 cle="note_epistemologique.canon_sept.intro">
+          <p>
+            Le Canon formalise le protocole de remontée qui conduit du monde observable vers l’Architecture Préalable
+            d’Intelligibilité. Il ne constitue pas une recette mécanique : il expose les exigences de la découverte et
+            de la reconstruction.
+          </p>
+        </BlocProseV16>
+        <ul>
+          {principes.map((p, i) => (
+            <li key={i}>{p.texte}</li>
+          ))}
+        </ul>
+        <BlocProseV16 cle="note_epistemologique.canon_sept.conclusion">
+          <p>
+            Le Canon relie découverte, reconstruction et démonstration sans les confondre. Il exige que les
+            transitions soient justifiées et que les propositions demeurent évaluables selon les exigences de leur
+            domaine.
+          </p>
+        </BlocProseV16>
+      </div>
+      <div className="major-section">
+        <h2>{t["livre.titre"]}</h2>
+        <BlocProseV16 cle="note_epistemologique.livre.corps">
+          <p>
+            La Science Métamoderne ne désigne pas une science supplémentaire venant s’ajouter aux sciences constituées.
+            Elle désigne la science considérée à partir du niveau supérieur d’intelligibilité que révèle la
+            généralisation suprême. Elle travaille sur le même objet que les sciences constituées — le réel — et à un
+            autre niveau d’intelligibilité. Elle prend également en charge la pluralité des sciences, leurs objets
+            particuliers, leurs méthodes, leurs résultats et leurs relations.
+          </p>
+          <p>
+            Elle coordonne les sciences constituées à ce niveau et réintègre leurs connaissances différenciées dans
+            l’unité structurelle du réel et de la connaissance. La réintégration n’est donc pas une étape qui
+            conduirait ensuite à la Science Métamoderne : elle est l’opération constitutive par laquelle celle-ci
+            accomplit sa fonction de science de l’unité. Cette unité est une condition nécessaire à toute connaissance
+            effective, car elle permet de rapporter les résultats particuliers à l’architecture commune qui leur donne
+            sens et cohérence.
+          </p>
+          <p>
+            La diversité demeure dans les phénomènes étudiés : physique, chimie, biologie et sciences sociales ne
+            deviennent pas une seule discipline. L’unité recherchée porte sur les conditions structurelles
+            d’intelligibilité, non sur l’effacement des objets ou des méthodes.
+          </p>
+        </BlocProseV16>
+      </div>
+    </section>
   );
 }

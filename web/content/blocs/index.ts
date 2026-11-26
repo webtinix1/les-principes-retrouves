@@ -12,6 +12,7 @@ import { CGV_BLOCS } from "./cgv";
 import { MENTIONS_LEGALES_BLOCS } from "./mentions_legales";
 import { CONFIDENTIALITE_BLOCS } from "./confidentialite";
 import { ACCUEIL_BLOCS } from "./accueil";
+import { FRONTON_BLOCS } from "./fronton";
 import { SITE_NAVIGATION_BLOCS } from "./site_navigation";
 import { SITE_INTERFACE_BLOCS } from "./site_interface";
 import { SITE_FORMULAIRES_BLOCS } from "./site_formulaires";
@@ -25,6 +26,7 @@ export type { BlocDef, ChampListe, ListeDef, PageBlocs, TypeBloc } from "./types
  * Ajouter une page = créer son fichier de blocs et l'ajouter ici.
  */
 export const PAGES_BLOCS: PageBlocs[] = [
+  FRONTON_BLOCS,
   ACCUEIL_BLOCS,
   MANIFESTE_BLOCS,
   DECLARATION_BLOCS,

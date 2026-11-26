@@ -113,6 +113,7 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'contenu-fronton': ContenuFronton;
     'contenu-accueil': ContenuAccueil;
     'contenu-manifeste': ContenuManifeste;
     'contenu-declaration': ContenuDeclaration;
@@ -134,6 +135,7 @@ export interface Config {
     recueils: Recueil;
   };
   globalsSelect: {
+    'contenu-fronton': ContenuFrontonSelect<false> | ContenuFrontonSelect<true>;
     'contenu-accueil': ContenuAccueilSelect<false> | ContenuAccueilSelect<true>;
     'contenu-manifeste': ContenuManifesteSelect<false> | ContenuManifesteSelect<true>;
     'contenu-declaration': ContenuDeclarationSelect<false> | ContenuDeclarationSelect<true>;
@@ -422,6 +424,14 @@ export interface TextesLecture {
   slug: string;
   titre: string;
   sous_titre?: string | null;
+  /**
+   * Petite mention au-dessus du titre de l’extrait, ex. « TEXTE LIMINAIRE · » ou « CHAPITRE INTÉGRAL · ».
+   */
+  etiquette?: string | null;
+  /**
+   * Passage présenté dans le lecteur de la page Les ouvrages, avant le bouton « Lire le texte intégral ». Sans guillemets : ils sont ajoutés automatiquement. Le texte intégral est le « Corps du texte » ci-dessous.
+   */
+  extrait?: string | null;
   /**
    * Citation d’ouverture, sans guillemets. Laisser vide pour ne rien afficher.
    */
@@ -818,6 +828,8 @@ export interface TextesLectureSelect<T extends boolean = true> {
   slug?: T;
   titre?: T;
   sous_titre?: T;
+  etiquette?: T;
+  extrait?: T;
   exergue?: T;
   exergue_source?: T;
   blocs?:
@@ -943,6 +955,28 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Textes de la page /. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-fronton".
+ */
+export interface ContenuFronton {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  titre?: string | null;
+  dedicace_1?: string | null;
+  dedicace_2?: string | null;
+  dedicace_3?: string | null;
+  embleme_alt?: string | null;
+  pyramide_alt?: string | null;
+  thebes_titre?: string | null;
+  thebes_aria?: string | null;
+  balance_alt?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Textes de la page /accueil. Un champ vidé fait revenir le texte d'origine.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -952,95 +986,15 @@ export interface ContenuAccueil {
   id: string;
   seo_titre?: string | null;
   seo_description?: string | null;
-  ouverture_dedicace?: string | null;
-  ouverture_surtitre?: string | null;
-  ouverture_titre?: string | null;
-  ouverture_citation?: string | null;
-  ouverture_formules_lecture?: string | null;
-  ouverture_formule_sigma?: string | null;
-  ouverture_formule_maat?: string | null;
-  ouverture_bouton_institut?: string | null;
-  ouverture_bouton_tomes?: string | null;
-  pyramide_titre?: string | null;
-  pyramide_consigne?: string | null;
-  pyramide_axe_descendant?: string | null;
-  pyramide_axe_descendant_legende?: string | null;
-  pyramide_axe_ascendant?: string | null;
-  pyramide_axe_ascendant_legende?: string | null;
-  pyramide_groupe_lecture?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  pyramide_position?: string | null;
-  pyramide_symbole_vide?: string | null;
-  pyramide_lien_entree?: string | null;
-  axiome_citation?: string | null;
-  axiome_titre?: string | null;
-  axiome_texte?: string | null;
-  portes_titre?: string | null;
-  portes_sous_titre?: string | null;
-  plan_titre?: string | null;
-  plan_chapeau?: string | null;
-  plan_famille_seuil?: string | null;
-  cloture_citation?: string | null;
-  cloture_locus?: string | null;
-  cloture_page_suivante?: string | null;
-  cloture_page_suivante_titre?: string | null;
-  /**
-   * Ouverture — la Pyramide de Σ — du sommet à la base. Le libellé peut tenir sur deux lignes (retour à la ligne).
-   */
-  niveaux_pyramide?:
-    | {
-        symbole?: string | null;
-        libelle?: string | null;
-        nom?: string | null;
-        formule?: string | null;
-        definition?: string | null;
-        source_libelle?: string | null;
-        source_lien?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section — Par où entrer
-   */
-  portes?:
-    | {
-        etiquette?: string | null;
-        titre?: string | null;
-        texte?: string | null;
-        action?: string | null;
-        lien?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section — L’œuvre en dix pages — l’identifiant de page (page_id) relie le résumé à sa page : ne pas le modifier.
-   */
-  resumes?:
-    | {
-        page_id?: string | null;
-        titre?: string | null;
-        resume?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Textes de la page /manifeste. Un champ vidé fait revenir le texte d'origine.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contenu-manifeste".
- */
-export interface ContenuManifeste {
-  id: string;
-  seo_titre?: string | null;
-  seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_exergue?: string | null;
+  entree_eyebrow?: string | null;
+  entree_diptyque?: string | null;
+  entree_bouton_tome_i?: string | null;
+  entree_bouton_tome_ii?: string | null;
+  entree_bouton_architecture?: string | null;
+  entree_signature_auteur?: string | null;
+  entree_signature_lieu?: string | null;
+  introduction_lead?: string | null;
+  diagnostic_tag?: string | null;
   diagnostic_titre?: string | null;
   diagnostic_corps?: {
     root: {
@@ -1057,8 +1011,12 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  illusion_quantitative_titre?: string | null;
-  illusion_quantitative_corps?: {
+  ellipse_titre?: string | null;
+  ellipse_texte?: string | null;
+  ellipse_equation?: string | null;
+  ellipse_suite?: string | null;
+  rupture_titre?: string | null;
+  rupture_corps?: {
     root: {
       type: string;
       children: {
@@ -1073,8 +1031,9 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  piege_postmoderne_titre?: string | null;
-  piege_postmoderne_corps?: {
+  socle_tag?: string | null;
+  socle_titre?: string | null;
+  socle_corps?: {
     root: {
       type: string;
       children: {
@@ -1089,8 +1048,10 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  matrice_maat_titre?: string | null;
-  matrice_maat_intro?: {
+  socle_bouton?: string | null;
+  science_tag?: string | null;
+  science_titre?: string | null;
+  science_corps?: {
     root: {
       type: string;
       children: {
@@ -1105,7 +1066,368 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  matrice_maat_conclusion?: {
+  science_equation_1?: string | null;
+  science_mesure?: string | null;
+  science_equation_2?: string | null;
+  science_bouton?: string | null;
+  diptyque_fondateur_titre?: string | null;
+  transmission_titre?: string | null;
+  transmission_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  transmission_bouton?: string | null;
+  rencontre_tag?: string | null;
+  rencontre_titre?: string | null;
+  rencontre_texte?: string | null;
+  livre_titre?: string | null;
+  livre_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brazzaville_titre?: string | null;
+  brazzaville_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Les deux cartes côte à côte (Tome I, Tome II). Champs facultatifs laissés vides : non affichés.
+   */
+  tomes?:
+    | {
+        etiquette?: string | null;
+        designation?: string | null;
+        titre?: string | null;
+        texte?: string | null;
+        signature?: string | null;
+        bouton?: string | null;
+        lien?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /manifeste. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-manifeste".
+ */
+export interface ContenuManifeste {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  entete_surtitre?: string | null;
+  entete_titre?: string | null;
+  entete_chapo?: string | null;
+  introduction?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  declin_titre?: string | null;
+  declin_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  formalisation_titre?: string | null;
+  formalisation_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  formalisation_formule?: string | null;
+  formalisation_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  ellipse_titre?: string | null;
+  ellipse_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brazzaville_titre?: string | null;
+  brazzaville_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  maat_titre?: string | null;
+  maat_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  metamoderne_titre?: string | null;
+  metamoderne_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  metamoderne_formule?: string | null;
+  metamoderne_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  proactivite_titre?: string | null;
+  proactivite_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  examen_titre?: string | null;
+  examen_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  universel_titre?: string | null;
+  universel_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /declaration. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-declaration".
+ */
+export interface ContenuDeclaration {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  entete_surtitre?: string | null;
+  entete_titre?: string | null;
+  entete_chapo?: string | null;
+  auteur?: string | null;
+  embleme_alt?: string | null;
+  introduction?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  kemet_titre?: string | null;
+  kemet_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sigma_titre?: string | null;
+  sigma_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sigma_these?: string | null;
+  sigma_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  restauration_titre?: string | null;
+  restauration_corps?: {
     root: {
       type: string;
       children: {
@@ -1136,14 +1458,8 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  articles_titre?: string | null;
-  articles_chapeau?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  articles_etiquette?: string | null;
-  pacte_titre?: string | null;
-  pacte_corps?: {
+  examen_titre?: string | null;
+  examen_corps?: {
     root: {
       type: string;
       children: {
@@ -1158,58 +1474,9 @@ export interface ContenuManifeste {
     };
     [k: string]: unknown;
   } | null;
-  pacte_exergue?: string | null;
-  appel_titre?: string | null;
-  appel_corps?: string | null;
-  appel_bouton?: string | null;
-  /**
-   * Section 4 — encadré des trois propriétés cumulatives
-   */
-  matrice?:
-    | {
-        numero?: string | null;
-        titre?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 6 — numéro en chiffres romains (sert aussi d’ancre : #article-i…)
-   */
-  articles?:
-    | {
-        numero?: string | null;
-        titre?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Textes de la page /declaration. Un champ vidé fait revenir le texte d'origine.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contenu-declaration".
- */
-export interface ContenuDeclaration {
-  id: string;
-  seo_titre?: string | null;
-  seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_bouton?: string | null;
-  sommaire_preambule?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  sommaire_acte?: string | null;
-  hero_exergue?: string | null;
-  sommaire_titre?: string | null;
-  sommaire_aria?: string | null;
-  preambule_titre?: string | null;
-  preambule_corps?: {
+  examen_encadre?: string | null;
+  desarticulation_titre?: string | null;
+  desarticulation_corps?: {
     root: {
       type: string;
       children: {
@@ -1224,8 +1491,8 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_i_titre?: string | null;
-  acte_i_corps?: {
+  demonstration_titre?: string | null;
+  demonstration_corps?: {
     root: {
       type: string;
       children: {
@@ -1240,8 +1507,8 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_ii_titre?: string | null;
-  acte_ii_corps?: {
+  droit_titre?: string | null;
+  droit_corps?: {
     root: {
       type: string;
       children: {
@@ -1256,8 +1523,8 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_iii_titre?: string | null;
-  acte_iii_intro?: {
+  reintegration_titre?: string | null;
+  reintegration_corps?: {
     root: {
       type: string;
       children: {
@@ -1272,8 +1539,8 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_iii_formule_sigma?: string | null;
-  acte_iii_equation?: {
+  transmission_titre?: string | null;
+  transmission_corps?: {
     root: {
       type: string;
       children: {
@@ -1288,8 +1555,8 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_iii_formule_maat?: string | null;
-  acte_iii_transposition?: {
+  universel_titre?: string | null;
+  universel_corps?: {
     root: {
       type: string;
       children: {
@@ -1304,175 +1571,6 @@ export interface ContenuDeclaration {
     };
     [k: string]: unknown;
   } | null;
-  acte_iv_titre?: string | null;
-  acte_iv_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_iv_niveau_i_etiquette?: string | null;
-  acte_iv_niveau_i_titre?: string | null;
-  acte_iv_niveau_i_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_iv_niveau_ii_etiquette?: string | null;
-  acte_iv_niveau_ii_titre?: string | null;
-  acte_iv_niveau_ii_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_iv_niveau_iii_etiquette?: string | null;
-  acte_iv_niveau_iii_titre?: string | null;
-  acte_iv_niveau_iii_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_iv_niveau_iv_etiquette?: string | null;
-  acte_iv_niveau_iv_titre?: string | null;
-  acte_iv_niveau_iv_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_v_titre?: string | null;
-  acte_v_encadre?: string | null;
-  acte_v_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_vi_titre?: string | null;
-  acte_vi_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_vii_titre?: string | null;
-  acte_vii_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_viii_titre?: string | null;
-  acte_viii_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acte_viii_synthese?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  appel_titre?: string | null;
-  appel_locus?: string | null;
-  appel_sceau?: string | null;
-  cloture_texte?: string | null;
-  cloture_bouton?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1486,13 +1584,13 @@ export interface ContenuConstitution {
   id: string;
   seo_titre?: string | null;
   seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_bouton?: string | null;
-  hero_exergue?: string | null;
-  hero_formule?: string | null;
-  preambule_titre?: string | null;
-  preambule_corps?: {
+  entete_eyebrow?: string | null;
+  entete_titre?: string | null;
+  entete_intro?: string | null;
+  introduction_lead?: string | null;
+  introduction_note?: string | null;
+  degradation_titre?: string | null;
+  degradation_corps?: {
     root: {
       type: string;
       children: {
@@ -1507,18 +1605,8 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
-  articles_titre?: string | null;
-  articles_sommaire_lecture?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  articles_lien_lecture?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  articles_etiquette?: string | null;
-  article_objet_titre?: string | null;
-  article_objet_corps?: {
+  regles_titre?: string | null;
+  regles_corps?: {
     root: {
       type: string;
       children: {
@@ -1533,169 +1621,13 @@ export interface ContenuConstitution {
     };
     [k: string]: unknown;
   } | null;
-  article_souverainete_titre?: string | null;
-  article_souverainete_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_distinction_titre?: string | null;
-  article_distinction_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_hypotheses_titre?: string | null;
-  article_hypotheses_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_critique_titre?: string | null;
-  article_critique_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_organons_titre?: string | null;
-  article_organons_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_auteur_titre?: string | null;
-  article_auteur_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_autorites_titre?: string | null;
-  article_autorites_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_cloture_ethique_titre?: string | null;
-  article_cloture_ethique_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  article_continuite_titre?: string | null;
-  article_continuite_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  disposition_finale_titre?: string | null;
-  disposition_finale_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cloture_titre?: string | null;
-  cloture_citation?: string | null;
-  cloture_bouton?: string | null;
+  articles_methode?:
+    | {
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1709,11 +1641,14 @@ export interface ContenuInstitution {
   id: string;
   seo_titre?: string | null;
   seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_exergue?: string | null;
-  objet_titre?: string | null;
-  objet_corps?: {
+  entete_eyebrow?: string | null;
+  entete_titre?: string | null;
+  entete_intro?: string | null;
+  entete_auteur?: string | null;
+  entete_embleme_alt?: string | null;
+  horizon_tag?: string | null;
+  horizon_titre?: string | null;
+  horizon_corps?: {
     root: {
       type: string;
       children: {
@@ -1728,9 +1663,122 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
-  objet_formule_etiquette?: string | null;
-  objet_formule_citation?: string | null;
-  objet_distinction?: {
+  horizon_equation?: string | null;
+  horizon_suite?: string | null;
+  rupture_titre?: string | null;
+  rupture_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  programme_lead?: string | null;
+  programme_statuts?: string | null;
+  maat_droit_titre?: string | null;
+  maat_droit_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  science_texte?: string | null;
+  quatre_niveaux_titre?: string | null;
+  prolongements_titre?: string | null;
+  prolongements_texte?: string | null;
+  prolongements_chantier?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brazzaville_titre?: string | null;
+  brazzaville_texte?: string | null;
+  brazzaville_note?: string | null;
+  ecole_titre?: string | null;
+  ecole_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  corpus_titre?: string | null;
+  corpus_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cartes_niveaux?:
+    | {
+        etiquette?: string | null;
+        titre?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Textes de la page /note-epistemologique. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-note-epistemologique".
+ */
+export interface ContenuNoteEpistemologique {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  entete_surtitre?: string | null;
+  entete_titre?: string | null;
+  entete_chapo?: string | null;
+  embleme_alt?: string | null;
+  introduction?: {
     root: {
       type: string;
       children: {
@@ -1761,440 +1809,340 @@ export interface ContenuInstitution {
     };
     [k: string]: unknown;
   } | null;
-  architecture_schema_lecture?: string | null;
+  architecture_encadre?: string | null;
+  ordre_titre?: string | null;
+  ordre_formule?: string | null;
+  ordre_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  crgi_titre?: string | null;
+  crgi_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  crgi_formule?: string | null;
+  crgi_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  reconstruction_titre?: string | null;
+  reconstruction_these?: string | null;
+  reconstruction_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  reconstruction_formule?: string | null;
+  reconstruction_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  metrologie_titre?: string | null;
+  metrologie_bandeau_titre?: string | null;
+  metrologie_bandeau_ligne?: string | null;
+  metrologie_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  metrologie_formule?: string | null;
+  metrologie_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  mecanisme_titre?: string | null;
+  mecanisme_formule?: string | null;
+  mecanisme_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  mecanisme_citation?: string | null;
+  organon_titre?: string | null;
+  organon_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  organon_encadre?: string | null;
+  organon_note?: string | null;
+  cascade_titre?: string | null;
+  cascade_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  cascade_formule?: string | null;
+  cascade_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  ellipse_titre?: string | null;
+  ellipse_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  crise_titre?: string | null;
+  crise_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  unite_titre?: string | null;
+  unite_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  unite_formule?: string | null;
+  unite_suite?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  unite_formule_2?: string | null;
+  acte_deces_titre?: string | null;
+  acte_deces_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  grandeur_titre?: string | null;
+  grandeur_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  canon_sept_titre?: string | null;
+  canon_sept_intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  canon_sept_conclusion?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  livre_titre?: string | null;
+  livre_corps?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   * Grande section — 8. Le Canon de la découverte
    */
-  architecture_niveau_etiquette?: string | null;
-  architecture_fonction?: string | null;
-  architecture_question?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  architecture_maxime?: string | null;
-  architecture_mouvement_intro?: string | null;
-  souverainete_titre?: string | null;
-  souverainete_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  souverainete_encadre_titre?: string | null;
-  souverainete_encadre?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  souverainete_portee?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  privilege_optique_titre?: string | null;
-  privilege_optique_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  privilege_optique_lignee_titre?: string | null;
-  privilege_optique_lignee?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  privilege_optique_autorites_titre?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  privilege_optique_champ?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  privilege_optique_origine?: string | null;
-  demarche_titre?: string | null;
-  demarche_equation?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  demarche_formule_sigma?: string | null;
-  demarche_formule_sigma_lecture?: string | null;
-  demarche_transposition?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  demarche_formule_maat?: string | null;
-  demarche_formule_maat_lecture?: string | null;
-  demarche_analogie?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  demarche_canon_titre?: string | null;
-  demarche_canon?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cloture_titre?: string | null;
-  cloture_citation_1?: string | null;
-  cloture_citation_2?: string | null;
-  cloture_bouton_constitution?: string | null;
-  cloture_bouton_manifeste?: string | null;
-  cloture_bouton_ouvrage?: string | null;
-  niveaux?:
+  canon_sept_principes?:
     | {
-        numero: string;
-        niveau_id: string;
-        titre: string;
-        fonction: string;
-        question_fondamentale: string;
-        corps?:
-          | {
-              texte: string;
-              id?: string | null;
-            }[]
-          | null;
-        equation?: string | null;
-        liste?:
-          | {
-              texte: string;
-              id?: string | null;
-            }[]
-          | null;
-        maxime?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  mouvement_organique?:
-    | {
-        texte: string;
-        id?: string | null;
-      }[]
-    | null;
-  champs_autorites?:
-    | {
-        champ_id: string;
-        champ: string;
-        autorites?:
-          | {
-              nom: string;
-              origine: string;
-              motif: string;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  canon?:
-    | {
-        numero: number;
-        titre: string;
-        glose: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * Textes de la page /note-epistemologique. Un champ vidé fait revenir le texte d'origine.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contenu-note-epistemologique".
- */
-export interface ContenuNoteEpistemologique {
-  id: string;
-  seo_titre?: string | null;
-  seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_exergue?: string | null;
-  sommaire_posture?: string | null;
-  sommaire_axiome?: string | null;
-  sommaire_canon?: string | null;
-  posture_titre?: string | null;
-  posture_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  axiome_titre?: string | null;
-  axiome_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  axiome_encadre?: string | null;
-  axiome_thom?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  principes_titre?: string | null;
-  principes_unite_titre?: string | null;
-  principes_unite_maxime?: string | null;
-  principes_unite_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  principes_polarite_titre?: string | null;
-  principes_polarite_maxime?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  principes_polarite_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  canon_titre?: string | null;
-  theoreme_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  canon_frise_aria?: string | null;
-  triade_titre?: string | null;
-  triade_sous_titre?: string | null;
-  triade_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  sextuor_titre?: string | null;
-  sextuor_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  pacte_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cloture_texte?: string | null;
-  cloture_bouton?: string | null;
-  /**
-   * Section 4 — frise numérotée (le dernier élément est mis en valeur)
-   */
-  etapes_canon?:
-    | {
-        terme?: string | null;
-        role?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 4 — sous la frise
-   */
-  canon?:
-    | {
-        titre?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 6 — cartes
-   */
-  sextuor?:
-    | {
-        titre?: string | null;
         texte?: string | null;
         id?: string | null;
       }[]
@@ -2212,32 +2160,121 @@ export interface ContenuConcept {
   id: string;
   seo_titre?: string | null;
   seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  index_titre?: string | null;
-  hero_exergue?: string | null;
-  introduction_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  strates_aria?: string | null;
-  index_aria?: string | null;
+  v16_tete_surtitre?: string | null;
+  v16_tete_titre?: string | null;
+  v16_tete_intro?: string | null;
+  v16_ouverture_chapeau?: string | null;
+  v16_plans_titre?: string | null;
+  v16_socle_titre?: string | null;
+  v16_genese_titre?: string | null;
+  v16_genese_surtitre?: string | null;
+  v16_genese_sequence?: string | null;
+  v16_genese_texte?: string | null;
+  v16_mesure_titre?: string | null;
+  v16_cascade_titre?: string | null;
+  v16_cascade_carte_titre?: string | null;
+  v16_cascade_carte_p1?: string | null;
+  v16_cascade_carte_p2?: string | null;
+  v16_juridique_titre?: string | null;
+  v16_metamoderne_titre?: string | null;
+  v16_metamoderne_texte?: string | null;
+  v16_metamoderne_note?: string | null;
+  v16_ellipse_titre?: string | null;
+  v16_ellipse_texte?: string | null;
+  v16_diagnostic_titre?: string | null;
+  v16_diagnostic_p1?: string | null;
+  v16_diagnostic_p2?: string | null;
+  v16_declin_titre?: string | null;
+  v16_declin_texte?: string | null;
+  v16_operateurs_titre?: string | null;
+  v16_operateurs_conclusion?: string | null;
+  v16_cascade_juridique_titre?: string | null;
+  v16_cascade_juridique_sequence?: string | null;
+  v16_cascade_juridique_texte?: string | null;
+  v16_proactivite_titre?: string | null;
+  v16_proactivite_sequence?: string | null;
+  v16_proactivite_texte?: string | null;
+  v16_canon_titre?: string | null;
+  v16_canon_p1?: string | null;
+  v16_canon_p2?: string | null;
+  v16_livre_titre?: string | null;
+  v16_livre_p1?: string | null;
+  v16_livre_p2?: string | null;
   /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   * Trois plans à ne jamais confondre — cartes. Chaque carte porte une ancre de lien stable (/concepts#…) : ne pas modifier le champ « Ancre ».
    */
-  strate_nombre?: string | null;
-  cloture_texte?: string | null;
+  v16_plans?:
+    | {
+        ancre?: string | null;
+        tag?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Le socle principiel et structurel — cartes. Chaque carte porte une ancre de lien stable (/concepts#…) : ne pas modifier le champ « Ancre ».
+   */
+  v16_socle?:
+    | {
+        ancre?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * La reconstruction et la mesure — cartes. Chaque carte porte une ancre de lien stable (/concepts#…) : ne pas modifier le champ « Ancre ».
+   */
+  v16_mesure?:
+    | {
+        ancre?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Les concepts du laboratoire juridique — cartes. Chaque carte porte une ancre de lien stable (/concepts#…) : ne pas modifier le champ « Ancre ».
+   */
+  v16_juridique?:
+    | {
+        ancre?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Les opérateurs de la matrice kémitique — un paragraphe par opérateur (« Terme : texte »)
+   */
+  v16_operateurs?:
+    | {
+        terme?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2249,168 +2286,46 @@ export interface ContenuConcept {
  */
 export interface ContenuOuvrage {
   id: string;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_bouton?: string | null;
-  hero_exergue?: string | null;
-  sommaire_autorites?: string | null;
-  sommaire_programme?: string | null;
-  textes_liminaires_titre?: string | null;
-  textes_liminaires_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  acces_libre_bouton_lire?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  acces_libre_compteur?: string | null;
-  introduction_titre?: string | null;
-  introduction_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  presentation_titre?: string | null;
-  presentation_tome_i_etiquette?: string | null;
-  presentation_tome_i_titre?: string | null;
-  presentation_tome_i_sous_titre?: string | null;
-  presentation_tome_i_question?: string | null;
-  presentation_tome_i_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  presentation_tome_i_lien?: string | null;
-  presentation_tome_ii_etiquette?: string | null;
-  presentation_tome_ii_titre?: string | null;
-  presentation_tome_ii_sous_titre?: string | null;
-  presentation_tome_ii_question?: string | null;
-  presentation_tome_ii_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  presentation_tome_ii_lien?: string | null;
-  autorites_titre?: string | null;
-  autorites_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  programme_titre?: string | null;
-  programme_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  programme_noyau_titre?: string | null;
-  programme_noyau_sous_titre?: string | null;
-  programme_expansion_titre?: string | null;
-  programme_expansion_sous_titre?: string | null;
-  programme_axes?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cloture_citation?: string | null;
-  cloture_lien?: string | null;
   seo_titre?: string | null;
   seo_description?: string | null;
-  /**
-   * Section 5 — Encadré « Noyau Démontré / Programme d’Expansion » — colonne gauche. Le terme s'affiche en gras, suivi du texte.
-   */
-  noyau?:
-    | {
-        terme?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 5 — Encadré « Noyau Démontré / Programme d’Expansion » — colonne droite. Le terme s'affiche en gras, suivi du texte.
-   */
-  expansion?:
-    | {
-        terme?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  entete_surtitre?: string | null;
+  entete_titre?: string | null;
+  entete_texte?: string | null;
+  intro_chapeau?: string | null;
+  intro_statuts?: string | null;
+  tome_i_couverture_alt?: string | null;
+  tome_i_rubrique?: string | null;
+  tome_i_titre?: string | null;
+  tome_i_description?: string | null;
+  tome_i_prix?: string | null;
+  tome_i_prix_format?: string | null;
+  tome_i_note?: string | null;
+  tome_i_bouton?: string | null;
+  tome_ii_couverture_alt?: string | null;
+  tome_ii_rubrique?: string | null;
+  tome_ii_auteur?: string | null;
+  tome_ii_titre?: string | null;
+  tome_ii_sous_titre?: string | null;
+  tome_ii_description?: string | null;
+  tome_ii_prix?: string | null;
+  tome_ii_prix_format?: string | null;
+  tome_ii_note?: string | null;
+  tome_ii_bouton?: string | null;
+  lecteur_titre?: string | null;
+  lecteur_chapeau?: string | null;
+  lecteur_tome_i?: string | null;
+  lecteur_tome_ii?: string | null;
+  lecteur_tomes_aria?: string | null;
+  lecteur_consigne?: string | null;
+  lecteur_textes_aria?: string | null;
+  lecteur_lire_integral?: string | null;
+  lecteur_ouvrir_integral?: string | null;
+  lecteur_retour?: string | null;
+  lecteur_note?: string | null;
+  diptyque_titre?: string | null;
+  diptyque_tome_i?: string | null;
+  diptyque_tome_ii?: string | null;
+  diptyque_corpus?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2424,76 +2339,94 @@ export interface ContenuLaboratoire {
   id: string;
   seo_titre?: string | null;
   seo_description?: string | null;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_exergue?: string | null;
-  introduction_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acces_titre?: string | null;
-  acces_hybride_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  acces_ressources?: string | null;
-  code_titre?: string | null;
-  code_texte?: string | null;
-  working_papers_titre?: string | null;
-  pieces_titre?: string | null;
-  progression_titre?: string | null;
-  progression_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  cloture_texte?: string | null;
-  cloture_lien?: string | null;
-  niveaux_acces?:
+  v16_tete_surtitre?: string | null;
+  v16_tete_titre?: string | null;
+  v16_tete_intro?: string | null;
+  v16_ouverture_chapeau?: string | null;
+  v16_s1_titre?: string | null;
+  v16_s1_texte?: string | null;
+  v16_s1_constat_intitule?: string | null;
+  v16_s1_constat_texte?: string | null;
+  v16_s2_titre?: string | null;
+  v16_s2_p1?: string | null;
+  v16_s2_p2?: string | null;
+  v16_s3_titre?: string | null;
+  v16_s3_p1?: string | null;
+  v16_s3_p2?: string | null;
+  v16_s4_titre?: string | null;
+  v16_s4_p1?: string | null;
+  v16_s4_p2?: string | null;
+  v16_s5_titre?: string | null;
+  v16_s5_p1?: string | null;
+  v16_s5_encadre?: string | null;
+  v16_operateurs_titre?: string | null;
+  v16_operateurs_intro?: string | null;
+  v16_operateurs_legende?: string | null;
+  v16_cascade_titre?: string | null;
+  v16_cascade_sequence?: string | null;
+  v16_cascade_texte?: string | null;
+  v16_guide_titre?: string | null;
+  v16_guide_sequence?: string | null;
+  v16_guide_texte?: string | null;
+  v16_demarche_titre?: string | null;
+  v16_demarche_p1?: string | null;
+  v16_demarche_p2?: string | null;
+  v16_demarche_p3?: string | null;
+  /**
+   * 1. Le laboratoire congolais : trois requêtes, trois réponses — cartes
+   */
+  v16_requetes?:
     | {
-        numero: string;
-        titre: string;
-        description: string;
+        tag?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
-  progression?:
+  /**
+   * 3. La matrice kémitique de Maât — cartes
+   */
+  v16_fondements?:
     | {
-        reference: string;
-        role: string;
-        prerequis: string;
+        tag?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * 4. Les questions du droit contemporain — liste à puces
+   */
+  v16_notions?:
+    | {
+        terme?: string | null;
+        texte?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * La matrice de Maât et ses opérateurs — cartes
+   */
+  v16_operateurs?:
+    | {
+        tag?: string | null;
+        titre?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -2508,116 +2441,61 @@ export interface ContenuLaboratoire {
  */
 export interface ContenuTransmission {
   id: string;
-  hero_titre?: string | null;
-  hero_sous_titre?: string | null;
-  hero_bouton_comparer?: string | null;
-  hero_bouton_secretariat?: string | null;
-  hero_exergue?: string | null;
-  sommaire_boucle?: string | null;
-  sommaire_grille?: string | null;
-  sommaire_paiement?: string | null;
-  argumentaire_titre?: string | null;
-  argumentaire_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  boucle_titre?: string | null;
-  boucle_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  boucle_schema_aria?: string | null;
-  boucle_legende?: string | null;
-  boucle_doctrine?: string | null;
-  grille_titre?: string | null;
-  modules_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  grille_note?: string | null;
-  paiement_titre?: string | null;
-  paiement_corps?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  paiement_frais?: string | null;
-  contact_titre?: string | null;
-  contact_sous_titre?: string | null;
-  contact_siege_titre?: string | null;
-  contact_siege_ligne_1?: string | null;
-  contact_siege_ligne_2?: string | null;
-  contact_siege_ligne_3?: string | null;
-  contact_antenne_titre?: string | null;
-  contact_antenne_ligne_1?: string | null;
-  contact_antenne_ligne_2?: string | null;
-  contact_numerique_titre?: string | null;
-  contact_numerique_email?: string | null;
-  contact_numerique_site?: string | null;
-  demande_titre?: string | null;
-  demande_texte?: string | null;
-  cloture_citation?: string | null;
-  cloture_lien?: string | null;
   seo_titre?: string | null;
   seo_description?: string | null;
+  v16_tete_surtitre?: string | null;
+  v16_tete_titre?: string | null;
+  v16_tete_intro?: string | null;
+  v16_ouverture_chapeau?: string | null;
+  v16_ouverture_sequence?: string | null;
+  v16_supports_titre?: string | null;
+  v16_thebes_titre?: string | null;
+  v16_thebes_texte?: string | null;
+  v16_bibliotheques_titre?: string | null;
+  v16_rencontre_titre?: string | null;
+  v16_rencontre_p1?: string | null;
+  v16_rencontre_p2?: string | null;
+  v16_rupture_titre?: string | null;
+  v16_rupture_p1?: string | null;
+  v16_rupture_p2?: string | null;
+  v16_bande_titre?: string | null;
+  v16_bande_p1?: string | null;
+  v16_bande_sequence?: string | null;
+  v16_bande_p2?: string | null;
+  v16_matrice_titre?: string | null;
+  v16_matrice_texte?: string | null;
+  v16_capacite_titre?: string | null;
+  v16_capacite_p1?: string | null;
+  v16_capacite_p2?: string | null;
+  v16_capacite_p3?: string | null;
+  v16_horizon_titre?: string | null;
+  v16_horizon_p1?: string | null;
+  v16_horizon_p2?: string | null;
+  v16_horizon_p3?: string | null;
   /**
-   * Section 2 — La Boucle Vertueuse — trois cartes, de gauche à droite (la mise en forme dépend du rang : claire, encadrée, sombre). Dans un accès, le texte avant « → » s'affiche en gras.
+   * Les supports de transmission — cartes
    */
-  niveaux?:
+  v16_supports?:
     | {
-        niveau?: string | null;
+        tag?: string | null;
         titre?: string | null;
-        sous_titre?: string | null;
-        acces?:
+        paragraphes?:
           | {
               texte: string;
               id?: string | null;
             }[]
           | null;
-        condition?:
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * La Nouvelle Thèbes — Cité du Savoir — cartes
+   */
+  v16_atlas?:
+    | {
+        tag?: string | null;
+        titre?: string | null;
+        paragraphes?:
           | {
               texte: string;
               id?: string | null;
@@ -2627,31 +2505,17 @@ export interface ContenuTransmission {
       }[]
     | null;
   /**
-   * Section 2 — La Boucle Vertueuse — frise sous les trois niveaux. Un code « EBZ-… » s'affiche en police à chasse fixe.
+   * Deux bibliothèques distinctes — cartes
    */
-  etapes?:
-    | {
-        cap?: string | null;
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 3 — La grille des modules — ligne « Accès » du tableau, dans l’ordre des modules (I, II, III)
-   */
-  acces_modules?:
-    | {
-        texte?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Section 4 — Paiement — trois colonnes (icônes dans l'ordre : mobile, carte, devises)
-   */
-  moyens_paiement?:
+  v16_bibliotheques?:
     | {
         titre?: string | null;
-        detail?: string | null;
+        paragraphes?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -2799,6 +2663,19 @@ export interface ContenuCgv {
  */
 export interface ContenuSiteNavigation {
   id: string;
+  v16_marque_nom?: string | null;
+  v16_marque_devise?: string | null;
+  v16_marque_symbole?: string | null;
+  v16_menu?: string | null;
+  v16_contact_titre?: string | null;
+  v16_contact_intro?: string | null;
+  v16_contact_note?: string | null;
+  v16_signature_nom?: string | null;
+  v16_signature_devise?: string | null;
+  v16_auteur?: string | null;
+  v16_lieu?: string | null;
+  v16_mention_1?: string | null;
+  v16_mention_2?: string | null;
   acces_aller_au_contenu?: string | null;
   marque_nom?: string | null;
   marque_devise?: string | null;
@@ -2807,6 +2684,7 @@ export interface ContenuSiteNavigation {
   entete_menu_ouvrir?: string | null;
   entete_menu_fermer?: string | null;
   entete_nav_aria?: string | null;
+  menu_fronton?: string | null;
   menu_seuil?: string | null;
   menu_institution?: string | null;
   menu_constitution?: string | null;
@@ -2830,6 +2708,7 @@ export interface ContenuSiteNavigation {
   familles_fondements?: string | null;
   familles_savoir?: string | null;
   familles_parcours?: string | null;
+  titre_fronton?: string | null;
   titre_seuil?: string | null;
   titre_institution?: string | null;
   titre_constitution?: string | null;
@@ -2855,6 +2734,18 @@ export interface ContenuSiteNavigation {
   seo_titre_defaut?: string | null;
   seo_modele_titre?: string | null;
   seo_description?: string | null;
+  /**
+   * Un lien vide affiche le contact en attente (bordure pointillée, non cliquable).
+   */
+  contacts?:
+    | {
+        titre?: string | null;
+        texte?: string | null;
+        lien?: string | null;
+        aria?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3083,7 +2974,6 @@ export interface ContenuSiteLecture {
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
   seo_texte_description?: string | null;
-  fil_ariane_ouvrage?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
@@ -3096,33 +2986,9 @@ export interface ContenuSiteLecture {
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
-  sommaire_partie_un?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  sommaire_partie_plusieurs?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
   sommaire_plan_titre?: string | null;
+  sommaire_lire_integral?: string | null;
   sommaire_plan_note?: string | null;
-  ligne_lire?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  meta_minutes?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  meta_minutes_long?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  meta_minutes_compact?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  meta_sections?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
@@ -3134,35 +3000,18 @@ export interface ContenuSiteLecture {
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
-  rail_aria?: string | null;
-  rail_textes_ouverts?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  rail_vous_lisez?: string | null;
-  rail_lu?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
   rail_sommaire?: string | null;
-  mobile_sommaire?: string | null;
-  mobile_progression_aria?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
   texte_mention?: string | null;
   navigation_aria?: string | null;
+  navigation_ouvrages?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
-  navigation_suivant?: string | null;
-  navigation_continuer?: string | null;
+  navigation_suivant_titre?: string | null;
   navigation_precedent?: string | null;
-  navigation_retour_ouvrage?: string | null;
-  navigation_revenir?: string | null;
-  outils_aria?: string | null;
-  outils_notions?: string | null;
-  outils_dans_ce_texte?: string | null;
   citer_titre?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
@@ -3293,70 +3142,80 @@ export interface Recueil {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-fronton_select".
+ */
+export interface ContenuFrontonSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  titre?: T;
+  dedicace_1?: T;
+  dedicace_2?: T;
+  dedicace_3?: T;
+  embleme_alt?: T;
+  pyramide_alt?: T;
+  thebes_titre?: T;
+  thebes_aria?: T;
+  balance_alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contenu-accueil_select".
  */
 export interface ContenuAccueilSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  ouverture_dedicace?: T;
-  ouverture_surtitre?: T;
-  ouverture_titre?: T;
-  ouverture_citation?: T;
-  ouverture_formules_lecture?: T;
-  ouverture_formule_sigma?: T;
-  ouverture_formule_maat?: T;
-  ouverture_bouton_institut?: T;
-  ouverture_bouton_tomes?: T;
-  pyramide_titre?: T;
-  pyramide_consigne?: T;
-  pyramide_axe_descendant?: T;
-  pyramide_axe_descendant_legende?: T;
-  pyramide_axe_ascendant?: T;
-  pyramide_axe_ascendant_legende?: T;
-  pyramide_groupe_lecture?: T;
-  pyramide_position?: T;
-  pyramide_symbole_vide?: T;
-  pyramide_lien_entree?: T;
-  axiome_citation?: T;
-  axiome_titre?: T;
-  axiome_texte?: T;
-  portes_titre?: T;
-  portes_sous_titre?: T;
-  plan_titre?: T;
-  plan_chapeau?: T;
-  plan_famille_seuil?: T;
-  cloture_citation?: T;
-  cloture_locus?: T;
-  cloture_page_suivante?: T;
-  cloture_page_suivante_titre?: T;
-  niveaux_pyramide?:
-    | T
-    | {
-        symbole?: T;
-        libelle?: T;
-        nom?: T;
-        formule?: T;
-        definition?: T;
-        source_libelle?: T;
-        source_lien?: T;
-        id?: T;
-      };
-  portes?:
+  entree_eyebrow?: T;
+  entree_diptyque?: T;
+  entree_bouton_tome_i?: T;
+  entree_bouton_tome_ii?: T;
+  entree_bouton_architecture?: T;
+  entree_signature_auteur?: T;
+  entree_signature_lieu?: T;
+  introduction_lead?: T;
+  diagnostic_tag?: T;
+  diagnostic_titre?: T;
+  diagnostic_corps?: T;
+  ellipse_titre?: T;
+  ellipse_texte?: T;
+  ellipse_equation?: T;
+  ellipse_suite?: T;
+  rupture_titre?: T;
+  rupture_corps?: T;
+  socle_tag?: T;
+  socle_titre?: T;
+  socle_corps?: T;
+  socle_bouton?: T;
+  science_tag?: T;
+  science_titre?: T;
+  science_corps?: T;
+  science_equation_1?: T;
+  science_mesure?: T;
+  science_equation_2?: T;
+  science_bouton?: T;
+  diptyque_fondateur_titre?: T;
+  transmission_titre?: T;
+  transmission_corps?: T;
+  transmission_bouton?: T;
+  rencontre_tag?: T;
+  rencontre_titre?: T;
+  rencontre_texte?: T;
+  livre_titre?: T;
+  livre_corps?: T;
+  brazzaville_titre?: T;
+  brazzaville_corps?: T;
+  tomes?:
     | T
     | {
         etiquette?: T;
+        designation?: T;
         titre?: T;
         texte?: T;
-        action?: T;
+        signature?: T;
+        bouton?: T;
         lien?: T;
-        id?: T;
-      };
-  resumes?:
-    | T
-    | {
-        page_id?: T;
-        titre?: T;
-        resume?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -3370,45 +3229,32 @@ export interface ContenuAccueilSelect<T extends boolean = true> {
 export interface ContenuManifesteSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_exergue?: T;
-  diagnostic_titre?: T;
-  diagnostic_corps?: T;
-  illusion_quantitative_titre?: T;
-  illusion_quantitative_corps?: T;
-  piege_postmoderne_titre?: T;
-  piege_postmoderne_corps?: T;
-  matrice_maat_titre?: T;
-  matrice_maat_intro?: T;
-  matrice_maat_conclusion?: T;
-  decolonisation_titre?: T;
-  decolonisation_corps?: T;
-  articles_titre?: T;
-  articles_chapeau?: T;
-  articles_etiquette?: T;
-  pacte_titre?: T;
-  pacte_corps?: T;
-  pacte_exergue?: T;
-  appel_titre?: T;
-  appel_corps?: T;
-  appel_bouton?: T;
-  matrice?:
-    | T
-    | {
-        numero?: T;
-        titre?: T;
-        texte?: T;
-        id?: T;
-      };
-  articles?:
-    | T
-    | {
-        numero?: T;
-        titre?: T;
-        texte?: T;
-        id?: T;
-      };
+  entete_surtitre?: T;
+  entete_titre?: T;
+  entete_chapo?: T;
+  introduction?: T;
+  declin_titre?: T;
+  declin_corps?: T;
+  formalisation_titre?: T;
+  formalisation_intro?: T;
+  formalisation_formule?: T;
+  formalisation_suite?: T;
+  ellipse_titre?: T;
+  ellipse_corps?: T;
+  brazzaville_titre?: T;
+  brazzaville_corps?: T;
+  maat_titre?: T;
+  maat_corps?: T;
+  metamoderne_titre?: T;
+  metamoderne_intro?: T;
+  metamoderne_formule?: T;
+  metamoderne_suite?: T;
+  proactivite_titre?: T;
+  proactivite_corps?: T;
+  examen_titre?: T;
+  examen_corps?: T;
+  universel_titre?: T;
+  universel_corps?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3420,55 +3266,37 @@ export interface ContenuManifesteSelect<T extends boolean = true> {
 export interface ContenuDeclarationSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_bouton?: T;
-  sommaire_preambule?: T;
-  sommaire_acte?: T;
-  hero_exergue?: T;
-  sommaire_titre?: T;
-  sommaire_aria?: T;
-  preambule_titre?: T;
-  preambule_corps?: T;
-  acte_i_titre?: T;
-  acte_i_corps?: T;
-  acte_ii_titre?: T;
-  acte_ii_corps?: T;
-  acte_iii_titre?: T;
-  acte_iii_intro?: T;
-  acte_iii_formule_sigma?: T;
-  acte_iii_equation?: T;
-  acte_iii_formule_maat?: T;
-  acte_iii_transposition?: T;
-  acte_iv_titre?: T;
-  acte_iv_corps?: T;
-  acte_iv_niveau_i_etiquette?: T;
-  acte_iv_niveau_i_titre?: T;
-  acte_iv_niveau_i_corps?: T;
-  acte_iv_niveau_ii_etiquette?: T;
-  acte_iv_niveau_ii_titre?: T;
-  acte_iv_niveau_ii_corps?: T;
-  acte_iv_niveau_iii_etiquette?: T;
-  acte_iv_niveau_iii_titre?: T;
-  acte_iv_niveau_iii_corps?: T;
-  acte_iv_niveau_iv_etiquette?: T;
-  acte_iv_niveau_iv_titre?: T;
-  acte_iv_niveau_iv_corps?: T;
-  acte_v_titre?: T;
-  acte_v_encadre?: T;
-  acte_v_corps?: T;
-  acte_vi_titre?: T;
-  acte_vi_corps?: T;
-  acte_vii_titre?: T;
-  acte_vii_corps?: T;
-  acte_viii_titre?: T;
-  acte_viii_corps?: T;
-  acte_viii_synthese?: T;
-  appel_titre?: T;
-  appel_locus?: T;
-  appel_sceau?: T;
-  cloture_texte?: T;
-  cloture_bouton?: T;
+  entete_surtitre?: T;
+  entete_titre?: T;
+  entete_chapo?: T;
+  auteur?: T;
+  embleme_alt?: T;
+  introduction?: T;
+  kemet_titre?: T;
+  kemet_corps?: T;
+  sigma_titre?: T;
+  sigma_intro?: T;
+  sigma_these?: T;
+  sigma_suite?: T;
+  restauration_titre?: T;
+  restauration_corps?: T;
+  decolonisation_titre?: T;
+  decolonisation_corps?: T;
+  examen_titre?: T;
+  examen_corps?: T;
+  examen_encadre?: T;
+  desarticulation_titre?: T;
+  desarticulation_corps?: T;
+  demonstration_titre?: T;
+  demonstration_corps?: T;
+  droit_titre?: T;
+  droit_corps?: T;
+  reintegration_titre?: T;
+  reintegration_corps?: T;
+  transmission_titre?: T;
+  transmission_corps?: T;
+  universel_titre?: T;
+  universel_corps?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3480,42 +3308,22 @@ export interface ContenuDeclarationSelect<T extends boolean = true> {
 export interface ContenuConstitutionSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_bouton?: T;
-  hero_exergue?: T;
-  hero_formule?: T;
-  preambule_titre?: T;
-  preambule_corps?: T;
-  articles_titre?: T;
-  articles_sommaire_lecture?: T;
-  articles_lien_lecture?: T;
-  articles_etiquette?: T;
-  article_objet_titre?: T;
-  article_objet_corps?: T;
-  article_souverainete_titre?: T;
-  article_souverainete_corps?: T;
-  article_distinction_titre?: T;
-  article_distinction_corps?: T;
-  article_hypotheses_titre?: T;
-  article_hypotheses_corps?: T;
-  article_critique_titre?: T;
-  article_critique_corps?: T;
-  article_organons_titre?: T;
-  article_organons_corps?: T;
-  article_auteur_titre?: T;
-  article_auteur_corps?: T;
-  article_autorites_titre?: T;
-  article_autorites_corps?: T;
-  article_cloture_ethique_titre?: T;
-  article_cloture_ethique_corps?: T;
-  article_continuite_titre?: T;
-  article_continuite_corps?: T;
-  disposition_finale_titre?: T;
-  disposition_finale_corps?: T;
-  cloture_titre?: T;
-  cloture_citation?: T;
-  cloture_bouton?: T;
+  entete_eyebrow?: T;
+  entete_titre?: T;
+  entete_intro?: T;
+  introduction_lead?: T;
+  introduction_note?: T;
+  degradation_titre?: T;
+  degradation_corps?: T;
+  regles_titre?: T;
+  regles_corps?: T;
+  articles_methode?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3527,101 +3335,40 @@ export interface ContenuConstitutionSelect<T extends boolean = true> {
 export interface ContenuInstitutionSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_exergue?: T;
-  objet_titre?: T;
-  objet_corps?: T;
-  objet_formule_etiquette?: T;
-  objet_formule_citation?: T;
-  objet_distinction?: T;
-  architecture_titre?: T;
-  architecture_corps?: T;
-  architecture_schema_lecture?: T;
-  architecture_niveau_etiquette?: T;
-  architecture_fonction?: T;
-  architecture_question?: T;
-  architecture_maxime?: T;
-  architecture_mouvement_intro?: T;
-  souverainete_titre?: T;
-  souverainete_corps?: T;
-  souverainete_encadre_titre?: T;
-  souverainete_encadre?: T;
-  souverainete_portee?: T;
-  privilege_optique_titre?: T;
-  privilege_optique_corps?: T;
-  privilege_optique_lignee_titre?: T;
-  privilege_optique_lignee?: T;
-  privilege_optique_autorites_titre?: T;
-  privilege_optique_champ?: T;
-  privilege_optique_origine?: T;
-  demarche_titre?: T;
-  demarche_equation?: T;
-  demarche_formule_sigma?: T;
-  demarche_formule_sigma_lecture?: T;
-  demarche_transposition?: T;
-  demarche_formule_maat?: T;
-  demarche_formule_maat_lecture?: T;
-  demarche_analogie?: T;
-  demarche_canon_titre?: T;
-  demarche_canon?: T;
-  cloture_titre?: T;
-  cloture_citation_1?: T;
-  cloture_citation_2?: T;
-  cloture_bouton_constitution?: T;
-  cloture_bouton_manifeste?: T;
-  cloture_bouton_ouvrage?: T;
-  niveaux?:
+  entete_eyebrow?: T;
+  entete_titre?: T;
+  entete_intro?: T;
+  entete_auteur?: T;
+  entete_embleme_alt?: T;
+  horizon_tag?: T;
+  horizon_titre?: T;
+  horizon_corps?: T;
+  horizon_equation?: T;
+  horizon_suite?: T;
+  rupture_titre?: T;
+  rupture_corps?: T;
+  programme_lead?: T;
+  programme_statuts?: T;
+  maat_droit_titre?: T;
+  maat_droit_corps?: T;
+  science_texte?: T;
+  quatre_niveaux_titre?: T;
+  prolongements_titre?: T;
+  prolongements_texte?: T;
+  prolongements_chantier?: T;
+  brazzaville_titre?: T;
+  brazzaville_texte?: T;
+  brazzaville_note?: T;
+  ecole_titre?: T;
+  ecole_corps?: T;
+  corpus_titre?: T;
+  corpus_corps?: T;
+  cartes_niveaux?:
     | T
     | {
-        numero?: T;
-        niveau_id?: T;
+        etiquette?: T;
         titre?: T;
-        fonction?: T;
-        question_fondamentale?: T;
-        corps?:
-          | T
-          | {
-              texte?: T;
-              id?: T;
-            };
-        equation?: T;
-        liste?:
-          | T
-          | {
-              texte?: T;
-              id?: T;
-            };
-        maxime?: T;
-        id?: T;
-      };
-  mouvement_organique?:
-    | T
-    | {
         texte?: T;
-        id?: T;
-      };
-  champs_autorites?:
-    | T
-    | {
-        champ_id?: T;
-        champ?: T;
-        autorites?:
-          | T
-          | {
-              nom?: T;
-              origine?: T;
-              motif?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  canon?:
-    | T
-    | {
-        numero?: T;
-        titre?: T;
-        glose?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -3635,54 +3382,65 @@ export interface ContenuInstitutionSelect<T extends boolean = true> {
 export interface ContenuNoteEpistemologiqueSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_exergue?: T;
-  sommaire_posture?: T;
-  sommaire_axiome?: T;
-  sommaire_canon?: T;
-  posture_titre?: T;
-  posture_corps?: T;
-  axiome_titre?: T;
-  axiome_corps?: T;
-  axiome_encadre?: T;
-  axiome_thom?: T;
-  principes_titre?: T;
-  principes_unite_titre?: T;
-  principes_unite_maxime?: T;
-  principes_unite_corps?: T;
-  principes_polarite_titre?: T;
-  principes_polarite_maxime?: T;
-  principes_polarite_corps?: T;
-  canon_titre?: T;
-  theoreme_corps?: T;
-  canon_frise_aria?: T;
-  triade_titre?: T;
-  triade_sous_titre?: T;
-  triade_corps?: T;
-  sextuor_titre?: T;
-  sextuor_corps?: T;
-  pacte_corps?: T;
-  cloture_texte?: T;
-  cloture_bouton?: T;
-  etapes_canon?:
+  entete_surtitre?: T;
+  entete_titre?: T;
+  entete_chapo?: T;
+  embleme_alt?: T;
+  introduction?: T;
+  architecture_titre?: T;
+  architecture_corps?: T;
+  architecture_encadre?: T;
+  ordre_titre?: T;
+  ordre_formule?: T;
+  ordre_corps?: T;
+  crgi_titre?: T;
+  crgi_intro?: T;
+  crgi_formule?: T;
+  crgi_suite?: T;
+  reconstruction_titre?: T;
+  reconstruction_these?: T;
+  reconstruction_corps?: T;
+  reconstruction_formule?: T;
+  reconstruction_suite?: T;
+  metrologie_titre?: T;
+  metrologie_bandeau_titre?: T;
+  metrologie_bandeau_ligne?: T;
+  metrologie_corps?: T;
+  metrologie_formule?: T;
+  metrologie_suite?: T;
+  mecanisme_titre?: T;
+  mecanisme_formule?: T;
+  mecanisme_corps?: T;
+  mecanisme_citation?: T;
+  organon_titre?: T;
+  organon_corps?: T;
+  organon_encadre?: T;
+  organon_note?: T;
+  cascade_titre?: T;
+  cascade_intro?: T;
+  cascade_formule?: T;
+  cascade_suite?: T;
+  ellipse_titre?: T;
+  ellipse_corps?: T;
+  crise_titre?: T;
+  crise_corps?: T;
+  unite_titre?: T;
+  unite_corps?: T;
+  unite_formule?: T;
+  unite_suite?: T;
+  unite_formule_2?: T;
+  acte_deces_titre?: T;
+  acte_deces_corps?: T;
+  grandeur_titre?: T;
+  grandeur_corps?: T;
+  canon_sept_titre?: T;
+  canon_sept_intro?: T;
+  canon_sept_conclusion?: T;
+  livre_titre?: T;
+  livre_corps?: T;
+  canon_sept_principes?:
     | T
     | {
-        terme?: T;
-        role?: T;
-        id?: T;
-      };
-  canon?:
-    | T
-    | {
-        titre?: T;
-        texte?: T;
-        id?: T;
-      };
-  sextuor?:
-    | T
-    | {
-        titre?: T;
         texte?: T;
         id?: T;
       };
@@ -3697,15 +3455,106 @@ export interface ContenuNoteEpistemologiqueSelect<T extends boolean = true> {
 export interface ContenuConceptsSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  index_titre?: T;
-  hero_exergue?: T;
-  introduction_corps?: T;
-  strates_aria?: T;
-  index_aria?: T;
-  strate_nombre?: T;
-  cloture_texte?: T;
+  v16_tete_surtitre?: T;
+  v16_tete_titre?: T;
+  v16_tete_intro?: T;
+  v16_ouverture_chapeau?: T;
+  v16_plans_titre?: T;
+  v16_socle_titre?: T;
+  v16_genese_titre?: T;
+  v16_genese_surtitre?: T;
+  v16_genese_sequence?: T;
+  v16_genese_texte?: T;
+  v16_mesure_titre?: T;
+  v16_cascade_titre?: T;
+  v16_cascade_carte_titre?: T;
+  v16_cascade_carte_p1?: T;
+  v16_cascade_carte_p2?: T;
+  v16_juridique_titre?: T;
+  v16_metamoderne_titre?: T;
+  v16_metamoderne_texte?: T;
+  v16_metamoderne_note?: T;
+  v16_ellipse_titre?: T;
+  v16_ellipse_texte?: T;
+  v16_diagnostic_titre?: T;
+  v16_diagnostic_p1?: T;
+  v16_diagnostic_p2?: T;
+  v16_declin_titre?: T;
+  v16_declin_texte?: T;
+  v16_operateurs_titre?: T;
+  v16_operateurs_conclusion?: T;
+  v16_cascade_juridique_titre?: T;
+  v16_cascade_juridique_sequence?: T;
+  v16_cascade_juridique_texte?: T;
+  v16_proactivite_titre?: T;
+  v16_proactivite_sequence?: T;
+  v16_proactivite_texte?: T;
+  v16_canon_titre?: T;
+  v16_canon_p1?: T;
+  v16_canon_p2?: T;
+  v16_livre_titre?: T;
+  v16_livre_p1?: T;
+  v16_livre_p2?: T;
+  v16_plans?:
+    | T
+    | {
+        ancre?: T;
+        tag?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  v16_socle?:
+    | T
+    | {
+        ancre?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  v16_mesure?:
+    | T
+    | {
+        ancre?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  v16_juridique?:
+    | T
+    | {
+        ancre?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  v16_operateurs?:
+    | T
+    | {
+        terme?: T;
+        texte?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3715,58 +3564,46 @@ export interface ContenuConceptsSelect<T extends boolean = true> {
  * via the `definition` "contenu-ouvrage_select".
  */
 export interface ContenuOuvrageSelect<T extends boolean = true> {
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_bouton?: T;
-  hero_exergue?: T;
-  sommaire_autorites?: T;
-  sommaire_programme?: T;
-  textes_liminaires_titre?: T;
-  textes_liminaires_corps?: T;
-  acces_libre_bouton_lire?: T;
-  acces_libre_compteur?: T;
-  introduction_titre?: T;
-  introduction_corps?: T;
-  presentation_titre?: T;
-  presentation_tome_i_etiquette?: T;
-  presentation_tome_i_titre?: T;
-  presentation_tome_i_sous_titre?: T;
-  presentation_tome_i_question?: T;
-  presentation_tome_i_corps?: T;
-  presentation_tome_i_lien?: T;
-  presentation_tome_ii_etiquette?: T;
-  presentation_tome_ii_titre?: T;
-  presentation_tome_ii_sous_titre?: T;
-  presentation_tome_ii_question?: T;
-  presentation_tome_ii_corps?: T;
-  presentation_tome_ii_lien?: T;
-  autorites_titre?: T;
-  autorites_corps?: T;
-  programme_titre?: T;
-  programme_corps?: T;
-  programme_noyau_titre?: T;
-  programme_noyau_sous_titre?: T;
-  programme_expansion_titre?: T;
-  programme_expansion_sous_titre?: T;
-  programme_axes?: T;
-  cloture_citation?: T;
-  cloture_lien?: T;
   seo_titre?: T;
   seo_description?: T;
-  noyau?:
-    | T
-    | {
-        terme?: T;
-        texte?: T;
-        id?: T;
-      };
-  expansion?:
-    | T
-    | {
-        terme?: T;
-        texte?: T;
-        id?: T;
-      };
+  entete_surtitre?: T;
+  entete_titre?: T;
+  entete_texte?: T;
+  intro_chapeau?: T;
+  intro_statuts?: T;
+  tome_i_couverture_alt?: T;
+  tome_i_rubrique?: T;
+  tome_i_titre?: T;
+  tome_i_description?: T;
+  tome_i_prix?: T;
+  tome_i_prix_format?: T;
+  tome_i_note?: T;
+  tome_i_bouton?: T;
+  tome_ii_couverture_alt?: T;
+  tome_ii_rubrique?: T;
+  tome_ii_auteur?: T;
+  tome_ii_titre?: T;
+  tome_ii_sous_titre?: T;
+  tome_ii_description?: T;
+  tome_ii_prix?: T;
+  tome_ii_prix_format?: T;
+  tome_ii_note?: T;
+  tome_ii_bouton?: T;
+  lecteur_titre?: T;
+  lecteur_chapeau?: T;
+  lecteur_tome_i?: T;
+  lecteur_tome_ii?: T;
+  lecteur_tomes_aria?: T;
+  lecteur_consigne?: T;
+  lecteur_textes_aria?: T;
+  lecteur_lire_integral?: T;
+  lecteur_ouvrir_integral?: T;
+  lecteur_retour?: T;
+  lecteur_note?: T;
+  diptyque_titre?: T;
+  diptyque_tome_i?: T;
+  diptyque_tome_ii?: T;
+  diptyque_corpus?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -3778,35 +3615,83 @@ export interface ContenuOuvrageSelect<T extends boolean = true> {
 export interface ContenuLaboratoireSelect<T extends boolean = true> {
   seo_titre?: T;
   seo_description?: T;
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_exergue?: T;
-  introduction_corps?: T;
-  acces_titre?: T;
-  acces_hybride_corps?: T;
-  acces_ressources?: T;
-  code_titre?: T;
-  code_texte?: T;
-  working_papers_titre?: T;
-  pieces_titre?: T;
-  progression_titre?: T;
-  progression_corps?: T;
-  cloture_texte?: T;
-  cloture_lien?: T;
-  niveaux_acces?:
+  v16_tete_surtitre?: T;
+  v16_tete_titre?: T;
+  v16_tete_intro?: T;
+  v16_ouverture_chapeau?: T;
+  v16_s1_titre?: T;
+  v16_s1_texte?: T;
+  v16_s1_constat_intitule?: T;
+  v16_s1_constat_texte?: T;
+  v16_s2_titre?: T;
+  v16_s2_p1?: T;
+  v16_s2_p2?: T;
+  v16_s3_titre?: T;
+  v16_s3_p1?: T;
+  v16_s3_p2?: T;
+  v16_s4_titre?: T;
+  v16_s4_p1?: T;
+  v16_s4_p2?: T;
+  v16_s5_titre?: T;
+  v16_s5_p1?: T;
+  v16_s5_encadre?: T;
+  v16_operateurs_titre?: T;
+  v16_operateurs_intro?: T;
+  v16_operateurs_legende?: T;
+  v16_cascade_titre?: T;
+  v16_cascade_sequence?: T;
+  v16_cascade_texte?: T;
+  v16_guide_titre?: T;
+  v16_guide_sequence?: T;
+  v16_guide_texte?: T;
+  v16_demarche_titre?: T;
+  v16_demarche_p1?: T;
+  v16_demarche_p2?: T;
+  v16_demarche_p3?: T;
+  v16_requetes?:
     | T
     | {
-        numero?: T;
+        tag?: T;
         titre?: T;
-        description?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
         id?: T;
       };
-  progression?:
+  v16_fondements?:
     | T
     | {
-        reference?: T;
-        role?: T;
-        prerequis?: T;
+        tag?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  v16_notions?:
+    | T
+    | {
+        terme?: T;
+        texte?: T;
+        id?: T;
+      };
+  v16_operateurs?:
+    | T
+    | {
+        tag?: T;
+        titre?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;
@@ -3818,58 +3703,56 @@ export interface ContenuLaboratoireSelect<T extends boolean = true> {
  * via the `definition` "contenu-transmission_select".
  */
 export interface ContenuTransmissionSelect<T extends boolean = true> {
-  hero_titre?: T;
-  hero_sous_titre?: T;
-  hero_bouton_comparer?: T;
-  hero_bouton_secretariat?: T;
-  hero_exergue?: T;
-  sommaire_boucle?: T;
-  sommaire_grille?: T;
-  sommaire_paiement?: T;
-  argumentaire_titre?: T;
-  argumentaire_corps?: T;
-  boucle_titre?: T;
-  boucle_corps?: T;
-  boucle_schema_aria?: T;
-  boucle_legende?: T;
-  boucle_doctrine?: T;
-  grille_titre?: T;
-  modules_corps?: T;
-  grille_note?: T;
-  paiement_titre?: T;
-  paiement_corps?: T;
-  paiement_frais?: T;
-  contact_titre?: T;
-  contact_sous_titre?: T;
-  contact_siege_titre?: T;
-  contact_siege_ligne_1?: T;
-  contact_siege_ligne_2?: T;
-  contact_siege_ligne_3?: T;
-  contact_antenne_titre?: T;
-  contact_antenne_ligne_1?: T;
-  contact_antenne_ligne_2?: T;
-  contact_numerique_titre?: T;
-  contact_numerique_email?: T;
-  contact_numerique_site?: T;
-  demande_titre?: T;
-  demande_texte?: T;
-  cloture_citation?: T;
-  cloture_lien?: T;
   seo_titre?: T;
   seo_description?: T;
-  niveaux?:
+  v16_tete_surtitre?: T;
+  v16_tete_titre?: T;
+  v16_tete_intro?: T;
+  v16_ouverture_chapeau?: T;
+  v16_ouverture_sequence?: T;
+  v16_supports_titre?: T;
+  v16_thebes_titre?: T;
+  v16_thebes_texte?: T;
+  v16_bibliotheques_titre?: T;
+  v16_rencontre_titre?: T;
+  v16_rencontre_p1?: T;
+  v16_rencontre_p2?: T;
+  v16_rupture_titre?: T;
+  v16_rupture_p1?: T;
+  v16_rupture_p2?: T;
+  v16_bande_titre?: T;
+  v16_bande_p1?: T;
+  v16_bande_sequence?: T;
+  v16_bande_p2?: T;
+  v16_matrice_titre?: T;
+  v16_matrice_texte?: T;
+  v16_capacite_titre?: T;
+  v16_capacite_p1?: T;
+  v16_capacite_p2?: T;
+  v16_capacite_p3?: T;
+  v16_horizon_titre?: T;
+  v16_horizon_p1?: T;
+  v16_horizon_p2?: T;
+  v16_horizon_p3?: T;
+  v16_supports?:
     | T
     | {
-        niveau?: T;
+        tag?: T;
         titre?: T;
-        sous_titre?: T;
-        acces?:
+        paragraphes?:
           | T
           | {
               texte?: T;
               id?: T;
             };
-        condition?:
+        id?: T;
+      };
+  v16_atlas?:
+    | T
+    | {
+        tag?: T;
+        titre?: T;
+        paragraphes?:
           | T
           | {
               texte?: T;
@@ -3877,24 +3760,16 @@ export interface ContenuTransmissionSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  etapes?:
-    | T
-    | {
-        cap?: T;
-        texte?: T;
-        id?: T;
-      };
-  acces_modules?:
-    | T
-    | {
-        texte?: T;
-        id?: T;
-      };
-  moyens_paiement?:
+  v16_bibliotheques?:
     | T
     | {
         titre?: T;
-        detail?: T;
+        paragraphes?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;
@@ -3949,6 +3824,19 @@ export interface ContenuCgvSelect<T extends boolean = true> {
  * via the `definition` "contenu-site-navigation_select".
  */
 export interface ContenuSiteNavigationSelect<T extends boolean = true> {
+  v16_marque_nom?: T;
+  v16_marque_devise?: T;
+  v16_marque_symbole?: T;
+  v16_menu?: T;
+  v16_contact_titre?: T;
+  v16_contact_intro?: T;
+  v16_contact_note?: T;
+  v16_signature_nom?: T;
+  v16_signature_devise?: T;
+  v16_auteur?: T;
+  v16_lieu?: T;
+  v16_mention_1?: T;
+  v16_mention_2?: T;
   acces_aller_au_contenu?: T;
   marque_nom?: T;
   marque_devise?: T;
@@ -3957,6 +3845,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   entete_menu_ouvrir?: T;
   entete_menu_fermer?: T;
   entete_nav_aria?: T;
+  menu_fronton?: T;
   menu_seuil?: T;
   menu_institution?: T;
   menu_constitution?: T;
@@ -3974,6 +3863,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   familles_fondements?: T;
   familles_savoir?: T;
   familles_parcours?: T;
+  titre_fronton?: T;
   titre_seuil?: T;
   titre_institution?: T;
   titre_constitution?: T;
@@ -3999,6 +3889,15 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   seo_titre_defaut?: T;
   seo_modele_titre?: T;
   seo_description?: T;
+  contacts?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        lien?: T;
+        aria?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -4176,38 +4075,20 @@ export interface ContenuSiteLectureSelect<T extends boolean = true> {
   seo_tome_description?: T;
   seo_texte_titre?: T;
   seo_texte_description?: T;
-  fil_ariane_ouvrage?: T;
   sommaire_surtitre?: T;
   sommaire_commencer?: T;
   sommaire_compteur?: T;
-  sommaire_partie_un?: T;
-  sommaire_partie_plusieurs?: T;
   sommaire_plan_titre?: T;
+  sommaire_lire_integral?: T;
   sommaire_plan_note?: T;
-  ligne_lire?: T;
-  meta_minutes?: T;
-  meta_minutes_long?: T;
-  meta_minutes_compact?: T;
-  meta_sections?: T;
   texte_position?: T;
   texte_duree?: T;
-  rail_aria?: T;
-  rail_textes_ouverts?: T;
-  rail_vous_lisez?: T;
-  rail_lu?: T;
   rail_sommaire?: T;
-  mobile_sommaire?: T;
-  mobile_progression_aria?: T;
   texte_mention?: T;
   navigation_aria?: T;
-  navigation_suivant?: T;
-  navigation_continuer?: T;
+  navigation_ouvrages?: T;
+  navigation_suivant_titre?: T;
   navigation_precedent?: T;
-  navigation_retour_ouvrage?: T;
-  navigation_revenir?: T;
-  outils_aria?: T;
-  outils_notions?: T;
-  outils_dans_ce_texte?: T;
   citer_titre?: T;
   citer_reference?: T;
   citer_copier?: T;

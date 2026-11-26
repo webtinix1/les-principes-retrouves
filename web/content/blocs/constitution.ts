@@ -7,161 +7,100 @@ const s = (cle: string, label: string, aide: string, defaut: string): BlocDef =>
   aide,
   defaut,
 });
+const r = (cle: string, label: string, aide: string): BlocDef => ({ cle, label, type: "riche", aide });
 
+const SEO = "Référencement (Google)";
 const ENTETE = "En-tête de page";
-const PREAMBULE = "Préambule constitutionnel";
-const ARTICLES = "Les dix articles constitutionnels";
-const FIN = "Fin de page";
-const CLOTURE = "Appel à l'épreuve (clôture)";
+const ARTICLES = "Articles (les articles 1 à 6 sont dans « Listes »)";
+const REGLES = "Section « Règles de conduite de la recherche »";
 
-/** Un article : son titre (H3, repris dans le sommaire latéral) puis son corps. */
-const article = (nom: string, romain: string, titre: string, label: string): BlocDef[] => [
-  s(`constitution.article_${nom}.titre`, `Article ${romain} — titre`, ARTICLES, titre),
-  {
-    cle: `constitution.article_${nom}.corps`,
-    label,
-    type: "riche",
-    aide: ARTICLES,
-  },
-];
-
-/** Blocs éditables de la page La Constitution Scientifique. */
+/** Textes de la Constitution méthodologique (« /constitution »), prototype maître V16. */
 export const CONSTITUTION_BLOCS: PageBlocs = {
   page: "constitution",
   chemin: "/constitution",
-  titre: "La Constitution Scientifique",
+  titre: "Constitution méthodologique",
   blocs: [
-    s("constitution.seo.titre", "Titre de la page (SEO)", "Référencement (Google)", "Constitution Scientifique"),
+    s("constitution.seo.titre", "Titre (onglet et Google)", SEO, "Constitution méthodologique — Les Principes Retrouvés"),
     s(
       "constitution.seo.description",
-      "Description de la page (SEO)",
-      "Référencement (Google)",
-      "Acte constitutif du Programme de recherche de la Science Métamoderne : préambule et dix articles constitutionnels.",
+      "Description (Google)",
+      SEO,
+      "Constitution méthodologique : la discipline intellectuelle qui gouverne le corpus, le programme, les recherches en cours et leur mise à l’épreuve.",
     ),
+
+    s("constitution.entete.eyebrow", "Surtitre", ENTETE, "Texte constitutif existant"),
+    s("constitution.entete.titre", "Titre principal (H1)", ENTETE, "Constitution méthodologique"),
     s(
-      "constitution.hero.titre",
-      "Titre principal (H1)",
+      "constitution.entete.intro",
+      "Phrase d’introduction",
       ENTETE,
-      "Constitution scientifique de l'École de Brazzaville",
-    ),
-    s(
-      "constitution.hero.sous_titre",
-      "Sous-titre",
-      ENTETE,
-      "Acte constitutif du Programme de recherche de la Science Métamoderne",
-    ),
-    s("constitution.hero.bouton", "Bouton « Lire la Constitution intégrale »", ENTETE, "Lire la Constitution intégrale"),
-    s(
-      "constitution.hero.exergue",
-      "Exergue",
-      ENTETE,
-      "« Ne rien imposer. Laisser les choses s'imposer d'elles-mêmes par la seule puissance du raisonnement. »",
-    ),
-    s(
-      "constitution.hero.formule",
-      "Formule sous l’exergue",
-      ENTETE,
-      "« Ce travail ne demande pas à être accepté sur autorité. Il demande à être éprouvé. »",
+      "La discipline intellectuelle qui gouverne le corpus, le programme, les recherches en cours et leur mise à l’épreuve.",
     ),
 
     s(
-      "constitution.preambule.titre",
-      "Titre de section (H2, repris dans « Sur cette page »)",
-      PREAMBULE,
-      "Préambule constitutionnel",
-    ),
-    {
-      cle: "constitution.preambule.corps",
-      label: "Préambule — corps de texte",
-      type: "riche",
-      aide: PREAMBULE,
-    },
-
-    s(
-      "constitution.articles.titre",
-      "Titre de section (H2, repris dans « Sur cette page »)",
+      "constitution.introduction.lead",
+      "Paragraphe d’introduction (grand corps)",
       ARTICLES,
-      "Les dix articles constitutionnels",
+      "Cette Constitution n’est pas un exposé doctrinal concurrent des ouvrages. Elle fixe les règles de fonctionnement intellectuel du programme : fidélité au corpus, distinction des statuts, souveraineté du démontré et ouverture à la critique.",
     ),
     s(
-      "constitution.articles.sommaire_lecture",
-      "Sommaire des articles — lecture pour lecteurs d’écran (aria-label)",
+      "constitution.introduction.note",
+      "Note après l’article 6 (petits caractères)",
       ARTICLES,
-      "Les dix articles",
+      "La recherche ne demande ni adhésion préalable ni reconnaissance d’autorité : ses propositions doivent s’imposer par la justification, la discussion et l’épreuve.",
     ),
     s(
-      "constitution.articles.lien_lecture",
-      "Sommaire mobile — lecture d’un numéro (aria-label)",
-      `${ARTICLES} — {romain} = numéro romain, {titre} = titre de l’article`,
-      "Article {romain} — {titre}",
+      "constitution.degradation.titre",
+      "Article 7 — titre",
+      ARTICLES,
+      "Article 7 — Dégradation structurelle et cascade entropique",
     ),
-    s(
-      "constitution.articles.etiquette",
-      "Étiquette d’un article",
-      `${ARTICLES} — {romain} = numéro romain de l’article`,
-      "Article {romain}",
-    ),
-    ...article("objet", "I", "L'Objet", "Article — L'Objet"),
-    ...article(
-      "souverainete",
-      "II",
-      "Le Principe de Souveraineté du Démontré",
-      "Article — Le Principe de Souveraineté du Démontré",
-    ),
-    ...article(
-      "distinction",
-      "III",
-      "La Distinction constitutionnelle",
-      "Article — La Distinction constitutionnelle",
-    ),
-    ...article(
-      "hypotheses",
-      "IV",
-      "Le Statut des hypothèses et le Programme d'Expansion",
-      "Article — Le Statut des hypothèses et le Programme d'Expansion",
-    ),
-    ...article("critique", "V", "Le Statut de la critique", "Article — Le Statut de la critique"),
-    ...article("organons", "VI", "Le Statut des Organons futurs", "Article — Le Statut des Organons futurs"),
-    ...article("auteur", "VII", "Le Statut de l'auteur", "Article — Le Statut de l'auteur"),
-    ...article(
-      "autorites",
-      "VIII",
-      "Les Autorités de convergence",
-      "Article — Les Autorités de convergence",
-    ),
-    ...article(
-      "cloture_ethique",
-      "IX",
-      "La Formule de clôture éthique",
-      "Article — La Formule de clôture éthique",
-    ),
-    ...article(
-      "continuite",
-      "X",
-      "Le Principe de continuité de l'intelligibilité",
-      "Article — Le Principe de continuité de l'intelligibilité",
-    ),
+    r("constitution.degradation.corps", "Article 7 — texte", ARTICLES),
 
-    s(
-      "constitution.disposition_finale.titre",
-      "Titre de section (H2, repris dans « Sur cette page »)",
-      FIN,
-      "Disposition finale",
-    ),
+    s("constitution.regles.titre", "Titre", REGLES, "Règles de conduite de la recherche"),
+    r("constitution.regles.corps", "Texte", REGLES),
+  ],
+  listes: [
     {
-      cle: "constitution.disposition_finale.corps",
-      label: "Disposition finale — corps de texte",
-      type: "riche",
-      aide: FIN,
+      nom: "articles_methode",
+      label: "Articles 1 à 6",
+      element: "Article",
+      champs: [
+        { nom: "titre", label: "Titre (avec son numéro)" },
+        { nom: "texte", label: "Texte", type: "zone" },
+      ],
+      origine: [
+        {
+          titre: "Article 1 — Souveraineté du corpus démontré",
+          texte:
+            "Les présentations publiques doivent respecter le contenu des ouvrages de référence. Aucune adaptation graphique ou éditoriale ne peut modifier le sens d’une proposition doctrinale. Le site est au service du corpus ; le corpus n’est jamais remodelé pour s’adapter au site.",
+        },
+        {
+          titre: "Article 2 — Distinction des statuts",
+          texte:
+            "Le corpus établi, le programme de recherche, les travaux en cours et les perspectives doivent être identifiables comme tels. Une hypothèse ne sera jamais présentée comme une conclusion acquise.",
+        },
+        {
+          titre: "Article 3 — Fidélité des notions",
+          texte:
+            "Les notions Maât, Σ, π₁, π₂, Voile, Filtrage, Charnière, Méthode M, Référentiel d’Intelligibilité, Fiction de clôture, Syllogisme dégradé, Syllogisme réel et proactivité judiciaire encadrée conservent les fonctions que leur attribue le corpus. Leur simplification ne doit pas les dénaturer.",
+        },
+        {
+          titre: "Article 4 — Discussion et épreuve",
+          texte:
+            "Les propositions sont ouvertes à la discussion, à la critique et à l’épreuve. La recherche ne soustrait aucune de ses affirmations à l’exigence de justification. Elle ne demande ni adhésion préalable ni reconnaissance d’autorité.",
+        },
+        {
+          titre: "Article 5 — Autonomie des disciplines",
+          texte:
+            "La coordination des savoirs ne signifie ni fusion des disciplines ni effacement de leurs méthodes propres. L’unité recherchée n’est pas l’uniformité.",
+        },
+        {
+          titre: "Article 6 — Rectification",
+          texte:
+            "Toute rectification doit être motivée, localisée et compatible avec l’architecture d’ensemble. Les documents maîtres ne sont jamais modifiés par une simple opération de mise en ligne.",
+        },
+      ],
     },
-
-    s("constitution.cloture.titre", "Titre (H2)", CLOTURE, "Appel à l'épreuve"),
-    s(
-      "constitution.cloture.citation",
-      "Citation",
-      CLOTURE,
-      "« La Constitution scientifique de l'École de Brazzaville ne demande pas à être acceptée sur autorité. Elle demande à être éprouvée par la recherche elle-même. »",
-    ),
-    s("constitution.cloture.bouton", "Bouton vers le Manifeste", CLOTURE, "Explorer le Manifeste"),
   ],
 };

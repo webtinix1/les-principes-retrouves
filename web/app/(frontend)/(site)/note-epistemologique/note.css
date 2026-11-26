@@ -1,0 +1,6 @@
+/* Liste du Canon (prototype V16) : styles par défaut du navigateur, retirés par le reset Tailwind. */
+#page-note .major-section ul {
+  list-style: disc;
+  margin: 1em 0;
+  padding-left: 40px;
+}
