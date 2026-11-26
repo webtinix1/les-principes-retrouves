@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    lecteurs: LecteurAuthOperations;
   };
   blocks: {};
   collections: {
@@ -78,6 +79,10 @@ export interface Config {
     autorites: Autorite;
     'textes-lecture': TextesLecture;
     users: User;
+    lecteurs: Lecteur;
+    'demandes-service': DemandesService;
+    'propositions-collaboration': PropositionsCollaboration;
+    'journal-securite': JournalSecurite;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -103,6 +108,10 @@ export interface Config {
     autorites: AutoritesSelect<false> | AutoritesSelect<true>;
     'textes-lecture': TextesLectureSelect<false> | TextesLectureSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    lecteurs: LecteursSelect<false> | LecteursSelect<true>;
+    'demandes-service': DemandesServiceSelect<false> | DemandesServiceSelect<true>;
+    'propositions-collaboration': PropositionsCollaborationSelect<false> | PropositionsCollaborationSelect<true>;
+    'journal-securite': JournalSecuriteSelect<false> | JournalSecuriteSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -124,6 +133,7 @@ export interface Config {
     'contenu-ouvrage': ContenuOuvrage;
     'contenu-laboratoire': ContenuLaboratoire;
     'contenu-transmission': ContenuTransmission;
+    'contenu-utilisateurs': ContenuUtilisateur;
     'contenu-mentions-legales': ContenuMentionsLegale;
     'contenu-confidentialite': ContenuConfidentialite;
     'contenu-cgv': ContenuCgv;
@@ -146,6 +156,7 @@ export interface Config {
     'contenu-ouvrage': ContenuOuvrageSelect<false> | ContenuOuvrageSelect<true>;
     'contenu-laboratoire': ContenuLaboratoireSelect<false> | ContenuLaboratoireSelect<true>;
     'contenu-transmission': ContenuTransmissionSelect<false> | ContenuTransmissionSelect<true>;
+    'contenu-utilisateurs': ContenuUtilisateursSelect<false> | ContenuUtilisateursSelect<true>;
     'contenu-mentions-legales': ContenuMentionsLegalesSelect<false> | ContenuMentionsLegalesSelect<true>;
     'contenu-confidentialite': ContenuConfidentialiteSelect<false> | ContenuConfidentialiteSelect<true>;
     'contenu-cgv': ContenuCgvSelect<false> | ContenuCgvSelect<true>;
@@ -160,13 +171,31 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | Lecteur;
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface LecteurAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -505,6 +534,7 @@ export interface TextesLecture {
 export interface User {
   id: string;
   nom?: string | null;
+  role: 'administrateur' | 'gestionnaire' | 'secretariat';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -524,6 +554,128 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lecteurs".
+ */
+export interface Lecteur {
+  id: string;
+  nom: string;
+  prenoms: string;
+  pays: string;
+  ville: string;
+  profession?: string | null;
+  domaine_interet?: ('recherche' | 'droit' | 'epistemologie' | 'ouvrages' | 'autre') | null;
+  information_acceptee_le?: string | null;
+  version_information?: string | null;
+  /**
+   * Ressources affichées dans l'Espace lecteur de ce compte.
+   */
+  ressources_accessibles?: (string | Ressource)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
+  _verified?: boolean | null;
+  _verificationToken?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'lecteurs';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "demandes-service".
+ */
+export interface DemandesService {
+  id: string;
+  reference?: string | null;
+  statut: 'nouvelle' | 'en_cours' | 'traitee' | 'classee';
+  /**
+   * Vide si la demande a été envoyée sans compte.
+   */
+  lecteur?: (string | null) | Lecteur;
+  nom?: string | null;
+  email?: string | null;
+  nature: 'information' | 'documentaire' | 'institutionnelle' | 'ouvrages' | 'autre';
+  message: string;
+  /**
+   * Suivi du traitement, réservé à l'administration.
+   */
+  note_interne?: string | null;
+  /**
+   * Cochée après suppression du compte lié.
+   */
+  anonymise?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "propositions-collaboration".
+ */
+export interface PropositionsCollaboration {
+  id: string;
+  reference?: string | null;
+  statut: 'nouvelle' | 'en_cours' | 'traitee' | 'classee';
+  /**
+   * Vide si la demande a été envoyée sans compte.
+   */
+  lecteur?: (string | null) | Lecteur;
+  nom?: string | null;
+  email?: string | null;
+  institution?: string | null;
+  type_collaboration: 'scientifique' | 'universitaire' | 'institutionnelle' | 'editoriale' | 'autre';
+  presentation: string;
+  /**
+   * Suivi du traitement, réservé à l'administration.
+   */
+  note_interne?: string | null;
+  /**
+   * Cochée après suppression du compte lié.
+   */
+  anonymise?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Conservé 12 mois. L'adresse IP n'est jamais enregistrée en clair.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "journal-securite".
+ */
+export interface JournalSecurite {
+  id: string;
+  evenement:
+    | 'inscription'
+    | 'verification'
+    | 'connexion'
+    | 'echec_connexion'
+    | 'deconnexion'
+    | 'mot_de_passe_demande'
+    | 'mot_de_passe_change'
+    | 'profil_modifie'
+    | 'compte_supprime'
+    | 'export_comptes'
+    | 'demande_service'
+    | 'demande_collaboration';
+  lecteur?: (string | null) | Lecteur;
+  empreinte_ip?: string | null;
+  detail?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -592,12 +744,33 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'lecteurs';
+        value: string | Lecteur;
+      } | null)
+    | ({
+        relationTo: 'demandes-service';
+        value: string | DemandesService;
+      } | null)
+    | ({
+        relationTo: 'propositions-collaboration';
+        value: string | PropositionsCollaboration;
+      } | null)
+    | ({
+        relationTo: 'journal-securite';
+        value: string | JournalSecurite;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'lecteurs';
+        value: string | Lecteur;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -607,10 +780,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: string | User;
+      }
+    | {
+        relationTo: 'lecteurs';
+        value: string | Lecteur;
+      };
   key?: string | null;
   value?:
     | {
@@ -896,6 +1074,7 @@ export interface TextesLectureSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   nom?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -913,6 +1092,87 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lecteurs_select".
+ */
+export interface LecteursSelect<T extends boolean = true> {
+  nom?: T;
+  prenoms?: T;
+  pays?: T;
+  ville?: T;
+  profession?: T;
+  domaine_interet?: T;
+  information_acceptee_le?: T;
+  version_information?: T;
+  ressources_accessibles?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  resetPasswordRequestedAt?: T;
+  _verified?: T;
+  _verificationToken?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "demandes-service_select".
+ */
+export interface DemandesServiceSelect<T extends boolean = true> {
+  reference?: T;
+  statut?: T;
+  lecteur?: T;
+  nom?: T;
+  email?: T;
+  nature?: T;
+  message?: T;
+  note_interne?: T;
+  anonymise?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "propositions-collaboration_select".
+ */
+export interface PropositionsCollaborationSelect<T extends boolean = true> {
+  reference?: T;
+  statut?: T;
+  lecteur?: T;
+  nom?: T;
+  email?: T;
+  institution?: T;
+  type_collaboration?: T;
+  presentation?: T;
+  note_interne?: T;
+  anonymise?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "journal-securite_select".
+ */
+export interface JournalSecuriteSelect<T extends boolean = true> {
+  evenement?: T;
+  lecteur?: T;
+  empreinte_ip?: T;
+  detail?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2523,6 +2783,194 @@ export interface ContenuTransmission {
   createdAt?: string | null;
 }
 /**
+ * Textes de la page /espace-utilisateurs. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-utilisateurs".
+ */
+export interface ContenuUtilisateur {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  tete_surtitre?: string | null;
+  tete_titre?: string | null;
+  tete_intro?: string | null;
+  intro_titre?: string | null;
+  intro_texte?: string | null;
+  carte_compte_titre?: string | null;
+  carte_compte_texte?: string | null;
+  carte_compte_creer?: string | null;
+  carte_compte_connexion?: string | null;
+  carte_services_titre?: string | null;
+  carte_services_texte?: string | null;
+  carte_services_bouton?: string | null;
+  carte_collaborations_titre?: string | null;
+  carte_collaborations_texte?: string | null;
+  carte_collaborations_bouton?: string | null;
+  carte_lecteur_titre?: string | null;
+  carte_lecteur_texte?: string | null;
+  carte_lecteur_bouton?: string | null;
+  carte_donnees_titre?: string | null;
+  carte_donnees_texte?: string | null;
+  carte_donnees_bouton?: string | null;
+  retour?: string | null;
+  inscription_titre?: string | null;
+  inscription_intro?: string | null;
+  inscription_nom?: string | null;
+  inscription_prenoms?: string | null;
+  inscription_email?: string | null;
+  inscription_pays?: string | null;
+  inscription_ville?: string | null;
+  inscription_profession?: string | null;
+  inscription_interet?: string | null;
+  inscription_interet_choisir?: string | null;
+  inscription_mot_de_passe?: string | null;
+  inscription_mot_de_passe_aide?: string | null;
+  inscription_protection?: string | null;
+  inscription_protection_titre?: string | null;
+  inscription_consentement?: string | null;
+  inscription_bouton?: string | null;
+  connexion_titre?: string | null;
+  connexion_email?: string | null;
+  connexion_mot_de_passe?: string | null;
+  connexion_bouton?: string | null;
+  connexion_oubli?: string | null;
+  oubli_titre?: string | null;
+  oubli_bouton?: string | null;
+  oubli_confirmation?: string | null;
+  reinit_titre?: string | null;
+  reinit_champ?: string | null;
+  reinit_bouton?: string | null;
+  reinit_succes?: string | null;
+  reinit_invalide?: string | null;
+  verif_succes?: string | null;
+  verif_invalide?: string | null;
+  moncompte_titre?: string | null;
+  moncompte_identifie?: string | null;
+  moncompte_enregistrer?: string | null;
+  moncompte_enregistre?: string | null;
+  moncompte_deconnexion?: string | null;
+  moncompte_suppression_titre?: string | null;
+  moncompte_suppression_texte?: string | null;
+  moncompte_suppression_mdp?: string | null;
+  moncompte_suppression_bouton?: string | null;
+  moncompte_supprime?: string | null;
+  service_titre?: string | null;
+  service_nom?: string | null;
+  service_email?: string | null;
+  service_nature?: string | null;
+  service_nature_choisir?: string | null;
+  service_message?: string | null;
+  service_bouton?: string | null;
+  collaboration_titre?: string | null;
+  collaboration_nom?: string | null;
+  collaboration_email?: string | null;
+  collaboration_institution?: string | null;
+  collaboration_type?: string | null;
+  collaboration_type_choisir?: string | null;
+  collaboration_presentation?: string | null;
+  collaboration_bouton?: string | null;
+  lecteur_titre?: string | null;
+  lecteur_texte?: string | null;
+  lecteur_demandes?: string | null;
+  lecteur_aucune_demande?: string | null;
+  lecteur_ressources?: string | null;
+  lecteur_aucune_ressource?: string | null;
+  lecteur_col_identifiant?: string | null;
+  lecteur_col_nature?: string | null;
+  lecteur_col_date?: string | null;
+  lecteur_col_statut?: string | null;
+  donnees_titre?: string | null;
+  donnees_intro?: string | null;
+  donnees_profils_titre?: string | null;
+  donnees_profils_texte?: string | null;
+  donnees_activites_titre?: string | null;
+  donnees_activites_texte?: string | null;
+  donnees_interets_titre?: string | null;
+  donnees_interets_texte?: string | null;
+  donnees_consentements_titre?: string | null;
+  donnees_consentements_texte?: string | null;
+  donnees_commandes_titre?: string | null;
+  donnees_commandes_texte?: string | null;
+  donnees_soutiens_titre?: string | null;
+  donnees_soutiens_texte?: string | null;
+  donnees_statuts_titre?: string | null;
+  donnees_statuts_texte?: string | null;
+  fin_titre?: string | null;
+  fin_texte?: string | null;
+  message_inscription_ok?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  message_demande_ok?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  message_collaboration_ok?: string | null;
+  message_envoi?: string | null;
+  message_erreur_champs?: string | null;
+  message_erreur_mot_de_passe?: string | null;
+  message_erreur_identifiants?: string | null;
+  message_erreur_non_verifie?: string | null;
+  message_erreur_verrouille?: string | null;
+  message_erreur_limite?: string | null;
+  message_erreur_robot?: string | null;
+  message_erreur_connexion_requise?: string | null;
+  message_erreur_generique?: string | null;
+  opt_nature_information?: string | null;
+  opt_nature_documentaire?: string | null;
+  opt_nature_institutionnelle?: string | null;
+  opt_nature_ouvrages?: string | null;
+  opt_nature_autre?: string | null;
+  opt_collaboration_scientifique?: string | null;
+  opt_collaboration_universitaire?: string | null;
+  opt_collaboration_institutionnelle?: string | null;
+  opt_collaboration_editoriale?: string | null;
+  opt_collaboration_autre?: string | null;
+  opt_interet_recherche?: string | null;
+  opt_interet_droit?: string | null;
+  opt_interet_epistemologie?: string | null;
+  opt_interet_ouvrages?: string | null;
+  opt_interet_autre?: string | null;
+  opt_statut_nouvelle?: string | null;
+  opt_statut_en_cours?: string | null;
+  opt_statut_traitee?: string | null;
+  opt_statut_classee?: string | null;
+  mail_verification_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_verification_corps?: string | null;
+  mail_reinitialisation_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_reinitialisation_corps?: string | null;
+  mail_existant_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_existant_corps?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_service_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_service_corps?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_collaboration_objet?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  mail_collaboration_corps?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Textes de la page /mentions-legales. Un champ vidé fait revenir le texte d'origine.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2669,13 +3117,10 @@ export interface ContenuSiteNavigation {
   v16_menu?: string | null;
   v16_contact_titre?: string | null;
   v16_contact_intro?: string | null;
-  v16_contact_note?: string | null;
   v16_signature_nom?: string | null;
   v16_signature_devise?: string | null;
   v16_auteur?: string | null;
   v16_lieu?: string | null;
-  v16_mention_1?: string | null;
-  v16_mention_2?: string | null;
   acces_aller_au_contenu?: string | null;
   marque_nom?: string | null;
   marque_devise?: string | null;
@@ -2695,6 +3140,7 @@ export interface ContenuSiteNavigation {
   menu_concepts?: string | null;
   menu_transmission?: string | null;
   menu_declaration?: string | null;
+  menu_utilisateurs?: string | null;
   position_sur_total?: string | null;
   /**
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
@@ -2719,10 +3165,12 @@ export interface ContenuSiteNavigation {
   titre_concepts?: string | null;
   titre_transmission?: string | null;
   titre_declaration?: string | null;
+  titre_utilisateurs?: string | null;
   pagination_nav_aria?: string | null;
   pagination_precedente?: string | null;
   pagination_suivante?: string | null;
   pagination_retour_debut?: string | null;
+  sommaire_titre?: string | null;
   pied_adresse?: string | null;
   pied_email?: string | null;
   pied_colonne_seuil?: string | null;
@@ -3001,10 +3449,6 @@ export interface ContenuSiteLecture {
    * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
    */
   rail_sommaire?: string | null;
-  /**
-   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
-   */
-  texte_mention?: string | null;
   navigation_aria?: string | null;
   navigation_ouvrages?: string | null;
   /**
@@ -3778,6 +4222,165 @@ export interface ContenuTransmissionSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-utilisateurs_select".
+ */
+export interface ContenuUtilisateursSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  tete_surtitre?: T;
+  tete_titre?: T;
+  tete_intro?: T;
+  intro_titre?: T;
+  intro_texte?: T;
+  carte_compte_titre?: T;
+  carte_compte_texte?: T;
+  carte_compte_creer?: T;
+  carte_compte_connexion?: T;
+  carte_services_titre?: T;
+  carte_services_texte?: T;
+  carte_services_bouton?: T;
+  carte_collaborations_titre?: T;
+  carte_collaborations_texte?: T;
+  carte_collaborations_bouton?: T;
+  carte_lecteur_titre?: T;
+  carte_lecteur_texte?: T;
+  carte_lecteur_bouton?: T;
+  carte_donnees_titre?: T;
+  carte_donnees_texte?: T;
+  carte_donnees_bouton?: T;
+  retour?: T;
+  inscription_titre?: T;
+  inscription_intro?: T;
+  inscription_nom?: T;
+  inscription_prenoms?: T;
+  inscription_email?: T;
+  inscription_pays?: T;
+  inscription_ville?: T;
+  inscription_profession?: T;
+  inscription_interet?: T;
+  inscription_interet_choisir?: T;
+  inscription_mot_de_passe?: T;
+  inscription_mot_de_passe_aide?: T;
+  inscription_protection?: T;
+  inscription_protection_titre?: T;
+  inscription_consentement?: T;
+  inscription_bouton?: T;
+  connexion_titre?: T;
+  connexion_email?: T;
+  connexion_mot_de_passe?: T;
+  connexion_bouton?: T;
+  connexion_oubli?: T;
+  oubli_titre?: T;
+  oubli_bouton?: T;
+  oubli_confirmation?: T;
+  reinit_titre?: T;
+  reinit_champ?: T;
+  reinit_bouton?: T;
+  reinit_succes?: T;
+  reinit_invalide?: T;
+  verif_succes?: T;
+  verif_invalide?: T;
+  moncompte_titre?: T;
+  moncompte_identifie?: T;
+  moncompte_enregistrer?: T;
+  moncompte_enregistre?: T;
+  moncompte_deconnexion?: T;
+  moncompte_suppression_titre?: T;
+  moncompte_suppression_texte?: T;
+  moncompte_suppression_mdp?: T;
+  moncompte_suppression_bouton?: T;
+  moncompte_supprime?: T;
+  service_titre?: T;
+  service_nom?: T;
+  service_email?: T;
+  service_nature?: T;
+  service_nature_choisir?: T;
+  service_message?: T;
+  service_bouton?: T;
+  collaboration_titre?: T;
+  collaboration_nom?: T;
+  collaboration_email?: T;
+  collaboration_institution?: T;
+  collaboration_type?: T;
+  collaboration_type_choisir?: T;
+  collaboration_presentation?: T;
+  collaboration_bouton?: T;
+  lecteur_titre?: T;
+  lecteur_texte?: T;
+  lecteur_demandes?: T;
+  lecteur_aucune_demande?: T;
+  lecteur_ressources?: T;
+  lecteur_aucune_ressource?: T;
+  lecteur_col_identifiant?: T;
+  lecteur_col_nature?: T;
+  lecteur_col_date?: T;
+  lecteur_col_statut?: T;
+  donnees_titre?: T;
+  donnees_intro?: T;
+  donnees_profils_titre?: T;
+  donnees_profils_texte?: T;
+  donnees_activites_titre?: T;
+  donnees_activites_texte?: T;
+  donnees_interets_titre?: T;
+  donnees_interets_texte?: T;
+  donnees_consentements_titre?: T;
+  donnees_consentements_texte?: T;
+  donnees_commandes_titre?: T;
+  donnees_commandes_texte?: T;
+  donnees_soutiens_titre?: T;
+  donnees_soutiens_texte?: T;
+  donnees_statuts_titre?: T;
+  donnees_statuts_texte?: T;
+  fin_titre?: T;
+  fin_texte?: T;
+  message_inscription_ok?: T;
+  message_demande_ok?: T;
+  message_collaboration_ok?: T;
+  message_envoi?: T;
+  message_erreur_champs?: T;
+  message_erreur_mot_de_passe?: T;
+  message_erreur_identifiants?: T;
+  message_erreur_non_verifie?: T;
+  message_erreur_verrouille?: T;
+  message_erreur_limite?: T;
+  message_erreur_robot?: T;
+  message_erreur_connexion_requise?: T;
+  message_erreur_generique?: T;
+  opt_nature_information?: T;
+  opt_nature_documentaire?: T;
+  opt_nature_institutionnelle?: T;
+  opt_nature_ouvrages?: T;
+  opt_nature_autre?: T;
+  opt_collaboration_scientifique?: T;
+  opt_collaboration_universitaire?: T;
+  opt_collaboration_institutionnelle?: T;
+  opt_collaboration_editoriale?: T;
+  opt_collaboration_autre?: T;
+  opt_interet_recherche?: T;
+  opt_interet_droit?: T;
+  opt_interet_epistemologie?: T;
+  opt_interet_ouvrages?: T;
+  opt_interet_autre?: T;
+  opt_statut_nouvelle?: T;
+  opt_statut_en_cours?: T;
+  opt_statut_traitee?: T;
+  opt_statut_classee?: T;
+  mail_verification_objet?: T;
+  mail_verification_corps?: T;
+  mail_reinitialisation_objet?: T;
+  mail_reinitialisation_corps?: T;
+  mail_existant_objet?: T;
+  mail_existant_corps?: T;
+  mail_service_objet?: T;
+  mail_service_corps?: T;
+  mail_collaboration_objet?: T;
+  mail_collaboration_corps?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contenu-mentions-legales_select".
  */
 export interface ContenuMentionsLegalesSelect<T extends boolean = true> {
@@ -3830,13 +4433,10 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   v16_menu?: T;
   v16_contact_titre?: T;
   v16_contact_intro?: T;
-  v16_contact_note?: T;
   v16_signature_nom?: T;
   v16_signature_devise?: T;
   v16_auteur?: T;
   v16_lieu?: T;
-  v16_mention_1?: T;
-  v16_mention_2?: T;
   acces_aller_au_contenu?: T;
   marque_nom?: T;
   marque_devise?: T;
@@ -3856,6 +4456,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   menu_concepts?: T;
   menu_transmission?: T;
   menu_declaration?: T;
+  menu_utilisateurs?: T;
   position_sur_total?: T;
   position_precedente_aria?: T;
   position_suivante_aria?: T;
@@ -3874,10 +4475,12 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   titre_concepts?: T;
   titre_transmission?: T;
   titre_declaration?: T;
+  titre_utilisateurs?: T;
   pagination_nav_aria?: T;
   pagination_precedente?: T;
   pagination_suivante?: T;
   pagination_retour_debut?: T;
+  sommaire_titre?: T;
   pied_adresse?: T;
   pied_email?: T;
   pied_colonne_seuil?: T;
@@ -4084,7 +4687,6 @@ export interface ContenuSiteLectureSelect<T extends boolean = true> {
   texte_position?: T;
   texte_duree?: T;
   rail_sommaire?: T;
-  texte_mention?: T;
   navigation_aria?: T;
   navigation_ouvrages?: T;
   navigation_suivant_titre?: T;

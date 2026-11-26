@@ -6,6 +6,9 @@ import { fr } from "@payloadcms/translations/languages/fr";
 import sharp from "sharp";
 
 import { Users } from "./payload/collections/Users";
+import { Lecteurs } from "./payload/collections/Lecteurs";
+import { DemandesService, PropositionsCollaboration } from "./payload/collections/Demandes";
+import { JournalSecurite } from "./payload/collections/JournalSecurite";
 import { MessagesContact } from "./payload/collections/MessagesContact";
 import { Commandes } from "./payload/collections/Commandes";
 import { CodesAcces } from "./payload/collections/CodesAcces";
@@ -20,7 +23,8 @@ import { Recueils } from "./payload/globals/recueils";
 import { TextesLecture } from "./payload/collections/TextesLecture";
 import { editeurProse } from "./payload/editeur";
 import { amorcer } from "./payload/seed";
-import { emailResend } from "./payload/email";
+import { emailAdapter } from "./payload/email";
+import { purgerJournal } from "./lib/espace/securite";
 import { migrations } from "./migrations";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -39,6 +43,14 @@ export default buildConfig({
     dateFormat: "dd/MM/yyyy HH:mm",
     // Pas de Gravatar : aucune requête vers un tiers depuis le back-office (CSP).
     avatar: "default",
+    components: {
+      views: {
+        statistiquesLecteurs: {
+          Component: "@/payload/components/StatistiquesLecteurs#StatistiquesLecteurs",
+          path: "/statistiques-lecteurs",
+        },
+      },
+    },
   },
   i18n: { supportedLanguages: { fr }, fallbackLanguage: "fr" },
   collections: [
@@ -53,6 +65,10 @@ export default buildConfig({
     Autorites,
     TextesLecture,
     Users,
+    Lecteurs,
+    DemandesService,
+    PropositionsCollaboration,
+    JournalSecurite,
   ],
   globals: [...GLOBALS_CONTENU, VenteOuvrages, Recueils],
   editor: editeurProse,
@@ -67,10 +83,13 @@ export default buildConfig({
     // (dossier migrations/) sont appliquées au démarrage du serveur.
     prodMigrations: migrations,
   }),
-  // E-mails du back-office (mot de passe oublié…) via Resend, si configuré.
-  email: emailResend(),
+  // E-mails (vérification, accusés, mot de passe oublié) : adaptateur choisi par EMAIL_TRANSPORT.
+  email: emailAdapter(),
   sharp,
   graphQL: { disable: true },
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
-  onInit: amorcer,
+  onInit: async (payload) => {
+    await amorcer(payload);
+    await purgerJournal(payload).catch(() => undefined);
+  },
 });

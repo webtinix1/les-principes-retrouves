@@ -112,6 +112,14 @@ export const NAV_PAGES: PageCanonique[] = [
     famille: "Parcours",
     titre: "La Déclaration de Brazzaville",
   },
+  {
+    page_id: "utilisateurs",
+    label: "Espace utilisateurs",
+    href: "/espace-utilisateurs",
+    numero: 11,
+    famille: "Parcours",
+    titre: "Espace utilisateurs",
+  },
 ];
 
 /** Numéro sur deux chiffres : 1 → « 01 ». */

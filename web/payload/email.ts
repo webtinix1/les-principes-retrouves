@@ -70,3 +70,48 @@ export function emailResend(): EmailAdapter | undefined {
     },
   });
 }
+
+/**
+ * Adaptateur choisi par EMAIL_TRANSPORT :
+ *  - « resend »  : envoi réel (RESEND_API_KEY et RESEND_FROM requis) ;
+ *  - « fichier » : écrit chaque message dans .dev-emails/ (tests ; refusé en production) ;
+ *  - « console » : affiche le message dans les logs du serveur (défaut local).
+ * Sans EMAIL_TRANSPORT : Resend s'il est configuré, sinon la console.
+ */
+export function emailAdapter(): EmailAdapter {
+  const mode = (process.env.EMAIL_TRANSPORT || "").toLowerCase();
+  const resend = emailResend();
+  if (mode === "resend" || (!mode && resend)) {
+    if (resend) return resend;
+    console.warn("[e-mail] EMAIL_TRANSPORT=resend sans RESEND_API_KEY / RESEND_FROM : repli sur la console.");
+  }
+  const parFichier = mode === "fichier" && process.env.NODE_ENV !== "production";
+  return () => ({
+    name: parFichier ? "fichier" : "console",
+    defaultFromAddress: "contact@lesprincipesretrouves.com",
+    defaultFromName: "Les Principes Retrouvés",
+    async sendEmail(message) {
+      const a = Array.isArray(message.to) ? message.to.map(formater).join(", ") : formater(message.to);
+      const html = typeof message.html === "string" ? message.html : "";
+      // Les e-mails natifs de Payload (vérification…) n'ont qu'un corps HTML : version texte lisible.
+      const texte =
+        typeof message.text === "string" && message.text
+          ? message.text
+          : html
+              .replace(/<a [^>]*href="([^"]+)"[^>]*>[^<]*<\/a>/g, "$1")
+              .replace(/<\/p>/g, "\n")
+              .replace(/<[^>]+>/g, "")
+              .replace(/&amp;/g, "&");
+      console.log(`\n[e-mail] À : ${a}\n[e-mail] Objet : ${message.subject}\n${texte}\n`);
+      if (parFichier) {
+        const { mkdir, writeFile } = await import("node:fs/promises");
+        await mkdir(".dev-emails", { recursive: true });
+        await writeFile(
+          `.dev-emails/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.json`,
+          JSON.stringify({ to: a, subject: message.subject, text: texte, html: message.html }, null, 2),
+        );
+      }
+      return { ok: true };
+    },
+  });
+}
