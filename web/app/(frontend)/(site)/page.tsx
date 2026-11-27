@@ -1,4 +1,8 @@
+import Link from "next/link";
 import { getTextes } from "@/lib/contenu";
+import { getArticlesUne } from "@/lib/blog";
+import { CarteArticle } from "@/components/blog/carte-article";
+import "@/components/blog/blog.css";
 import { pageMetadata, JsonLd, organizationJsonLd } from "@/lib/seo";
 
 export const revalidate = 3600;
@@ -10,7 +14,7 @@ export async function generateMetadata() {
 
 /** Le Fronton — page d'entrée, conforme au prototype maître V16. */
 export default async function Fronton() {
-  const t = await getTextes("fronton");
+  const [t, une] = await Promise.all([getTextes("fronton"), getArticlesUne()]);
   return (
     <section className="page fade" id="page-fronton">
       <JsonLd data={organizationJsonLd()} />
@@ -61,6 +65,22 @@ export default async function Fronton() {
           />
         </div>
       </div>
+      {une.length > 0 && (
+        <section className="fronton-blog" aria-labelledby="fronton-blog-titre">
+          <div className="wrap">
+            <div className="eyebrow">{t["blog.surtitre"]}</div>
+            <h2 id="fronton-blog-titre">{t["blog.titre"]}</h2>
+            <div className="blog-grille">
+              {une.map((a) => (
+                <CarteArticle key={a.slug} article={a} lire={t["blog.lire"]} />
+              ))}
+            </div>
+            <p className="fronton-blog-tous">
+              <Link href="/blog">{t["blog.tous"]} →</Link>
+            </p>
+          </div>
+        </section>
+      )}
     </section>
   );
 }

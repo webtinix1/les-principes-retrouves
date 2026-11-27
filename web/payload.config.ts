@@ -23,6 +23,7 @@ import { LibrairieReglages } from "./payload/globals/librairie";
 import { Ouvrages, Acheteurs, CommandesOuvrages, PaiementsOuvrages, VentesNumeriques, Reclamations } from "./payload/collections/Librairie";
 import { Recueils } from "./payload/globals/recueils";
 import { TextesLecture } from "./payload/collections/TextesLecture";
+import { Articles, Medias } from "./payload/collections/Blog";
 import { editeurProse } from "./payload/editeur";
 import { amorcer } from "./payload/seed";
 import { emailAdapter } from "./payload/email";
@@ -72,6 +73,8 @@ export default buildConfig({
     Concepts,
     Autorites,
     TextesLecture,
+    Articles,
+    Medias,
     Users,
     Lecteurs,
     DemandesService,

@@ -304,6 +304,13 @@ export const SITE_NAVIGATION_BLOCS: PageBlocs = {
       defaut: "La librairie",
     },
     {
+      cle: "site_navigation.pied.lien_blog",
+      label: "Lien « Le blog »",
+      type: "simple",
+      aide: "Pied de page — bas de page",
+      defaut: "Le blog",
+    },
+    {
       cle: "site_navigation.pied.lien_cgv",
       label: "Lien « Conditions de vente »",
       type: "simple",

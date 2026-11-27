@@ -25,6 +25,7 @@ const CLE_PIED: Record<string, string> = {
   "/mentions-legales": "pied.lien_mentions_legales",
   "/confidentialite": "pied.lien_confidentialite",
   "/librairie": "pied.lien_librairie",
+  "/blog": "pied.lien_blog",
   "/cgv": "pied.lien_cgv",
   "/transmission#contact": "entete.contact",
 };

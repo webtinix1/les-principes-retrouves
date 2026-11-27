@@ -31,6 +31,8 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 # PDF intégraux téléversés dans le back-office : sur le volume persistant.
 ENV DOCUMENTS_DIR=/app/data/documents
+# Images du blog téléversées dans le back-office : même volume persistant.
+ENV MEDIAS_DIR=/app/data/medias
 
 # Durcissement : patch des paquets système (CVE OS) + utilisateur non-root
 RUN apk --no-cache upgrade \
@@ -48,7 +50,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/protected/placeholder.pdf ./protected/placeholder.pdf
 
 COPY --chown=nextjs:nodejs docker-entrypoint.sh ./docker-entrypoint.sh
-RUN chmod +x ./docker-entrypoint.sh && mkdir -p /app/data/documents && chown -R nextjs:nodejs /app/data
+RUN chmod +x ./docker-entrypoint.sh && mkdir -p /app/data/documents /app/data/medias && chown -R nextjs:nodejs /app/data
 
 USER nextjs
 EXPOSE 3000

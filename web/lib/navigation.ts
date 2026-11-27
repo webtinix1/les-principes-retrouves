@@ -153,6 +153,7 @@ export const FOOTER_LINKS: NavPage[] = [
     href: "/confidentialite",
   },
   { page_id: "librairie", label: "La librairie", href: "/librairie" },
+  { page_id: "blog", label: "Le blog", href: "/blog" },
   { page_id: "cgv", label: "Conditions de vente", href: "/cgv" },
   { page_id: "transmission", label: "Contact", href: "/transmission#contact" },
 ];
