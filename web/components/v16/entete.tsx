@@ -20,7 +20,13 @@ export async function EnteteV16() {
             </div>
           </Link>
           <NavigationV16
-            pages={pages.map((p) => ({ page_id: p.page_id, label: p.label, href: p.href }))}
+            pages={pages.flatMap((p) => {
+              const lien = { page_id: p.page_id, label: p.label, href: p.href };
+              // La librairie suit « Ouvrages » au menu, hors de l'ordre de lecture des pages.
+              return p.page_id === "ouvrage"
+                ? [lien, { page_id: "librairie", label: t["menu.librairie"] || "Librairie", href: "/librairie" }]
+                : [lien];
+            })}
             menu={t["v16.menu"]}
             aria={t["entete.nav_aria"]}
           />
