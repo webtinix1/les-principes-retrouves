@@ -68,7 +68,7 @@ test("la page et la 11e entrée du menu sont présentes, textes du prototype", a
   await expect(page.locator("h1")).toHaveText("ESPACE UTILISATEURS");
   await expect(page.getByText("Un espace commun pour les échanges et les services")).toBeVisible();
   const menu = page.locator("#nav a");
-  await expect(menu).toHaveCount(12); // Fronton + Accueil + 9 pages + Espace utilisateurs
+  await expect(menu).toHaveCount(13); // Fronton + Accueil + 9 pages + Librairie + Espace utilisateurs
   await expect(page.locator('#nav a[aria-current="page"]')).toHaveText("Espace utilisateurs");
   await expect(page.locator("body")).not.toContainText(/prototype|démonstration/i);
   // La navigation existante est intacte.

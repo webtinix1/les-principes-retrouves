@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getRecueils, getVenteOuvrages, type OffreTome } from "@/lib/cms";
 import { getTextes } from "@/lib/contenu";
 import { pageMetadata } from "@/lib/seo";
@@ -13,9 +14,9 @@ export async function generateMetadata() {
 
 /**
  * Bouton d'achat d'une carte : lien vers la page produit (Boutique › Vente des
- * ouvrages) ; tant qu'aucun lien n'est saisi, bouton inactif comme dans le prototype.
+ * ouvrages) si elle est saisie, sinon vers la fiche du tome dans la librairie.
  */
-function BoutonAchat({ offre, libelle }: { offre?: OffreTome; libelle: string }) {
+function BoutonAchat({ offre, libelle, tome }: { offre?: OffreTome; libelle: string; tome: string }) {
   if (offre) {
     return (
       <a className="btn-primary" href={offre.lien} target="_blank" rel="noopener noreferrer">
@@ -24,9 +25,9 @@ function BoutonAchat({ offre, libelle }: { offre?: OffreTome; libelle: string })
     );
   }
   return (
-    <button className="btn-primary" type="button" aria-disabled="true">
+    <Link className="btn-primary" href={`/librairie/${tome}`}>
       {libelle}
-    </button>
+    </Link>
   );
 }
 
@@ -65,7 +66,7 @@ export default async function OuvragePage() {
                 {t["tome_i.prix"]} <small>{t["tome_i.prix_format"]}</small>
               </div>
               <p className="note">{t["tome_i.note"]}</p>
-              <BoutonAchat offre={vente["tome-i"]} libelle={t["tome_i.bouton"]} />
+              <BoutonAchat offre={vente["tome-i"]} libelle={t["tome_i.bouton"]} tome="tome-i" />
             </article>
             <article className="card book-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -87,7 +88,7 @@ export default async function OuvragePage() {
                 {t["tome_ii.prix"]} <small>{t["tome_ii.prix_format"]}</small>
               </div>
               <p className="note">{t["tome_ii.note"]}</p>
-              <BoutonAchat offre={vente["tome-ii"]} libelle={t["tome_ii.bouton"]} />
+              <BoutonAchat offre={vente["tome-ii"]} libelle={t["tome_ii.bouton"]} tome="tome-ii" />
             </article>
           </div>
           <OuvrageLecteur
