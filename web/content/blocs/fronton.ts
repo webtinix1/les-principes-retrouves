@@ -87,5 +87,33 @@ export const FRONTON_BLOCS: PageBlocs = {
       defaut:
         "Balance de Maât issue du corpus : balance dorée portant MAÂT, avec les plateaux Vérité (Rigueur) et Justice (Équité).",
     },
+    {
+      cle: "fronton.blog.surtitre",
+      label: "Articles à la une — surtitre",
+      type: "simple",
+      aide: "Le Fronton — articles du blog mis en avant (bas de page)",
+      defaut: "Le blog",
+    },
+    {
+      cle: "fronton.blog.titre",
+      label: "Articles à la une — titre",
+      type: "simple",
+      aide: "Le Fronton — articles du blog mis en avant (bas de page)",
+      defaut: "À la une",
+    },
+    {
+      cle: "fronton.blog.lire",
+      label: "Articles à la une — lien vers un article",
+      type: "simple",
+      aide: "Le Fronton — articles du blog mis en avant (bas de page)",
+      defaut: "Lire l’article",
+    },
+    {
+      cle: "fronton.blog.tous",
+      label: "Articles à la une — lien vers le blog",
+      type: "simple",
+      aide: "Le Fronton — articles du blog mis en avant (bas de page)",
+      defaut: "Tous les articles du blog",
+    },
   ],
 };

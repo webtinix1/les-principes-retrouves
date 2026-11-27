@@ -84,6 +84,8 @@ export interface Config {
     concepts: Concept;
     autorites: Autorite;
     'textes-lecture': TextesLecture;
+    articles: Article;
+    medias: Media;
     users: User;
     lecteurs: Lecteur;
     'demandes-service': DemandesService;
@@ -119,6 +121,8 @@ export interface Config {
     concepts: ConceptsSelect<false> | ConceptsSelect<true>;
     autorites: AutoritesSelect<false> | AutoritesSelect<true>;
     'textes-lecture': TextesLectureSelect<false> | TextesLectureSelect<true>;
+    articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    medias: MediasSelect<false> | MediasSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     lecteurs: LecteursSelect<false> | LecteursSelect<true>;
     'demandes-service': DemandesServiceSelect<false> | DemandesServiceSelect<true>;
@@ -144,6 +148,7 @@ export interface Config {
     'contenu-concepts': ContenuConcept;
     'contenu-ouvrage': ContenuOuvrage;
     'contenu-librairie': ContenuLibrairie;
+    'contenu-blog': ContenuBlog;
     'contenu-laboratoire': ContenuLaboratoire;
     'contenu-transmission': ContenuTransmission;
     'contenu-utilisateurs': ContenuUtilisateur;
@@ -169,6 +174,7 @@ export interface Config {
     'contenu-concepts': ContenuConceptsSelect<false> | ContenuConceptsSelect<true>;
     'contenu-ouvrage': ContenuOuvrageSelect<false> | ContenuOuvrageSelect<true>;
     'contenu-librairie': ContenuLibrairieSelect<false> | ContenuLibrairieSelect<true>;
+    'contenu-blog': ContenuBlogSelect<false> | ContenuBlogSelect<true>;
     'contenu-laboratoire': ContenuLaboratoireSelect<false> | ContenuLaboratoireSelect<true>;
     'contenu-transmission': ContenuTransmissionSelect<false> | ContenuTransmissionSelect<true>;
     'contenu-utilisateurs': ContenuUtilisateursSelect<false> | ContenuUtilisateursSelect<true>;
@@ -712,6 +718,75 @@ export interface TextesLecture {
   createdAt: string;
 }
 /**
+ * Seuls les articles « Publié » apparaissent sur le site. Le Fronton affiche 3 articles : ceux cochés « Mis en avant », complétés par les plus récents.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles".
+ */
+export interface Article {
+  id: string;
+  titre: string;
+  /**
+   * Deux ou trois phrases, affichées sur le Fronton et la liste du blog.
+   */
+  chapo: string;
+  image?: (string | null) | Media;
+  corps: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  statut: 'brouillon' | 'publie';
+  mis_en_avant?: boolean | null;
+  date_publication: string;
+  auteur?: string | null;
+  /**
+   * Rempli automatiquement depuis le titre.
+   */
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "medias".
+ */
+export interface Media {
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    carte?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -948,6 +1023,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'textes-lecture';
         value: string | TextesLecture;
+      } | null)
+    | ({
+        relationTo: 'articles';
+        value: string | Article;
+      } | null)
+    | ({
+        relationTo: 'medias';
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'users';
@@ -1420,6 +1503,55 @@ export interface TextesLectureSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "articles_select".
+ */
+export interface ArticlesSelect<T extends boolean = true> {
+  titre?: T;
+  chapo?: T;
+  image?: T;
+  corps?: T;
+  statut?: T;
+  mis_en_avant?: T;
+  date_publication?: T;
+  auteur?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "medias_select".
+ */
+export interface MediasSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        carte?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -1583,6 +1715,10 @@ export interface ContenuFronton {
   thebes_titre?: string | null;
   thebes_aria?: string | null;
   balance_alt?: string | null;
+  blog_surtitre?: string | null;
+  blog_titre?: string | null;
+  blog_lire?: string | null;
+  blog_tous?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3088,6 +3224,29 @@ export interface ContenuLibrairie {
   createdAt?: string | null;
 }
 /**
+ * Textes de la page /blog. Un champ vidé fait revenir le texte d'origine.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-blog".
+ */
+export interface ContenuBlog {
+  id: string;
+  seo_titre?: string | null;
+  seo_description?: string | null;
+  index_surtitre?: string | null;
+  index_titre?: string | null;
+  index_texte?: string | null;
+  index_vide?: string | null;
+  index_lire?: string | null;
+  article_retour?: string | null;
+  /**
+   * Les mots entre accolades ({n}, {tome}…) sont remplacés automatiquement : à conserver.
+   */
+  article_par?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * Textes de la page /laboratoire. Un champ vidé fait revenir le texte d'origine.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3677,6 +3836,7 @@ export interface ContenuSiteNavigation {
   pied_lien_mentions_legales?: string | null;
   pied_lien_confidentialite?: string | null;
   pied_lien_librairie?: string | null;
+  pied_lien_blog?: string | null;
   pied_lien_cgv?: string | null;
   seo_titre_defaut?: string | null;
   seo_modele_titre?: string | null;
@@ -4131,6 +4291,10 @@ export interface ContenuFrontonSelect<T extends boolean = true> {
   thebes_titre?: T;
   thebes_aria?: T;
   balance_alt?: T;
+  blog_surtitre?: T;
+  blog_titre?: T;
+  blog_lire?: T;
+  blog_tous?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
@@ -4695,6 +4859,24 @@ export interface ContenuLibrairieSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contenu-blog_select".
+ */
+export interface ContenuBlogSelect<T extends boolean = true> {
+  seo_titre?: T;
+  seo_description?: T;
+  index_surtitre?: T;
+  index_titre?: T;
+  index_texte?: T;
+  index_vide?: T;
+  index_lire?: T;
+  article_retour?: T;
+  article_par?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "contenu-laboratoire_select".
  */
 export interface ContenuLaboratoireSelect<T extends boolean = true> {
@@ -5130,6 +5312,7 @@ export interface ContenuSiteNavigationSelect<T extends boolean = true> {
   pied_lien_mentions_legales?: T;
   pied_lien_confidentialite?: T;
   pied_lien_librairie?: T;
+  pied_lien_blog?: T;
   pied_lien_cgv?: T;
   seo_titre_defaut?: T;
   seo_modele_titre?: T;

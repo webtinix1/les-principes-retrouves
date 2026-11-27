@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# images téléversées en local (blog)
+/data/
+
 # next.js
 /.next/
 /out/
