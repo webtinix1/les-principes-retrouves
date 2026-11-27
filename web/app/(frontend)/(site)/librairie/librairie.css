@@ -29,6 +29,12 @@
   gap: 0.6rem 1.4rem;
   margin: 0 0 1.4rem;
 }
+/* La règle `nav a` du prototype (menu) ajoute 10 px à gauche : on garde le
+   retrait vertical (cible tactile) et on aligne le lien sur la colonne. */
+#page-librairie .lib-retour a {
+  padding-left: 0;
+  padding-right: 0;
+}
 #page-librairie .content a:not(.btn) {
   color: var(--navy);
   text-decoration: underline;
