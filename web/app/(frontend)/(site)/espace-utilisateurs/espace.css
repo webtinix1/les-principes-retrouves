@@ -1,0 +1,17 @@
+/*
+ * Espace utilisateurs — la mise en forme du prototype maître V16
+ * (`#page-utilisateurs …`) est déjà dans v16.css. Ce fichier ne porte que les
+ * éléments propres au fonctionnement réel : messages d'état, champ piège,
+ * tableau des demandes, aide sous un champ.
+ */
+.espace-v16 .user-form button[disabled] { opacity: .6; cursor: default }
+.espace-v16 .user-form .aide { display: block; font-weight: 400; color: var(--muted); font-size: .85rem; margin-top: .2rem }
+.espace-v16 .user-form input[type=checkbox] { width: auto; margin-right: .4rem }
+.espace-v16 .piege { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden }
+.espace-v16 .etat { margin: .85rem 0 0; padding: .8rem 1rem; border-left: 3px solid var(--navy); background: #f6f3e9; font-size: .95rem }
+.espace-v16 .etat.erreur { border-left-color: #9b2c2c; background: #fbeeee }
+.espace-v16 .lien-bouton { background: none !important; border: 0 !important; padding: 0 !important; color: var(--navy) !important; text-decoration: underline; cursor: pointer; font-size: .92rem }
+.espace-v16 .demandes { width: 100%; border-collapse: collapse; font-size: .92rem; margin: .5rem 0 1.25rem }
+.espace-v16 .demandes th, .espace-v16 .demandes td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--line) }
+.espace-v16 .demandes th { color: var(--navy) }
+.espace-v16 .zone-danger { margin-top: 1.75rem; padding-top: 1rem; border-top: 1px solid var(--line) }

@@ -8,6 +8,7 @@ import { NOTE_EPISTEMOLOGIQUE_BLOCS } from "./note_epistemologique";
 import { LABORATOIRE_BLOCS } from "./laboratoire";
 import { TRANSMISSION_BLOCS } from "./transmission";
 import { CONCEPTS_BLOCS } from "./concepts";
+import { UTILISATEURS_BLOCS } from "./utilisateurs";
 import { CGV_BLOCS } from "./cgv";
 import { MENTIONS_LEGALES_BLOCS } from "./mentions_legales";
 import { CONFIDENTIALITE_BLOCS } from "./confidentialite";
@@ -17,6 +18,7 @@ import { SITE_NAVIGATION_BLOCS } from "./site_navigation";
 import { SITE_INTERFACE_BLOCS } from "./site_interface";
 import { SITE_FORMULAIRES_BLOCS } from "./site_formulaires";
 import { SITE_LECTURE_BLOCS } from "./site_lecture";
+import { LIBRAIRIE_BLOCS } from "./librairie";
 
 export type { BlocDef, ChampListe, ListeDef, PageBlocs, TypeBloc } from "./types";
 
@@ -35,8 +37,10 @@ export const PAGES_BLOCS: PageBlocs[] = [
   NOTE_EPISTEMOLOGIQUE_BLOCS,
   CONCEPTS_BLOCS,
   OUVRAGE_BLOCS,
+  LIBRAIRIE_BLOCS,
   LABORATOIRE_BLOCS,
   TRANSMISSION_BLOCS,
+  UTILISATEURS_BLOCS,
   // Pages légales
   MENTIONS_LEGALES_BLOCS,
   CONFIDENTIALITE_BLOCS,

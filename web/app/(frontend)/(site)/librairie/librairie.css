@@ -1,0 +1,215 @@
+/*
+ * La librairie — compléments au prototype V16 (v16.css) : fiche d'un ouvrage,
+ * formulaires, suivi de commande. Colonne de 1100 px, charte marine/or ;
+ * aucun ressort commercial.
+ */
+#page-librairie .lib-fiche {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+#page-librairie .lib-couverture {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  box-shadow: 0 7px 24px #172a3a14;
+}
+#page-librairie .lib-auteur {
+  font: 13px var(--sans);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+#page-librairie .lib-retour,
+#page-librairie .lib-liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin: 0 0 1.4rem;
+}
+/* La règle `nav a` du prototype (menu) ajoute 10 px à gauche : on garde le
+   retrait vertical (cible tactile) et on aligne le lien sur la colonne. */
+#page-librairie .lib-retour a {
+  padding-left: 0;
+  padding-right: 0;
+}
+#page-librairie .content a:not(.btn) {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+#page-librairie .lib-biblio {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1.5rem;
+  margin: 0.5rem 0 1.5rem;
+}
+#page-librairie .lib-biblio dt {
+  color: var(--muted);
+  font: 12px var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#page-librairie .lib-biblio dd {
+  margin: 0;
+}
+#page-librairie .lib-formats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+#page-librairie .lib-format h3 {
+  font-size: 19px;
+}
+#page-librairie .lib-format dl {
+  margin: 0.8rem 0 1rem;
+}
+#page-librairie .lib-format dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--line);
+}
+#page-librairie .lib-format dt {
+  color: var(--muted);
+}
+#page-librairie .lib-format dd {
+  margin: 0;
+  font: 17px var(--serif);
+  color: var(--navy);
+  text-align: right;
+}
+#page-librairie .lib-format .btn {
+  text-decoration: none;
+}
+#page-librairie .lib-conditions h3 {
+  font-size: 16px;
+  margin: 1.2rem 0 0.3rem;
+}
+
+/* Formulaires */
+#page-librairie .lib-form {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 720px;
+}
+#page-librairie .lib-form fieldset {
+  border: 1px solid var(--line);
+  padding: 1.1rem 1.25rem 1.3rem;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+#page-librairie .lib-form legend {
+  font: bold 11px var(--sans);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #94751d;
+  padding: 0 0.4rem;
+}
+#page-librairie .lib-rang {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+#page-librairie .lib-form label {
+  display: grid;
+  gap: 0.3rem;
+  font: 14px var(--sans);
+}
+#page-librairie .lib-form input:not([type="checkbox"]),
+#page-librairie .lib-form select,
+#page-librairie .lib-form textarea {
+  font: 16px var(--sans);
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #8a8f98;
+  border-radius: 2px;
+  background: #fff;
+  color: inherit;
+  width: 100%;
+}
+#page-librairie .lib-form textarea {
+  min-height: 9rem;
+}
+#page-librairie .lib-form input:focus-visible,
+#page-librairie .lib-form select:focus-visible,
+#page-librairie .lib-form textarea:focus-visible {
+  outline: 3px solid var(--navy);
+  outline-offset: 2px;
+}
+#page-librairie .lib-case {
+  display: flex !important;
+  grid-template-columns: none;
+  align-items: flex-start;
+  gap: 0.7rem !important;
+}
+#page-librairie .lib-case input {
+  margin-top: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+#page-librairie .lib-recap {
+  border-left: 3px solid var(--gold);
+  background: #f6f2e6;
+  padding: 1rem 1.25rem;
+}
+#page-librairie .lib-recap dl {
+  margin: 0.5rem 0 0;
+}
+#page-librairie .lib-recap dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0;
+}
+#page-librairie .lib-recap dd {
+  margin: 0;
+}
+#page-librairie .lib-recap .lib-total {
+  border-top: 1px solid var(--line);
+  margin-top: 0.4rem;
+  padding-top: 0.5rem;
+  font-weight: bold;
+}
+#page-librairie .lib-erreur {
+  color: #a32020;
+  border-left: 3px solid #a32020;
+  padding: 0.4rem 0.8rem;
+}
+#page-librairie .lib-succes {
+  border-left: 3px solid var(--gold);
+  padding: 0.4rem 0.8rem;
+}
+#page-librairie .lib-form button.btn {
+  justify-self: start;
+  font-family: inherit;
+}
+#page-librairie .lib-form button.btn[disabled] {
+  opacity: 0.6;
+  cursor: wait;
+}
+#page-librairie .lib-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+#page-librairie .lib-index .book-cover {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 760px) {
+  #page-librairie .lib-fiche,
+  #page-librairie .lib-formats,
+  #page-librairie .lib-rang,
+  #page-librairie .lib-index {
+    grid-template-columns: 1fr;
+  }
+  #page-librairie .lib-couverture {
+    max-width: 260px;
+  }
+}

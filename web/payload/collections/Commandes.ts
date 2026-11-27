@@ -1,5 +1,5 @@
 import type { CollectionConfig, PayloadRequest } from "payload";
-import { connecte } from "../access";
+import { connecte, estAdmin } from "../access";
 import { options } from "./MessagesContact";
 import { STATUT_COMMANDE, REGIME_TARIF } from "@/lib/libelles";
 
@@ -10,7 +10,7 @@ function csvCell(v: unknown): string {
 
 /** Export CSV de toutes les commandes (bouton au-dessus de la liste). */
 async function exportCsv(req: PayloadRequest): Promise<Response> {
-  if (!req.user) return Response.json({ error: "Non autorisé." }, { status: 401 });
+  if (!estAdmin(req)) return Response.json({ error: "Non autorisé." }, { status: 401 });
 
   const { docs } = await req.payload.find({
     collection: "commandes",

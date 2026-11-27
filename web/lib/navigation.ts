@@ -112,6 +112,14 @@ export const NAV_PAGES: PageCanonique[] = [
     famille: "Parcours",
     titre: "La Déclaration de Brazzaville",
   },
+  {
+    page_id: "utilisateurs",
+    label: "Espace utilisateurs",
+    href: "/espace-utilisateurs",
+    numero: 11,
+    famille: "Parcours",
+    titre: "Espace utilisateurs",
+  },
 ];
 
 /** Numéro sur deux chiffres : 1 → « 01 ». */
@@ -144,6 +152,7 @@ export const FOOTER_LINKS: NavPage[] = [
     label: "Politique de confidentialité",
     href: "/confidentialite",
   },
+  { page_id: "librairie", label: "La librairie", href: "/librairie" },
   { page_id: "cgv", label: "Conditions de vente", href: "/cgv" },
   { page_id: "transmission", label: "Contact", href: "/transmission#contact" },
 ];

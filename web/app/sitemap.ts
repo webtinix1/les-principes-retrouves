@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     routes.add(`/ouvrage/${recueil.tome}`);
     for (const texte of textesDe(recueil)) routes.add(`/ouvrage/${recueil.tome}/${texte.slug}`);
   }
+  for (const tome of ["tome-i", "tome-ii"]) routes.add(`/librairie/${tome}`);
   return [...routes].map((path) => ({
     url: new URL(path, siteConfig.url).toString(),
     changeFrequency: "monthly",

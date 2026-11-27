@@ -1,4 +1,5 @@
 import type { Payload } from "payload";
+import { amorcerLibrairie } from "@/lib/librairie/amorce";
 import { PAGES_BLOCS } from "@/content/blocs";
 import ORIGINE from "@/content/blocs/origine.json";
 import { MODULES } from "@/content/modules";
@@ -45,7 +46,7 @@ async function amorcerAdmin(payload: Payload) {
   const email = process.env.PAYLOAD_ADMIN_EMAIL;
   const password = process.env.PAYLOAD_ADMIN_PASSWORD;
   if (!email || !password || !(await estVide(payload, "users"))) return;
-  await payload.create({ collection: "users", data: { email, password, nom: "Administrateur" } });
+  await payload.create({ collection: "users", data: { email, password, nom: "Administrateur", role: "administrateur" } });
   payload.logger.info(`[amorçage] compte administrateur créé : ${email}`);
 }
 
@@ -285,6 +286,7 @@ export async function amorcer(payload: Payload): Promise<void> {
     await amorcerRecueils(payload);
     await amorcerPages(payload);
     await amorcerListes(payload);
+    await amorcerLibrairie(payload);
   } catch (err) {
     payload.logger.error({ err }, "[amorçage] échec");
   }

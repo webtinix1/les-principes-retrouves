@@ -81,8 +81,16 @@ jobs:
           HOSTNAME: 127.0.0.1
           DATABASE_URL: postgresql://payload:payload@127.0.0.1:5432/principes
           NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
+          # Tests de bout en bout des Lots 2 et 3 (jamais sur le serveur de production) :
+          # e-mails écrits dans web/.dev-emails, paiement simulé, plafonds de débit relevés.
+          EMAIL_TRANSPORT: fichier
+          EMAIL_FICHIER_EN_PRODUCTION: oui
+          LIBRAIRIE_PAIEMENT_SIMULE: oui
+          ESPACE_LIMITE_MULT: "50"
+          CHARIOW_PULSE_SECRET: secret-ci-chariow
         run: |
           cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next/ && cp -r protected .next/standalone/
+          mkdir -p .dev-emails && ln -s "$PWD/.dev-emails" .next/standalone/.dev-emails
           (cd .next/standalone && nohup node server.js > /tmp/serveur.log 2>&1 &)
           for i in $(seq 1 60); do
             curl -sf -o /dev/null http://127.0.0.1:3000/admin/login && break
@@ -102,6 +110,7 @@ jobs:
           BASE: http://127.0.0.1:3000
           ADMIN_EMAIL: admin@example.com
           ADMIN_PASSWORD: admin-ci-123
+          CHARIOW_PULSE_SECRET: secret-ci-chariow
         run: npx playwright test
 
       - name: Journal du serveur

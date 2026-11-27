@@ -51,3 +51,4 @@ next-env.d.ts
 # Résultats Playwright
 /test-results/
 /playwright-report/
+.dev-emails/

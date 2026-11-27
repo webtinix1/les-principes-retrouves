@@ -1,12 +1,12 @@
 import type { CollectionConfig, PayloadRequest } from "payload";
-import { connecte } from "../access";
+import { connecte, estAdmin } from "../access";
 import { options } from "./MessagesContact";
 import { NIVEAU_CODE } from "@/lib/libelles";
 import { sendMail } from "@/lib/email";
 
 /** Renvoie le code par e-mail à l'acheteur (bouton dans la fiche du code). */
 async function renvoyer(req: PayloadRequest): Promise<Response> {
-  if (!req.user) return Response.json({ error: "Non autorisé." }, { status: 401 });
+  if (!estAdmin(req)) return Response.json({ error: "Non autorisé." }, { status: 401 });
   const id = req.routeParams?.id as string | undefined;
   if (!id) return Response.json({ error: "Identifiant manquant." }, { status: 400 });
 
