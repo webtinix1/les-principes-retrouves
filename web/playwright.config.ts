@@ -9,5 +9,7 @@ export default defineConfig({
     trace: "retain-on-failure",
     // PW_CHANNEL=chrome : utilise le Chrome installé (aucun navigateur à télécharger).
     ...(process.env.PW_CHANNEL ? { channel: process.env.PW_CHANNEL } : {}),
+    // Navigateur local déjà installé (PW_CHROMIUM_PATH), sinon celui de Playwright.
+    ...(process.env.PW_CHROMIUM_PATH ? { launchOptions: { executablePath: process.env.PW_CHROMIUM_PATH } } : {}),
   },
 });

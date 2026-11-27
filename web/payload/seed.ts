@@ -1,4 +1,5 @@
 import type { Payload } from "payload";
+import { amorcerLibrairie } from "@/lib/librairie/amorce";
 import { PAGES_BLOCS } from "@/content/blocs";
 import ORIGINE from "@/content/blocs/origine.json";
 import { MODULES } from "@/content/modules";
@@ -285,6 +286,7 @@ export async function amorcer(payload: Payload): Promise<void> {
     await amorcerRecueils(payload);
     await amorcerPages(payload);
     await amorcerListes(payload);
+    await amorcerLibrairie(payload);
   } catch (err) {
     payload.logger.error({ err }, "[amorçage] échec");
   }

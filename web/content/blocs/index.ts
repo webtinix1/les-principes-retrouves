@@ -18,6 +18,7 @@ import { SITE_NAVIGATION_BLOCS } from "./site_navigation";
 import { SITE_INTERFACE_BLOCS } from "./site_interface";
 import { SITE_FORMULAIRES_BLOCS } from "./site_formulaires";
 import { SITE_LECTURE_BLOCS } from "./site_lecture";
+import { LIBRAIRIE_BLOCS } from "./librairie";
 
 export type { BlocDef, ChampListe, ListeDef, PageBlocs, TypeBloc } from "./types";
 
@@ -36,6 +37,7 @@ export const PAGES_BLOCS: PageBlocs[] = [
   NOTE_EPISTEMOLOGIQUE_BLOCS,
   CONCEPTS_BLOCS,
   OUVRAGE_BLOCS,
+  LIBRAIRIE_BLOCS,
   LABORATOIRE_BLOCS,
   TRANSMISSION_BLOCS,
   UTILISATEURS_BLOCS,

@@ -6,6 +6,9 @@ import * as migration_20261126_135434_refresh_prototype_v16 from './20261126_135
 import * as migration_20261126_150755_ux_sommaire_page from './20261126_150755_ux_sommaire_page';
 import * as migration_20261126_171549_retrait_mentions from './20261126_171549_retrait_mentions';
 import * as migration_20261126_183634_espace_utilisateurs from './20261126_183634_espace_utilisateurs';
+import * as migration_20261126_183826_librairie from './20261126_183826_librairie';
+import * as migration_20261126_204821_librairie_navigation_textes from './20261126_204821_librairie_navigation_textes';
+import * as migration_20261127_100915_integration_lots_2_3 from './20261127_100915_integration_lots_2_3';
 
 export const migrations = [
   {
@@ -46,6 +49,21 @@ export const migrations = [
   {
     up: migration_20261126_183634_espace_utilisateurs.up,
     down: migration_20261126_183634_espace_utilisateurs.down,
-    name: '20261126_183634_espace_utilisateurs'
+    name: '20261126_183634_espace_utilisateurs',
+  },
+  {
+    up: migration_20261126_183826_librairie.up,
+    down: migration_20261126_183826_librairie.down,
+    name: '20261126_183826_librairie',
+  },
+  {
+    up: migration_20261126_204821_librairie_navigation_textes.up,
+    down: migration_20261126_204821_librairie_navigation_textes.down,
+    name: '20261126_204821_librairie_navigation_textes',
+  },
+  {
+    up: migration_20261127_100915_integration_lots_2_3.up,
+    down: migration_20261127_100915_integration_lots_2_3.down,
+    name: '20261127_100915_integration_lots_2_3'
   },
 ];

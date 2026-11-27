@@ -24,6 +24,7 @@ const ORDRE_FAMILLES: Famille[] = ["Le Seuil", "Fondements", "Savoir", "Parcours
 const CLE_PIED: Record<string, string> = {
   "/mentions-legales": "pied.lien_mentions_legales",
   "/confidentialite": "pied.lien_confidentialite",
+  "/librairie": "pied.lien_librairie",
   "/cgv": "pied.lien_cgv",
   "/transmission#contact": "entete.contact",
 };
