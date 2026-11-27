@@ -85,7 +85,9 @@ export function emailAdapter(): EmailAdapter {
     if (resend) return resend;
     console.warn("[e-mail] EMAIL_TRANSPORT=resend sans RESEND_API_KEY / RESEND_FROM : repli sur la console.");
   }
-  const parFichier = mode === "fichier" && process.env.NODE_ENV !== "production";
+  // En production, seulement sur autorisation explicite (CI : build de production testé de bout en bout).
+  const parFichier =
+    mode === "fichier" && (process.env.NODE_ENV !== "production" || process.env.EMAIL_FICHIER_EN_PRODUCTION === "oui");
   return () => ({
     name: parFichier ? "fichier" : "console",
     defaultFromAddress: "contact@lesprincipesretrouves.com",
