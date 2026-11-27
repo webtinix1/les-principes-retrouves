@@ -45,7 +45,7 @@ async function amorcerAdmin(payload: Payload) {
   const email = process.env.PAYLOAD_ADMIN_EMAIL;
   const password = process.env.PAYLOAD_ADMIN_PASSWORD;
   if (!email || !password || !(await estVide(payload, "users"))) return;
-  await payload.create({ collection: "users", data: { email, password, nom: "Administrateur" } });
+  await payload.create({ collection: "users", data: { email, password, nom: "Administrateur", role: "administrateur" } });
   payload.logger.info(`[amorçage] compte administrateur créé : ${email}`);
 }
 

@@ -8,6 +8,7 @@ import { NOTE_EPISTEMOLOGIQUE_BLOCS } from "./note_epistemologique";
 import { LABORATOIRE_BLOCS } from "./laboratoire";
 import { TRANSMISSION_BLOCS } from "./transmission";
 import { CONCEPTS_BLOCS } from "./concepts";
+import { UTILISATEURS_BLOCS } from "./utilisateurs";
 import { CGV_BLOCS } from "./cgv";
 import { MENTIONS_LEGALES_BLOCS } from "./mentions_legales";
 import { CONFIDENTIALITE_BLOCS } from "./confidentialite";
@@ -37,6 +38,7 @@ export const PAGES_BLOCS: PageBlocs[] = [
   OUVRAGE_BLOCS,
   LABORATOIRE_BLOCS,
   TRANSMISSION_BLOCS,
+  UTILISATEURS_BLOCS,
   // Pages légales
   MENTIONS_LEGALES_BLOCS,
   CONFIDENTIALITE_BLOCS,
